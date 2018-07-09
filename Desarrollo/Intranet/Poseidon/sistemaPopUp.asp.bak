@@ -1,0 +1,198 @@
+<!--#include file="../Includes/procedimientosUnificador.asp"-->
+<!--#include file="../Includes/procedimientosParametros.asp"-->
+<!--#include file="../Includes/procedimientosTraducir.asp"-->
+<!--#include file="../Includes/procedimientosFormato.asp"-->
+<!--#include file="../Includes/procedimientos.asp"-->
+<!--#include file="../Includes/procedimientosPuertos.asp"-->
+<!--#include file="../Includes/procedimientosFechas.asp"-->
+
+<%
+'----------------------------------------------------------------------------------------------------------------------------------
+'           COMIENZO DE LA PAGINA
+'----------------------------------------------------------------------------------------------------------------------------------
+
+g_strPuerto = GF_PARAMETROS7("pto", "", 6)
+
+%>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="css/ActiSAIntra-1.css" type="text/css">
+<title>Administracion - Control Panel</title>
+<style type="text/css">
+.table, th, td {
+	vertical-align:top;
+	}
+
+/*----------->Box ADMININSTRACION Control Panel*/
+#cell {
+	/*max-height: 100%;*/
+	background-color: #fff;
+	}
+	#cell .boxround {
+		padding: 7px;
+/*		border: solid 2px rgba(120, 180, 40, 1);
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 1);*/
+	}
+	#cell .boxround:hover {
+		/*border: solid 2px rgba(46, 107, 77, 1);*/
+		border-radius: 12px;
+		background: rgba(230, 250, 200, 1);
+	}
+/*Box ADMININSTRACION Control Panel<-----------*/
+
+.title_sec_section {
+	text-align:left;
+	color: #000;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: sans-serif;
+}
+.textoSeccion {
+	text-align:left;
+	vertical-align:text-top;
+	color: #2e6b4d;
+	font-size: 12px;
+	font-family: sans-serif;
+}
+	.textoSeccion:hover {
+	color: #78b428;
+	}
+.titleStyle {
+	font-weight: bold;
+	font-size: 20px;
+}
+</style>
+<script type="text/javascript">
+    function abrirAdmUsuarios() {
+        window.open('usuarios.asp?Pto=<%=g_strPuerto%>', '<%=g_strPuerto%>', 'width=940,height=640,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO'); 
+    }
+    function abrirListaUsuarios() {
+		window.open('listUsuarios.asp?Pto=<%=g_strPuerto%>','<%=g_strPuerto%>','width=940,height=640,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO'); 
+	}
+	function abrirParrametros() {
+	    window.open('consultaParametros.asp?pto=<%=g_strPuerto%>', '<%=g_strPuerto%>', 'width=940,height=640,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}
+	function abrirABMProductos() {
+	    window.open("producto/productoAdministrar.asp?Pto=<%=g_strPuerto%>", '<%=g_strPuerto%>', "width=1180,height=800,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO");
+	}
+	function irReporteRecargas() {
+	    window.open("reporteCamionesRecarga.asp?Pto=<%=g_strPuerto%>", '<%=g_strPuerto%>', "width=1180,height=800,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO");
+	}
+	function abrirABMProcedencias() {
+	    window.open("procedencias/procedenciasAdministrar.asp?Pto=<%=g_strPuerto%>", '<%=g_strPuerto%>', "width=1100,height=500,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO"); 
+	}
+	function irMermaVolatil() {
+	    window.open("mermaVolatilAdministrar.asp?Pto=<%=g_strPuerto%>", '<%=g_strPuerto%>', "width=1180,height=800,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO");
+	}
+</script>
+</head>
+<table width="500px" border="0" align="center" cellpadding="6" cellspacing="0">
+<tr>
+<td width="50%" valign="top">
+<section id="cell">
+
+<div class="boxround">
+	<table width="480">
+        <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="abrirAdmUsuarios();">
+	        <tr>
+	            <td width="84" rowspan="2" align="center"><img src="../images/AdminUsuario.png" alt="Adminstrar Usuario"></a></td>
+	            <td class="title_sec_section"><% =GF_TRADUCIR("Administraci&oacute;n de Usuarios") %></td>
+	        </tr>
+	        <tr>
+	            <td class="textoSeccion"><% =GF_TRADUCIR("Administrar los Usuarios del puerto") %></td>
+	        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="boxround">
+	<table width="480">
+        <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="abrirListaUsuarios();">
+	        <tr>
+	            <td width="84" rowspan="2" align="center"><img src="../images/ListadoUsuarios.png" alt="Listado de Usuario"></a></td>
+	            <td class="title_sec_section"><% =GF_TRADUCIR("Listado de Usuarios") %></td>						
+	        </tr>
+	        <tr>
+	            <td class="textoSeccion"></td>
+	        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="boxround">
+	<table width="480">
+        <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="abrirParrametros();">
+	        <tr>
+	            <td width="84" rowspan="2" align="center"><img src="../images/Parametros.png" alt="Parametros"></a></td>
+	            <td class="title_sec_section"><% =GF_TRADUCIR("Parametros") %></td>						
+	        </tr>
+	        <tr>
+	            <td class="textoSeccion"><% =GF_TRADUCIR("Consulte los parametros almacendos") %></td>
+	        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="boxround">
+	<table width="480">
+        <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="abrirABMProductos();">
+	        <tr>
+	            <td width="84" rowspan="2" align="center"><img src="../images/AdminProductos.png" alt="Admin Productos"></a></td>
+	            <td class="title_sec_section"><% =GF_TRADUCIR("Adm. de Productos") %></td>
+	        </tr>
+	        <tr>
+	            <td class="textoSeccion"><% =GF_TRADUCIR("Administrar los Productos") %></td>
+	        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="boxround">
+	<table width="480">
+        <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="abrirABMProcedencias();">
+	        <tr>
+	            <td width="84" rowspan="2" align="center"><img src="../images/AdminProcedencias.png" alt="Procedencias"></a></td>
+	            <td class="title_sec_section"><% =GF_TRADUCIR("Adm. de Procedencias") %></td>
+	        </tr>
+	        <tr>
+	            <td class="textoSeccion"><% =GF_TRADUCIR("Administrar las procedencias") %></td>
+	        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="boxround">
+	<table width="480">
+        <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReporteRecargas()">
+	        <tr>
+	            <td width="84" rowspan="2" align="center"><img src="../images/Reportes.png" alt="Reportes"></a></td>
+	            <td class="title_sec_section"><% =GF_TRADUCIR("Reporte de Recargas")%></td>
+	        </tr>
+	        <tr>
+	            <td class="textoSeccion"><% =GF_TRADUCIR("Lista la informaci&oacuten de los camiones que se van cargando en las plantas.") %></td>
+	        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="boxround">
+	<table width="480">
+        <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irMermaVolatil()">
+	        <tr>
+	            <td width="84" rowspan="2" align="center"><img src="../images/merma-100.png" alt="Reportes"></a></td>
+	            <td class="title_sec_section"><% =GF_TRADUCIR("Administrar Merma volatil")%></td>
+	        </tr>
+	        <tr>
+	            <td class="textoSeccion"><% =GF_TRADUCIR("Lista la informaci&oacuten de las mermas volatil que tendrán los camiones que se van cargando en las plantas.") %></td>
+	        </tr>
+        </tbody>
+    </table>
+</div>
+
+</section>   
+</td>
+</tr>
+</table>
+</body>
+</html>

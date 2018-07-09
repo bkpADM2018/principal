@@ -1,0 +1,113 @@
+<!--#include file="../../includes/procedimientos.asp"-->
+<!--#include file="../../includes/procedimientosUser.asp"-->
+<!--#include file="../../includes/procedimientosFechas.asp"-->
+<!--#include file="../../includes/procedimientosMG.asp"-->
+<!--#include file="../../includes/procedimientostraducir.asp"-->
+<!--#include file="../../includes/procedimientosFormato.asp"-->
+<!--#include file="../../includes/procedimientosUnificador.asp"-->
+<%
+CONST CONTINUAR_LISTADO = 1
+CONST FINALIZAR_LISTADO = 2
+'--------------------------------------------------------------------------------------
+
+Dim accion,puerto,ppcosecha,ppkilos,rsCargHist,pproducto,pcliente,myTabla,paginaActual,mostrar
+Dim params,reg,fecha_old,camion_old,rsCosechaCamiones,auxCamion,auxFecha,contadorDiv
+reg =0
+contadorDiv = 1
+puerto = GF_Parametros7("pto", "", 6)
+ppcosecha = GF_Parametros7("cosecha", "", 6)
+pproducto = GF_Parametros7("producto", "", 6)
+ppkilos = GF_Parametros7("kilos", 0, 6)
+pcliente = GF_Parametros7("cliente", 0, 6)
+paccion = GF_Parametros7("accion", 0, 6)
+
+%>
+<html>
+<head>
+   <TITLE>Stock Disponible de CTG</TITLE>
+</head>
+<link rel="stylesheet" href="../../css/Toolbar.css" type="text/css">
+<link rel="stylesheet" href="../../css/jqueryUI/custom-theme/jquery-ui-1.8.2.custom.css" type="text/css" />
+<link href="../../css/ActisaIntra-1.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="../../scripts/Toolbar.js"></script>
+<script type="text/javascript" src="../../scripts/channel.js"></script>
+<script type="text/javascript" src="../../scripts/jQueryPopUp.js"></script>
+<script type="text/javascript" src="../../scripts/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../../scripts/jqueryUI/jquery-ui-1.8.2.custom.min.js"></script>
+<script type="text/javascript">
+var ch = new channel()
+
+function bodyOnLoad(){	
+	var v_loading;
+	var auxFecha;
+	var auxCamion;
+	var myDiv;	
+	CrearDiv();
+	auxFecha = document.getElementById("fecha_old").value;
+	auxCamion = document.getElementById("camion_old").value;		
+	v_loading = "<table cellspacing='0' align='center' class='reg_Header' width='100%'><tr class='reg_Header_navdos'><td colspan='7' align='center'><img src='Images/Loading1.gif'></td></tr></table>";	
+	document.getElementById("DIVCONTENEDOR_"+document.getElementById("numero_div").value).innerHTML = v_loading;	
+	myDiv = document.getElementById("numero_div").value;
+	ch.bind("getCamionesXCosecha_Ajax.asp?cosecha=<%=ppcosecha%>&producto=<%=pproducto%>&kilos=<%=ppkilos%>&cliente=<%=pcliente%>&pto=<%=puerto%>&dtContable="+auxFecha+"&idCamion="+auxCamion+"&Contador="+myDiv,"CamionesXCosecha_CallBack()");
+	ch.send();
+	}
+	
+function CamionesXCosecha_CallBack(){
+	var numDiv = document.getElementById("numero_div").value;		
+	document.getElementById("DIVCONTENEDOR_"+numDiv).innerHTML = ch.response();
+	
+	var v_finalizado = document.getElementById("FinListado_"+numDiv+"").value;
+	if(v_finalizado == <%=FINALIZAR_LISTADO%>){		
+		document.getElementById("MostrarListado").style.display = "none";
+	}	
+	document.getElementById("fecha_old").value = document.getElementById("dtcot_old_"+numDiv+"").value;
+	document.getElementById("camion_old").value = document.getElementById("IdCam_old_"+numDiv+"").value;	
+	document.getElementById("numero_div").value = parseInt(document.getElementById("numero_div").value) + parseInt(1);		
+	}
+	
+	
+	
+function CrearDiv() { 
+	var myTable = document.getElementById("TablaContenedora");		
+	var myNroLinea = document.getElementById("numero_div").value;	
+	var trtodosRegistros = myTable.insertRow(myNroLinea);
+	var tdtodosRegistros = trtodosRegistros.insertCell(0);
+		
+		//tdtodosRegistros.align = 'center';
+		tdtodosRegistros.colSpan=9;
+		var dtCont_Div = document.createElement('div');
+		dtCont_Div.id = "DIVCONTENEDOR_" + myNroLinea;
+		tdtodosRegistros.appendChild(dtCont_Div);
+	} 
+	
+function lightOn(tr) {
+		tr.className = "reg_Header_navdosHL";
+	}
+	
+function lightOff(tr) {
+		tr.className = "reg_Header_navdos";
+	}
+</script>	
+<body onLoad="bodyOnLoad()">
+<form  id="form1" name="form1">
+	<input type="hidden" name="accion" id="accion" value="<%= paccion%>">
+	<input type="hidden" name="fecha_old" id="fecha_old" >
+	<input type="hidden" name="camion_old" id="camion_old">
+	<input type="hidden" name="numero_div" id="numero_div" value="<%=contadorDiv%>">
+	
+	<table cellspacing='0' id="TablaContenedora" class="reg_Header" width="100%">
+	<%if((contadorDiv = 1)and(paccion = 1))then 
+		paccion = paccion + 1%>
+		<tr><td></td></tr>			
+		<tr id="MostrarListado">
+			<td colspan="9" align="right">	
+				<a href="javascript:bodyOnLoad()"><img  title="Ver Mas" id="imgLimite" src="images/add.gif"><% =GF_TRADUCIR(" Ver mas Resultados")%></a>
+			</td>
+		</tr>		
+	<%end if%>	
+	 
+	
+	</table>			
+</form>
+</body>
+</html>

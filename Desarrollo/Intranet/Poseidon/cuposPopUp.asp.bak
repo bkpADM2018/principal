@@ -1,0 +1,112 @@
+<!--#include file="../Includes/procedimientosUnificador.asp"-->
+<!--#include file="../Includes/procedimientosParametros.asp"-->
+<!--#include file="../Includes/procedimientosTraducir.asp"-->
+<!--#include file="../Includes/procedimientosFormato.asp"-->
+<!--#include file="../Includes/procedimientos.asp"-->
+<!--#include file="../Includes/procedimientosPuertos.asp"-->
+<!--#include file="../Includes/procedimientosFechas.asp"-->
+
+<%
+
+'----------------------------------------------------------------------------------------------------------------------------------
+'           COMIENZO DE LA PAGINA
+'----------------------------------------------------------------------------------------------------------------------------------
+
+g_strPuerto = GF_PARAMETROS7("pto", "", 6)
+
+%>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Administracion de CTG</title>
+<style type="text/css">
+.table, th, td {
+	vertical-align:top;
+	}
+
+/*----------->Box ADMININSTRACION Control Panel*/
+#cell {
+	/*max-height: 100%;*/
+	background-color: #fff;
+	}
+	#cell .boxround {
+		padding: 7px;
+/*		border: solid 2px rgba(120, 180, 40, 1);
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 1);*/
+	}
+	#cell .boxround:hover {
+		/*border: solid 2px rgba(46, 107, 77, 1);*/
+		border-radius: 12px;
+		background: rgba(230, 250, 200, 1);
+	}
+/*Box ADMININSTRACION Control Panel<-----------*/
+
+.title_sec_section {
+	text-align:left;
+	color: #000;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: sans-serif;
+}
+.textoSeccion {
+	text-align:left;
+	vertical-align:text-top;
+	color: #2e6b4d;
+	font-size: 12px;
+	font-family: sans-serif;
+}
+	.textoSeccion:hover {
+	color: #78b428;
+	}
+.titleStyle {
+	font-weight: bold;
+	font-size: 20px;
+}
+</style>
+<script type="text/javascript">
+    function abrirReporteCupos() {
+        window.open('reporteCuposAsignados.asp?Pto=<%=g_strPuerto %>', '<%=g_strPuerto %>', 'width=960,height=640,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+    }
+    function abrirCotrolCupoPatente() {
+        window.open('controlCuposPatente.asp?pto=<%=g_strPuerto%>', '<%=g_strPuerto%>', 'width=1200,height=940,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+    }    
+</script>
+</head>
+<table width="500px" border="0" align="center" cellpadding="6" cellspacing="0">
+<tr>
+<td width="50%" valign="top">
+<section id="cell">
+
+<div class="boxround">
+	<table width="480">
+        <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="abrirReporteCupos();">
+	        <tr>	            
+	            <td class="title_sec_section"><% =GF_TRADUCIR("Reporte de Cupos Asignados") %></td>
+	        </tr>
+	        <tr>
+	            <td class="textoSeccion">Obtenga el reporte de cupos asignados para su terminal. </td>
+	        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="boxround">
+	<table width="480">
+        <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="abrirCotrolCupoPatente();">
+	        <tr>
+	            <td class="title_sec_section"><% =GF_TRADUCIR("Control de Cupos y Patentes") %></td>
+	        </tr>
+	        <tr>
+	            <td class="textoSeccion">Administre la asignación de patentes a los códigos de cupo emitidos.</td>
+	        </tr>
+        </tbody>
+    </table>
+</div>
+
+</section>   
+</td>
+</tr>
+</table>
+</body>
+</html>

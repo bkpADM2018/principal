@@ -1,0 +1,1413 @@
+<!--#include file="../../Includes/procedimientosMG.asp"-->
+<!--#include file="../../Includes/procedimientostraducir.asp"-->
+<!--#include file="../../Includes/procedimientosfechas.asp"-->
+<!--#include file="../../Includes/procedimientosFormato.asp"-->
+<!--#include file="../../Includes/procedimientosSQL.asp"-->
+<!--#include file="../../Includes/procedimientosExcel.asp"-->
+<!--#include file="../../Includes/procedimientosUser.asp"-->
+<!--#include file="../../Includes/procedimientosPuertos.asp"-->
+<!--#include file="../../Includes/procedimientos.asp"-->
+<%
+const OPERADOR_SUMA_KILOS = "+"
+const OPERADOR_RESTA_KILOS = "-"
+'------------------------------------------------------------------------------------
+Function ArmarColumnaAjustes(pMyFecha,ppto,campo,pcdCliente)
+Dim strSQL
+strSQL = "				SELECT DISTINCT " &	campo
+strSQL = strSQL & " 	FROM   dbo.excreditosdebitos cd			"		
+strSQL = strSQL & " 		LEFT JOIN dbo.clientes c				"
+strSQL = strSQL & " 			ON c.cdcliente = cd.cdcliente			"
+strSQL = strSQL & " 		LEFT JOIN dbo.productos p				"
+strSQL = strSQL & " 			ON p.cdproducto = cd.cdproducto			"
+strSQL = strSQL & " 	WHERE  cd.dtcontable = '"& pMyFecha &"'			"
+if (Cdbl(pcdCliente) <> 0) then strSQL = strSQL & " and cd.cdcliente = "& pcdCliente
+strSQL = strSQL & " 	ORDER  BY " & campo       
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)		  
+Set ArmarColumnaAjustes = rs
+'response.write strSQL
+'response.end
+End function		   
+'------------------------------------------------------------------------------------
+Function ArmarColumnaRecargas(pMyFecha,ppto,campo,pCdCliente)
+Dim strSQL
+strSQL = "				SELECT t2.cdcliente,"
+strSQL = strSQL &"			   t2.dscliente,"
+strSQL = strSQL &"			   t2.cdproducto,"
+strSQL = strSQL &"			   t2.dsproducto"
+strSQL = strSQL &"		FROM   (SELECT T1.cdcliente,"
+strSQL = strSQL &"					   c.dscliente,"
+strSQL = strSQL &"					   T1.cdproducto,"
+strSQL = strSQL &"					   p.dsproducto"
+strSQL = strSQL &"				FROM   (SELECT cc.cdcliente,"
+strSQL = strSQL &"							   ca.cdproducto"
+strSQL = strSQL &"						FROM   dbo.hcamionescarga cc"
+strSQL = strSQL &"							   JOIN dbo.hcamiones ca"
+strSQL = strSQL &"								 ON ca.idcamion = cc.idcamion"
+strSQL = strSQL &"									AND ca.dtcontable = cc.dtcontable"
+strSQL = strSQL &"						WHERE  cc.dtcontable = '"&pMyFecha&"'"
+if (Cdbl(pCdCliente) <> 0) then  strSQL = strSQL &"	and cc.cdcliente = "& pCdCliente
+strSQL = strSQL &"							   AND (SELECT Max(pc.sqpesada)"
+strSQL = strSQL &"									FROM   dbo.hpesadascamion pc"
+strSQL = strSQL &"									WHERE  pc.dtcontable = cc.dtcontable"
+strSQL = strSQL &"										   AND pc.idcamion = cc.idcamion"
+strSQL = strSQL &"										   AND pc.cdpesada = 1) <> 0"
+strSQL = strSQL &"							   AND ca.cdestado NOT IN ( 12, 7, 14 )) AS T1"
+strSQL = strSQL &"					   LEFT JOIN dbo.clientes c"
+strSQL = strSQL &"							  ON c.cdcliente = T1.cdcliente"
+strSQL = strSQL &"					   LEFT JOIN dbo.productos p"
+strSQL = strSQL &"							  ON p.cdproducto = T1.cdproducto"
+strSQL = strSQL &"				GROUP  BY t1.cdcliente,"
+strSQL = strSQL &"						  c.dscliente,"
+strSQL = strSQL &"						  T1.cdproducto,"
+strSQL = strSQL &"						  p.dsproducto) AS t2  "
+strSQL = strSQL &"						  order by " & campo         
+'response.write strSQL
+'response.end
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)		  
+Set ArmarColumnaRecargas = rs
+End function						  
+'------------------------------------------------------------------------------------
+Function ArmarColumnaTransferencia(pMyFecha,ppto,campo,pCdCliente)
+strSQL ="				SELECT DISTINCT "&campo
+strSQL = strSQL & "  	FROM   dbo.exmovimientos m			"
+strSQL = strSQL & " 	LEFT JOIN dbo.clientes c			"
+strSQL = strSQL & " 		ON c.cdcliente = m.cdcliente		"
+strSQL = strSQL & " 	LEFT JOIN dbo.productos p			"
+strSQL = strSQL & " 		ON p.cdproducto = m.cdproducto		"
+strSQL = strSQL & " 	WHERE  m.dtcontable = '"& pMyFecha &"'	"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL & " AND m.cdcliente = " & pCdCliente
+strSQL = strSQL & "		    AND m.vlkilos <> 0					"
+strSQL = strSQL & " 		AND ( ( m.cdtransaccion >= 102		"
+strSQL = strSQL & " 				AND m.cdtransaccion <= 107 )"
+strSQL = strSQL & " 			OR ( m.cdtransaccion >= 2		"
+strSQL = strSQL & " 				AND m.cdtransaccion <= 7 ) )"
+strSQL = strSQL & "		GROUP  BY "&campo
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)		  
+Set ArmarColumnaTransferencia = rs
+'response.write strSQL
+'response.end
+End function
+'------------------------------------------------------------------------------------
+Function ArmarColumnaOleoducto(pMyFecha,ppto,campo,pCdCliente)
+Dim strSQL 
+strSQL =" 				SELECT DISTINCT "&campo
+strSQL = strSQL &" 		FROM   dbo.extransfoleo m				"
+strSQL = strSQL &" 		LEFT JOIN dbo.clientes c				"
+strSQL = strSQL &" 			ON c.cdcliente = m.cdcliente			"
+strSQL = strSQL &" 		LEFT JOIN dbo.productos p				"
+strSQL = strSQL &" 			ON p.cdproducto = m.cdproducto			"
+strSQL = strSQL &" 		WHERE  m.dtcontable = '"& pMyFecha &"'		"
+strSQL = strSQL &" 			AND m.vlkilos <> 0						"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL &" AND m.cdcliente = "& pCdCliente
+strSQL = strSQL &" 		GROUP  BY "&campo
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)		  
+Set ArmarColumnaOleoducto = rs
+'response.write strSQL
+'response.end
+End function
+'------------------------------------------------------------------------------------
+Function ArmarColumnasVagones(pMyFecha,ppto,campo,pCdCliente)
+Dim strSQL,myFechaActual
+myFechaActual = year(date())&"-"&GF_nDigits(month(date()),2)&"-"&GF_nDigits(day(date()),2)
+strSQL="			SELECT DISTINCT "&campo
+strSQL = strSQL &" 	FROM ( 																"
+if(myFechaActual = pMyFecha)then
+strSQL = strSQL &"			SELECT o.cdcliente,											"
+strSQL = strSQL &" 				   va.cdproducto,										"
+strSQL = strSQL &" 				   va.cdoperativo,										"
+strSQL = strSQL &" 				   va.cdvagon 											"         
+strSQL = strSQL &" 			FROM   dbo.vagones va									"
+strSQL = strSQL &" 				JOIN dbo.operativos o								"
+strSQL = strSQL &" 					ON o.cdoperativo = va.cdoperativo					"
+strSQL = strSQL &" 					AND o.cdoperativoserie = va.cdoperativoserie		"
+strSQL = strSQL &" 					AND o.nucartaporte = va.nucartaporte				"
+strSQL = strSQL &" 					AND o.nucartaporteserie = va.nucartaporteserie		"
+strSQL = strSQL &" 			WHERE  (SELECT pv.sqpesada									"
+strSQL = strSQL &" 					FROM   dbo.pesadasvagon pv						"
+strSQL = strSQL &" 					WHERE  pv.cdoperativo = va.cdoperativo				"
+strSQL = strSQL &" 						AND pv.nucartaporte = va.nucartaporte			"
+strSQL = strSQL &" 						AND pv.cdoperativoserie = va.cdoperativoserie	"
+strSQL = strSQL &" 						AND pv.nucartaporteserie = va.nucartaporteserie	"
+strSQL = strSQL &"						AND pv.cdvagon = va.cdvagon						"
+strSQL = strSQL &" 						AND pv.cdpesada = 2								"
+strSQL = strSQL &" 						AND pv.sqpesada = (SELECT Max(sqpesada)			"
+strSQL = strSQL &" 											FROM   dbo.pesadasvagon"
+strSQL = strSQL &" 											WHERE  cdoperativo = pv.cdoperativo"
+strSQL = strSQL &" 											AND cdoperativoserie =pv.cdoperativoserie"
+strSQL = strSQL &" 											AND nucartaporte = pv.nucartaporte"
+strSQL = strSQL &" 											AND nucartaporteserie = pv.nucartaporteserie"
+strSQL = strSQL &" 											AND cdvagon = pv.cdvagon	"
+strSQL = strSQL &" 											AND cdpesada = 2)			"
+strSQL = strSQL &"					 ) <> 0												"
+strSQL = strSQL &" 					AND va.cdestado = 8									"
+strSQL = strSQL &" 					AND va.DTFIN between '" & pMyFecha & " 00:00:00' and '" & pMyFecha & " 23:59:59'" 
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL &" and o.cdcliente = "& pCdCliente
+else
+strSQL = strSQL &"			SELECT o.cdcliente,											"
+strSQL = strSQL &" 				   va.cdproducto,										"
+strSQL = strSQL &" 		  		   va.cdoperativo,										"
+strSQL = strSQL &" 				   va.cdvagon 											"         
+strSQL = strSQL &" 			FROM   dbo.hvagones va									"
+strSQL = strSQL &" 			JOIN dbo.hoperativos o									"
+strSQL = strSQL &" 				ON o.cdoperativo = va.cdoperativo						"
+strSQL = strSQL &" 				AND o.cdoperativoserie = va.cdoperativoserie			"
+strSQL = strSQL &" 				AND o.nucartaporte = va.nucartaporte					"
+strSQL = strSQL &" 				AND o.nucartaporteserie = va.nucartaporteserie			"
+strSQL = strSQL &" 				AND o.dtcontable = va.dtcontable						"
+strSQL = strSQL &" 			WHERE  va.dtcontablevagon = '"& pMyFecha &"'				"
+strSQL = strSQL &" 				AND (SELECT pv.sqpesada									"
+strSQL = strSQL &" 					 FROM   dbo.hpesadasvagon pv					"
+strSQL = strSQL &" 					 WHERE  PV.dtcontable = va.dtcontable				"
+strSQL = strSQL &" 					 AND PV.cdoperativo = va.cdoperativo				"
+strSQL = strSQL &" 					 AND pv.nucartaporte = va.nucartaporte				"
+strSQL = strSQL &" 					 AND pv.nucartaporteserie = va.nucartaporteserie	"
+strSQL = strSQL &"					 AND pv.cdvagon = va.cdvagon						"
+strSQL = strSQL &" 				     AND pv.cdpesada = 2								"
+strSQL = strSQL &" 					 AND pv.sqpesada = (SELECT Max(sqpesada)			"
+strSQL = strSQL &" 										FROM   dbo.hpesadasvagon	"
+strSQL = strSQL &" 										WHERE  dtcontable = pv.dtcontable			"
+strSQL = strSQL &" 										AND cdoperativo = pv.cdoperativo			"
+strSQL = strSQL &" 										AND cdoperativoserie = pv.cdoperativoserie  "
+strSQL = strSQL &" 										AND nucartaporte = pv.nucartaporte			"
+strSQL = strSQL &" 										AND nucartaporteserie = pv.nucartaporteserie"
+strSQL = strSQL &" 										AND cdvagon = pv.cdvagon		"
+strSQL = strSQL &" 										AND cdpesada = 2)				"
+strSQL = strSQL &"					) <> 0												"
+strSQL = strSQL &"				 AND va.cdestado = 8									"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL &" and o.cdcliente = "& pCdCliente
+end if
+strSQL = strSQL &" 		  ) AS t1 														"	
+strSQL = strSQL &" 		LEFT JOIN dbo.clientes c									"
+strSQL = strSQL &"			 ON c.cdcliente = T1.cdcliente								"
+strSQL = strSQL &" 		LEFT JOIN dbo.productos p									"
+strSQL = strSQL &" 			ON p.cdproducto = T1.cdproducto								"
+
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)		  
+Set ArmarColumnasVagones = rs
+'response.write strSQL
+'response.end
+End function 
+'------------------------------------------------------------------------------------
+Function armarFilasClientes(pMyFecha,ppto,pCdCliente)
+Dim strSQL
+strSQL = "				SELECT DISTINCT e.cdcliente,										"
+strSQL = strSQL & " 					C.dscliente AS dsCliente							"	
+strSQL = strSQL & " 	FROM  excuentcorrientes e											"
+strSQL = strSQL & " 		LEFT JOIN dbo.clientes C									"
+strSQL = strSQL & " 			ON C.cdcliente = e.cdcliente								"
+strSQL = strSQL & " 	WHERE  e.dtcontable = '"& pMyFecha &"'								"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL & " and e.cdcliente = "& pCdCliente
+strSQL = strSQL & " 		AND ( e.vlsaldoinicial + e.vlcredito - e.vldebito ) <> 0		"
+strSQL = strSQL & " 	GROUP  BY e.cdcliente,C.dscliente						  			"
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)		  
+Set armarFilasClientes = rs
+'response.write strSQL
+'response.end
+End function 
+'------------------------------------------------------------------------------------
+Function armarColumnaClientesCamiones(pMyFecha,ppto,campo,pCdCliente)
+dim strSQL
+
+strSQL= "SELECT DISTINCT " & campo & _
+		" FROM   ((SELECT T1.cdcliente," & _
+		"          T1.cdproducto,T1.dtcontable" & _
+		"   FROM   (SELECT cd.cdcliente,ca.cdproducto,cd.dtcontable " & _
+		"           FROM   dbo.hcamionesdescarga cd" & _
+		"                  JOIN dbo.hcamiones ca" & _
+		"                    ON ca.idcamion = cd.idcamion" & _
+		"                       AND ca.dtcontable = cd.dtcontable" & _
+		"           WHERE  cd.dtcontable = '" & pMyFecha & "'"
+        if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL & " and cd.CDCLIENTE = "& pCdCliente
+		strSQL = strSQL & "            AND (SELECT Max(sqpesada)" & _
+		"                                   FROM   dbo.hpesadascamion" & _
+		"                                   WHERE  dtcontable =cd.dtcontable" & _
+		"                                          AND idcamion = cd.idcamion" & _
+		"                                          AND cdpesada = 2) is not NULL" & _
+		"                  AND ca.cdestado NOT IN ( 12, 7, 14 )) AS T1              " & _
+		"   GROUP  BY t1.cdcliente,      " & _           
+		"             T1.cdproducto,T1.dtcontable)" & _
+		"    UNION" & _
+		"    ( SELECT T1.cdcliente," & _
+		"           T1.cdproducto, '"&Year(Now())& "-" & GF_nDigits(Month(Now()), 2) & "-" & GF_nDigits(Day(Now()), 2)&"' as dtcontable" & _
+		"    FROM   (SELECT cd.cdcliente," & _
+		"                  ca.cdproducto" & _
+		"           FROM   dbo.camionesdescarga cd" & _
+		"                  JOIN dbo.camiones ca" & _
+		"                    ON ca.idcamion = cd.idcamion" & _
+		"           WHERE  (SELECT Max(sqpesada)" & _
+		"                                   FROM   dbo.pesadascamion" & _
+		"                                   WHERE  idcamion = cd.idcamion" & _
+		"                                          AND cdpesada = 2) is not NULL"
+        if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL & " and cd.CDCLIENTE = "& pCdCliente
+		strSQL = strSQL & " AND ca.cdestado NOT IN ( 12, 7, 14 )) AS T1             " & _
+		"   GROUP  BY t1.cdcliente,            " & _    
+		"             T1.cdproducto)) AS TF" & _
+		"      LEFT JOIN dbo.clientes c" & _
+		"                 ON c.cdcliente = TF.cdcliente" & _
+		"          LEFT JOIN dbo.productos p" & _
+		"                 ON p.cdproducto = TF.cdproducto" & _
+        "   WHERE  TF.dtcontable = '" & pMyFecha & "'" & _
+		" order by " & campo
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)		  
+Set armarColumnaClientesCamiones = rs
+End function 
+'------------------------------------------------------------------------------------
+Function armarColumnasProductos(pMyFecha,ppto,pCdCliente)
+Dim strSQL
+strSQL = "				select distinct e.cdproducto,										"
+strSQL = strSQL & "						p.DSPRODUCTO as dsProducto							" 
+strSQL = strSQL & "		from excuentcorrientes e 											"
+strSQL = strSQL & " 		left join productos p on e.cdproducto = p.cdproducto			"
+strSQL = strSQL & " 	where e.dtcontable = '"& pMyFecha &"'								"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL & " and e.cdcliente = "& pCdCliente
+strSQL = strSQL & " 		AND ( e.vlsaldoinicial + e.vlcredito - e.vldebito ) <> 0		"
+strSQL = strSQL & " 	group by e.cdproducto,p.DSPRODUCTO									"
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)		  
+Set armarColumnasProductos = rs
+End function 
+'------------------------------------------------------------------------------------
+Function ObtenerSQLSaldoInicial(pMyFecha,ppto,pCdCliente)
+Dim strSQL, Mywhere,rs
+strSQL = " 				SELECT  cc.cdcliente,												"
+strSQL = strSQL & " 			dscliente,													"
+strSQL = strSQL & " 			cc.cdproducto,												"
+strSQL = strSQL & " 			dsproducto,													"
+strSQL = strSQL & " 			( cc.vlsaldoinicial + cc.vlcredito - cc.vldebito ) as Kilos "
+strSQL = strSQL & " 	FROM  dbo.excuentcorrientes cc									"
+strSQL = strSQL & " 		LEFT JOIN dbo.clientes C									"
+strSQL = strSQL & " 			ON C.cdcliente = cc.cdcliente								"
+strSQL = strSQL & " 		LEFT JOIN dbo.productos P									"
+strSQL = strSQL & " 			ON P.cdproducto = cc.cdproducto								"
+strSQL = strSQL & " 	WHERE  cc.dtcontable = '"&pMyFecha&"'								"
+strSQL = strSQL & " 		AND ( cc.vlsaldoinicial + cc.vlcredito - cc.vldebito ) <> 0		"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL & " and cc.cdcliente = "& pCdCliente
+strSQL = strSQL & " 	ORDER  BY cc.cdcliente, 											"
+strSQL = strSQL & " 			  cc.cdproducto												"
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)		  
+Set ObtenerSQLSaldoInicial = rs
+End function
+'---------------------------------------------------------------------------------------
+Function ObtenerSQLDescargaVagones(pMyFecha,ppto,pCdCliente)
+Dim strSQL, Mywhere,rs,myFechaActual
+strSQL = strSQL & "		SELECT T1.cdempresa,"
+strSQL = strSQL & "			   E.dsempresa,"
+strSQL = strSQL & "			   T1.cdcliente,"
+strSQL = strSQL & "			   c.dscliente,"
+strSQL = strSQL & "			   T1.cdproducto,"
+strSQL = strSQL & "			   p.dsproducto,"
+strSQL = strSQL & "			   Sum(T1.kilos) AS Cant1,"
+strSQL = strSQL & "			   Count(*)      AS Cant2"
+strSQL = strSQL & "		FROM   (SELECT o.cdempresa,"
+strSQL = strSQL & "					   o.cdcliente,"
+strSQL = strSQL & "					   va.cdproducto,"
+strSQL = strSQL & "					   va.cdoperativo,"
+strSQL = strSQL & "					   va.cdvagon,"
+strSQL = strSQL & "					   ( (SELECT pv.vlpesada"
+strSQL = strSQL & "						  FROM   dbo.hpesadasvagon pv"
+strSQL = strSQL & "						  WHERE  pv.dtcontable = va.dtcontable"
+strSQL = strSQL & "								 AND pv.cdoperativo = va.cdoperativo"
+strSQL = strSQL & "								 AND pv.nucartaporte = va.nucartaporte"
+strSQL = strSQL & "								 AND pv.nucartaporteserie = va.nucartaporteserie"
+strSQL = strSQL & "								 AND pv.cdvagon = va.cdvagon"
+strSQL = strSQL & "								 AND pv.cdpesada = 1"
+strSQL = strSQL & "								 AND pv.sqpesada = (SELECT Max(sqpesada)"
+strSQL = strSQL & "													FROM   dbo.hpesadasvagon"
+strSQL = strSQL & "													WHERE  dtcontable = pv.dtcontable"
+strSQL = strSQL & "														   AND cdoperativo ="
+strSQL = strSQL & "															   pv.cdoperativo"
+strSQL = strSQL & "														   AND cdoperativoserie ="
+strSQL = strSQL & "															   pv.cdoperativoserie"
+strSQL = strSQL & "														   AND nucartaporte ="
+strSQL = strSQL & "															   pv.nucartaporte"
+strSQL = strSQL & "														   AND nucartaporteserie ="
+strSQL = strSQL & "															   pv.nucartaporteserie"
+strSQL = strSQL & "														   AND cdvagon = va.cdvagon"
+strSQL = strSQL & "														   AND cdpesada = 1)) -"
+strSQL = strSQL & "						   (SELECT pv.vlpesada"
+strSQL = strSQL & "							FROM   dbo.hpesadasvagon pv"
+strSQL = strSQL & "							WHERE  pv.dtcontable = va.dtcontable"
+strSQL = strSQL & "								   AND pv.cdoperativo = va.cdoperativo"
+strSQL = strSQL & "								   AND pv.cdoperativoserie = va.cdoperativoserie"
+strSQL = strSQL & "								   AND pv.nucartaporte = va.nucartaporte"
+strSQL = strSQL & "								   AND pv.nucartaporteserie = va.nucartaporteserie"
+strSQL = strSQL & "								   AND pv.cdvagon = va.cdvagon"
+strSQL = strSQL & "								   AND pv.cdpesada = 2"
+strSQL = strSQL & "								   AND pv.sqpesada = (SELECT Max(sqpesada)"
+strSQL = strSQL & "													  FROM   dbo.hpesadasvagon"
+strSQL = strSQL & "													  WHERE  dtcontable = pv.dtcontable"
+strSQL = strSQL & "															 AND cdoperativo ="
+strSQL = strSQL & "																 pv.cdoperativo"
+strSQL = strSQL & "															 AND cdoperativoserie ="
+strSQL = strSQL & "																 pv.cdoperativoserie"
+strSQL = strSQL & "															 AND nucartaporte ="
+strSQL = strSQL & "																 pv.nucartaporte"
+strSQL = strSQL & "															 AND nucartaporteserie ="
+strSQL = strSQL & "																 pv.nucartaporteserie"
+strSQL = strSQL & "															 AND cdvagon = va.cdvagon"
+strSQL = strSQL & "															 AND cdpesada = 2)) -"
+strSQL = strSQL & "						   (SELECT pv.vlmermakilos"
+strSQL = strSQL & "							FROM   dbo.hmermasvagones pv"
+strSQL = strSQL & "							WHERE  pv.dtcontable = va.dtcontable"
+strSQL = strSQL & "								   AND pv.cdoperativo = va.cdoperativo"
+strSQL = strSQL & "								   AND pv.cdoperativoserie = va.cdoperativoserie"
+strSQL = strSQL & "								   AND pv.nucartaporte = va.nucartaporte"
+strSQL = strSQL & "								   AND pv.nucartaporteserie = va.nucartaporteserie"
+strSQL = strSQL & "								   AND pv.cdvagon = va.cdvagon"
+strSQL = strSQL & "								   AND pv.sqpesada = (SELECT Max(sqpesada)"
+strSQL = strSQL & "													  FROM   dbo.hpesadasvagon"
+strSQL = strSQL & "													  WHERE  dtcontable = pv.dtcontable"
+strSQL = strSQL & "															 AND cdoperativo ="
+strSQL = strSQL & "																 pv.cdoperativo"
+strSQL = strSQL & "															 AND cdoperativoserie ="
+strSQL = strSQL & "																 pv.cdoperativoserie"
+strSQL = strSQL & "															 AND nucartaporte ="
+strSQL = strSQL & "																 pv.nucartaporte"
+strSQL = strSQL & "															 AND nucartaporteserie ="
+strSQL = strSQL & "																 pv.nucartaporteserie"
+strSQL = strSQL & "															 AND cdvagon = va.cdvagon"
+strSQL = strSQL & "															 AND cdpesada = 2)) ) AS"
+strSQL = strSQL & "					   Kilos"
+strSQL = strSQL & "				FROM   dbo.hvagones va"
+strSQL = strSQL & "					   JOIN dbo.hoperativos o"
+strSQL = strSQL & "						 ON o.cdoperativo = va.cdoperativo"
+strSQL = strSQL & "							AND o.cdoperativoserie = va.cdoperativoserie"
+strSQL = strSQL & "							AND o.nucartaporte = va.nucartaporte"
+strSQL = strSQL & "							AND o.nucartaporteserie = va.nucartaporteserie"
+strSQL = strSQL & "							AND o.dtcontable = va.dtcontable"
+strSQL = strSQL & "				WHERE  va.dtcontablevagon = '"&pMyFecha&"'"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL & "	and o.cdcliente = " & pCdCliente
+strSQL = strSQL & "					   AND (SELECT pv.sqpesada"
+strSQL = strSQL & "							FROM   dbo.hpesadasvagon pv"
+strSQL = strSQL & "							WHERE  PV.dtcontable = va.dtcontable"
+strSQL = strSQL & "								   AND PV.cdoperativo = va.cdoperativo"
+strSQL = strSQL & "								   AND pv.nucartaporte = va.nucartaporte"
+strSQL = strSQL & "								   AND pv.nucartaporteserie = va.nucartaporteserie"
+strSQL = strSQL & "								   AND pv.cdvagon = va.cdvagon"
+strSQL = strSQL & "								   AND pv.cdpesada = 2"
+strSQL = strSQL & "								   AND pv.sqpesada = (SELECT Max(sqpesada)"
+strSQL = strSQL & "													  FROM   dbo.hpesadasvagon"
+strSQL = strSQL & "													  WHERE  dtcontable = pv.dtcontable"
+strSQL = strSQL & "															 AND cdoperativo ="
+strSQL = strSQL & "																 pv.cdoperativo"
+strSQL = strSQL & "															 AND cdoperativoserie ="
+strSQL = strSQL & "																 pv.cdoperativoserie"
+strSQL = strSQL & "															 AND nucartaporte ="
+strSQL = strSQL & "																 pv.nucartaporte"
+strSQL = strSQL & "															 AND nucartaporteserie ="
+strSQL = strSQL & "																 pv.nucartaporteserie"
+strSQL = strSQL & "															 AND cdvagon = pv.cdvagon"
+strSQL = strSQL & "															 AND cdpesada = 2)) <> 0"
+strSQL = strSQL & "					   AND va.cdestado = 8"
+strSQL = strSQL & "				UNION"
+strSQL = strSQL & "				SELECT o.cdempresa,"
+strSQL = strSQL & "					   o.cdcliente,"
+strSQL = strSQL & "					   va.cdproducto,"
+strSQL = strSQL & "					   va.cdoperativo,"
+strSQL = strSQL & "					   va.cdvagon,"
+strSQL = strSQL & "					   ( (SELECT pv.vlpesada"
+strSQL = strSQL & "						  FROM   dbo.pesadasvagon pv"
+strSQL = strSQL & "						  WHERE  pv.cdoperativo = va.cdoperativo"
+strSQL = strSQL & "								 AND pv.cdoperativoserie = va.cdoperativoserie"
+strSQL = strSQL & "								 AND pv.nucartaporte = va.nucartaporte"
+strSQL = strSQL & "								 AND pv.nucartaporteserie = va.nucartaporteserie"
+strSQL = strSQL & "								 AND pv.cdvagon = va.cdvagon"
+strSQL = strSQL & "								 AND pv.cdpesada = 1"
+strSQL = strSQL & "								 AND pv.sqpesada = (SELECT Max(sqpesada)"
+strSQL = strSQL & "													FROM   dbo.pesadasvagon"
+strSQL = strSQL & "													WHERE  cdoperativo = pv.cdoperativo"
+strSQL = strSQL & "														   AND cdoperativoserie ="
+strSQL = strSQL & "															   pv.cdoperativoserie"
+strSQL = strSQL & "														   AND nucartaporte ="
+strSQL = strSQL & "															   pv.nucartaporte"
+strSQL = strSQL & "														   AND nucartaporteserie ="
+strSQL = strSQL & "															   pv.nucartaporteserie"
+strSQL = strSQL & "														   AND cdvagon = va.cdvagon"
+strSQL = strSQL & "														   AND cdpesada = 1)) -"
+strSQL = strSQL & "						   (SELECT pv.vlpesada"
+strSQL = strSQL & "							FROM   dbo.pesadasvagon pv"
+strSQL = strSQL & "							WHERE  pv.cdoperativo = va.cdoperativo"
+strSQL = strSQL & "								   AND pv.cdoperativoserie = va.cdoperativoserie"
+strSQL = strSQL & "								   AND pv.nucartaporte = va.nucartaporte"
+strSQL = strSQL & "								   AND pv.nucartaporteserie = va.nucartaporteserie"
+strSQL = strSQL & "								   AND pv.cdvagon = va.cdvagon"
+strSQL = strSQL & "								   AND pv.cdpesada = 2"
+strSQL = strSQL & "								   AND pv.sqpesada = (SELECT Max(sqpesada)"
+strSQL = strSQL & "													  FROM   dbo.pesadasvagon"
+strSQL = strSQL & "													  WHERE"
+strSQL = strSQL & "									   cdoperativo = pv.cdoperativo"
+strSQL = strSQL & "									   AND cdoperativoserie ="
+strSQL = strSQL & "										   pv.cdoperativoserie"
+strSQL = strSQL & "									   AND nucartaporte = pv.nucartaporte"
+strSQL = strSQL & "									   AND nucartaporteserie ="
+strSQL = strSQL & "										   pv.nucartaporteserie"
+strSQL = strSQL & "									   AND cdvagon = va.cdvagon"
+strSQL = strSQL & "									   AND cdpesada = 2)) -"
+strSQL = strSQL & "						   (SELECT pv.vlmermakilos"
+strSQL = strSQL & "							FROM   dbo.mermasvagones pv"
+strSQL = strSQL & "							WHERE  pv.cdoperativo = va.cdoperativo"
+strSQL = strSQL & "								   AND pv.cdoperativoserie = va.cdoperativoserie"
+strSQL = strSQL & "								   AND pv.nucartaporte = va.nucartaporte"
+strSQL = strSQL & "								   AND pv.nucartaporteserie = va.nucartaporteserie"
+strSQL = strSQL & "								   AND pv.cdvagon = va.cdvagon"
+strSQL = strSQL & "								   AND pv.sqpesada = (SELECT Max(sqpesada)"
+strSQL = strSQL & "													  FROM   dbo.pesadasvagon"
+strSQL = strSQL & "													  WHERE"
+strSQL = strSQL & "									   cdoperativo = pv.cdoperativo"
+strSQL = strSQL & "									   AND cdoperativoserie ="
+strSQL = strSQL & "										   pv.cdoperativoserie"
+strSQL = strSQL & "									   AND nucartaporte = pv.nucartaporte"
+strSQL = strSQL & "									   AND nucartaporteserie ="
+strSQL = strSQL & "										   pv.nucartaporteserie"
+strSQL = strSQL & "									   AND cdvagon = va.cdvagon"
+strSQL = strSQL & "									   AND cdpesada = 2)) ) AS Kilos"
+strSQL = strSQL & "				FROM   dbo.vagones va"
+strSQL = strSQL & "					   JOIN dbo.operativos o"
+strSQL = strSQL & "						 ON o.cdoperativo = va.cdoperativo"
+strSQL = strSQL & "							AND o.cdoperativoserie = va.cdoperativoserie"
+strSQL = strSQL & "							AND o.nucartaporte = va.nucartaporte"
+strSQL = strSQL & "							AND o.nucartaporteserie = va.nucartaporteserie"
+strSQL = strSQL & "				WHERE  va.dtcontablevagon = '"&pMyFecha&"'"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL & "	and o.cdcliente = " & pCdCliente
+strSQL = strSQL & "					   AND (SELECT pv.sqpesada"
+strSQL = strSQL & "							FROM   dbo.pesadasvagon pv"
+strSQL = strSQL & "							WHERE  pv.cdoperativo = va.cdoperativo"
+strSQL = strSQL & "								   AND pv.nucartaporte = va.nucartaporte"
+strSQL = strSQL & "								   AND pv.cdoperativoserie = va.cdoperativoserie"
+strSQL = strSQL & "								   AND pv.nucartaporteserie = va.nucartaporteserie"
+strSQL = strSQL & "								   AND pv.cdvagon = va.cdvagon"
+strSQL = strSQL & "								   AND pv.cdpesada = 2"
+strSQL = strSQL & "								   AND pv.sqpesada = (SELECT Max(sqpesada)"
+strSQL = strSQL & "													  FROM   dbo.pesadasvagon"
+strSQL = strSQL & "													  WHERE"
+strSQL = strSQL & "									   cdoperativo = pv.cdoperativo"
+strSQL = strSQL & "									   AND cdoperativoserie ="
+strSQL = strSQL & "										   pv.cdoperativoserie"
+strSQL = strSQL & "									   AND nucartaporte = pv.nucartaporte"
+strSQL = strSQL & "									   AND nucartaporteserie ="
+strSQL = strSQL & "										   pv.nucartaporteserie"
+strSQL = strSQL & "									   AND cdvagon = pv.cdvagon"
+strSQL = strSQL & "									   AND cdpesada = 2)) <> 0"
+strSQL = strSQL & "					   AND va.cdestado = 8) AS t1"
+strSQL = strSQL & "			   LEFT JOIN dbo.empresas e"
+strSQL = strSQL & "					  ON e.cdempresa = T1.cdempresa"
+strSQL = strSQL & "			   LEFT JOIN dbo.clientes c"
+strSQL = strSQL & "					  ON c.cdcliente = T1.cdcliente"
+strSQL = strSQL & "			   LEFT JOIN dbo.productos p"
+strSQL = strSQL & "					  ON p.cdproducto = T1.cdproducto"
+strSQL = strSQL & "		GROUP  BY t1.cdempresa,"
+strSQL = strSQL & "				  E.dsempresa,"
+strSQL = strSQL & "				  t1.cdcliente,"
+strSQL = strSQL & "				  c.dscliente,"
+strSQL = strSQL & "				  T1.cdproducto,"
+strSQL = strSQL & "				  p.dsproducto  "
+
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)
+set ObtenerSQLDescargaVagones = rs		  
+End function
+'----------------------------------------------------------------------------------------
+Function ObtenerSQLDescargaCamiones(pMyFecha, ppto, pCdCliente)
+Dim strSQL, Mywhere,rs
+		
+strSQL =" 	SELECT t2.cdcliente,t2.dscliente,t2.cdproducto, t2.dsproducto,	                "&_
+		"	        sum(t2.cant)  AS Cant2, sum(t2.Cant1) as Cant1 		                    "&_
+		" FROM   (SELECT 	T1.cdcliente,													"&_
+		"					c.dscliente,													"&_
+		"					T1.cdproducto,													"&_
+		"					p.dsproducto,													"&_
+        "           ( 																		"&_
+		"				(SELECT Sum(p.vlpesada)												"&_
+		"				 FROM   hcamiones ca,hcamionesdescarga cd,hpesadascamion p			"&_
+		"				 WHERE  ca.dtcontable = cd.dtcontable								"&_
+		"					 AND ca.idcamion = cd.idcamion									"&_
+		"					 AND ca.dtcontable = p.dtcontable								"&_
+		"					 AND ca.idcamion = p.idcamion									"&_
+		"					 AND p.cdpesada = 1												"&_
+		"					 AND p.sqpesada = (SELECT Max(sqpesada)							"&_
+		"					 					FROM   hpesadascamion						"&_
+		"										WHERE  dtcontable = p.dtcontable			"&_
+		"											 AND idcamion = p.idcamion				"&_
+		"											 AND cdpesada = 1)						"&_
+		"					 AND ca.cdproducto = t1.cdproducto								"&_
+		"					 AND cd.cdcliente = t1.cdcliente								"&_
+		"					 AND cd.dtcontable = '"&pMyFecha&"'								"&_
+		"					 AND ca.cdestado NOT IN ( 12, 7, 14 ))							"&_
+		"				-																 	"&_
+		"				(SELECT Sum(p.vlpesada)												"&_
+		"				 FROM   hcamiones ca,hcamionesdescarga cd,hpesadascamion p			"&_
+		"				 WHERE	ca.idcamion = cd.idcamion									"&_
+		"					AND ca.dtcontable = cd.dtcontable								"&_
+		"					AND ca.dtcontable = p.dtcontable								"&_
+		"					AND ca.idcamion = p.idcamion									"&_
+		"					AND p.cdpesada = 2												"&_
+		"					AND p.sqpesada = (SELECT Max(sqpesada)							"&_
+		"									   FROM   hpesadascamion						"&_	
+		"									   WHERE  dtcontable = p.dtcontable				"&_
+		"										  AND idcamion = p.idcamion					"&_
+		"										  AND cdpesada = 2)							"&_
+		"					AND ca.cdproducto = t1.cdproducto								"&_
+		" 					AND cdcliente = t1.cdcliente									"&_
+		"					AND cd.dtcontable = '"&pMyFecha&"'								"&_
+		"					AND ca.cdestado NOT IN ( 12, 7, 14 ))							"&_
+		"				-																	"&_
+		"				(SELECT Sum(m.vlmermakilos)											"&_
+		"				 FROM   hcamiones ca, hcamionesdescarga cd, hmermascamiones m		"&_
+		"				 WHERE ca.dtcontable = cd.dtcontable								"&_
+		"					 AND ca.idcamion = cd.idcamion									"&_
+		"			 		 AND ca.dtcontable = m.dtcontable								"&_
+		"					 AND ca.idcamion = m.idcamion									"&_
+		"					 AND m.sqpesada =  (SELECT Max(sqpesada)						"&_
+		" 										FROM   hpesadascamion						"&_
+		"										WHERE  dtcontable = m.dtcontable			"&_
+		"											 AND idcamion = m.idcamion				"&_
+		"											 AND cdpesada = 2)						"&_
+		"					 AND ca.cdproducto = t1.cdproducto								"&_		
+		"					 AND cdcliente = t1.cdcliente									"&_
+		"					 AND cd.dtcontable = '"&pMyFecha&"'								"&_
+		"					 AND ca.cdestado NOT IN ( 12, 7, 14 )) 							"&_
+		"			) AS Cant1,																"&_
+		"					(SELECT Count(*)												"&_
+		"					 FROM   dbo.hcamionesdescarga cd,dbo.hcamiones ca		"&_
+		"					 WHERE  cd.dtcontable = ca.dtcontable							"&_
+		"						AND cd.idcamion = ca.idcamion								"&_
+		"						AND ca.cdproducto = t1.cdproducto							"&_
+		"						AND cd.cdcliente = t1.cdcliente								"&_
+		"						AND cd.dtcontable = '"&pMyFecha&"'							"&_
+		"					 	AND ca.cdestado NOT IN ( 12, 7, 14 )) AS Cant				"&_	
+		"		  FROM   (SELECT cd.cdcliente,ca.cdproducto									"&_
+		"				  FROM   dbo.hcamionesdescarga cd								"&_
+		"				  JOIN dbo.hcamiones ca										"&_
+		"					 ON ca.idcamion = cd.idcamion									"&_
+		"				 	 AND ca.dtcontable = cd.dtcontable								"&_
+		"				  WHERE  cd.dtcontable = '"&pMyFecha&"'								"
+        if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL & " and cd.cdcliente = "& pCdCliente
+        strSQL = strSQL &"	 AND (SELECT pc.sqpesada										"&_
+		"						  FROM   dbo.hpesadascamion pc							"&_
+		"						  WHERE  pc.dtcontable = cd.dtcontable						"&_
+		"							 AND pc.idcamion = cd.idcamion							"&_
+		"							 AND pc.cdpesada = 2									"&_
+		"							 AND pc.sqpesada = (SELECT Max(sqpesada)				"&_
+		"												FROM   dbo.hpesadascamion		"&_
+		"												WHERE  dtcontable = pc.dtcontable	"&_
+		"													 AND idcamion = pc.idcamion		"&_
+		"													 AND cdpesada = 2)				"&_
+		"							) > 0													"&_
+		"					 AND ca.cdestado NOT IN ( 12, 7, 14 )) AS T1					"&_
+		"		  LEFT JOIN dbo.clientes c												"&_
+		"			 ON c.cdcliente = T1.cdcliente											"&_
+		"		 LEFT JOIN dbo.productos p												"&_
+		"			 ON p.cdproducto = T1.cdproducto										"&_
+		"  		GROUP  BY t1.cdcliente,c.dscliente,T1.cdproducto,							"&_
+		"		 p.dsproducto) AS t2  GROUP BY t2.cdcliente,t2.dscliente,t2.cdproducto, t2.dsproducto"&_
+        "       ORDER  BY T2.cdcliente, T2.cdproducto	    			"
+'Response.Write strSQL &"<BR>"
+'Response.End
+Call GF_BD_Puertos(ppto, rs, "OPEN", strSQL)
+set ObtenerSQLDescargaCamiones = rs
+End function
+'-------------------------------------------------------------------------------------------
+Function obtenerSQLTransferencia(pMyFecha,pto,pCdCliente)
+Dim strSQL, rs
+strSQL ="			 SELECT T1.*,														"
+'						Recibidos
+strSQL = strSQL &" 			( SELECT Sum(m.vlkilos)										"
+strSQL = strSQL &" 			  FROM dbo.exmovimientos m								"
+strSQL = strSQL &" 			  WHERE  m.dtcontable = '"&pMyFecha&"'						"
+strSQL = strSQL &" 				 AND m.vlkilos <> 0										"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL &" AND m.cdcliente = "& pCdCliente
+strSQL = strSQL &" 				 AND m.cdcliente = T1.cdcliente							"
+strSQL = strSQL &" 				 AND m.cdproducto = T1.cdproducto						"
+strSQL = strSQL &" 				 AND m.cdtransaccion IN( 2, 3, 4, 5,6, 7 )				"
+strSQL = strSQL &"			 ) AS Cant1,												"
+'						Transferidos
+strSQL = strSQL &" 			( SELECT Sum(mv.vlkilos)									"
+strSQL = strSQL &" 			  FROM dbo.exmovimientos mv							"
+strSQL = strSQL &" 			  WHERE  mv.dtcontable = '"& pMyFecha &"'					"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL &" AND mv.cdcliente = "& pCdCliente
+strSQL = strSQL &" 				 AND mv.vlkilos <> 0									"		
+strSQL = strSQL &" 				 AND mv.cdcliente = T1.cdcliente						"
+strSQL = strSQL &" 				 AND mv.cdproducto = T1.cdproducto						"
+strSQL = strSQL &" 				 AND mv.cdtransaccion IN( 102, 103, 104, 105,106, 107 )	"	
+strSQL = strSQL &"			 ) AS Cant2													"
+strSQL = strSQL &" 	  FROM   (SELECT DISTINCT m.cdcliente,								"			
+strSQL = strSQL &" 							  dscliente,								"
+strSQL = strSQL &" 							  m.cdproducto,								"
+strSQL = strSQL &" 						      dsproducto								"
+strSQL = strSQL &" 			  FROM dbo.exmovimientos m								"
+strSQL = strSQL &" 			  LEFT JOIN dbo.clientes c								"
+strSQL = strSQL &"				 ON c.cdcliente = m.cdcliente							"
+strSQL = strSQL &" 			  LEFT JOIN dbo.productos p							"
+strSQL = strSQL &" 				 ON p.cdproducto = m.cdproducto							"
+strSQL = strSQL &" 			  WHERE  m.dtcontable = '"& pMyFecha &"'					"		
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL &" AND m.cdcliente = "& pCdCliente
+strSQL = strSQL &" 					AND m.vlkilos <> 0									"
+strSQL = strSQL &" 					AND ( ( m.cdtransaccion >= 102						"
+strSQL = strSQL &" 							AND m.cdtransaccion <= 107 )				"
+strSQL = strSQL &" 						  OR ( m.cdtransaccion >= 2						"
+strSQL = strSQL &" 							AND m.cdtransaccion <= 7 ) )				"
+strSQL = strSQL &" 			  GROUP  BY m.cdcliente,									"
+strSQL = strSQL &"						dscliente,										"
+strSQL = strSQL &" 						m.cdproducto,									"
+strSQL = strSQL &" 						dsproducto) AS T1 								"		 
+'response.write strSQL
+'response.end
+Call GF_BD_Puertos(pto, rs, "OPEN", strSQL)
+set obtenerSQLTransferencia = rs
+End function
+'--------------------------------------------------------------------------
+Function obtenerSQLOleoducto(pMyFecha,pto,pCdCliente)
+Dim strSQL, rs
+
+strSQL = " 			SELECT  m.cdcliente,					"
+strSQL = strSQL &" 			c.dscliente,					"
+strSQL = strSQL &" 			m.cdproducto,					"
+strSQL = strSQL &" 			p.dsproducto,					"
+strSQL = strSQL &" 			Count(*) AS Cant2,				"
+strSQL = strSQL &" 			Sum(m.vlkilos) AS Cant1			"
+strSQL = strSQL &"  FROM dbo.extransfoleo m			"
+strSQL = strSQL &" 	LEFT JOIN dbo.clientes c			"
+strSQL = strSQL &" 		ON c.cdcliente = m.cdcliente		"
+strSQL = strSQL &" 	LEFT JOIN dbo.productos p			"
+strSQL = strSQL &" 		ON p.cdproducto = m.cdproducto		"
+strSQL = strSQL &" 	WHERE  m.dtcontable = '" & pMyFecha &"' "
+strSQL = strSQL &" 		AND m.vlkilos <> 0					"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL &" AND m.cdcliente = "& pCdCliente
+strSQL = strSQL &" 	GROUP  BY m.cdcliente,					"
+strSQL = strSQL &" 			  c.dscliente,					"
+strSQL = strSQL &" 			  m.cdproducto,					"
+strSQL = strSQL &" 			  p.dsproducto					"
+Call GF_BD_Puertos(pto, rs, "OPEN", strSQL)
+Set obtenerSQLOleoducto = rs
+End function 
+'------------------------------------------------------------------------------------------
+Function obtenerSQLRecargas(pMyFecha,pto,pCdCliente)
+Dim strSQL, rs
+strSQL = strSQL &"	  SELECT   TN.cdproducto,"
+strSQL = strSQL &"			   P.dsproducto, "
+strSQL = strSQL &"			   TN.cdcliente,"
+strSQL = strSQL &"			   C.dscliente,"
+strSQL = strSQL &"			   TN.NETO as Cant1,"
+strSQL = strSQL &"			   TN.cant as Cant2 "               
+strSQL = strSQL &"		FROM("
+strSQL = strSQL &"			SELECT BRUTO.cdproducto,"
+strSQL = strSQL &"				   BRUTO.cdcliente,"
+strSQL = strSQL &"				   ( BRUTO.kilos-tara.kilos ) NETO,"
+strSQL = strSQL &"				   BRUTO.cant  CANT"
+strSQL = strSQL &"			FROM"
+'					 Totaliza Kilos Bruto por Product/Cliente
+strSQL = strSQL &"			(SELECT HC.cdproducto,"
+strSQL = strSQL &"					HCC.cdcliente,"
+strSQL = strSQL &"					Sum(HCP.vlpesada) KILOS,"
+strSQL = strSQL &"					COUNT(*)          CANT"
+strSQL = strSQL &"			FROM   (SELECT *"
+strSQL = strSQL &"					 FROM   hcamiones"
+strSQL = strSQL &"				 WHERE  dtcontable = '" & pMyFecha & "'"
+strSQL = strSQL &"						   AND cdestado NOT IN ( 12, 7, 14 )) HC"
+strSQL = strSQL &"					INNER JOIN hcamionescarga HCC"
+strSQL = strSQL &"							ON HC.dtcontable = HCC.dtcontable"
+strSQL = strSQL &"							   AND HC.idcamion = HCC.idcamion"
+strSQL = strSQL &"					INNER JOIN hpesadascamion HCP"
+strSQL = strSQL &"							ON HC.dtcontable = HCP.dtcontable"
+strSQL = strSQL &"							   AND HC.idcamion = HCP.idcamion"
+strSQL = strSQL &"			WHERE  HCP.sqpesada = (SELECT Max(sqpesada)"
+strSQL = strSQL &"									FROM   hpesadascamion"
+strSQL = strSQL &"									WHERE  dtcontable = HCP.dtcontable"
+strSQL = strSQL &"										   AND idcamion = HCP.idcamion"
+strSQL = strSQL &"										   AND cdpesada = 1)"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL &" and HCC.cdcliente = " & pCdCliente 
+strSQL = strSQL &"			GROUP  BY HC.cdproducto,"
+strSQL = strSQL &"					   HCC.cdcliente) BRUTO"
+strSQL = strSQL &"			INNER JOIN			"
+'					 Totaliza Kilos Tara por Product/Cliente
+strSQL = strSQL &"			(SELECT HC.cdproducto,"
+strSQL = strSQL &"					HCC.cdcliente,"
+strSQL = strSQL &"					Sum(HCP.vlpesada) KILOS"
+strSQL = strSQL &"			FROM   (SELECT *"
+strSQL = strSQL &"					 FROM   hcamiones"
+strSQL = strSQL &"					 WHERE  dtcontable = '" & pMyFecha & "'"
+strSQL = strSQL &"							AND cdestado NOT IN ( 12, 7, 14 )) HC"
+strSQL = strSQL &"					INNER JOIN hcamionescarga HCC"
+strSQL = strSQL &"							ON HC.dtcontable = HCC.dtcontable"
+strSQL = strSQL &"							   AND HC.idcamion = HCC.idcamion"
+strSQL = strSQL &"					INNER JOIN hpesadascamion HCP"
+strSQL = strSQL &"							ON HC.dtcontable = HCP.dtcontable"
+strSQL = strSQL &"							   AND HC.idcamion = HCP.idcamion"
+strSQL = strSQL &"			WHERE  HCP.sqpesada = (SELECT Max(sqpesada)"
+strSQL = strSQL &"									FROM   hpesadascamion"
+strSQL = strSQL &"									WHERE  dtcontable = HCP.dtcontable"
+strSQL = strSQL &"										   AND idcamion = HCP.idcamion"
+strSQL = strSQL &"										   AND cdpesada = 2)"
+if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL &" and HCC.cdcliente = " & pCdCliente 
+strSQL = strSQL &"			GROUP  BY HC.cdproducto,"
+strSQL = strSQL &"					   HCC.cdcliente) TARA"
+strSQL = strSQL &"					ON BRUTO.cdproducto = TARA.cdproducto"
+strSQL = strSQL &"					   AND BRUTO.cdcliente = TARA.cdcliente) as TN"
+strSQL = strSQL &"		INNER JOIN dbo.Clientes C"
+strSQL = strSQL &"			ON C.cdcliente = TN.cdcliente"
+strSQL = strSQL &"		INNER JOIN dbo.productos P	"
+strSQL = strSQL &"			ON P.cdproducto = TN.cdproducto"
+strSQL = strSQL &"		ORDER  BY TN.cdcliente, TN.cdproducto "
+
+'response.write strSQL
+'response.end
+Call GF_BD_Puertos(pto, rs, "OPEN", strSQL)
+Set obtenerSQLRecargas = rs		
+End function
+'---------------------------------------------------------------------------
+Function obtenerSQLAjusteCredDebi(pMyFecha,pto,pcdCliente)
+Dim strSQL, rs
+strSQL ="Select T.cdcliente, T.cdproducto, c.dscliente, p.dsproducto,   " & _
+		"       Sum(Cant1) as Cant1, Sum(Cant2) as Cant2                " & _
+        "FROM															" & _
+		"((SELECT cdcliente,											" & _
+		" 		cdproducto,												" & _
+		" 		vlkilosajuste AS Cant1,									" & _
+		" 		0 AS Cant2												" & _
+		"FROM dbo.excreditosdebitos 								" & _
+		"WHERE  dtcontable = '" & pMyFecha & "'							"
+        if (Cdbl(pcdCliente) <> 0) then strSQL = strSQL & " and cdcliente = "& pcdCliente
+		strSQL = strSQL & " AND vlkilosajuste < 0)									" & _
+		"UNION															" & _
+		"(SELECT cdcliente,												" & _
+		" 		cdproducto,												" & _
+		" 		0 AS Cant1,												" & _
+		" 		vlkilosajuste AS Cant2									" & _
+		"FROM dbo.excreditosdebitos 								" & _
+		"WHERE  dtcontable = '" & pMyFecha & "'							"
+        if (Cdbl(pcdCliente) <> 0) then strSQL = strSQL & " and cdcliente = "& pcdCliente
+		strSQL = strSQL & " AND vlkilosajuste >= 0)) T								" & _
+		"LEFT JOIN dbo.clientes c ON c.cdcliente = T.cdcliente		" & _
+		"LEFT JOIN dbo.productos p ON p.cdproducto = T.cdproducto	" & _
+		"GROUP BY T.cdcliente, T.cdproducto, c.dscliente, p.dsproducto  " & _
+        "ORDER BY T.cdcliente,	T.cdproducto                            "
+'Response.Write strSQL
+'Response.End
+Call GF_BD_Puertos(pto, rs, "OPEN", strSQL)
+Set obtenerSQLAjusteCredDebi = rs			
+End function 
+'---------------------------------------------------------------------------
+Function obtenerSQLAjusteStock(pMyFecha,pto,pcdCliente)
+Dim strSQL, rs
+strSQL =" 			SELECT  a.cdcliente,				"
+strSQL = strSQL &" 			dscliente,					"
+strSQL = strSQL &" 			a.cdproducto,				"
+strSQL = strSQL &" 			dsproducto,					"
+strSQL = strSQL &" 			Sum(a.vlkilos) AS Kilos 	"
+strSQL = strSQL &"  FROM dbo.exajstkopecli a		"
+strSQL = strSQL &" 	LEFT JOIN dbo.clientes c		"
+strSQL = strSQL &" 		ON c.cdcliente = a.cdcliente	"
+strSQL = strSQL &" 	LEFT JOIN dbo.productos p		"
+strSQL = strSQL &" 		ON p.cdproducto = a.cdproducto	"
+strSQL = strSQL &" 	GROUP  BY a.dtcontable,				"
+strSQL = strSQL &" 			  a.cdcliente,				"
+strSQL = strSQL &" 			  dscliente,				"
+strSQL = strSQL &" 			  a.cdproducto,				"			
+strSQL = strSQL &" 			  dsproducto				"
+strSQL = strSQL &" HAVING a.dtcontable = '"&pMyFecha&"'"
+if (Cdbl(pcdCliente) <> 0) then strSQL = strSQL & " and a.cdcliente = "& pcdCliente
+'response.write strSQL
+'response.end
+Call GF_BD_Puertos(pto, rs, "OPEN", strSQL)
+Set obtenerSQLAjusteStock = rs			
+End function
+'---------------------------------------------------------------------------
+Function ArmarColumnaAjusteStock(pMyFecha,ppto,campo,pCdCliente)
+Dim strSQL
+strSQL = "			 SELECT DISTINCT "&campo 
+strSQL = strSQL &" 	 FROM   dbo.exajstkopecli a		"
+strSQL = strSQL &" 	 LEFT JOIN dbo.clientes c			"
+strSQL = strSQL &" 		ON c.cdcliente = a.cdcliente		"
+strSQL = strSQL &" 	 LEFT JOIN dbo.productos p			"
+strSQL = strSQL &" 		ON p.cdproducto = a.cdproducto		"
+strSQL = strSQL &" 	 WHERE a.dtcontable = '"&pMyFecha&"'	"
+if (Cdbl(pCdCliente) <> 0) then  strSQL = strSQL & " and a.cdcliente = "& pCdCliente
+strSQL = strSQL &" 	 GROUP  BY "&campo
+Call GF_BD_Puertos(pto, rs, "OPEN", strSQL)
+Set ArmarColumnaAjusteStock = rs			
+End function
+'---------------------------------------------------------------------------
+Function obtenerSQLEmbarcados(pMyFecha,pto,pcdCliente)
+Dim strSQL, rs, myWhere, myTablaA,myTablaB
+strSQL = strSQL &"	SELECT DISTINCT ce.cdaviso,					"
+strSQL = strSQL &"					ce.cdproducto,				"
+strSQL = strSQL &"                p.dsproducto,					"
+strSQL = strSQL &"                ce.cdcliente,					"
+strSQL = strSQL &"                c.dscliente,					"
+strSQL = strSQL &"                em.cdbuque,					"
+strSQL = strSQL &"                b.dsbuque,					"
+strSQL = strSQL &"                Sum(ce.vlkilos) AS Kilos		"
+strSQL = strSQL &"FROM   dbo.cargasembarque ce				"
+strSQL = strSQL &"       LEFT JOIN dbo.clientes c			"
+strSQL = strSQL &"              ON c.cdcliente = ce.cdcliente	"
+strSQL = strSQL &"       LEFT JOIN dbo.productos p			"
+strSQL = strSQL &"              ON p.cdproducto = ce.cdproducto,"
+strSQL = strSQL &"       dbo.embarques em					"
+strSQL = strSQL &"       LEFT JOIN dbo.buques b			"
+strSQL = strSQL &"              ON b.cdbuque = em.cdbuque		"
+strSQL = strSQL &"WHERE  ce.cdaviso = em.cdaviso				"
+strSQL = strSQL &"       AND ce.dtcarga = '"&pMyFecha&"'		"
+if (Cdbl(pcdCliente) <> 0) then strSQL = strSQL &" AND ce.cdcliente = "& pcdCliente
+strSQL = strSQL &"GROUP  BY ce.cdaviso,							"
+strSQL = strSQL &"          ce.cdproducto,						"
+strSQL = strSQL &"          p.dsproducto,						"
+strSQL = strSQL &"          ce.cdcliente,						"
+strSQL = strSQL &"          c.dscliente,						"
+strSQL = strSQL &"          em.cdbuque,							"
+strSQL = strSQL &"          b.dsbuque							"
+strSQL = strSQL &"	UNION										"	
+strSQL = strSQL &"SELECT DISTINCT ce.cdaviso,					"
+strSQL = strSQL &"                ce.cdproducto,				"
+strSQL = strSQL &"                p.dsproducto,					"
+strSQL = strSQL &"                ce.cdcliente,					"	
+strSQL = strSQL &"                c.dscliente,					"
+strSQL = strSQL &"                em.cdbuque,					"
+strSQL = strSQL &"                b.dsbuque,					"
+strSQL = strSQL &"                Sum(ce.vlkilos) AS Kilos		"
+strSQL = strSQL &"FROM   dbo.hcargasembarque ce			"
+strSQL = strSQL &"       LEFT JOIN dbo.clientes c			"
+strSQL = strSQL &"              ON c.cdcliente = ce.cdcliente	"
+strSQL = strSQL &"       LEFT JOIN dbo.productos p			"
+strSQL = strSQL &"              ON p.cdproducto = ce.cdproducto,"
+strSQL = strSQL &"       dbo.hembarques em					"
+strSQL = strSQL &"       LEFT JOIN dbo.buques b			"
+strSQL = strSQL &"              ON b.cdbuque = em.cdbuque		"
+strSQL = strSQL &"WHERE  ce.dtcontable = em.dtcontable			"
+strSQL = strSQL &"       AND ce.cdaviso = em.cdaviso			"
+strSQL = strSQL &"       AND ce.dtcarga = '"&pMyFecha&"'		"
+if (Cdbl(pcdCliente) <> 0) then strSQL = strSQL &" AND ce.cdcliente = "& pcdCliente
+strSQL = strSQL &"GROUP  BY ce.cdaviso,							"
+strSQL = strSQL &"          ce.cdproducto,						"
+strSQL = strSQL &"          p.dsproducto,						"
+strSQL = strSQL &"          ce.cdcliente,						"
+strSQL = strSQL &"          c.dscliente,						"
+strSQL = strSQL &"          em.cdbuque,							"
+strSQL = strSQL &"          b.dsbuque  							" 
+'response.write strSQL
+'response.end
+Call GF_BD_Puertos(pto, rs, "OPEN", strSQL)
+Set obtenerSQLEmbarcados = rs			
+End function
+'---------------------------------------------------------------------------
+Function obtenerTopeKilos(pCdAviso, pProducto, pcliente, pto)
+	Dim strSQL,rs,rtrn
+	rtrn = 0  
+	strSQL = " Select sum(t.Kilos) as kilos from (select sum(cc.vlkilos) as kilos from dbo.HCoordinadosCoordinadorasEmb cc"
+	strSQL = strSQL & " Where cc.cdaviso = " & pCdAviso
+	strSQL = strSQL & " and cc.cdcoordinado = " & pcliente & " and cc.cdproducto = " & pProducto
+	strSQL = strSQL & " Union "
+	strSQL = strSQL & " select sum(cc.vlkilos) as kilos from dbo.CoordinadosCoordinadorasEmb cc"
+	strSQL = strSQL & " Where cc.cdaviso = " & pCdAviso   
+	strSQL = strSQL & " and cc.cdcoordinado = " & pcliente & " and cc.cdproducto = " & pProducto
+	strSQL = strSQL & " and cc.cdaviso not in (select cdaviso from dbo.HCoordinadosCoordinadorasEmb "
+	strSQL = strSQL & " Where cdaviso = cc.cdaviso And cdempresacoordinadora = cc.cdempresacoordinadora  "
+	strSQL = strSQL & " and cdcoordinado = cc.cdcoordinado and cdProducto = cc.cdproducto)) as t"
+
+	Call GF_BD_Puertos(pto, rs, "OPEN", strSQL)
+	if not isNull(rs("Kilos")) then rtrn = rs("Kilos")	
+	obtenerTopeKilos = CDbl(rtrn)
+End function
+'--------------------------------------------------------------------------
+Function obtenerKilosAcumulados(cdAviso, pProducto, pto, pCodCliente, pFecha)
+	Dim strSQL,rs,rtrn,campoAnioMesDia,campoDiaMes,campoMes,campoDia,v_diferencia
+	rtrn = 0 
+	
+	strSQL = "Select sum(t.Kilos) as KILOS from "
+	strSQL = strSQL & " (select sum(ce.vlkilos) as kilos from dbo.HCargasEmbarque ce "
+	strSQL = strSQL & " Where ce.cdaviso = " & cdAviso & " And ce.cdproducto = " & pProducto
+	strSQL = strSQL & " and ce.cdcliente = " & pCodCliente
+	strSQL = strSQL & " and ce.dtcarga between '2000-01-01' and '" & pFecha & "'"
+	strSQL = strSQL & " Union "
+	strSQL = strSQL & " select sum(ce.vlkilos) as kilos from dbo.CargasEmbarque ce"
+	strSQL = strSQL & " Where ce.cdaviso = " & cdAviso & " And ce.cdproducto = " & pProducto
+	strSQL = strSQL & " and ce.cdcliente = " & pCodCliente
+	strSQL = strSQL & " and ce.dtcarga between '2000-01-01' and '" & pFecha & "'"
+	strSQL = strSQL & " and ce.cdaviso not in (select cdaviso from dbo.HCargasEmbarque "
+	strSQL = strSQL & " Where cdaviso  = ce.cdaviso And cdproducto = ce.cdproducto "
+	strSQL = strSQL & " and cdempresa = ce.cdempresa and cdcliente = ce.cdcliente)) as t"	
+	Call GF_BD_Puertos(pto, rs, "OPEN", strSQL)
+
+	if not isNull(rs("KILOS")) then rtrn = rs("KILOS")	
+	
+	obtenerKilosAcumulados = CDbl(rtrn)
+End function
+'--------------------------------------------------------------------------
+Function armarSeccionDescargas(pto, rsDatos, rsColumnas, rsFilas, fecha, titulo, col1, col2)		
+	Dim vectCol, vecTotalesCant1, vecTotalesCant2, z
+	%>
+	<table>
+		<tr>
+			<td  colspan="3" class="xls_align_left"><% =titulo %></td>
+		</tr>
+	</table>
+	<table style="width:150%; font-size:9;" class="xls_border_left" >	
+		<tr style="background-color:#BABABA;" whidt="200%">			
+			<td width="40px" colspan="1" rowSpan="2" class="xls_align_center">CLIENTE</td>
+			<% 
+			z =0			 
+			if (not rsColumnas.eof) then 
+				Redim vectCol(rsColumnas.recordcount)
+				Redim  vecTotalesCant1(rsColumnas.recordcount)
+				Redim  vecTotalesCant2(rsColumnas.recordcount)				
+			end if
+			while(not rsColumnas.eof)%>
+				<td  colspan="2" class="xls_align_center"><%=rsColumnas("dsproducto")%></td>
+				<%  vectCol(z)= rsColumnas("cdproducto")
+					z = z + 1
+					rsColumnas.movenext
+			wend
+			  %>
+		</tr>		
+		<tr>
+		<%
+			rsColumnas.MoveFirst()
+			while(not rsColumnas.eof)%>
+		
+			<td  class="xls_align_center"><% =col1 %></td>
+			<td  class="xls_align_center"><% =col2 %></td>	
+		<%
+				rsColumnas.MoveNext()
+			wend	%>
+		</tr>	    			
+	<%		
+			while(not rsFilas.eof)%>
+			<tr>			
+				<td  align="left"><%=rsFilas("cdcliente") & " - " & rsFilas("dscliente")%></td>
+				<%					 
+				 seguir= true	
+				 i = 0
+				 'Recorro las descargas mientras el cliente sea el indicado por la fila en proceso.
+				 while((not rsDatos.eof) and seguir)
+					'Si es el cliente y es el producto, muestro los kilos y sumo para el total de la columna.
+					if(cdbl(rsFilas("cdcliente")) = cdbl(rsDatos("cdcliente")))then 				
+						if (cdbl(vectCol(i)) = cdbl(rsDatos("cdproducto")))then%>
+							<td align="right" >
+							<%if not isNull(rsDatos("Cant1")) then 
+								response.write cdbl(rsDatos("Cant1"))
+								vecTotalesCant1(i) = cdbl(vecTotalesCant1(i)) + cdbl(rsDatos("Cant1"))
+							  end if	
+							%>	
+							</td>
+							<td align="right" >
+							<%if not isNull(rsDatos("Cant2")) then 
+								response.write cdbl(rsDatos("Cant2"))
+								vecTotalesCant2(i) = cdbl(vecTotalesCant2(i)) + cdbl(rsDatos("Cant2"))							
+							  end if			
+							%>
+							</td>	
+							<%rsDatos.MoveNext()
+							i = i + 1
+						else	
+							'Si el producto no coincide, solo queda que el producto en la tabla de descargas sea 
+							'mayor al de la columna dado que NUNCA puede ocurrir que un cliente tenga descrgas de un producto sin columna.					
+							%>
+							<td align="right" ></td>
+							<td align="right" ></td>
+							<%
+							i = i+1	
+							'No deberia ser necesario dado que siempre los clientes tienen al menos una descarga para mostrar, pero por seguridad se agrega el control.
+							if (i > UBound(vectCol)) then	seguir = false
+						end if
+					else					
+						seguir = false
+					end if					
+				wend
+				rsFilas.MoveNext()	%>
+			</tr>				
+<%			 wend%>		     
+			 <tr style="background-color:#EDEDED; " class="xls_align_center">
+				<td colspan="1" class="xls_align_center">TOTAL</td>														
+			<%for i = LBound(vecTotalesCant1) to UBound(vecTotalesCant1)-1 %>
+				<td class="xls_align_right"><%=vecTotalesCant1(i)%></td>
+				<td class="xls_align_right"><%=vecTotalesCant2(i)%></td>
+			<%next%>	
+			</tr>
+		</table>
+	<br><br><br>
+	<%
+End Function
+'--------------------------------------------------------------------------
+Function armarSaldos(pto, rsDatos, fecha, pCdCliente)
+	Dim vectCol, vecTotalesProducto, vecCamionesProducto, z
+%>
+<table style="width:150%; font-size:9;" class="xls_border_left" >
+	<tr style="background-color:#BABABA;" whidt="200%">			 
+		 <td whidt="40px" colspan="1" class="xls_align_center">CLIENTE</td>				 
+		 <% 		
+			z =0
+			Set rsColumnas = armarColumnasProductos(fecha, pto, pCdCliente)
+			if (not rsColumnas.eof) then
+				Redim vectCol(rsColumnas.recordcount)
+				Redim  vecTotalesProducto(rsColumnas.recordcount)
+			end if
+			while(not rsColumnas.eof)%>
+				<td  colspan="1" class="xls_align_center"><%=rsColumnas("dsproducto")%></td>
+				<%  vectCol(z)= rsColumnas("cdproducto")
+					z = z + 1
+					rsColumnas.movenext
+			wend
+		%>
+	</tr>		
+	    <%
+		Set rsFilas = armarFilasClientes(fecha,pto,pCdCliente)
+		while(not rsFilas.eof)%>
+			<tr>			
+				<td  align="left"><%=rsFilas("cdcliente") & " - " & rsFilas("dscliente")%></td>
+				<%					 
+				 seguir= true	
+				 i = 0
+				 'Recorro las descargas mientras el cliente sea el indicado por la fila en proceso.
+				 while((not rsDatos.eof) and seguir)
+					'Si es el cliente y es el producto, muestro los kilos y sumo para el total de la columna.
+					if(cdbl(rsFilas("cdcliente")) = cdbl(rsDatos("cdcliente")))then 				
+						if (cdbl(vectCol(i)) = cdbl(rsDatos("cdproducto")))then%>
+							<td align="right" ><%=cdbl(rsDatos("Kilos"))%></td>
+							<%
+							vecTotalesProducto(i) = cdbl(vecTotalesProducto(i)) + cdbl(rsDatos("Kilos"))
+							rsDatos.MoveNext()
+							i = i+1
+						else	
+							'Si el producto no coincide, solo queda que el producto en la tabla de descargas sea 
+							'mayor al de la columna dado que NUNCA puede ocurrir que un cliente tenga descrgas de un producto sin columna.					
+							%>
+							<td align="right" ></td>
+							<%
+							i = i+1	
+							'No deberia ser necesario dado que siempre los clientes tienen al menos una descarga para mostrar, pero por seguridad se agrega el control.
+							if (i > UBound(vectCol)) then	seguir = false
+						end if
+					else					
+						seguir = false
+					end if					
+				wend
+				rsFilas.MoveNext()	%>
+			</tr>				
+<%			 wend%>		
+			<tr style="background-color:#EDEDED; " class="xls_align_center">
+				<td colspan="1" class="xls_align_center">TOTAL</td>														
+			<%for i = LBound(vecTotalesProducto) to UBound(vecTotalesProducto)-1 %>
+				<td class="xls_align_right"><%=vecTotalesProducto(i)%></td>
+			<%next%>	
+			</tr>     
+	</table>
+	<br><br><br>
+<%
+End Function
+'-----------------------------------------------------------------------------------------------------------------------------
+Function obtenerFechaInicial(pMyFecha,pto,pCdCliente)
+    Dim strSQL,rs
+    strSQL = "Select ((Year(T.DTCONTABLE) * 10000) + (Month(T.DTCONTABLE) * 100) + Day(T.DTCONTABLE)) AS FECHA "&_
+             "from ( Select MAX(DTCONTABLE) AS DTCONTABLE from dbo.excuentcorrientes where DTCONTABLE < '"& pMyFecha &"'"
+    if (Cdbl(pCdCliente) <> 0) then strSQL = strSQL & " and CDCLIENTE = "& pCdCliente
+    strSQL = strSQL & " ) T"
+    
+    Call GF_BD_Puertos(pto, rs, "OPEN", strSQL)
+    if (not rs.Eof) then obtenerFechaInicial = rs("FECHA")
+End function
+'/********************************************************************\
+' **********                 COMIENZA PAGINA                 *********
+'\********************************************************************/
+Dim pto,myWhere, strSQL, db2FechaMenos,db2FechaActual,fecActualD,fecActualM,fecActualA
+Dim fecMenosD,fecMenosM,fecMenosA,fname,MyFecha,i,sumKilosEstimado,myCargaSaldo,cont
+Dim vecProducto(),vecProductoTransferencia(),myCargaEstimada,myCargaAcumulada,mySaldoCarga
+Dim sumKilosEtimado,sumKilosDia,sumKilosAcumulado,sumKilosSaldo,v_productoOld, v_cdavisoOld
+Dim sValue, rsColumnas,contadorColumnas,producto_old,FechaFormalA,FechaFormalM, MyFechaMenos,cdCliente
+
+sumKilosDia = 0
+sumKilosSaldo = 0
+sumKilosAcumulado = 0
+sumKilosEstimado = 0
+
+pto = GF_PARAMETROS7("pto", "", 6)
+fecActualD = GF_PARAMETROS7("fecActualD", "", 6)
+fecActualM = GF_PARAMETROS7("fecActualM", "", 6)
+fecActualA = GF_PARAMETROS7("fecActualA", "", 6)
+cdCliente = GF_PARAMETROS7("cdCliente", 0, 6)
+
+g_strPuerto = pto
+Call GF_STANDARIZAR_FECHA(fecActualD, fecActualM, fecActualA)
+
+db2FechaActual = fecActualA & fecActualM & fecActualD
+fechaActual = fecActualA &"-"& fecActualM &"-"& fecActualD
+
+db2FechaMenos = obtenerFechaInicial(fechaActual, pto, cdCliente)
+fecMenosD = Right(db2FechaMenos, 2)
+fecMenosM = Mid(db2FechaMenos, 5, 2)
+fecMenosA = Left(db2FechaMenos, 4)
+fechaMenos  = fecMenosA &"-"& fecMenosM &"-"& fecMenosD
+
+fname = "Terminal_" & pto & "_" & db2FechaActual
+Call GF_createXLS(fname)
+
+
+%>
+<html>
+<head>
+	<style type="text/css">
+		.xls_border_left { 
+			border-color:#666666; 
+			border-style:solid; 
+			border-width:thin;
+		}
+		.xls_align_center { 
+			border-color:#666666; 
+			border-style:solid; 
+			border-width:thin;
+			text-align: center;
+		}
+		.xls_align_right { 
+			border-color:#666666; 
+			border-style:solid; 
+			border-width:thin;
+			text-align: right;
+		}
+		.xls_precioUC_tablaArticulos
+		{
+			BACKGROUND-COLOR: #ffff80;
+			border-color:#666666; 
+			border-style:solid; 
+			border-width:thin;
+
+		}
+		</style>
+	</head>
+	<body>
+	<table class="xls_border_left" style="background-color:#EDEDED; font-weight:bold">
+		<tr>
+			<td><% response.write "ACTI AR"%></td>
+			<td></td>
+			<td></td>			
+		</tr>
+		<tr>
+			<td><% response.write "PTO:"& pto%></td>
+			<td align="right" colspan="3"><% response.write "Fecha : " & GF_FN2DTE(session("MmtoSistema")) %></td>
+		</tr>
+	</table>
+	<br><br>
+<%'------------------------------------INICIO----------------------------------------------------
+Set rsSalIni = ObtenerSQLSaldoInicial(fechaMenos, pto, cdCliente)
+if(not rsSalIni.eof)then
+%>
+	<table >
+		<tr>
+			<td colspan="3"><% response.write "Movimiento de la Terminal del "& GF_FN2DTE(db2FechaActual)%></td>		
+		</tr>	
+		<tr>	
+			<td whidt="40px" colspan="3" class="xls_align_left">Posicion del <%=GF_FN2DTE(db2FechaActual)%> 00:00 Horas</td>
+		</tr>	
+	</table>	
+<%
+	Call armarSaldos(pto, rsSalIni, fechaMenos, cdCliente)
+end if
+'---------------------------------------DESCARGA CAMIONES-----------------------------------------------
+Set rsCamDes  = ObtenerSQLDescargaCamiones(fechaActual, pto, cdCliente)
+if(not rsCamDes.eof)then
+	Set rsColumnas	= armarColumnaClientesCamiones(fechaActual,pto,"TF.cdproducto,dsproducto,TF.dtcontable",cdCliente)
+	Set rsFilas		= armarColumnaClientesCamiones(fechaActual,pto, "TF.cdcliente,dscliente,TF.dtcontable",cdCliente)
+	Call armarSeccionDescargas(pto, rsCamDes, rsColumnas, rsFilas, FechaFormalA, "Descargas de Camiones del " & GF_FN2DTE(db2FechaActual), "Kilos", "Camiones")
+end if
+'-------------------------------DESCARGA VAGONES-------------------------------------------------------
+Set rsVagDes  = ObtenerSQLDescargaVagones(fechaActual, pto, cdCliente)
+if(not rsVagDes.eof)then
+	Set rsColumnas	= ArmarColumnasVagones(fechaActual,pto, "T1.cdproducto, p.dsproducto",cdCliente)
+	Set rsFilas		= ArmarColumnasVagones(fechaActual,pto," T1.cdcliente, c.dscliente ",cdCliente)
+	Call armarSeccionDescargas(pto, rsVagDes, rsColumnas, rsFilas, FechaFormalA, "Descargas de Vagones del " & GF_FN2DTE(db2FechaActual), "Kilos", "Vagones")
+end if
+'------------------------------------DESCARGA OLEODUCTO-----------------------------------------------
+Set rsOleo = obtenerSQLOleoducto(fechaActual,pto, cdCliente)
+if(not rsOleo.eof)then
+	Set rsColumnas	= ArmarColumnaOleoducto(fechaActual,pto," m.cdproducto, p.dsproducto ",cdCliente)
+	Set rsFilas		= ArmarColumnaOleoducto(fechaActual,pto," m.cdcliente, c.dscliente ",cdCliente)
+	Call armarSeccionDescargas(pto, rsOleo, rsColumnas, rsFilas, FechaFormalA, "Oleoductos del " & GF_FN2DTE(db2FechaActual), "Kilos", "Cantidad")
+end if
+'----------------------------------EMBARCADOS----------------------------------------------
+set rsBuques = obtenerSQLEmbarcados(fechaActual,pto,cdCliente)
+if not rsBuques.eof then 	
+	
+	While (not rsBuques.eof) 	
+		cdavisoOld = rsBuques("cdaviso")	
+		sumTotalKilosDia = 0
+		sumTotalKilosSaldo = 0
+		sumTotalKilosAcumulado = 0
+		sumTotalKilosEstimado = 0
+%>
+		<table>
+			<tr>
+				<td  colspan="3" class="xls_align_left"><%="Buque: "&rsBuques("cdbuque")&"-"&rsBuques("dsbuque")%></td>
+			</tr>
+		</table>
+		<table class="xls_border_left" style="width:100%; font-size:9;" >		
+			<tr style="background-color:#BABABA; ">				
+				<td width="40%" colspan="1" class="xls_align_center">PRODUCTO</td>
+				<td width="40%" colspan="1" class="xls_align_center">CLIENTE</td>
+				<td width="10%" colspan="1" class="xls_align_center">CARGA ESTIMADA</td>			
+				<td width="10%" colspan="1" class="xls_align_center">CARGA DIA</td>			
+				<td width="10%" colspan="1" class="xls_align_center">CARGA ACUMULADA</td>									
+				<td width="10%" colspan="1" class="xls_align_center">SALDO CARGA</td>
+			</tr>			
+<%		cdavisoAct = cdavisoOld
+		while ((not rsBuques.eof) and (cdavisoOld = cdavisoAct))
+			productoOld = rsBuques("cdproducto")
+			sumProductoKilosDia = 0
+			sumProductoKilosSaldo = 0
+			sumProductoKilosAcumulado = 0
+			sumProductoKilosEstimado = 0
+%>
+			<tr><td><% =rsBuques("cdproducto") & "-" & rsBuques("dsproducto") %></td></tr>				
+<%			productoAct = productoOld
+			while ((not rsBuques.eof) and (cdavisoOld = cdavisoAct) and (productoOld = productoAct))	%>
+				<tr>	
+					<td></td>
+					<td width="40%" colspan="1" align="left"><%=rsBuques("cdcliente")&"-"&rsBuques("dscliente")%></td>
+					<% myCargaEstimada = obtenerTopeKilos(rsBuques("cdaviso"),rsBuques("cdproducto"),rsBuques("cdcliente"),pto)%>
+					<td width="10%" colspan="1" align="right"><%=myCargaEstimada%></td>					
+					<%  myCargaDia = CDbl(rsBuques("kilos"))
+						if  (isNull(rsBuques("kilos"))) then myCargaDia=0	%>
+					<td width="10%" colspan="1" align="right"><%=myCargaDia%></td>
+					<% myCargaAcumulada = obtenerKilosAcumulados(rsBuques("cdaviso"),rsBuques("cdproducto"),pto,rsBuques("cdcliente"), db2FechaActual)%>
+					<td width="10%" colspan="1" align="right"><%=myCargaAcumulada%></td>
+					<% myCargaSaldo = myCargaEstimada - myCargaAcumulada %>
+					<td width="10%" colspan="1" align="right"><%=myCargaSaldo%></td>
+				</tr>
+<%				sumProductoKilosEstimado	= sumProductoKilosEstimado + myCargaEstimada
+				sumProductoKilosDia			= sumProductoKilosDia +	myCargaDia			 
+				sumProductoKilosAcumulado	= sumProductoKilosAcumulado	+ myCargaAcumulada
+				sumProductoKilosSaldo		= sumProductoKilosSaldo + myCargaSaldo
+				rsBuques.MoveNext()
+				if (not rsBuques.eof) then
+					cdavisoAct = rsBuques("cdaviso")
+					productoAct = rsBuques("cdproducto")
+				end if
+			wend	
+			'Sumo los totales generales del buque
+			sumTotalKilosEstimado	= sumTotalKilosEstimado + sumProductoKilosEstimado
+			sumTotalKilosDia		= sumTotalKilosDia + sumProductoKilosDia			 
+			sumTotalKilosAcumulado	= sumTotalKilosAcumulado + sumProductoKilosAcumulado
+			sumTotalKilosSaldo		= sumTotalKilosSaldo + sumProductoKilosSaldo
+				
+			%>
+			<tr style="background-color:#EDEDED;" class="xls_align_center">
+				<td></td>
+				<td style="background-color:#EDEDED; " class="xls_align_center">Subtotal</td>				
+				<td class="xls_align_right"><%=sumProductoKilosEstimado%></td>
+				<td class="xls_align_right"><%=sumProductoKilosDia%></td>
+				<td class="xls_align_right"><%=sumProductoKilosAcumulado%></td>
+				<td class="xls_align_right"><%=sumProductoKilosSaldo%></td>
+			</tr>	
+<%		wend	%>
+		<tr><td colspan="6"></td></tr>
+		<tr style="background-color:#EDEDED;" class="xls_align_center">
+			<td colspan="2" width="40%" style="background-color:#EDEDED; " class="xls_align_center">TOTAL</td>				
+			<td width="10%" class="xls_align_right"><%=sumTotalKilosEstimado%></td>
+			<td width="10%" class="xls_align_right"><%=sumTotalKilosDia%></td>
+			<td width="10%" class="xls_align_right"><%=sumTotalKilosAcumulado%></td>
+			<td width="10%" class="xls_align_right"><%=sumTotalKilosSaldo%></td>
+		</tr>	
+</table>
+<br>		
+<%	wend	
+end if
+'-----------------------------------------TRANSFERENCIA------------------------------------------
+set rsTransf = obtenerSQLTransferencia(fechaActual,pto,cdCliente) 
+if(not rsTransf.eof)then
+	Set rsColumnas	= ArmarColumnaTransferencia(fechaActual,pto,"m.cdproducto, dsproducto",cdCliente)
+	Set rsFilas		= ArmarColumnaTransferencia(fechaActual, pto, "m.cdcliente, dscliente",cdCliente)
+	Call armarSeccionDescargas(pto, rsTransf, rsColumnas, rsFilas, FechaFormalA, "Transferencias del " & GF_FN2DTE(db2FechaActual), "Recibidos", "Transferidos")
+end if
+'---------------------------------------------RECARGAS-------------------------------------------
+Set rsCamRec  = obtenerSQLRecargas(fechaActual, pto,cdCliente)
+if(not rsCamRec.eof)then
+	Set rsColumnas	= ArmarColumnaRecargas(fechaActual,pto,"T2.cdproducto, T2.dsproducto",cdCliente)
+	Set rsFilas		= ArmarColumnaRecargas(fechaActual, pto, "T2.cdcliente, T2.dscliente",cdCliente)
+	Call armarSeccionDescargas(pto, rsCamRec, rsColumnas, rsFilas, FechaFormalA, "Recargas de Camiones del " & GF_FN2DTE(db2FechaActual), "Kilos", "Camiones")
+end if
+'---------------------------------AJUSTES CREDITOS DEBITOS-------------------------------
+set rsCtoDto = obtenerSQLAjusteCredDebi(fechaActual, pto, cdCliente)
+if(not rsCtoDto.eof)then
+	Set rsColumnas	= ArmarColumnaAjustes(fechaActual,pto," cd.cdproducto,p.dsproducto ",cdCliente)
+	Set rsFilas		= ArmarColumnaAjustes(fechaActual,pto," cd.cdcliente,c.dscliente ",cdCliente	)
+	Call armarSeccionDescargas(pto, rsCtoDto, rsColumnas, rsFilas, FechaFormalA, "Ajustes Creditos Debitos del " & GF_FN2DTE(db2FechaActual), "Debito", "Credito")
+end if
+'----------------------------AJUSTE STOCK------------------------------------------------------
+set rsAjuStock = obtenerSQLAjusteStock(fechaActual, pto,cdCliente)
+if(not rsAjuStock.eof)then
+%>
+<table>
+	<tr>	
+		<td colspan="2" class="xls_align_left">Ajustes de Stock del <%=GF_FN2DTE(db2FechaActual)%></td>
+	</tr>	
+</table>
+<table style="width:80%; font-size:9;" class="xls_border_left" >
+	<tr style="background-color:#BABABA;" whidt="200%">			 
+		 <td whidt="60px" colspan="1" class="xls_align_center">CLIENTE</td>				 
+		 <% 		
+			z =0
+			filtroProducto = " a.cdproducto,dsproducto "
+			filtroCliente =  " a.cdcliente,dscliente "
+			Set rsColumnas = ArmarColumnaAjusteStock(fechaActual,pto,filtroProducto,cdCliente)
+			if (not rsColumnas.eof) then
+				Redim vectCol(rsColumnas.recordcount)
+				Redim  vecTotalesProducto(rsColumnas.recordcount)
+			end if
+			while(not rsColumnas.eof)%>
+				<td  colspan="1" class="xls_align_center"><%=rsColumnas("dsproducto")%></td>
+				<%  vectCol(z)= rsColumnas("cdproducto")
+					z = z + 1
+					rsColumnas.movenext
+			wend
+		%>
+	</tr>		
+	    <%
+		Set rsFilas = ArmarColumnaAjusteStock(fechaActual,pto,filtroCliente,cdCliente)		
+		while(not rsFilas.eof)%>
+			<tr>			
+				<td  align="left"><%=rsFilas("cdcliente") & " - " & rsFilas("dscliente")%></td>
+				<%					 
+				 seguir= true	
+				 i = 0				 
+				 while((not rsAjuStock.eof) and seguir)					
+					if(cdbl(rsFilas("cdcliente")) = cdbl(rsAjuStock("cdcliente")))then 				
+						if (cdbl(vectCol(i)) = cdbl(rsAjuStock("cdproducto")))then%>
+							<td align="right" ><%=cdbl(rsAjuStock("Kilos"))%></td>
+							<%
+							vecTotalesProducto(i) = cdbl(vecTotalesProducto(i)) + cdbl(rsAjuStock("Kilos"))
+							rsAjuStock.MoveNext()
+							i = i+1
+						else								
+							%>
+							<td align="right" ></td>
+							<%
+							i = i+1								
+							if (i > UBound(vectCol)) then	seguir = false
+						end if
+					else					
+						seguir = false
+					end if					
+				wend
+				rsFilas.MoveNext()	%>
+			</tr>				
+		<% wend%>		
+			<tr style="background-color:#EDEDED; " class="xls_align_center">
+				<td colspan="1" class="xls_align_center">TOTAL</td>														
+			<%for i = LBound(vecTotalesProducto) to UBound(vecTotalesProducto)-1 %>
+				<td class="xls_align_right"><%=vecTotalesProducto(i)%></td>
+			<%next%>	
+			</tr>     
+	</table>
+<br><br><br>
+<%
+end if
+'---------------------------- SALDO FINAL------------------------------------------------------
+Set rsSalIni = ObtenerSQLSaldoInicial(fechaActual, pto, cdCliente)
+if(not rsSalIni.eof)then
+%>
+<table>
+	<tr>	
+		<td colspan="2" class="xls_align_left">Posicion del <%=GF_FN2DTE(db2FechaActual)%> 24:00 Horas</td>
+	</tr>	
+</table>	
+<%
+	Call armarSaldos(pto, rsSalIni, fechaActual, cdCliente)
+%>
+
+<%end if%>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<html>
+<head>
+<style type='text/css'>
+.xls_border_left {border-color:#666666;border-style:solid;border-width:thin;}
+.xls_align_center {border-color:#666666;border-style:solid; border-width:thin;text-align: center;}
+.xls_align_right { border-color:#666666; border-style:solid; border-width:thin;text-align: right;}
+.xls_precioUC_tablaArticulos{BACKGROUND-COLOR: #ffff80;border-color:#666666; border-style:solid; border-width:thin;}
+</style> </head>
+<body>
+<table class=xls_border_left style=background-color:#EDEDED; font-weight:bold>
+ <tr>
+     <td>ACTI AR</td>
+     <td></td><td></td>
+ </tr>
+ <tr>
+ <td>PTO:Terminal Arroyo</td>
+ <td align=right colspan=3>Fecha : 27/03/2018 12:10:02</td>
+ </tr></table><br><br>
+<table > <tr> <td colspan=3>Movimiento de la Terminal del 26/03/2018</td> </tr>	
+     <tr><td whidt=40px colspan=3 class=xls_align_left>Posicion del 26/03/2018 00:00 Horas</td></tr> 
+</table> 
+<table style='width:150%; font-size:9;' class='xls_border_left'>
+<tr style='background-color:#BABABA;' whidt='200%'>
+<td whidt='40px' colspan='1' class='xls_align_center'>CLIENTE</td>
+<td  colspan='1' class='xls_align_center'>TRIGO PAN                               </td>
+<td  colspan='1' class='xls_align_center'>MAIZ                                    </td>
+<td  colspan='1' class='xls_align_center'>SORGO GRANIFERO COLORADO                </td>
+<td  colspan='1' class='xls_align_center'>SOJA                                    </td>
+<td  colspan='1' class='xls_align_center'>CEBADA FORRAJERA                        </td>
+</tr>
+<tr><td align='left'>1 - ADM AGRO S.R.L.                         </td>
+<td align='right' >-1296101</td>
+<td align='right' >-2813832</td>
+<td align='right' >1428737</td>
+<td align='right' >560650</td>
+<td align='right' >-5409073</td>
+</tr>
+<tr><td align='left'>4 - CARGILL S.A.                            </td>
+<td align='right' ></td>
+<td align='right' >28691</td>
+</tr>
+<tr><td align='left'>6 - A.C.A. CL                               </td>
+<td align='right' >-21252778</td>
+<td align='right' >210024</td>
+</tr>
+<tr><td align='left'>11 - LDC ARGENTINA SA                        </td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' >119169</td>
+</tr>
+<tr><td align='left'>22 - GEAR S.A.A.I.C.F.E.I.                   </td>
+<td align='right' ></td>
+<td align='right' >27722</td>
+<td align='right' ></td>
+<td align='right' >38762</td>
+</tr>
+<tr><td align='left'>24 - A.F.A.                                  </td>
+<td align='right' ></td>
+<td align='right' >4621497</td>
+<td align='right' ></td>
+<td align='right' >-102862</td>
+</tr>
+<tr><td align='left'>25 - ADM ARGENTINA S.A.                      </td>
+<td align='right' >34669016</td>
+<td align='right' >92280431</td>
+<td align='right' >-4974601</td>
+<td align='right' >-906486</td>
+<td align='right' >6072781</td>
+</tr>
+<tr><td align='left'>31 - MOLINOS CAÑUELAS SACIFIA                </td>
+<td align='right' ></td>
+<td align='right' >9509453</td>
+<td align='right' >3545864</td>
+</tr>
+<tr><td align='left'>53 - COFCO ARGENTINA SOCIEDAD ANONIMA        </td>
+<td align='right' ></td>
+<td align='right' >-8370333</td>
+</tr>
+<tr><td align='left'>101 - OLEAGINOSA MORENO HNOS S A C I F I A    </td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' >290767</td>
+</tr>
+<tr><td align='left'>111 - MOLINOS AGRO S.A.                       </td>
+<td align='right' ></td>
+<td align='right' >30829</td>
+</tr>
+<tr><td align='left'>1000 - COFCO INTERNATIONAL ARGENTINA S.A       </td>
+<td align='right' ></td>
+<td align='right' >12061393</td>
+</tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+<td colspan='1' class='xls_align_center'>TOTAL</td>
+<td class='xls_align_right'>12120137</td>
+<td class='xls_align_right'>107585875</td>
+<td class='xls_align_right'>0</td>
+<td class='xls_align_right'>0</td>
+<td class='xls_align_right'>663708</td>
+</tr></table><br><br><br>
+<table> <tr> <td  colspan='3' class='xls_align_left'>Descargas de Camiones del 26/03/2018</td> </tr> </table>
+<table style='width:150%; font-size:9;' class='xls_border_left' >
+ <tr style='background-color:#BABABA;' whidt='200%'>
+     <td width='40px' colspan='1' rowSpan='2' class='xls_align_center'>CLIENTE</td>
+<td  colspan='2' class='xls_align_center'>TRIGO PAN                               </td>
+<td  colspan='2' class='xls_align_center'>MAIZ                                    </td>
+</tr>
+<tr>
+<td class='xls_align_center'>Kilos</td>
+<td  class='xls_align_center'>Camiones</td>
+<td class='xls_align_center'>Kilos</td>
+<td  class='xls_align_center'>Camiones</td>
+</tr>
+<tr><td align='left'>1 - ADM AGRO S.R.L.                         </td>
+<td align='right'>
+91020
+</td>
+<td align='right'>
+3
+</td>
+<td align='right'>
+19832033
+</td>
+<td align='right'>
+663
+</td>
+</tr>
+<tr><td align='left'>6 - A.C.A. CL                               </td>
+<td align='right'>
+1080360
+</td>
+<td align='right'>
+36
+</td>
+</tr>
+<tr><td align='left'>24 - A.F.A.                                  </td>
+<td align='right'></td>
+<td align='right' ></td>
+<td align='right'>
+594340
+</td>
+<td align='right'>
+20
+</td>
+</tr>
+<tr><td align='left'>31 - MOLINOS CAÑUELAS SACIFIA                </td>
+<td align='right'></td>
+<td align='right' ></td>
+<td align='right'>
+419012
+</td>
+<td align='right'>
+14
+</td>
+</tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+<td colspan='1' class='xls_align_center'>TOTAL</td>
+<td class='xls_align_right'>1171380</td>
+<td class='xls_align_right'>39</td>
+<td class='xls_align_right'>20845385</td>
+<td class='xls_align_right'>697</td>
+</tr>
+</table><br><br><br>
+<table> <tr> <td  colspan='3' class='xls_align_left'>Ajustes Creditos Debitos del 26/03/2018</td> </tr> </table>
+<table style='width:150%; font-size:9;' class='xls_border_left' >
+ <tr style='background-color:#BABABA;' whidt='200%'>
+     <td width='40px' colspan='1' rowSpan='2' class='xls_align_center'>CLIENTE</td>
+<td  colspan='2' class='xls_align_center'>TRIGO PAN                               </td>
+<td  colspan='2' class='xls_align_center'>MAIZ                                    </td>
+</tr>
+<tr>
+<td class='xls_align_center'>Debito</td>
+<td  class='xls_align_center'>Credito</td>
+<td class='xls_align_center'>Debito</td>
+<td  class='xls_align_center'>Credito</td>
+</tr>
+<tr><td align='left'>6 - A.C.A. CL                               </td>
+<td align='right'>
+-1081
+</td>
+<td align='right'>
+0
+</td>
+</tr>
+<tr><td align='left'>31 - MOLINOS CAÑUELAS SACIFIA                </td>
+<td align='right'></td>
+<td align='right' ></td>
+<td align='right'>
+-420
+</td>
+<td align='right'>
+0
+</td>
+</tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+<td colspan='1' class='xls_align_center'>TOTAL</td>
+<td class='xls_align_right'>-1081</td>
+<td class='xls_align_right'>0</td>
+<td class='xls_align_right'>-420</td>
+<td class='xls_align_right'>0</td>
+</tr>
+</table><br><br><br>
+<table><tr><td colspan='2' class='xls_align_left'>Posicion del 26/03/2018 24:00 Horas</td></tr></table>
+<table style='width:150%; font-size:9;' class='xls_border_left'>
+<tr style='background-color:#BABABA;' whidt='200%'>
+<td whidt='40px' colspan='1' class='xls_align_center'>CLIENTE</td>
+<td  colspan='1' class='xls_align_center'>TRIGO PAN                               </td>
+<td  colspan='1' class='xls_align_center'>MAIZ                                    </td>
+<td  colspan='1' class='xls_align_center'>SORGO GRANIFERO COLORADO                </td>
+<td  colspan='1' class='xls_align_center'>SOJA                                    </td>
+<td  colspan='1' class='xls_align_center'>CEBADA FORRAJERA                        </td>
+</tr>
+<tr><td align='left'>1 - ADM AGRO S.R.L.                         </td>
+<td align='right' >-1205081</td>
+<td align='right' >17018201</td>
+<td align='right' >1428737</td>
+<td align='right' >560650</td>
+<td align='right' >-5409073</td>
+</tr>
+<tr><td align='left'>4 - CARGILL S.A.                            </td>
+<td align='right' ></td>
+<td align='right' >28691</td>
+</tr>
+<tr><td align='left'>6 - A.C.A. CL                               </td>
+<td align='right' >-20173499</td>
+<td align='right' >210024</td>
+</tr>
+<tr><td align='left'>11 - LDC ARGENTINA SA                        </td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' >119169</td>
+</tr>
+<tr><td align='left'>22 - GEAR S.A.A.I.C.F.E.I.                   </td>
+<td align='right' ></td>
+<td align='right' >27722</td>
+<td align='right' ></td>
+<td align='right' >38762</td>
+</tr>
+<tr><td align='left'>24 - A.F.A.                                  </td>
+<td align='right' ></td>
+<td align='right' >5215837</td>
+<td align='right' ></td>
+<td align='right' >-102862</td>
+</tr>
+<tr><td align='left'>25 - ADM ARGENTINA S.A.                      </td>
+<td align='right' >34669016</td>
+<td align='right' >92280431</td>
+<td align='right' >-4974601</td>
+<td align='right' >-906486</td>
+<td align='right' >6072781</td>
+</tr>
+<tr><td align='left'>31 - MOLINOS CAÑUELAS SACIFIA                </td>
+<td align='right' ></td>
+<td align='right' >9928045</td>
+<td align='right' >3545864</td>
+</tr>
+<tr><td align='left'>53 - COFCO ARGENTINA SOCIEDAD ANONIMA        </td>
+<td align='right' ></td>
+<td align='right' >-8370333</td>
+</tr>
+<tr><td align='left'>101 - OLEAGINOSA MORENO HNOS S A C I F I A    </td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' >290767</td>
+</tr>
+<tr><td align='left'>111 - MOLINOS AGRO S.A.                       </td>
+<td align='right' ></td>
+<td align='right' >30829</td>
+</tr>
+<tr><td align='left'>1000 - COFCO INTERNATIONAL ARGENTINA S.A       </td>
+<td align='right' ></td>
+<td align='right' >12061393</td>
+</tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+<td colspan='1' class='xls_align_center'>TOTAL</td>
+<td class='xls_align_right'>13290436</td>
+<td class='xls_align_right'>128430840</td>
+<td class='xls_align_right'>0</td>
+<td class='xls_align_right'>0</td>
+<td class='xls_align_right'>663708</td>
+</tr></table><br><br><br>
+</body></html>

@@ -1,0 +1,103 @@
+Cupos otorgados a ADM ARGENTINA S.A.
+Fecha        Cupo Asignado  Producto                      Corredor                                          Vendedor                                          Estado                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------
+18/07/2017   JSG07180073         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+18/07/2017   JSG07180074         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180075         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180076         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180077         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180078         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180079         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180080         SORGO GRANIFERO                                                                                                    CALADO                                            
+18/07/2017   JSG07180081         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+18/07/2017   JSG07180082         SORGO GRANIFERO                                                                                                    Calado Pendiente de Autorizacion Entregador       
+18/07/2017   JSG07180083         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+18/07/2017   JSG07180084         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+18/07/2017   JSG07180085         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+18/07/2017   JSG07180086         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+18/07/2017   JSG07180087         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180088         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180089         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180090         SORGO GRANIFERO                                                                                                    Calado Pendiente de Autorizacion Entregador       
+18/07/2017   JSG07180091         SORGO GRANIFERO                                                                                                    Calado Pendiente de Autorizacion Entregador       
+18/07/2017   JSG07180092         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180093         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+18/07/2017   JSG07180094         SORGO GRANIFERO                                                                                                    PESADO TARA                                       
+18/07/2017   JSG07180095         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+18/07/2017   JSG07180096         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+18/07/2017   JSG07180097         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190071         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190072         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190073         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190074         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190075         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190076         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190077         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190078         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190079         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190080         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190081         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190082         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190083         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190084         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190085         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190086         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190087         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190088         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190089         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190090         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190091         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190092         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190093         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190094         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+19/07/2017   JSG07190095         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200071         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200072         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200073         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200074         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200075         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200076         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200077         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200078         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200079         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200080         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200081         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200082         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200083         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200084         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200085         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200086         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200087         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200088         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200089         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200090         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200091         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200092         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200093         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200094         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+20/07/2017   JSG07200095         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210071         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210072         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210073         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210074         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210075         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210076         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210077         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210078         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210079         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210080         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210081         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210082         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210083         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210084         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210085         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210086         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210087         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210088         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210089         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210090         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210091         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210092         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210093         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210094         SORGO GRANIFERO                                                                                                    OTORGADO                                          
+21/07/2017   JSG07210095         SORGO GRANIFERO                                                                                                    OTORGADO                                          

@@ -1,0 +1,510 @@
+<!--#include file="../Includes/procedimientosUnificador.asp"-->
+<!--#include file="../Includes/procedimientostraducir.asp"-->
+<!--#include file="../Includes/procedimientosfechas.asp"-->
+<!--#include file="../Includes/procedimientosformato.asp"-->
+<!--#include file="../Includes/procedimientosParametros.asp"-->
+<!--#include file="../Includes/procedimientosSQL.asp"-->
+<!--#include file="../Includes/procedimientos.asp"-->
+<!--#include file="../Includes/procedimientosExcel.asp"-->
+<%
+'******************************************************************************************
+Function addParam(p_strKey,p_strValue,ByRef p_strParam)
+       if (not isEmpty(p_strValue)) then
+          if (isEmpty(p_strParam)) then
+             p_strParam = "?"
+          else
+             p_strParam = p_strParam & "&"
+          end if
+          p_strParam = p_strParam & p_strKey & "=" & p_strValue
+       end if
+End Function
+'********************************************************************
+'					INICIO PAGINA
+'********************************************************************
+dim pto,rsGeneral,accion,strSQLPro,paginaActual,mostrar,lineasTotales,flagReport, myCdEstado, sortBy, myCdProducto
+dim myFecContableD, myFecContableM, myFecContableA, myFecContableH, myFecContableN, myFecContableDesde
+dim myFecContableDH, myFecContableMH, myFecContableAH, myFecContableHH, myFecContableNH, myFecContableHasta
+
+totalVagones = 0
+totalKilosNetos = 0
+Call GP_CONFIGURARMOMENTOS()
+
+g_strPuerto = GF_PARAMETROS7("pto", "", 6)
+call addParam("pto", g_strPuerto, params)
+accion = GF_PARAMETROS7("accion", "", 6)
+call getParametros()
+if not hayError() then
+	Set rsGeneral = loadCTGNoEnviados()
+	paginaActual = GF_PARAMETROS7("numeroPagina",0,6)
+	if (paginaActual = 0) then paginaActual = 1
+	mostrar = GF_PARAMETROS7("registrosPorPagina",0,6)
+	if (mostrar = 0) then mostrar = 10
+	Call setupPaginacion(rsGeneral, paginaActual, mostrar)
+	lineasTotales = rsGeneral.recordcount
+end if
+'-------------------------------------------------------------------------------------------------------
+function loadCTGNoEnviados()
+dim strSQL, myWhere, rs, fecIni, fecIniFill, estadosFinales
+fecIni = "2014-04-01"
+fecIniFill = "2014-05-07"
+estadosFinales = "6,8,7,32"
+
+strSQL = "SELECT T1.ETAPA, T1.CTG, T1.NUCARTAPORTE, T1.IDCAMION, T1.DTCONTABLE, T1.NUAUTSALIDA, T1.CDPRODUCTO, T1.CDCOSECHA, T1.CDESTADO, T1.ESTADOCONFIRMACION, T1.ESTADORECHAZO, "&_
+         "       CAST(T1.FECHAINGRESO as BIGINT)*1000000 + right('000000' + cast(T1.HORAINGRESO AS varchar(6)), 6) AS DTINGRESO, "&_
+         "       CAST(T1.FECHAEGRESO as BIGINT)*1000000 + right('000000' + cast(T1.HORAEGRESO AS varchar(6)), 6) AS DTEGRESO "&_
+         " FROM ( " & _
+		 "	        SELECT '1' AS ETAPA, WS.CTG, WS.NUCARTAPORTE, HC.IDCAMION, (YEAR(WS.DTCONTABLE)*10000 + Month(WS.DTCONTABLE)*100 + DAY(WS.DTCONTABLE)) DTCONTABLE, HC.NUAUTSALIDA, HC.CDPRODUCTO, HCD.CDCOSECHA, "&_
+         "              ((Year(HC.DTINGRESO) * 10000) + (Month(HC.DTINGRESO) * 100) + Day(HC.DTINGRESO)) AS FECHAINGRESO, "&_
+         "              ((DATEPART(HOUR, HC.DTINGRESO) * 10000) + (DATEPART(MINUTE, HC.DTINGRESO) * 100) + DATEPART(SECOND, HC.DTINGRESO)) AS HORAINGRESO, "&_
+         "              ((Year(HC.DTEGRESO) * 10000) + (Month(HC.DTEGRESO) * 100) + Day(HC.DTEGRESO)) AS FECHAEGRESO, "&_
+         "              ((DATEPART(HOUR, HC.DTEGRESO) * 10000) + (DATEPART(MINUTE, HC.DTEGRESO) * 100) + DATEPART(SECOND, HC.DTEGRESO)) AS HORAEGRESO, "&_
+         "         HC.CDESTADO, ESTADOCONFIRMACION, ESTADORECHAZO " & _
+		 "	        FROM dbo.WSCTG_CAMIONES WS " & _
+		 "	                INNER JOIN dbo.HCAMIONESDESCARGA HCD" & _
+		 "	                        ON HCD.DTCONTABLE>='" & fecIni & "' AND WS.DTCONTABLE=HCD.DTCONTABLE AND WS.NUCARTAPORTE=HCD.NUCARTAPORTE " & _
+		 "	                                AND (WS.ESTADOCONFIRMACION = " & WSCTG_PENDIENTE & " or WS.ESTADOCONFIRMACION is Null) and (WS.ESTADORECHAZO = " & WSCTG_PENDIENTE & " or WS.ESTADORECHAZO is Null) AND ESTADOARRIBO=" & WSCTG_CONFIRMADO & _
+		 "	                                AND WS.DTCONTABLE > '" & fecIniFill & "'" & _
+		 "	                INNER JOIN dbo.HCAMIONES HC" & _
+		 "	                        ON HC.CDESTADO IN (" & estadosFinales & ") AND HCD.IDCAMION=HC.IDCAMION AND HCD.DTCONTABLE=HC.DTCONTABLE "
+		 if cint(myCdEstado) = 1 then
+			myWhere = myWhere & " AND CDESTADO IN (6,8) "
+		 elseif cint(myCdEstado) = 2 then
+			myWhere = myWhere & " AND CDESTADO IN (7) "
+		 end if
+		 if myCdProducto <> "" then myWhere = myWhere & " AND HC.CDPRODUCTO = " & myCdProducto
+		 strSQL = strSQL & myWhere
+		 strSQL = strSQL & "	UNION" & _
+		 "	        SELECT '2' AS ETAPA, WS.CTG, WS.NUCARTAPORTE, '' as IDCAMION, (YEAR(WS.DTCONTABLE)*10000 + Month(WS.DTCONTABLE)*100 + DAY(WS.DTCONTABLE)) DTCONTABLE, 0 AS NUAUTSALIDA, 0 AS CDPRODUCTO, 0 AS CDCOSECHA, "&_
+         "                  '19000101' as FECHAINGRESO, '000000' as HORAINGRESO, '19000101' as FECHAEGRESO, '000000' as HORAEGRESO, 0 AS CDESTADO, ESTADOCONFIRMACION, ESTADORECHAZO " & _
+		 "	        FROM dbo.WSCTG_CAMIONES WS " & _
+		 "	                LEFT JOIN dbo.HCAMIONESDESCARGA HCD " & _
+		 "	                        ON HCD.DTCONTABLE>='" & fecIni & "' AND WS.DTCONTABLE=HCD.DTCONTABLE AND WS.NUCARTAPORTE=HCD.NUCARTAPORTE " & _
+		 "	                LEFT JOIN dbo.CAMIONESDESCARGA CD " & _
+		 "	                        ON WS.NUCARTAPORTE=CD.NUCARTAPORTE " & _ 
+		 "	                WHERE HCD.NUCARTAPORTE IS NULL AND WS.DTCONTABLE > '" & fecIniFill & "' AND CD.NUCARTAPORTE IS NULL " & _ 
+		 "	                        AND ESTADOARRIBO=" & WSCTG_CONFIRMADO & _ 
+		 "	                        AND ((ESTADOCONFIRMACION = " & WSCTG_PENDIENTE & " AND NOT ESTADOCONFIRMACION IS NULL) OR (ESTADOCONFIRMACION IS NULL)) " & _ 
+		 "	                        AND ((ESTADORECHAZO = " & WSCTG_PENDIENTE & " AND NOT ESTADORECHAZO IS NULL) OR (ESTADORECHAZO IS NULL)) " & _
+		 "	) T1 "
+	strSQL = strSQL & " ORDER BY ETAPA ASC " & sortBy
+	'Response.Write strSQL
+	'Response.End 
+	Call GF_BD_Puertos(g_strPuerto, rs, "OPEN", strSQL)
+	
+	Set loadCTGNoEnviados = rs
+
+end function
+'-------------------------------------------------------------------------------------------------------
+sub getParametros()
+		myCdProducto = GF_PARAMETROS7("cdProducto", "", 6)
+		call addParam("cdProducto", myCdProducto, params)
+
+		myCdEstado = GF_PARAMETROS7("cdEstado", "", 6)
+		call addParam("cdEstado", myCdEstado, params)
+
+		sortBy = GF_PARAMETROS7("sortBy", "", 6)
+		call addParam("sortBy", sortBy, params)	
+end sub	
+'------------------------------------------------------------------------------------------------
+function getEstadoDS(pCdEstado)
+dim rtrn
+if isnull(pCdEstado) then 
+	rtrn = "Null"
+else
+	if cint(pCdEstado) = 8 or cint(pCdEstado) = 6 then
+		rtrn = "Descargado"
+	elseif cint(pCdEstado) = 7 then
+		rtrn = "<font color='red'>Rechazado</font>"
+	else
+		rtrn = "No Aplica"	
+	end if	
+end if
+getEstadoDS = rtrn
+end function
+'------------------------------------------------------------------------------------------------
+function getEstadoCTG(pCdEstado)
+dim rtrn
+if isNull(pCdEstado) then 
+	rtrn = "Nulo"
+else
+	if cint(pCdEstado) = WSCTG_PENDIENTE then	
+		rtrn = "Pendiente"
+	elseif cint(pCdEstado) = WSCTG_CONFIRMADO then	
+		rtrn = "Realizado"
+	elseif cint(pCdEstado) = WSCTG_MANUAL then	
+		rtrn = "Externo"
+	elseif cint(pCdEstado) = WSCTG_EXENTO then	
+		rtrn = "No Aplica"
+	elseif cint(pCdEstado) = WSCTG_QUITADO then	
+		rtrn = "Sacado de lista"	
+	else
+		rtrn = "Inválido"
+	end if	
+end if
+getEstadoCTG = rtrn
+end function
+'-------------------------------------------------------------------------------------------------------------
+function getFecha(pFecha,pEtapa)
+dim rtrn
+if Cdbl(pEtapa) = "2" then
+	rtrn = "No Aplica"
+else
+	rtrn = GF_FN2DTE(rtrn)
+end if	
+getFecha = rtrn
+end function
+'-------------------------------------------------------------------------------------------------------------
+function printEncabezado(pEtapa)
+%>
+<thead>
+	<tr class='reg_Header_nav'>
+		<td colspan='10'>
+		<%
+		if cint(pEtapa) = 1 then
+			response.write GF_Traducir("Camiones en el Sistema RMD no enviados")
+		else
+			Response.write GF_Traducir("Camiones no encontrados en el Sistema RMD")
+		end if
+		%>
+		</td>
+	</tr>
+			<TR class="reg_Header_nav">
+				<th align="center"><%=GF_Traducir("Fecha Contable")%>	<!--<img src="../images/orderlist.png" title="Ordenar" style="cursor:pointer;" onClick="setSortBy(', DTCONTABLE DESC')">	--></th>
+				<th align="center"><%=GF_Traducir("Carta Porte")%>		<!--<img src="../images/orderlist.png" title="Ordenar" style="cursor:pointer;" onClick="setSortBy(', NUCARTAPORTE DESC')">	--></th>
+				<th align="center"><%=GF_Traducir("CTG")%>				<!--<img src="../images/orderlist.png" title="Ordenar" style="cursor:pointer;" onClick="setSortBy(', CTG DESC')">			--></th>
+				<th align="center"><%=GF_Traducir("Id Camion")%>		<!--<img src="../images/orderlist.png" title="Ordenar" style="cursor:pointer;" onClick="setSortBy(', IDCAMION DESC')">		--></th>
+				<th align="center"><%=GF_Traducir("Producto")%>			<!--<img src="../images/orderlist.png" title="Ordenar" style="cursor:pointer;" onClick="setSortBy(', CDPRODUCTO DESC')">	--></th>
+				<th align="center"><%=GF_Traducir("Fecha Ingreso")%>	<!--<img src="../images/orderlist.png" title="Ordenar" style="cursor:pointer;" onClick="setSortBy(', DTINGRESO DESC')">		--></th>
+				<th align="center"><%=GF_Traducir("Fecha Egreso")%>		<!--<img src="../images/orderlist.png" title="Ordenar" style="cursor:pointer;" onClick="setSortBy(', DTEGRESO DESC')">		--></th>
+				<th align="center"><%=GF_Traducir("Estado RMD")%>		<!--<img src="../images/orderlist.png" title="Ordenar" style="cursor:pointer;" onClick="setSortBy(', CDESTADO DESC')">		--></th>
+				<th align="center"><%=GF_Traducir("Estado WS")%></th>
+				<th align="center"><%=GF_Traducir("Editar")%></th>
+			</TR>
+</thead>
+<%
+end function
+%>
+
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+
+<title><%=GF_TRADUCIR("Puertos - CTGs No Informados a AFIP")%></title>
+<link rel="stylesheet" href="../css/ActiSAIntra-1.css" type="text/css">
+<link rel="stylesheet" href="../css/Toolbar.css" type="text/css">
+<link rel="stylesheet" href="../css/iwin.css" type="text/css">
+<link rel="stylesheet" href="../css/MagicSearch.css" type="text/css">
+<link rel="stylesheet" href="../css/calendar-win2k-2.css" type="text/css">
+<link rel="stylesheet" href="../css/jqueryUI/custom-theme/jquery-ui-1.8.2.custom.css" type="text/css" />
+<link rel="stylesheet" href="../css/main.css" type="text/css"> 
+
+<script type="text/javascript" src="../scripts/formato.js"></script>
+<script type="text/javascript" src="../scripts/channel.js"></script>
+<script type="text/javascript" src="../scripts/controles.js"></script>
+<script type="text/javascript" src="../scripts/Toolbar.js"></script>
+<script type="text/javascript" src="../scripts/MagicSearchObj.js"></script>
+<script type="text/javascript" src="../scripts/calendar.js"></script>
+<script type="text/javascript" src="../scripts/calendar-1.js"></script>
+<script type="text/javascript" src="../scripts/jQueryPopUp.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../scripts/jqueryUI/jquery-ui-1.8.2.custom.min.js"></script>
+<script type="text/javascript" src="../scripts/paginar.js"></script>
+<script type="text/javascript" src="../scripts/channel.js"></script>
+<script type="text/javascript">	
+	var ch = new channel();		
+	var changeFilters = false;
+	var maxSegments;
+	var currSegment=0;
+	var optionReport;	
+	var MS_X_DAY = 86400000 //Milisegundos por día.	
+	var d = new Date();	
+	
+	function bodyOnLoad() {		
+		<% 	if not hayError() then
+				if (not rsGeneral.eof) then %>
+					var pgn = new Paginacion("paginacion");
+					pgn.paginar(<% =paginaActual %>, <% =lineasTotales %>, <% =mostrar %>, 50, "informeCTGNoEnviados.asp<% =params %>");
+		<%		end if
+			end if	%>
+		
+	}
+	
+	function volver() {	
+		location.href = "../puertosReportes.asp?pto=<%=g_strPuerto%>";
+	}
+
+	function habilitarLoading(pVisibility, pPosition){
+		document.getElementById("imgLoading").style.position = pPosition;
+		document.getElementById("imgLoading").style.visibility  = pVisibility;
+		document.getElementById("lblLoading").style.position = pPosition;
+		document.getElementById("lblLoading").style.visibility  = pVisibility;
+		if (pVisibility=='visible')
+			document.getElementById("actionLabel").style.visibility  = "hidden";
+		else	
+			document.getElementById("actionLabel").style.visibility  = "visible";
+	}
+
+	function lightOn(tr) {
+		tr.className = "reg_Header_navdosHL";
+	}
+	
+	function lightOff(tr) {
+		tr.className = "reg_Header_navdos";
+	}
+	function cambioBusqueda(){
+		changeFilters = true;
+	}		
+	function setSortBy(pTxt){
+		document.getElementById("sortBy").value = pTxt;
+		submitInfo();
+	}
+	function submitInfo(){
+		document.getElementById("frmSel").submit();
+	}
+	
+		
+	function CerrarCal(cal) {
+		cal.hide();
+	}		
+	function MostrarCalendario(p_objID, funcSel) {
+		var dte= new Date();		    	    
+		var elem= document.getElementById(p_objID);
+		if (calendar != null) calendar.hide();		
+		var cal = new Calendar(false, dte, funcSel, CerrarCal);
+	    cal.weekNumbers = false;
+		cal.setRange(1993, 2045);
+		cal.create();
+		calendar = cal;		
+	    calendar.setDateFormat("dd/mm/y");
+	    calendar.showAtElement(elem);
+	}
+	
+	function SeleccionarCalDesde(cal, date) {
+		var str= new String(date);		
+		document.getElementById("dtFechaDesde").value = str;
+	    document.getElementById("fecContableD").value = str.substr(0,2);
+	    document.getElementById("fecContableM").value = str.substr(3,2);
+	    document.getElementById("fecContableA").value = str.substr(6,4);
+		if (cal) cal.hide();
+	}	
+	function QuitarFechaDesde(){
+		document.getElementById("dtFechaDesde").value = "";
+	    document.getElementById("fecContableD").value = "";
+	    document.getElementById("fecContableM").value = "";
+	    document.getElementById("fecContableA").value = "";
+	}	
+	function SeleccionarCalHasta(cal, date) {
+		var str= new String(date);		
+		document.getElementById("dtFechaHasta").value = str;	    
+	    document.getElementById("fecContableDH").value = str.substr(0,2);
+	    document.getElementById("fecContableMH").value = str.substr(3,2);
+	    document.getElementById("fecContableAH").value = str.substr(6,4);	    
+		if (cal) cal.hide();	
+	}	
+	function QuitarFechaHasta(){
+		document.getElementById("dtFechaHasta").value = "";
+	    document.getElementById("fecContableDH").value = "";
+	    document.getElementById("fecContableMH").value = "";
+	    document.getElementById("fecContableAH").value = "";	    
+	}
+	function enabledEdit(pIndex){
+		if (document.getElementById("img_" + pIndex).title=="Editar"){
+			document.getElementById("img_" + pIndex).title = "Guardar";
+			document.getElementById("img_" + pIndex).src = "../images/save-16.png";
+			editControls(pIndex,true)
+		}
+		else{
+			saveUpdate(document.getElementById("dtContable_" + pIndex).value,document.getElementById("nuCtaPte_" + pIndex).value,document.getElementById("ctg_" + pIndex).value, document.getElementById("nuCtaPteLbl_" + pIndex).innerHTML, document.getElementById("ctgLbl_" + pIndex).innerHTML, pIndex, "UPD")
+			
+		}
+	}
+	function saveUpdate(pDtContable, pCtaPte, pCTG, pCtaPteAnt, pCTGAnt, pIndex, pOption){
+        ch.bind("informeCTGNoEnviados_Ajax.asp?pto=<% =g_strPuerto %>&option=" + pOption + "&dtContable=" + pDtContable + "&cartaPorte=" + pCtaPte + "&CTGAnt=" + pCTGAnt + "&cartaPorteAnt=" + pCtaPteAnt + "&CTG=" + pCTG, "saveUpdate_Callback(" + pIndex + ",'" + pOption + "')");
+	    ch.send();
+	}
+	function saveUpdate_Callback(pIndex, pOption) {
+	    var ret  = ch.response();
+	    if (ret=="OK"){
+			document.getElementById("img_" + pIndex).title = "Editar";
+			document.getElementById("img_" + pIndex).src = "../images/edit-16x16.png";
+			editControls(pIndex,false);
+			document.getElementById("ctgLbl_" + pIndex).innerHTML = document.getElementById("ctg_" + pIndex).value;	    
+			document.getElementById("nuCtaPteLbl_" + pIndex).innerHTML = document.getElementById("nuCtaPte_" + pIndex).value;
+            document.getElementById("dtContableLbl_" + pIndex).innerHTML = document.getElementById("dtContable_" + pIndex).value;
+			document.getElementById("div_" + pIndex).innerHTML = ""
+			if (pOption=='DEL') submitInfo();
+			}
+	    else{
+			document.getElementById("div_" + pIndex).innerHTML = "<img style='cursor:pointer;' src='../images/warning-16x16.png' title='" + ret + "'>"
+	    }
+	}
+	function deleteItem(pIndex, pEnabled){
+		saveUpdate("","",0, document.getElementById("nuCtaPteLbl_" + pIndex).innerHTML, document.getElementById("ctgLbl_" + pIndex).innerHTML, pIndex, "DEL")
+	}
+	
+	function editControls(pIndex, pEnabled){
+		var visibilityInput;
+		var visibilityLabel;
+		var positionLabel;
+		if (pEnabled){
+			visibilityInput = "visible";
+			visibilityLabel = "hidden"
+			positionLabel = "absolute"
+		}	
+		else{
+			visibilityInput = "hidden";
+			visibilityLabel = "visible"
+			positionLabel = "relative"
+		}	
+		document.getElementById("ctg_" + pIndex).type = visibilityInput;
+		document.getElementById("nuCtaPte_" + pIndex).type = visibilityInput;
+		document.getElementById("dtContable_" + pIndex).type = visibilityInput;
+		document.getElementById("ctgLbl_" + pIndex).style.position = positionLabel;
+		document.getElementById("ctgLbl_" + pIndex).style.visibility = visibilityLabel;
+		document.getElementById("nuCtaPteLbl_" + pIndex).style.position = positionLabel;
+		document.getElementById("nuCtaPteLbl_" + pIndex).style.visibility = visibilityLabel;
+		document.getElementById("dtContableLbl_" + pIndex).style.position = positionLabel;
+		document.getElementById("dtContableLbl_" + pIndex).style.visibility = visibilityLabel;	
+	}
+</script>
+</head>
+
+<body onLoad="bodyOnLoad()">
+
+<div id="toolbar"></div>
+
+<form name="frmSel" id="frmSel">	
+<div class="tableaside size100"> <!-- BUSCAR -->
+    <h3> filtro - <%=GF_Traducir("CTGs No Informados")%> </h3>
+    
+    <div id="searchfilter" class="tableasidecontent">
+        <div class="col16 reg_header_navdos"> <% = GF_TRADUCIR("Estado") %> </div>    
+        <div class="col16"> 
+					<select onChange="cambioBusqueda();" name="cdEstado" value="<%=myCdEstado%>">
+						<option value="0" <% if cint(myCdEstado=0) then Response.Write "SELECTED"%>> <%=GF_Traducir("Cualquiera...")%></option>
+						<option value="1" <% if cint(myCdEstado=1) then Response.Write "SELECTED"%>> <%=GF_Traducir("Descargados")%></option>
+						<option value="2" <% if cint(myCdEstado=2) then Response.Write "SELECTED"%>> <%=GF_Traducir("Rechazados")%></option>
+				</select>
+        </div>
+        
+        <div class="col16 reg_header_navdos"> <% = GF_TRADUCIR("Producto") %> </div>
+        <div class="col16"> 
+				<% strSQLPro = "SELECT * FROM PRODUCTOS ORDER BY DSPRODUCTO"
+				 call GF_BD_Puertos(g_strPuerto, rsProducto, "OPEN",strSQLPro)
+				 %>
+					<select onChange="cambioBusqueda();" name="cdProducto" value="<%=myCdProducto%>">
+						<option value=""> <%=GF_Traducir("TODOS")%></option>
+						<%while not rsProducto.eof
+							mySelected = ""
+							if trim(rsProducto("CDPRODUCTO")) = trim(myCdProducto) then mySelected = "SELECTED"%>
+							<option value="<%=rsProducto("CDPRODUCTO")%>" <%=mySelected%>> <%=rsProducto("DSPRODUCTO")%></option>
+							<%
+							rsProducto.movenext
+						 wend%>
+				</select>
+        </div>        
+        
+        <span class="btnaction"><input type="submit" value="Buscar" id=submit1 name=submit1></span>
+    </div>
+</div><!-- END BUSCAR -->
+
+<div class="col66"></div>
+<% 
+dim myEtapa
+dim myEdit 
+myEtapa = empty
+	if hayError() then 
+		Call showErrors() 
+	else	%>
+		<TABLE class="datagrid" id="TAB1" align="center" width="100%">
+       <tbody>
+			<%reg = 0
+			while not rsGeneral.eof and (reg < mostrar) 
+				reg = reg + 1 
+				if isempty(myEtapa) then
+					myEtapa = rsGeneral("ETAPA")
+					call printEncabezado(myEtapa)
+				else
+					if myEtapa <> rsGeneral("ETAPA") then
+						myEtapa = rsGeneral("ETAPA")
+						call printEncabezado(myEtapa)
+					end if
+				end if
+				%>
+				<tr class="reg_Header_navdos">
+					<TD align="center">
+						<label id="dtContableLbl_<%=reg%>"><%=GF_FN2DTE(rsGeneral("DTCONTABLE"))%></label>
+						<input maxlength="10" size="10" type="hidden" id="dtContable_<%=reg%>" value="<%=GF_FN2DTE(rsGeneral("DTCONTABLE"))%>">
+					</TD>
+					<TD align="center">
+						<label id="nuCtaPteLbl_<%=reg%>"><%=left((trim(rsGeneral("NUCARTAPORTE"))),4) & "-" & mid((trim(rsGeneral("NUCARTAPORTE"))),5,8)%></label>
+						<input maxlength="13" size="15" type="hidden" id="nuCtaPte_<%=reg%>" value="<%=left((trim(rsGeneral("NUCARTAPORTE"))),4) & "-" & mid((trim(rsGeneral("NUCARTAPORTE"))),5,8)%>">
+					</TD>
+					<TD align="center">
+						<label id="ctgLbl_<%=reg%>"><%=rsGeneral("CTG")%></label>
+						<input maxlength="8" size="9" type="hidden" id="ctg_<%=reg%>" value="<%=rsGeneral("CTG")%>">					
+					</TD>
+					<TD align="center"><%=rsGeneral("IDCAMION")%></TD>
+					<TD align="center"><%=rsGeneral("CDPRODUCTO")%></TD>
+					<TD align="center"><%=getFecha(rsGeneral("DTINGRESO"),rsGeneral("ETAPA"))%></TD>
+					<TD align="center"><%=getFecha(rsGeneral("DTEGRESO"),rsGeneral("ETAPA"))%></TD>
+					<TD align="center"><%=getEstadoDS(rsGeneral("CDESTADO"))%></TD>
+					
+					<TD align="center">
+						<%
+						if rsGeneral("CDESTADO") = 0 then
+							Response.Write "Def:" & rsGeneral("ESTADOCONFIRMACION") & "-" & getEstadoCTG(rsGeneral("ESTADOCONFIRMACION"))
+							Response.Write ", Rec:" & rsGeneral("ESTADORECHAZO") & "-" & getEstadoCTG(rsGeneral("ESTADORECHAZO"))
+						else
+							if cint(rsGeneral("CDESTADO")) = 6 or cint(rsGeneral("CDESTADO")) = 8 then 
+								Response.Write rsGeneral("ESTADOCONFIRMACION") & "-" & getEstadoCTG(rsGeneral("ESTADOCONFIRMACION"))
+							elseif cint(rsGeneral("CDESTADO")) = 7 then 
+								Response.Write rsGeneral("ESTADORECHAZO") & "-" & getEstadoCTG(rsGeneral("ESTADORECHAZO"))
+							elseif cint(rsGeneral("CDESTADO")) = 32 then 
+								Response.Write rsGeneral("ESTADODESVIO") & "-" & getEstadoCTG(rsGeneral("ESTADODESVIO"))
+							end if 
+						end if
+						%>	
+					</TD>
+					<%'if rsGeneral("ETAPA") = 2 then%>
+						<td align="center">
+							<span id="div_<%=reg%>"></span>
+							<img id="img_<%=reg%>" style="cursor:pointer;" title="Editar" onclick="enabledEdit(<%=reg%>)" src="../images/edit-16x16.png">
+							<img id="imgDel_<%=reg%>" style="cursor:pointer;" title="Quitar" onclick="deleteItem(<%=reg%>)" src="../images/delete-16x16.png">
+						</td>
+					<%'else%>
+						<!--<td align="center">&nbsp;</td>-->
+					<%'end if%>
+				</tr>
+			<%
+				rsGeneral.movenext
+			wend %>	  	
+      </tbody>
+           
+      <tfoot>
+		<tr>
+            <td colspan="12"><div id="paginacion"></div></td>
+        </tr>
+	  </tfoot>   
+	</TABLE>	
+<%	end if%>
+  	<%
+	if (reg = 0) and not hayError() then		
+		%>
+		<tr>
+			<td colspan="6"><% =GF_TRADUCIR("No se encontraron resultados.") %></td>
+		</tr>
+		<%
+	end if 
+	%>	
+	<input type="hidden" id="sortBy" name="sortBy" VALUE="<%=sortBy%>">
+	<input type="hidden" id="accion" name="accion" value="<% =ACCION_SUBMITIR %>">
+	<input type="hidden" id="pto" name="pto" value="<% =g_strPuerto %>">	
+	<input type="hidden" id="fecContableDS" name="fecContableDS">
+	<input type="hidden" id="fecContableMS" name="fecContableMS">
+	<input type="hidden" id="fecContableAS" name="fecContableAS">
+	<input type="hidden" id="usr" name="usr" value="<% =session("Usuario") %>">
+	<div id="actionLabel" class="confirmsj" style="width:80%;visibility:hidden;"></div>
+</form>
+</body>
+</html>

@@ -1,0 +1,105 @@
+27/03/2018 10:49:24 a.m.|JAS|INFO|--------------------- INCIANDO EXPORTACION ------------------------
+27/03/2018 10:49:24 a.m.|JAS|INFO| ---> PUERTO       : ARROYO
+27/03/2018 10:49:24 a.m.|JAS|INFO| ---> FECHA DESDE  : 2018-03-26
+27/03/2018 10:49:24 a.m.|JAS|INFO| ---> FECHA HASTA  : 2018-03-26
+27/03/2018 10:49:24 a.m.|JAS|INFO| ---> CLIENTE      : 
+27/03/2018 10:49:24 a.m.|JAS|INFO| ---> DERSTINATARIO: 30621973173
+27/03/2018 10:49:24 a.m.|JAS|INFO| ---> VALIDAR		: True
+27/03/2018 10:49:24 a.m.|JAS|INFO|-------------------------------------------------------------------
+27/03/2018 10:49:24 a.m.|JAS|INFO|cargarTablaAcondicionamiento - Inicia
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000567861937_0000000224_SECADO, Valor: 1.87
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000568270815_0000000454_SECADO, Valor: 1.87
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000567611888_0000000572_SECADO, Valor: 2.79
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000567570660_0000000596_SECADO, Valor: 2.1
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000568193332_0000000807_SECADO, Valor: 1.87
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000568150368_0000000839_SECADO, Valor: 2.1
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000568249281_0000001204_SECADO, Valor: 1.64
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000567592005_0000001226_SECADO, Valor: 2.1
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000568260241_0000001429_SECADO, Valor: 1.64
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000568169873_0000001450_SECADO, Valor: 2.79
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000568252562_0000001457_SECADO, Valor: 2.22
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000567592010_0000001603_SECADO, Valor: 2.1
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000567592008_0000001690_SECADO, Valor: 2.1
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000568216145_0000001722_SECADO, Valor: 1.75
+27/03/2018 10:49:24 a.m.|JAS|INFO|Clave agregada: 20180326_000568252563_0000001745_SECADO, Valor: 1.87
+27/03/2018 10:49:25 a.m.|JAS|INFO|cargarTablaAcondicionamiento - Fin
+27/03/2018 10:49:46 a.m.|JAS|INFO|--- Validando cartas de porte ---
+27/03/2018 10:49:46 a.m.|JAS|INFO|Todo OK!
+27/03/2018 10:49:46 a.m.|JAS|INFO|--- Fin de la Validacion (True) ---
+27/03/2018 10:49:46 a.m.|JAS|INFO|Inicializando archivo de datos: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_ARROYO_30621973173_20180326.dat
+27/03/2018 10:49:46 a.m.|JAS|INFO|Inicializando archivo de Transportistas: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_ARROYO_30621973173_20180326.dat
+27/03/2018 10:49:46 a.m.|JAS|INFO|Archivos listo para trabajar.
+27/03/2018 10:50:40 a.m.|JAS|INFO|Generando reporte posicion terminal...
+27/03/2018 10:50:42 a.m.|JAS|INFO|Ruta del archivo en disco: D:\Sitios Web\Intranet\Poseidon\Temp\Posicion_ARROYO_30621973173_20180326.xls
+27/03/2018 10:50:42 a.m.|JAS|INFO| Enviando mail de la tarea 27 con codigo 30621973173
+27/03/2018 10:50:43 a.m.|JAS|INFO|--------------------------- FIN PROCESO ---------------------------
+27/03/2018 10:58:54 a.m.|JAS|INFO|--------------------- INCIANDO EXPORTACION ------------------------
+27/03/2018 10:58:54 a.m.|JAS|INFO| ---> PUERTO       : ARROYO
+27/03/2018 10:58:54 a.m.|JAS|INFO| ---> FECHA DESDE  : 2018-03-26
+27/03/2018 10:58:54 a.m.|JAS|INFO| ---> FECHA HASTA  : 2018-03-26
+27/03/2018 10:58:54 a.m.|JAS|INFO| ---> CLIENTE      : 
+27/03/2018 10:58:54 a.m.|JAS|INFO| ---> DERSTINATARIO: 30621973173
+27/03/2018 10:58:54 a.m.|JAS|INFO| ---> VALIDAR		: True
+27/03/2018 10:58:54 a.m.|JAS|INFO|-------------------------------------------------------------------
+27/03/2018 10:58:54 a.m.|JAS|INFO|cargarTablaAcondicionamiento - Inicia
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000567861937_0000000224_SECADO, Valor: 1.87
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000568270815_0000000454_SECADO, Valor: 1.87
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000567611888_0000000572_SECADO, Valor: 2.79
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000567570660_0000000596_SECADO, Valor: 2.1
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000568193332_0000000807_SECADO, Valor: 1.87
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000568150368_0000000839_SECADO, Valor: 2.1
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000568249281_0000001204_SECADO, Valor: 1.64
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000567592005_0000001226_SECADO, Valor: 2.1
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000568260241_0000001429_SECADO, Valor: 1.64
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000568169873_0000001450_SECADO, Valor: 2.79
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000568252562_0000001457_SECADO, Valor: 2.22
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000567592010_0000001603_SECADO, Valor: 2.1
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000567592008_0000001690_SECADO, Valor: 2.1
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000568216145_0000001722_SECADO, Valor: 1.75
+27/03/2018 10:58:54 a.m.|JAS|INFO|Clave agregada: 20180326_000568252563_0000001745_SECADO, Valor: 1.87
+27/03/2018 10:58:55 a.m.|JAS|INFO|cargarTablaAcondicionamiento - Fin
+27/03/2018 10:59:13 a.m.|JAS|INFO|--- Validando cartas de porte ---
+27/03/2018 10:59:13 a.m.|JAS|INFO|Todo OK!
+27/03/2018 10:59:13 a.m.|JAS|INFO|--- Fin de la Validacion (True) ---
+27/03/2018 10:59:13 a.m.|JAS|INFO|Inicializando archivo de datos: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_ARROYO_30621973173_20180326.dat
+27/03/2018 10:59:13 a.m.|JAS|INFO|Inicializando archivo de Transportistas: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_ARROYO_30621973173_20180326.dat
+27/03/2018 10:59:13 a.m.|JAS|INFO|Archivos listo para trabajar.
+27/03/2018 10:59:50 a.m.|JAS|INFO|Generando reporte posicion terminal...
+27/03/2018 10:59:52 a.m.|JAS|INFO|Ruta del archivo en disco: D:\Sitios Web\Intranet\Poseidon\Temp\Posicion_ARROYO_30621973173_20180326.xls
+27/03/2018 10:59:52 a.m.|JAS|INFO| Enviando mail de la tarea 27 con codigo 30621973173
+27/03/2018 10:59:52 a.m.|JAS|INFO|--------------------------- FIN PROCESO ---------------------------
+27/03/2018 12:10:02 p.m.|JAS|INFO|--------------------- INCIANDO EXPORTACION ------------------------
+27/03/2018 12:10:02 p.m.|JAS|INFO| ---> PUERTO       : ARROYO
+27/03/2018 12:10:02 p.m.|JAS|INFO| ---> FECHA DESDE  : 2018-03-26
+27/03/2018 12:10:02 p.m.|JAS|INFO| ---> FECHA HASTA  : 2018-03-26
+27/03/2018 12:10:02 p.m.|JAS|INFO| ---> CLIENTE      : 
+27/03/2018 12:10:02 p.m.|JAS|INFO| ---> DERSTINATARIO: 30621973173
+27/03/2018 12:10:02 p.m.|JAS|INFO| ---> VALIDAR		: True
+27/03/2018 12:10:02 p.m.|JAS|INFO|-------------------------------------------------------------------
+27/03/2018 12:10:02 p.m.|JAS|INFO|cargarTablaAcondicionamiento - Inicia
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000567861937_0000000224_SECADO, Valor: 1.87
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000568270815_0000000454_SECADO, Valor: 1.87
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000567611888_0000000572_SECADO, Valor: 2.79
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000567570660_0000000596_SECADO, Valor: 2.1
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000568193332_0000000807_SECADO, Valor: 1.87
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000568150368_0000000839_SECADO, Valor: 2.1
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000568249281_0000001204_SECADO, Valor: 1.64
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000567592005_0000001226_SECADO, Valor: 2.1
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000568260241_0000001429_SECADO, Valor: 1.64
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000568169873_0000001450_SECADO, Valor: 2.79
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000568252562_0000001457_SECADO, Valor: 2.22
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000567592010_0000001603_SECADO, Valor: 2.1
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000567592008_0000001690_SECADO, Valor: 2.1
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000568216145_0000001722_SECADO, Valor: 1.75
+27/03/2018 12:10:02 p.m.|JAS|INFO|Clave agregada: 20180326_000568252563_0000001745_SECADO, Valor: 1.87
+27/03/2018 12:10:03 p.m.|JAS|INFO|cargarTablaAcondicionamiento - Fin
+27/03/2018 12:10:22 p.m.|JAS|INFO|--- Validando cartas de porte ---
+27/03/2018 12:10:22 p.m.|JAS|INFO|Todo OK!
+27/03/2018 12:10:22 p.m.|JAS|INFO|--- Fin de la Validacion (True) ---
+27/03/2018 12:10:22 p.m.|JAS|INFO|Inicializando archivo de datos: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_ARROYO_30621973173_20180326.dat
+27/03/2018 12:10:22 p.m.|JAS|INFO|Inicializando archivo de Transportistas: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_ARROYO_30621973173_20180326.dat
+27/03/2018 12:10:22 p.m.|JAS|INFO|Archivos listo para trabajar.
+27/03/2018 12:11:19 p.m.|JAS|INFO|Generando reporte posicion terminal...
+27/03/2018 12:11:21 p.m.|JAS|INFO|Ruta del archivo en disco: D:\Sitios Web\Intranet\Poseidon\Temp\Posicion_ARROYO_30621973173_20180326.xls
+27/03/2018 12:11:21 p.m.|JAS|INFO| Enviando mail de la tarea 27 con codigo 30621973173
+27/03/2018 12:11:25 p.m.|JAS|INFO|--------------------------- FIN PROCESO ---------------------------

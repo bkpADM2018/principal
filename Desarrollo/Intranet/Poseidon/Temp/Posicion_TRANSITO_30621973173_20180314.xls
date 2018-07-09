@@ -1,0 +1,273 @@
+<html>
+<head>
+<style type='text/css'>
+.xls_border_left {border-color:#666666;border-style:solid;border-width:thin;}
+.xls_align_center {border-color:#666666;border-style:solid; border-width:thin;text-align: center;}
+.xls_align_right { border-color:#666666; border-style:solid; border-width:thin;text-align: right;}
+.xls_precioUC_tablaArticulos{BACKGROUND-COLOR: #ffff80;border-color:#666666; border-style:solid; border-width:thin;}
+</style> </head>
+<body>
+<table class=xls_border_left style=background-color:#EDEDED; font-weight:bold>
+ <tr>
+     <td>ACTI AR</td>
+     <td></td><td></td>
+ </tr>
+ <tr>
+ <td>PTO:Terminal Pto. San Martin/San Lorenzo</td>
+ <td align=right colspan=3>Fecha : 15/03/2018 10:54:52</td>
+ </tr></table><br><br>
+<table > <tr> <td colspan=3>Movimiento de la Terminal del 14/03/2018</td> </tr>	
+     <tr><td whidt=40px colspan=3 class=xls_align_left>Posicion del 14/03/2018 00:00 Horas</td></tr> 
+</table> 
+<table style='width:150%; font-size:9;' class='xls_border_left'>
+<tr style='background-color:#BABABA;' whidt='200%'>
+<td whidt='40px' colspan='1' class='xls_align_center'>CLIENTE</td>
+<td  colspan='1' class='xls_align_center'>TRIGO PAN                               </td>
+<td  colspan='1' class='xls_align_center'>MAIZ                                    </td>
+<td  colspan='1' class='xls_align_center'>SORGO GRANIFERO COLORADO                </td>
+<td  colspan='1' class='xls_align_center'>SOJA                                    </td>
+<td  colspan='1' class='xls_align_center'>ACEITE SOJA DESGOMADO                   </td>
+<td  colspan='1' class='xls_align_center'>HARINA DE SOJA                          </td>
+</tr>
+<tr><td align='left'>1 - ADM AGRO S.R.L.                         </td>
+<td align='right' >-4900693</td>
+<td align='right' >24190221</td>
+<td align='right' >-29301</td>
+</tr>
+<tr><td align='left'>6 - A.C.A. EXP.                             </td>
+<td align='right' >3435977</td>
+</tr>
+<tr><td align='left'>24 - A.F.A. EXP.                             </td>
+<td align='right' ></td>
+<td align='right' >-13307410</td>
+<td align='right' >29301</td>
+</tr>
+<tr><td align='left'>31 - MOLINOS CA¥UELAS SACIFIA                </td>
+<td align='right' ></td>
+<td align='right' >1061529</td>
+</tr>
+<tr><td align='left'>35 - COFCO ARGENTINA SOCIEDAD ANONIMA        </td>
+<td align='right' >1464716</td>
+</tr>
+<tr><td align='left'>56 - BUNGE ARGENTINA S.A.                    </td>
+<td align='right' ></td>
+<td align='right' >296684</td>
+</tr>
+<tr><td align='left'>144 - ADM PARAGUAY                            </td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' >20271450</td>
+<td align='right' >14889492</td>
+<td align='right' >927070</td>
+</tr>
+<tr><td align='left'>155 - MOLINOS AGRO S.A.                       </td>
+<td align='right' ></td>
+<td align='right' >29970</td>
+</tr>
+<tr><td align='left'>1000 - COFCO INTERNATIONAL ARGENTINA S.A       </td>
+<td align='right' ></td>
+<td align='right' >27844882</td>
+</tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+<td colspan='1' class='xls_align_center'>TOTAL</td>
+<td class='xls_align_right'>0</td>
+<td class='xls_align_right'>40115876</td>
+<td class='xls_align_right'>0</td>
+<td class='xls_align_right'>20271450</td>
+<td class='xls_align_right'>14889492</td>
+<td class='xls_align_right'>927070</td>
+</tr></table><br><br><br>
+<table> <tr> <td  colspan='3' class='xls_align_left'>Descargas de Camiones del 14/03/2018</td> </tr> </table>
+<table style='width:150%; font-size:9;' class='xls_border_left' >
+ <tr style='background-color:#BABABA;' whidt='200%'>
+     <td width='40px' colspan='1' rowSpan='2' class='xls_align_center'>CLIENTE</td>
+<td  colspan='2' class='xls_align_center'>MAIZ                                    </td>
+</tr>
+<tr>
+<td class='xls_align_center'>Kilos</td>
+<td  class='xls_align_center'>Camiones</td>
+</tr>
+<tr><td align='left'>1 - ADM AGRO S.R.L.                         </td>
+<td align='right'>
+1046533
+</td>
+<td align='right'>
+35
+</td>
+</tr>
+<tr><td align='left'>24 - A.F.A. EXP.                             </td>
+<td align='right'>
+2156235
+</td>
+<td align='right'>
+72
+</td>
+</tr>
+<tr><td align='left'>31 - MOLINOS CA¥UELAS SACIFIA                </td>
+<td align='right'>
+59760
+</td>
+<td align='right'>
+2
+</td>
+</tr>
+<tr><td align='left'>1000 - COFCO INTERNATIONAL ARGENTINA S.A       </td>
+<td align='right'>
+871592
+</td>
+<td align='right'>
+29
+</td>
+</tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+<td colspan='1' class='xls_align_center'>TOTAL</td>
+<td class='xls_align_right'>4134120</td>
+<td class='xls_align_right'>138</td>
+</tr>
+</table><br><br><br>
+<table> <tr> <td  colspan='3' class='xls_align_left'>Oleoductos del 14/03/2018</td> </tr> </table>
+<table style='width:150%; font-size:9;' class='xls_border_left' >
+ <tr style='background-color:#BABABA;' whidt='200%'>
+     <td width='40px' colspan='1' rowSpan='2' class='xls_align_center'>CLIENTE</td>
+<td  colspan='2' class='xls_align_center'>SOJA                                    </td>
+</tr>
+<tr>
+<td class='xls_align_center'>Kilos</td>
+<td  class='xls_align_center'>Cantidad</td>
+</tr>
+<tr><td align='left'>144 - ADM PARAGUAY                            </td>
+<td align='right'>
+6425630
+</td>
+<td align='right'>
+1
+</td>
+</tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+<td colspan='1' class='xls_align_center'>TOTAL</td>
+<td class='xls_align_right'>6425630</td>
+<td class='xls_align_right'>1</td>
+</tr>
+</table><br><br><br>
+ <table> <tr> <td  colspan=3 class=xls_align_left>Buque: 1457-LISSA TOPIC                             </td> </tr></table>
+ <table class=xls_border_left style='width:100%; font-size:9;' ><tr style='background-color:#BABABA;'>
+ <td width='40%' colspan='1' class='xls_align_center'>PRODUCTO</td>
+ <td width='40%' colspan='1' class='xls_align_center'>CLIENTE</td>
+ <td width='10%' colspan='1' class='xls_align_center'>CARGA ESTIMADA</td>
+ <td width='10%' colspan='1' class='xls_align_center'>CARGA DIA</td>
+ <td width='10%' colspan='1' class='xls_align_center'>CARGA ACUMULADA</td>
+ <td width='10%' colspan='1' class='xls_align_center'>SALDO CARGA</td></tr>
+<tr><td>23-SOJA                                    </td></tr> 
+<tr><td></td><td width='40%' colspan='1' align='left'>144-ADM PARAGUAY                            </td> 
+<td width='10%' colspan='1' align='right'>20000000</td> 
+<td width='10%' colspan='1' align='right'>14922780</td>
+<td width='10%' colspan='1' align='right'>38691000</td>
+<td width='10%' colspan='1' align='right'>-18691000</td></tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+ <td></td> <td style='background-color:#EDEDED;'  class='xls_align_center'>Subtotal</td>
+<td class='xls_align_right'>20000000</td>
+<td class='xls_align_right'>14922780</td>
+<td class='xls_align_right'>38691000</td>
+<td class='xls_align_right'>-18691000</td></tr>	
+<tr><td colspan='6'></td></tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+<td colspan='2' width='40%' style='background-color:#EDEDED;' class='xls_align_center'>TOTAL</td>
+<td width='10%' class='xls_align_right'>20000000</td>
+<td width='10%' class='xls_align_right'>14922780</td>
+<td width='10%' class='xls_align_right'>38691000</td>
+<td width='10%' class='xls_align_right'>-18691000</td> 
+</tr></table><br>
+<table> <tr> <td  colspan='3' class='xls_align_left'>Ajustes Creditos Debitos del 14/03/2018</td> </tr> </table>
+<table style='width:150%; font-size:9;' class='xls_border_left' >
+ <tr style='background-color:#BABABA;' whidt='200%'>
+     <td width='40px' colspan='1' rowSpan='2' class='xls_align_center'>CLIENTE</td>
+<td  colspan='2' class='xls_align_center'>MAIZ                                    </td>
+</tr>
+<tr>
+<td class='xls_align_center'>Debito</td>
+<td  class='xls_align_center'>Credito</td>
+</tr>
+<tr><td align='left'>31 - MOLINOS CA¥UELAS SACIFIA                </td>
+<td align='right'>
+-60
+</td>
+<td align='right'>
+0
+</td>
+</tr>
+<tr><td align='left'>1000 - COFCO INTERNATIONAL ARGENTINA S.A       </td>
+<td align='right'>
+-871
+</td>
+<td align='right'>
+0
+</td>
+</tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+<td colspan='1' class='xls_align_center'>TOTAL</td>
+<td class='xls_align_right'>-931</td>
+<td class='xls_align_right'>0</td>
+</tr>
+</table><br><br><br>
+<table><tr><td colspan='2' class='xls_align_left'>Posicion del 14/03/2018 24:00 Horas</td></tr></table>
+<table style='width:150%; font-size:9;' class='xls_border_left'>
+<tr style='background-color:#BABABA;' whidt='200%'>
+<td whidt='40px' colspan='1' class='xls_align_center'>CLIENTE</td>
+<td  colspan='1' class='xls_align_center'>TRIGO PAN                               </td>
+<td  colspan='1' class='xls_align_center'>MAIZ                                    </td>
+<td  colspan='1' class='xls_align_center'>SORGO GRANIFERO COLORADO                </td>
+<td  colspan='1' class='xls_align_center'>SOJA                                    </td>
+<td  colspan='1' class='xls_align_center'>ACEITE SOJA DESGOMADO                   </td>
+<td  colspan='1' class='xls_align_center'>HARINA DE SOJA                          </td>
+</tr>
+<tr><td align='left'>1 - ADM AGRO S.R.L.                         </td>
+<td align='right' >-4900693</td>
+<td align='right' >25236754</td>
+<td align='right' >-29301</td>
+</tr>
+<tr><td align='left'>6 - A.C.A. EXP.                             </td>
+<td align='right' >3435977</td>
+</tr>
+<tr><td align='left'>24 - A.F.A. EXP.                             </td>
+<td align='right' ></td>
+<td align='right' >-11151175</td>
+<td align='right' >29301</td>
+</tr>
+<tr><td align='left'>31 - MOLINOS CA¥UELAS SACIFIA                </td>
+<td align='right' ></td>
+<td align='right' >1121229</td>
+</tr>
+<tr><td align='left'>35 - COFCO ARGENTINA SOCIEDAD ANONIMA        </td>
+<td align='right' >1464716</td>
+</tr>
+<tr><td align='left'>56 - BUNGE ARGENTINA S.A.                    </td>
+<td align='right' ></td>
+<td align='right' >296684</td>
+</tr>
+<tr><td align='left'>144 - ADM PARAGUAY                            </td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' ></td>
+<td align='right' >11774300</td>
+<td align='right' >14889492</td>
+<td align='right' >927070</td>
+</tr>
+<tr><td align='left'>155 - MOLINOS AGRO S.A.                       </td>
+<td align='right' ></td>
+<td align='right' >29970</td>
+</tr>
+<tr><td align='left'>1000 - COFCO INTERNATIONAL ARGENTINA S.A       </td>
+<td align='right' ></td>
+<td align='right' >28715603</td>
+</tr>
+<tr style='background-color:#EDEDED;' class='xls_align_center'>
+<td colspan='1' class='xls_align_center'>TOTAL</td>
+<td class='xls_align_right'>0</td>
+<td class='xls_align_right'>44249065</td>
+<td class='xls_align_right'>0</td>
+<td class='xls_align_right'>11774300</td>
+<td class='xls_align_right'>14889492</td>
+<td class='xls_align_right'>927070</td>
+</tr></table><br><br><br>
+</body></html>

@@ -1,0 +1,73 @@
+﻿<!--#include file="../../Includes/procedimientosMG.asp"-->
+<!--#include file="../../Includes/procedimientostraducir.asp"-->
+<!--#include file="../../Includes/procedimientosFechas.asp"-->
+<!--#include file="../../Includes/procedimientosSQL.asp"-->
+<!--#include file="../../Includes/procedimientosTitulos.asp"-->
+
+<%
+Dim pto
+pto = GF_PARAMETROS7("pto", "", 6)
+%>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Puertos</title>
+<link rel="stylesheet" href="../../css/ActiSAIntra-1.css" type="text/css">
+<link rel="stylesheet" href="../../css/Toolbar.css" type="text/css">
+<link rel="stylesheet" href="../../css/Toolbar.css" type="text/css">
+<script type="text/javascript" src="../../scripts/Toolbar.js"></script>
+<script type="text/javascript">	
+	function bodyOnLoad() {
+		tb = new Toolbar('toolbar', 6,'../../images');
+		tb.addButton("/compras/Home-16x16.png", "Home", "cerrar()");
+		tb.draw();	
+	}
+	function cerrar(){
+		location.href= "seccionAuditoria.asp?pto=<%=pto%>";	
+	}
+	function irControlBalanzaCamiones(){		
+		document.location.href="controlBalanzaCamiones.asp?pto=<%=pto%>";
+	}
+	
+	
+</script>
+<style type="text/css">
+.title_sec_section {
+	font-size: 12px;
+	font-weight: bold;
+}
+.textoSeccion {
+	font-size: 12px;
+}
+.titleStyle {
+	font-weight: bold;
+	font-size: 20px;
+}
+</style>
+</head>
+
+<body onLoad="bodyOnLoad()">
+<% call GF_TITULO2("kogge64.gif","Seccion Auditoria") %>
+<div id="toolbar"></div>
+<br />
+<table align="center" width="80%" height="100%">
+	<tr valign="top">
+    	<td></td>
+        <td>
+        	<table align="center" width="80%">			
+				<tbody onMouseOver="this.style.color= 'GoldenRod'" onMouseOut="this.style.color= 'black'" style="cursor: pointer" onClick="irControlBalanzaCamiones();">
+                	<tr>
+						<td rowspan="2" width="10%"><img align="absMiddle" src="../../images/control-pesaje-48x48.png"></td>
+						<td rowspan="2" width="1%">&nbsp;</td>						
+						<td class="title_sec_section"><% =GF_TRADUCIR("Control de balanza de Camiones") %></td>
+					</tr>
+					<tr>
+						<td valign="top" class="textoSeccion"><% =GF_TRADUCIR("Controle el peso de camiones por las distintas balanzas del Puerto.") %></td>
+					</tr>
+				</tbody>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

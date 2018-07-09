@@ -1,0 +1,87 @@
+15/03/2018 10:45:41 a.m.|JAS|INFO|--------------------- INCIANDO EXPORTACION ------------------------
+15/03/2018 10:45:41 a.m.|JAS|INFO| ---> PUERTO       : TRANSITO
+15/03/2018 10:45:41 a.m.|JAS|INFO| ---> FECHA DESDE  : 2018-03-14
+15/03/2018 10:45:41 a.m.|JAS|INFO| ---> FECHA HASTA  : 2018-03-14
+15/03/2018 10:45:41 a.m.|JAS|INFO| ---> CLIENTE      : 
+15/03/2018 10:45:41 a.m.|JAS|INFO| ---> DERSTINATARIO: 30621973173
+15/03/2018 10:45:41 a.m.|JAS|INFO| ---> VALIDAR		: True
+15/03/2018 10:45:41 a.m.|JAS|INFO|-------------------------------------------------------------------
+15/03/2018 10:45:41 a.m.|JAS|INFO|cargarTablaAcondicionamiento - Inicia
+15/03/2018 10:45:42 a.m.|JAS|INFO|Clave agregada: 20180314_000567719131_0000003031_SECADO, Valor: 1.75
+15/03/2018 10:45:42 a.m.|JAS|INFO|Clave agregada: 20180314_000567582089_0000003256_SECADO, Valor: 2.79
+15/03/2018 10:45:42 a.m.|JAS|INFO|Clave descartada: 20180314_000567510795_0000003593_ZARANDA, Valor: 0
+15/03/2018 10:45:42 a.m.|JAS|INFO|Clave agregada: 20180314_000567337329_0000003652_SECADO, Valor: 3.26
+15/03/2018 10:45:42 a.m.|JAS|INFO|Clave descartada: 20180314_000567510796_0000003881_ZARANDA, Valor: 0
+15/03/2018 10:45:42 a.m.|JAS|INFO|Clave descartada: 20180314_000567853689_0000004632_ZARANDA, Valor: 0
+15/03/2018 10:45:42 a.m.|JAS|INFO|Clave descartada: 20180314_000567510793_0000004747_ZARANDA, Valor: 0
+15/03/2018 10:45:42 a.m.|JAS|INFO|Clave agregada: 20180314_000567337328_0000004918_SECADO, Valor: 4.3
+15/03/2018 10:45:42 a.m.|JAS|INFO|Clave agregada: 20180314_000567892477_0000004426_TEMPERATURA, Valor: 1
+15/03/2018 10:45:42 a.m.|JAS|INFO|cargarTablaAcondicionamiento - Fin
+15/03/2018 10:45:44 a.m.|JAS|INFO|--- Validando cartas de porte ---
+15/03/2018 10:45:44 a.m.|JAS|INFO|Todo OK!
+15/03/2018 10:45:44 a.m.|JAS|INFO|--- Fin de la Validacion (True) ---
+15/03/2018 10:45:44 a.m.|JAS|INFO|Inicializando archivo de datos: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_TRANSITO_30621973173_20180314.dat
+15/03/2018 10:45:44 a.m.|JAS|INFO|Inicializando archivo de Transportistas: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_TRANSITO_30621973173_20180314.dat
+15/03/2018 10:45:44 a.m.|JAS|INFO|Archivos listo para trabajar.
+15/03/2018 10:45:55 a.m.|JAS|INFO|Generando reporte posicion terminal...
+15/03/2018 10:45:57 a.m.|JAS|INFO|Ruta del archivo en disco: D:\Sitios Web\Intranet\Poseidon\Temp\Posicion_TRANSITO_30621973173_20180314.xls
+15/03/2018 10:45:57 a.m.|JAS|INFO| Enviando mail de la tarea 27 con codigo 30621973173
+15/03/2018 10:45:57 a.m.|JAS|INFO|--------------------------- FIN PROCESO ---------------------------
+15/03/2018 10:48:44 a.m.|JAS|INFO|--------------------- INCIANDO EXPORTACION ------------------------
+15/03/2018 10:48:44 a.m.|JAS|INFO| ---> PUERTO       : TRANSITO
+15/03/2018 10:48:44 a.m.|JAS|INFO| ---> FECHA DESDE  : 2018-03-14
+15/03/2018 10:48:44 a.m.|JAS|INFO| ---> FECHA HASTA  : 2018-03-14
+15/03/2018 10:48:44 a.m.|JAS|INFO| ---> CLIENTE      : 
+15/03/2018 10:48:44 a.m.|JAS|INFO| ---> DERSTINATARIO: 30621973173
+15/03/2018 10:48:44 a.m.|JAS|INFO| ---> VALIDAR		: True
+15/03/2018 10:48:44 a.m.|JAS|INFO|-------------------------------------------------------------------
+15/03/2018 10:48:44 a.m.|JAS|INFO|cargarTablaAcondicionamiento - Inicia
+15/03/2018 10:48:45 a.m.|JAS|INFO|Clave agregada: 20180314_000567719131_0000003031_SECADO, Valor: 1.75
+15/03/2018 10:48:45 a.m.|JAS|INFO|Clave agregada: 20180314_000567582089_0000003256_SECADO, Valor: 2.79
+15/03/2018 10:48:45 a.m.|JAS|INFO|Clave descartada: 20180314_000567510795_0000003593_ZARANDA, Valor: 0
+15/03/2018 10:48:45 a.m.|JAS|INFO|Clave agregada: 20180314_000567337329_0000003652_SECADO, Valor: 3.26
+15/03/2018 10:48:45 a.m.|JAS|INFO|Clave descartada: 20180314_000567510796_0000003881_ZARANDA, Valor: 0
+15/03/2018 10:48:45 a.m.|JAS|INFO|Clave descartada: 20180314_000567853689_0000004632_ZARANDA, Valor: 0
+15/03/2018 10:48:45 a.m.|JAS|INFO|Clave descartada: 20180314_000567510793_0000004747_ZARANDA, Valor: 0
+15/03/2018 10:48:45 a.m.|JAS|INFO|Clave agregada: 20180314_000567337328_0000004918_SECADO, Valor: 4.3
+15/03/2018 10:48:45 a.m.|JAS|INFO|Clave agregada: 20180314_000567892477_0000004426_TEMPERATURA, Valor: 1
+15/03/2018 10:48:45 a.m.|JAS|INFO|cargarTablaAcondicionamiento - Fin
+15/03/2018 10:48:47 a.m.|JAS|INFO|--- Validando cartas de porte ---
+15/03/2018 10:48:47 a.m.|JAS|INFO|Todo OK!
+15/03/2018 10:48:47 a.m.|JAS|INFO|--- Fin de la Validacion (True) ---
+15/03/2018 10:48:47 a.m.|JAS|INFO|Inicializando archivo de datos: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_TRANSITO_30621973173_20180314.dat
+15/03/2018 10:48:47 a.m.|JAS|INFO|Inicializando archivo de Transportistas: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_TRANSITO_30621973173_20180314.dat
+15/03/2018 10:48:47 a.m.|JAS|INFO|Archivos listo para trabajar.
+15/03/2018 10:48:55 a.m.|JAS|INFO|Generando reporte posicion terminal...
+15/03/2018 10:48:56 a.m.|JAS|INFO|Ruta del archivo en disco: D:\Sitios Web\Intranet\Poseidon\Temp\Posicion_TRANSITO_30621973173_20180314.xls
+15/03/2018 10:48:56 a.m.|JAS|INFO| Enviando mail de la tarea 27 con codigo 30621973173
+15/03/2018 10:48:56 a.m.|JAS|INFO|--------------------------- FIN PROCESO ---------------------------
+15/03/2018 10:54:52 a.m.|JAS|INFO|--------------------- INCIANDO EXPORTACION ------------------------
+15/03/2018 10:54:52 a.m.|JAS|INFO| ---> PUERTO       : TRANSITO
+15/03/2018 10:54:52 a.m.|JAS|INFO| ---> FECHA DESDE  : 2018-03-14
+15/03/2018 10:54:52 a.m.|JAS|INFO| ---> FECHA HASTA  : 2018-03-14
+15/03/2018 10:54:52 a.m.|JAS|INFO| ---> CLIENTE      : 
+15/03/2018 10:54:52 a.m.|JAS|INFO| ---> DERSTINATARIO: 30621973173
+15/03/2018 10:54:52 a.m.|JAS|INFO| ---> VALIDAR		: True
+15/03/2018 10:54:52 a.m.|JAS|INFO|-------------------------------------------------------------------
+15/03/2018 10:54:52 a.m.|JAS|INFO|cargarTablaAcondicionamiento - Inicia
+15/03/2018 10:54:52 a.m.|JAS|INFO|Clave agregada: 20180314_000567719131_0000003031_SECADO, Valor: 1.75
+15/03/2018 10:54:52 a.m.|JAS|INFO|Clave agregada: 20180314_000567582089_0000003256_SECADO, Valor: 2.79
+15/03/2018 10:54:52 a.m.|JAS|INFO|Clave descartada: 20180314_000567510795_0000003593_ZARANDA, Valor: 0
+15/03/2018 10:54:52 a.m.|JAS|INFO|Clave agregada: 20180314_000567337329_0000003652_SECADO, Valor: 3.26
+15/03/2018 10:54:52 a.m.|JAS|INFO|Clave descartada: 20180314_000567510796_0000003881_ZARANDA, Valor: 0
+15/03/2018 10:54:52 a.m.|JAS|INFO|Clave descartada: 20180314_000567853689_0000004632_ZARANDA, Valor: 0
+15/03/2018 10:54:52 a.m.|JAS|INFO|Clave descartada: 20180314_000567510793_0000004747_ZARANDA, Valor: 0
+15/03/2018 10:54:52 a.m.|JAS|INFO|Clave agregada: 20180314_000567337328_0000004918_SECADO, Valor: 4.3
+15/03/2018 10:54:52 a.m.|JAS|INFO|Clave agregada: 20180314_000567892477_0000004426_TEMPERATURA, Valor: 1
+15/03/2018 10:54:52 a.m.|JAS|INFO|cargarTablaAcondicionamiento - Fin
+15/03/2018 10:54:54 a.m.|JAS|INFO|--- Validando cartas de porte ---
+15/03/2018 10:54:54 a.m.|JAS|INFO|Todo OK!
+15/03/2018 10:54:54 a.m.|JAS|INFO|--- Fin de la Validacion (True) ---
+15/03/2018 10:54:54 a.m.|JAS|INFO|Inicializando archivo de datos: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_TRANSITO_30621973173_20180314.dat
+15/03/2018 10:54:54 a.m.|JAS|INFO|Inicializando archivo de Transportistas: D:\Sitios Web\Intranet\Poseidon\Temp\DESCARGAS_TRANSITO_30621973173_20180314.dat
+15/03/2018 10:54:54 a.m.|JAS|INFO|Archivos listo para trabajar.
+15/03/2018 10:55:01 a.m.|JAS|INFO|Generando reporte posicion terminal...
+15/03/2018 10:55:03 a.m.|JAS|INFO|Ruta del archivo en disco: D:\Sitios Web\Intranet\Poseidon\Temp\Posicion_TRANSITO_30621973173_20180314.xls
+15/03/2018 10:55:03 a.m.|JAS|INFO| Enviando mail de la tarea 27 con codigo 30621973173
+15/03/2018 10:55:04 a.m.|JAS|INFO|--------------------------- FIN PROCESO ---------------------------

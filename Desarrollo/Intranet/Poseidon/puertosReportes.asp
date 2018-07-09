@@ -1,0 +1,220 @@
+<!--#include file="../Includes/procedimientosMG.asp"-->
+<!--#include file="../Includes/procedimientostraducir.asp"-->
+<!--#include file="../Includes/procedimientosFechas.asp"-->
+<!--#include file="../Includes/procedimientosSQL.asp"-->
+<!--#include file="../Includes/procedimientosTitulos.asp"-->
+
+<%
+Dim pto
+pto = GF_PARAMETROS7("pto", "", 6)
+%>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Poseidon - Reportes</title>
+
+<link rel="stylesheet" href="../css/ActiSAIntra-1.css" type="text/css">
+<style type="text/css">
+.table, th, td {
+	vertical-align:top;
+	}
+
+	#cell .boxround {
+		padding: 7px;
+	}
+}
+</style>
+<script type="text/javascript">
+	function bodyOnLoad() {			
+		//tb = new Toolbar('toolbar', 6,'images/');		
+		//tb.addButton("Home-16x16.png", "Home", "cerrar()");
+		//tb.draw();	
+	} 
+	function cerrar(){
+		location.href='puertosReportes.asp'
+	}
+	function irReporteCalada(){
+	    //document.location.href = "ReportesCalada/reporteVisteosCalada.asp?pto=<%=pto%>";
+	    window.open('ReportesCalada/reporteVisteosCalada.asp?pto=<%=pto%>', '<%=pto%>', 'width=1000,height=500,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}
+	function irReportePosicionTerminal(){
+	    //document.location.href = "ReportesPosicionTerminal/reportePosicionTerminal.asp?pto=<%=pto%>";
+	    window.open('ReportesPosicionTerminal/reportePosicionTerminal.asp?pto=<%=pto%>', '<%=pto%>', 'width=1000,height=500,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}
+	function irReporteCuposAsignados(){
+	    //document.location.href = "reporteCuposAsignados.asp?pto=<%=pto%>";
+	    window.open('reporteCuposAsignados.asp?pto=<%=pto%>', '<%=pto%>', 'width=1000,height=500,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}
+	function irReporteRecargas(){
+	    //document.location.href = "reporteCamionesRecarga.asp?pto=<%=pto%>";
+	    window.open('reporteCamionesRecarga.asp?pto=<%=pto%>', '<%=pto%>', 'width=1000,height=500,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}
+	function irReporteBoletinesAnalisis(){
+	    //document.location.href="reporteBoletinesAnalisis.asp?pto=<%=pto%>";
+	    window.open('reporteBoletinesAnalisis.asp?pto=<%=pto%>', '<%=pto%>', 'width=1000,height=500,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}	
+	function irReporteCalador(){
+	    //document.location.href = "reporteCalador.asp?pto=<%=pto%>";
+	    window.open('reporteCalador.asp?pto=<%=pto%>', '<%=pto%>', 'width=1000,height=500,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}
+	function irReporteDescargaEmbarque(){
+	    //document.location.href = "reporteDescargaEmbarques.asp?pto=<%=pto%>";
+	    window.open('reporteDescargaEmbarques.asp?pto=<%=pto%>', '<%=pto%>', 'width=1000,height=500,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}
+	function irReporteCamionesPorTurno() {
+	    window.open('reporteCamionesPuestos.asp?pto=<%=pto%>', '<%=pto%>', 'width=1000,height=500,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}
+	function irReporteMermaVolatil() {
+	    window.open('reporteMermaVolatilPrint.asp?pto=<%=pto%>', '<%=pto%>', 'width=1000,height=500,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}
+	function irReporteDescargas() {
+	    window.open('reporteDescargas.asp?pto=<%=pto%>', '<%=pto%>', 'width=800,height=400,top=10, left=10, scrollbars=YES,resizable=YES,titlebar=NO');
+	}
+	
+</script>
+</head>
+<table width="500px" border="0" align="center" cellpadding="6" cellspacing="0">
+<tr>
+<td width="50%" valign="top">
+<section id="cell">
+
+        	
+            <div class="boxround">
+	            <table width="480">
+                    <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReporteCalada()">
+	                    <tr>
+	                        
+	                        <td class="title_sec_section"><% =GF_TRADUCIR("Reporte de Visteos Calada")%></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="textoSeccion"><% =GF_TRADUCIR("Lista la informacion relacionada a la calidad de los camiones, permite ver los valores de cada rubro de visteo y todas sus modificaciones.") %></td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="boxround">
+	            <table width="480">
+                    <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReportePosicionTerminal()">
+	                    <tr>
+	                        <td class="title_sec_section"><% =GF_TRADUCIR("Reporte de Posicion de Terminal")%></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="textoSeccion"><% =GF_TRADUCIR("Lista la informacion relacionada a las posiciones de la terminal.") %></td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="boxround">
+	            <table width="480">
+                    <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReporteCuposAsignados()">
+	                    <tr>
+	                        
+	                        <td class="title_sec_section"><% =GF_TRADUCIR("Reporte Cupos")%></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="textoSeccion"><% =GF_TRADUCIR("Lista la informacion de los cupos que se asignaron en Buenos Aires y que en las plantas van cumpliendo.") %></td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="boxround">
+	            <table width="480">
+                    <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReporteRecargas()">
+	                    <tr>
+	                        
+	                        <td class="title_sec_section"><% =GF_TRADUCIR("Reporte Recargas")%></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="textoSeccion"><% =GF_TRADUCIR("Lista la informacion de los camiones que se van cargando en las plantas.") %></td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>            
+			 <div class="boxround">
+	            <table width="480">
+                    <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReporteBoletinesAnalisis()">
+	                    <tr>
+	                        
+	                        <td class="title_sec_section"><% =GF_TRADUCIR("Reporte Boletines de Analisis")%></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="textoSeccion"><% =GF_TRADUCIR("Lista la informacion de los Boletines de Analisis.") %></td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>	
+            <div class="boxround">
+	            <table width="480">
+                    <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReporteCalador()">
+	                    <tr>
+	                        
+	                        <td class="title_sec_section"><% =GF_TRADUCIR("Reporte de Calador")%></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="textoSeccion"><% =GF_TRADUCIR("Lista la informacion util para el calador acerca de los Camiones y Vagones.") %></td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="boxround">
+	            <table width="480">
+                    <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReporteDescargaEmbarque()">
+	                    <tr>
+	                        
+	                        <td class="title_sec_section"><% =GF_TRADUCIR("Reporte Descarga y Embarques")%></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="textoSeccion"><% =GF_TRADUCIR("Lista la informacion de las Descargas y Embarques que tuvo el puerto.") %></td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="boxround">
+	            <table width="480">
+                    <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReporteCamionesPorTurno()">
+	                    <tr>
+	                        <td class="title_sec_section"><% =GF_TRADUCIR("Reporte Camiones por turno")%></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="textoSeccion"><% =GF_TRADUCIR("Lista la cantidad de camiones que pasaron por los puestos del puerto.") %></td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>            
+</section>   
+</td>
+<td>
+<section id="cell">
+			<div class="boxround">
+	            <table width="480">
+                    <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReporteMermaVolatil()">
+	                    <tr>
+	                        <td class="title_sec_section"><% =GF_TRADUCIR("Reporte Merma Volatil")%></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="textoSeccion"><% =GF_TRADUCIR("Lista los kilos descargados aplicando su merma volatil.") %></td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="boxround">
+	            <table width="480">
+                    <tbody onMouseOver="" onMouseOut="" style="cursor: pointer" onClick="irReporteDescargas()">
+	                    <tr>
+	                        
+	                        <td class="title_sec_section"><% =GF_TRADUCIR("Reporte de Descargas")%></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="textoSeccion"><% =GF_TRADUCIR("Lista la informacion detallada de las descargas y sus correspondientes descuentos.") %></td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>
+</section>  			
+</td>
+</tr>
+</table>
+</body>
+</html>

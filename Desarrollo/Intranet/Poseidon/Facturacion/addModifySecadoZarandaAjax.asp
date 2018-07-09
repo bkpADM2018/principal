@@ -1,0 +1,38 @@
+<!--#include file="../../Includes/procedimientosParametros.asp"-->
+<!--#include file="../../Includes/procedimientosPuertos.asp"-->
+<!--#include file="../../Includes/procedimientosUnificador.asp"-->
+<%
+'*************************************************************************************
+'***************************** COMIENZO DE LA PAGINA *********************************
+'*************************************************************************************
+Dim pto, g_cdConcepto
+Dim precioBase,fVigenciaDesde, ptoDesde, ptoHasta, precioAdicional, tipoMoneda
+Dim rs, strSQL
+
+
+g_cdConcepto = GF_Parametros7("cc",0,6)
+pto = session("TERMINAL_ACTUAL")
+'Recibo los nuvos parametros
+new_fVigenciaDesde = GF_PARAMETROS7("dtVigencia","",6)
+new_precioBase = GF_PARAMETROS7("PrecioB",2,6)
+new_ptoDesde = GF_PARAMETROS7("ptoDesde",0,6)
+new_ptoHasta = GF_PARAMETROS7("ptoHasta",0,6)
+new_precioAdicional = GF_PARAMETROS7("PrecioA",2,6)
+new_tipoMoneda = GF_PARAMETROS7("cdMoneda", 0,6)
+
+strSQL= "SELECT * FROM PRECIOSERVICIOS WHERE"&_
+		" CDCONCEPTO= " & g_cdConcepto &_
+		" and VIGENCIADESDE = '"& new_fVigenciaDesde &"'"&_
+		" AND PTODESDE = " & new_ptoDesde
+Call executeQueryDb(pto, rs, "OPEN", strSQL)						
+IF (rs.eof) THEN
+	strSQL= "INSERT INTO PRECIOSERVICIOS (CDCONCEPTO,VIGENCIADESDE,PTODESDE,PTOHASTA,CDMONEDA, PRECIO,PRECIOADICIONAL)"&_
+			" VALUES(" & g_cdConcepto & ", '"&new_fVigenciaDesde&"', " & new_ptoDesde & ", " & new_ptoHasta & ", "& new_tipoMoneda &","&new_precioBase&", " & new_precioAdicional & ")"
+ELSE
+	strSQL=	"UPDATE PRECIOSERVICIOS SET PRECIO="&new_precioBase&", CDMONEDA= "&new_tipoMoneda&_
+			", PRECIOADICIONAL= " & new_precioAdicional & ", PTOHASTA= " & new_ptoHasta &_
+            " WHERE CDCONCEPTO= " & g_cdConcepto & " and VIGENCIADESDE='" & new_fVigenciaDesde &"' AND PTODESDE = " & new_ptoDesde            
+END IF
+Call executeQueryDb(pto, rs, "EXEC", strSQL)		
+response.write RESPUESTA_OK
+%>

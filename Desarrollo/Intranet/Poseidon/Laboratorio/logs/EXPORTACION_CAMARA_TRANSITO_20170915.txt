@@ -1,0 +1,897 @@
+15/09/2017 08:46:31 a.m.|VIM|INFO|--------------------- INCIANDO EXPORTACION ANALISIS DE CAMARA ------------------------
+15/09/2017 08:46:31 a.m.|VIM|INFO| ---> USUARIO: VIM
+15/09/2017 08:46:31 a.m.|VIM|INFO| ---> PUERTO: TRANSITO
+15/09/2017 08:46:31 a.m.|VIM|INFO|Buscando analisis de la fecha 2017-09-14
+15/09/2017 08:46:31 a.m.|VIM|INFO|Iniciando validacion de analisis
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004925 | Muestra: 240493121       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593644
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003779 | Muestra: 240493122       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460710
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003207 | Muestra: 240493123       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447001
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004398 | Muestra: 240493124       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64549243
+15/09/2017 08:46:31 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004988 | Muestra: 240493125       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64587533
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003316 | Muestra: 240493126       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64466059
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003328 | Muestra: 240493127       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447009
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004839 | Muestra: 240493128       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447008
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004872 | Muestra: 240493129       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447007
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003558 | Muestra: 240493130       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447004
+15/09/2017 08:46:32 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003470 | Muestra: 240493131       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593643
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003174 | Muestra: 240493132       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593647
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003729 | Muestra: 240493133       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447005
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004713 | Muestra: 240493134       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447006
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003506 | Muestra: 240493135       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460711
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004985 | Muestra: 240493136       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586403
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:33 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004889 | Muestra: 240493137       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586405
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003335 | Muestra: 240493138       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64630251
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004867 | Muestra: 240493139       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64630252
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004767 | Muestra: 240493140       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586407
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004438 | Muestra: 240493141       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593646
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003688 | Muestra: 240493142       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64640405
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003261 | Muestra: 240493143       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447010
+15/09/2017 08:46:34 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004064 | Muestra: 240493144       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500965
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004815 | Muestra: 240493145       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64409587
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004685 | Muestra: 240493146       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500966
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004791 | Muestra: 240493147       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500967
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004798 | Muestra: 240493148       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63328843
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003472 | Muestra: 240493149       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558290
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:35 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004874 | Muestra: 240493150       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64409586
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004866 | Muestra: 240493151       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64556868
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004950 | Muestra: 240493152       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64592460
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004898 | Muestra: 240493153       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558295
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004504 | Muestra: 240493154       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558293
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004465 | Muestra: 240493155       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558291
+15/09/2017 08:46:36 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004399 | Muestra: 240493156       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558292
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004759 | Muestra: 240493157       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64617880
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003737 | Muestra: 240493158       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64617879
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004448 | Muestra: 240493159       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64623926
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004920 | Muestra: 240493160       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64623928
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003750 | Muestra: 240493161       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64623929
+15/09/2017 08:46:37 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003754 | Muestra: 240493162       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64611269
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003940 | Muestra: 240493163       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64617882
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004690 | Muestra: 240493164       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500964
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004862 | Muestra: 240493165       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63971184
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003118 | Muestra: 240493166       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64463256
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003371 | Muestra: 240493167       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64592462
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003534 | Muestra: 240493168       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64463253
+15/09/2017 08:46:38 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004216 | Muestra: 240493169       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64418281
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003550 | Muestra: 240493170       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64611270
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004415 | Muestra: 240493171       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64440926
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003343 | Muestra: 240493172       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460712
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003883 | Muestra: 240493173       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64585623
+15/09/2017 08:46:39 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004976 | Muestra: 240493174       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607532
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003609 | Muestra: 240493175       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63971201
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004357 | Muestra: 240493176       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63971200
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003030 | Muestra: 240493177       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64116224
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004647 | Muestra: 240493178       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64116223
+15/09/2017 08:46:40 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004710 | Muestra: 240493179       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607535
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004827 | Muestra: 240493180       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64116225
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004080 | Muestra: 240493181       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63658399
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004875 | Muestra: 240493182       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460713
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004785 | Muestra: 240493183       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607538
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004945 | Muestra: 240493184       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64276554
+15/09/2017 08:46:41 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004530 | Muestra: 240493185       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64276475
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003046 | Muestra: 240493186       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64585788
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004747 | Muestra: 240493187       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64587534
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004205 | Muestra: 240493188       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460714
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000004523 | Muestra: 240493189       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64587535
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003552 | Muestra: 240493190       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586415
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:42 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:43 a.m.|VIM|INFO| - Validando - Tipo transporte: 1 | Id: 0000003166 | Muestra: 240493191       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607539
+15/09/2017 08:46:43 a.m.|VIM|INFO| - Validación Ok 
+15/09/2017 08:46:43 a.m.|VIM|INFO| - Armando registro de datos... 
+15/09/2017 08:46:43 a.m.|VIM|INFO| - Registro escrito OK!. 
+15/09/2017 08:46:43 a.m.|VIM|INFO|Finalizando validacion de analisis
+15/09/2017 08:46:43 a.m.|VIM|INFO|-------------------- GENERANDO ANALISIS TOTALES --------------------
+15/09/2017 08:46:43 a.m.|VIM|INFO|-------------------- GENERANDO ANALISIS TOTALES --------------------
+15/09/2017 08:46:43 a.m.|VIM|INFO|-------------------- GENERANDO ANALISIS DE BIOTECNOLOGIA --------------------
+15/09/2017 08:46:43 a.m.|VIM|INFO|-------------------- GENERANDO ANALISIS DE BIOTECNOLOGIA --------------------
+15/09/2017 08:46:43 a.m.|VIM|INFO|-------------------- GENERANDO ANALISIS DE PROTEINA --------------------
+15/09/2017 08:46:43 a.m.|VIM|INFO|-------------------- GENERANDO ANALISIS DE PROTEINA --------------------
+15/09/2017 08:46:43 a.m.|VIM|INFO|Iniciando envio de mail
+15/09/2017 08:46:43 a.m.|VIM|INFO|Enviando mail a : scalisij@toepfer.com
+15/09/2017 08:46:45 a.m.|VIM|INFO|Finalizando envio de mail
+15/09/2017 08:48:47 a.m.|ZED|INFO|--------------------- INCIANDO EXPORTACION ANALISIS DE CAMARA ------------------------
+15/09/2017 08:48:47 a.m.|ZED|INFO| ---> USUARIO: ZED
+15/09/2017 08:48:47 a.m.|ZED|INFO| ---> PUERTO: TRANSITO
+15/09/2017 08:48:47 a.m.|ZED|INFO|Buscando analisis de la fecha 2017-09-14
+15/09/2017 08:48:47 a.m.|ZED|INFO|Iniciando validacion de analisis
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004925 | Muestra: 240493121       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593644
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003779 | Muestra: 240493122       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460710
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003207 | Muestra: 240493123       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447001
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004398 | Muestra: 240493124       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64549243
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004988 | Muestra: 240493125       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64587533
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003316 | Muestra: 240493126       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64466059
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003328 | Muestra: 240493127       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447009
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004839 | Muestra: 240493128       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447008
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004872 | Muestra: 240493129       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447007
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003558 | Muestra: 240493130       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447004
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003470 | Muestra: 240493131       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593643
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003174 | Muestra: 240493132       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593647
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003729 | Muestra: 240493133       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447005
+15/09/2017 08:48:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004713 | Muestra: 240493134       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447006
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003506 | Muestra: 240493135       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460711
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004985 | Muestra: 240493136       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586403
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004889 | Muestra: 240493137       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586405
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003335 | Muestra: 240493138       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64630251
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004867 | Muestra: 240493139       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64630252
+15/09/2017 08:48:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004767 | Muestra: 240493140       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586407
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004438 | Muestra: 240493141       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593646
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003688 | Muestra: 240493142       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64640405
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003261 | Muestra: 240493143       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447010
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004064 | Muestra: 240493144       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500965
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004815 | Muestra: 240493145       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64409587
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004685 | Muestra: 240493146       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500966
+15/09/2017 08:48:50 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004791 | Muestra: 240493147       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500967
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004798 | Muestra: 240493148       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63328843
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003472 | Muestra: 240493149       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558290
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004874 | Muestra: 240493150       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64409586
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004866 | Muestra: 240493151       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64556868
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004950 | Muestra: 240493152       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64592460
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004898 | Muestra: 240493153       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558295
+15/09/2017 08:48:51 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004504 | Muestra: 240493154       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558293
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004465 | Muestra: 240493155       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558291
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004399 | Muestra: 240493156       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558292
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004759 | Muestra: 240493157       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64617880
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003737 | Muestra: 240493158       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64617879
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004448 | Muestra: 240493159       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64623926
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004920 | Muestra: 240493160       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64623928
+15/09/2017 08:48:52 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003750 | Muestra: 240493161       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64623929
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003754 | Muestra: 240493162       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64611269
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003940 | Muestra: 240493163       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64617882
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004690 | Muestra: 240493164       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500964
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004862 | Muestra: 240493165       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63971184
+15/09/2017 08:48:53 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003118 | Muestra: 240493166       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64463256
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003371 | Muestra: 240493167       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64592462
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003534 | Muestra: 240493168       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64463253
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004216 | Muestra: 240493169       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64418281
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003550 | Muestra: 240493170       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64611270
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004415 | Muestra: 240493171       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64440926
+15/09/2017 08:48:54 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003343 | Muestra: 240493172       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460712
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003883 | Muestra: 240493173       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64585623
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004976 | Muestra: 240493174       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607532
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003609 | Muestra: 240493175       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63971201
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004357 | Muestra: 240493176       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63971200
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003030 | Muestra: 240493177       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64116224
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004647 | Muestra: 240493178       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64116223
+15/09/2017 08:48:55 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004710 | Muestra: 240493179       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607535
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004827 | Muestra: 240493180       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64116225
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004080 | Muestra: 240493181       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63658399
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004875 | Muestra: 240493182       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460713
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004785 | Muestra: 240493183       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607538
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004945 | Muestra: 240493184       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64276554
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004530 | Muestra: 240493185       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64276475
+15/09/2017 08:48:56 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003046 | Muestra: 240493186       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64585788
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004747 | Muestra: 240493187       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64587534
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004205 | Muestra: 240493188       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460714
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004523 | Muestra: 240493189       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64587535
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003552 | Muestra: 240493190       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586415
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003166 | Muestra: 240493191       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607539
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:48:57 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:48:57 a.m.|ZED|INFO|Finalizando validacion de analisis
+15/09/2017 08:48:58 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS TOTALES --------------------
+15/09/2017 08:48:58 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS TOTALES --------------------
+15/09/2017 08:48:58 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS DE BIOTECNOLOGIA --------------------
+15/09/2017 08:48:58 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS DE BIOTECNOLOGIA --------------------
+15/09/2017 08:48:58 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS DE PROTEINA --------------------
+15/09/2017 08:48:58 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS DE PROTEINA --------------------
+15/09/2017 08:48:58 a.m.|ZED|INFO|Iniciando envio de mail
+15/09/2017 08:48:58 a.m.|ZED|INFO|Enviando mail a : scalisij@toepfer.com
+15/09/2017 08:48:58 a.m.|ZED|INFO|Finalizando envio de mail
+15/09/2017 08:49:39 a.m.|ZED|INFO|--------------------- INCIANDO EXPORTACION ANALISIS DE CAMARA ------------------------
+15/09/2017 08:49:39 a.m.|ZED|INFO| ---> USUARIO: ZED
+15/09/2017 08:49:39 a.m.|ZED|INFO| ---> PUERTO: TRANSITO
+15/09/2017 08:49:39 a.m.|ZED|INFO|Buscando analisis de la fecha 2017-09-14
+15/09/2017 08:49:39 a.m.|ZED|INFO|Iniciando validacion de analisis
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004925 | Muestra: 240493121       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593644
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003779 | Muestra: 240493122       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460710
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003207 | Muestra: 240493123       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447001
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004398 | Muestra: 240493124       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64549243
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:39 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004988 | Muestra: 240493125       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64587533
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003316 | Muestra: 240493126       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64466059
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003328 | Muestra: 240493127       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447009
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004839 | Muestra: 240493128       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447008
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004872 | Muestra: 240493129       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447007
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003558 | Muestra: 240493130       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447004
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003470 | Muestra: 240493131       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593643
+15/09/2017 08:49:40 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003174 | Muestra: 240493132       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593647
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003729 | Muestra: 240493133       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447005
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004713 | Muestra: 240493134       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447006
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003506 | Muestra: 240493135       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460711
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:41 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004985 | Muestra: 240493136       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586403
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004889 | Muestra: 240493137       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586405
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003335 | Muestra: 240493138       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64630251
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004867 | Muestra: 240493139       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64630252
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004767 | Muestra: 240493140       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586407
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004438 | Muestra: 240493141       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64593646
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003688 | Muestra: 240493142       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64640405
+15/09/2017 08:49:42 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003261 | Muestra: 240493143       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64447010
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004064 | Muestra: 240493144       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500965
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004815 | Muestra: 240493145       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64409587
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004685 | Muestra: 240493146       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500966
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004791 | Muestra: 240493147       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500967
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004798 | Muestra: 240493148       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63328843
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003472 | Muestra: 240493149       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558290
+15/09/2017 08:49:43 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004874 | Muestra: 240493150       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64409586
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004866 | Muestra: 240493151       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64556868
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004950 | Muestra: 240493152       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64592460
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004898 | Muestra: 240493153       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558295
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004504 | Muestra: 240493154       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558293
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004465 | Muestra: 240493155       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558291
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004399 | Muestra: 240493156       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64558292
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:44 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004759 | Muestra: 240493157       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64617880
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003737 | Muestra: 240493158       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64617879
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004448 | Muestra: 240493159       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64623926
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004920 | Muestra: 240493160       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64623928
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003750 | Muestra: 240493161       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64623929
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003754 | Muestra: 240493162       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64611269
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003940 | Muestra: 240493163       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64617882
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004690 | Muestra: 240493164       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64500964
+15/09/2017 08:49:45 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004862 | Muestra: 240493165       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63971184
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003118 | Muestra: 240493166       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64463256
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003371 | Muestra: 240493167       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64592462
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003534 | Muestra: 240493168       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64463253
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004216 | Muestra: 240493169       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64418281
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003550 | Muestra: 240493170       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64611270
+15/09/2017 08:49:46 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004415 | Muestra: 240493171       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64440926
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003343 | Muestra: 240493172       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460712
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003883 | Muestra: 240493173       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64585623
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004976 | Muestra: 240493174       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607532
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003609 | Muestra: 240493175       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63971201
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004357 | Muestra: 240493176       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63971200
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003030 | Muestra: 240493177       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64116224
+15/09/2017 08:49:47 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004647 | Muestra: 240493178       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64116223
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004710 | Muestra: 240493179       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607535
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004827 | Muestra: 240493180       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64116225
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004080 | Muestra: 240493181       (Camara:S) | Producto: 22 | Cta.Pte: 0005-63658399
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004875 | Muestra: 240493182       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460713
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004785 | Muestra: 240493183       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607538
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004945 | Muestra: 240493184       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64276554
+15/09/2017 08:49:48 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004530 | Muestra: 240493185       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64276475
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003046 | Muestra: 240493186       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64585788
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004747 | Muestra: 240493187       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64587534
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004205 | Muestra: 240493188       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64460714
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000004523 | Muestra: 240493189       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64587535
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003552 | Muestra: 240493190       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64586415
+15/09/2017 08:49:49 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:50 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:50 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:50 a.m.|ZED|INFO| - Validando - Tipo transporte: 1 | Id: 0000003166 | Muestra: 240493191       (Camara:S) | Producto: 22 | Cta.Pte: 0005-64607539
+15/09/2017 08:49:50 a.m.|ZED|INFO| - Validación Ok 
+15/09/2017 08:49:50 a.m.|ZED|INFO| - Armando registro de datos... 
+15/09/2017 08:49:50 a.m.|ZED|INFO| - Registro escrito OK!. 
+15/09/2017 08:49:50 a.m.|ZED|INFO|Finalizando validacion de analisis
+15/09/2017 08:49:50 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS TOTALES --------------------
+15/09/2017 08:49:50 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS TOTALES --------------------
+15/09/2017 08:49:50 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS DE BIOTECNOLOGIA --------------------
+15/09/2017 08:49:50 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS DE BIOTECNOLOGIA --------------------
+15/09/2017 08:49:50 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS DE PROTEINA --------------------
+15/09/2017 08:49:50 a.m.|ZED|INFO|-------------------- GENERANDO ANALISIS DE PROTEINA --------------------
+15/09/2017 08:49:50 a.m.|ZED|INFO|Iniciando envio de mail
+15/09/2017 08:49:50 a.m.|ZED|INFO|Enviando mail a : scalisij@toepfer.com
+15/09/2017 08:49:50 a.m.|ZED|INFO|Finalizando envio de mail

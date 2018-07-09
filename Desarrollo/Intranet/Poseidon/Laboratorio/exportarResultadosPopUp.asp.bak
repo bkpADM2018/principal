@@ -1,0 +1,291 @@
+<!--#include file="../../Includes/procedimientosCompras.asp"-->
+<!--#include file="../../Includes/procedimientosParametros.asp"-->
+<!--#include file="../../Includes/procedimientosfechas.asp"-->
+<!--#include file="../../Includes/procedimientosuser.asp"-->
+<!--#include file="../../Includes/procedimientosFormato.asp"-->
+<!--#include file="../../Includes/procedimientosLaboratorio.asp"-->
+<!--#include file="../../Includes/procedimientosSeguridad.asp"-->
+<%
+'--------------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------------
+'-----      COMIENZO DE LA PAGINA
+'--------------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------------
+Dim pto,arrFile,valParameterPath,accion,chkDetalle,valParameterFile,g_Camara,valMax
+
+Call initTaskAccessInfo(TASK_POS_INFO_ANALISIS, session("DIVISION_PUERTO"))
+
+pto = GF_Parametros7("pto","",6)
+myHoy = Left(session("MmtoDato"), 8)
+myHasta = myHoy
+
+%>
+<HTML>
+<HEAD>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+
+	<TITLE>Laboratorio - Exportar archivo camara - <% =pto %> </TITLE>
+    
+	<link href="../../css/ActisaIntra-1.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <link rel="stylesheet" href="../../css/calendar-win2k-2.css" type="text/css">
+	<link rel="stylesheet" href="../../css/jqueryUI/custom-theme/jquery-ui-1.8.2.custom.css" type="text/css">
+    <style type="text/css">
+        
+        .color_Black {        	
+	        color: #333;
+	        font-size: 18px;
+        }
+        .color_Golden {        	
+	        color: GoldenRod;
+	        font-size: 18px;
+	    }
+    </style>
+	<script type="text/javascript" src="../../scripts/channel.js"></script>
+	<script type="text/javascript" src="../../scripts/controles.js"></script>
+	<script type="text/javascript" src="../../scripts/jQueryPopUp.js"></script>	
+	<script type="text/javascript" src="../../scripts/jquery/jquery-1.5.1.min.js"></script>
+	<script type="text/javascript" src="../../scripts/jquery/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="../../scripts/jqueryUI/jquery-ui-1.8.2.custom.min.js"></script>
+    <script type="text/javascript" src="../../scripts/calendar.js"></script>
+	<script type="text/javascript" src="../../scripts/calendar-1.js"></script>
+	<script type="text/javascript">
+		var ch = new channel();	
+		var segments;		
+        var ch = new channel();	
+	    var maxSegments;
+	    var currSegment=0;
+	    var MS_X_DAY = 86400000 //Milisegundos por día.	
+	    var d = new Date();
+	    var changeFilters = false;
+        
+        function procesarExportacion(p_Pto){
+            var fd = document.getElementById("fdymd").value;
+            var fh = document.getElementById("fhymd").value;
+            var mc = document.getElementById("muestraComercial").checked;
+            var mb = document.getElementById("muestraBiotecnologia").checked;
+            //Controlo las fechas
+            if (fd <= fh) {
+                if (mc || mb) {
+                    generateFile();
+                } else {
+                    alert("Error: Debe seleccionar al menos un tipo de muestra para la solicitud.");
+                }
+            } else {
+                alert("Error: El período ingresado no es correcto!");
+            }
+        }
+        
+		function generateFile() {
+		    document.getElementById("actionLabel").style.visibility = 'visible';
+		    document.getElementById("actionLabel").innerHTML = "Inicializando... ";
+		    calculateSegments();
+		    document.getElementById("accion").value = "<%=ACCION_PROCESAR %>";   
+		    generateSegment(currSegment)
+	    }	
+        function generateSegment(currSegment) {
+		    document.getElementById("actionLabel").innerHTML = "Recopilando datos...  ( " + (currSegment+1) + " / " + (maxSegments+1) + " )";
+            var strFecha = document.getElementById("fdymd").value;
+            var d = strFecha.substr(6,2);
+            var m = strFecha.substr(4,2)-1;
+            var y = strFecha.substr(0,4);
+		    var fd = new Date(y, m, d, 0, 0, 0, 0);
+		    var d = new Date(fd.getTime() + (MS_X_DAY*currSegment));
+		    document.getElementById("fecContableDS").value = d.getDate();
+		    document.getElementById("fecContableMS").value = d.getMonth()+1;
+		    document.getElementById("fecContableAS").value = d.getFullYear();
+		    document.getElementById("frmSel").action="exportarResultadosE1.asp";
+		    document.getElementById("frmSel").target = "ifrmXLS";		    
+            document.getElementById("frmSel").submit();
+	    }
+       	function calculateSegments() {
+            var strFechaD = document.getElementById("fdymd").value;
+            var dd = strFechaD.substr(6,2);
+            var md = strFechaD.substr(4,2)-1;
+            var yd = strFechaD.substr(0,4);
+		    var fd = new Date(yd, md, dd, 0, 0, 0, 0);
+            var strFechaH = document.getElementById("fhymd").value;
+            var dh = strFechaH.substr(6,2);
+            var mh = strFechaH.substr(4,2)-1;
+            var yh = strFechaH.substr(0,4);
+		    var fh = new Date(yh, mh, dh, 0, 0, 0, 0);
+		    maxSegments = Math.round((fh.getTime() - fd.getTime())/MS_X_DAY)
+	    }
+       function generateSegment_callback(pRespuesta,pflag) {
+            if (pflag == "True"){
+			    if (currSegment < maxSegments) {
+				    currSegment += 1;
+				    document.getElementById("accion").value = "";
+				    generateSegment(currSegment);
+			    } else {
+				    document.getElementById("maxSegment").value = currSegment;				    
+				    generateReport();          				    
+			    }
+		    }
+		    else{
+			    document.getElementById("actionLabel").innerHTML = pRespuesta;
+			    document.getElementById("actionLabel").className = "errormsj";
+			    restartAttForm();
+		    }					
+	    }
+        function generateReport(){
+            document.getElementById("actionLabel").style.visibility = 'visible';
+		    document.getElementById("actionLabel").style.textAlign = 'center';
+		    document.getElementById("actionLabel").style.fontSize = "16";
+		    document.getElementById("actionLabel").innerHTML = "Generando Reporte...";
+            document.getElementById("accion").value = "";
+            document.getElementById("frmSel").action="exportarResultadosE2.asp";            
+            document.getElementById("frmSel").target="ifrmXLS";
+            document.getElementById("frmSel").submit();
+        }
+        function generateReport_callback() {
+        	sendMailFileExportacion();
+        }
+        function sendMailFileExportacion() {
+		    document.getElementById("actionLabel").style.visibility = 'visible';
+		    document.getElementById("actionLabel").style.textAlign = 'center';
+		    document.getElementById("actionLabel").style.fontSize = "16";
+		    document.getElementById("actionLabel").innerHTML = "Enviando mail de los archivos generados";
+		    ch.bind("generarSolicitudesCamaraEnvioMailAjax.asp?pto=<%=pto%>","CallBack_getMail()");
+		    ch.send();
+	    }
+        function CallBack_getMail(){
+		    var rtrn = ch.response();
+		    if (rtrn != '<%=FILE_MISSING%>'){
+			    document.getElementById("actionLabel").style.visibility = 'visible';
+			    document.getElementById("actionLabel").style.textAlign = 'center';
+			    document.getElementById("actionLabel").style.fontSize = "16";
+			    document.getElementById("actionLabel").innerHTML = "Los archivos generados se enviaron a " + rtrn;
+			    restartAttForm();
+		    }
+		    else{
+			    document.getElementById("actionLabel").innerHTML = "Se produjo un error al intentar mandar el mail";
+			    document.getElementById("actionLabel").className = "errormsj";
+		    }
+	    }
+        function restartAttForm(){
+		    document.getElementById("accion").value = '<%=ACCION_SUBMITIR%>';
+		    var obj = document.getElementById("frmSel");
+		    obj.action = "exportarResultadosPopUp.asp";
+		    obj.removeAttribute('target');
+	    }	
+        function lightOn(tr) {
+		    tr.className = "color_Golden";
+	    }
+	
+    	function lightOff(tr) {		    
+            tr.className = "color_Black";
+	    }
+        function MostrarCalendarioDesde(p_objID, funcSel) {
+				
+					var dte= new Date();		    	    
+					var elem= document.getElementById(p_objID);
+					if (calendar != null) calendar.hide();		
+					var cal = new Calendar(false, dte, funcSel, CerrarCal);
+					cal.weekNumbers = false;
+					cal.setRange(1993, 2045);
+					cal.create();
+					calendar = cal;		
+					calendar.setDateFormat("dd/mm/y");
+					calendar.showAtElement(elem);
+			}	
+
+			function CerrarCal(cal) {
+				cal.hide();
+			}
+
+			function SeleccionarCalDesde(cal, date) {
+				var str= new String(date);
+				document.getElementById("fd").value = str;
+				document.getElementById("fdymd").value = str.substr(6, 4) + str.substr(3, 2) + str.substr(0, 2);
+			    if (cal) cal.hide();
+			}	
+								
+			function MostrarCalendarioHasta(p_objID, funcSel) {				
+				var dte= new Date();		    	    
+				var elem= document.getElementById(p_objID);
+				if (calendar != null) calendar.hide();		
+				var cal = new Calendar(false, dte, funcSel, CerrarCal);
+				cal.weekNumbers = false;
+				cal.setRange(1993, 2045);
+				cal.create();
+				calendar = cal;		
+				calendar.setDateFormat("dd/mm/y");
+				calendar.showAtElement(elem);
+			}	
+
+			function SeleccionarCalHasta(cal, date) {
+				var str= new String(date);
+				document.getElementById("fh").value = str;
+				document.getElementById("fhymd").value = str.substr(6, 4) + str.substr(3, 2) + str.substr(0, 2);
+			    if (cal) cal.hide();
+			}	
+			function QuitarFechaHasta(){
+				document.getElementById("fh").value = "";
+			    
+			}	
+            function QuitarFechaDesde(){
+				document.getElementById("fd").value = "";			    
+			}	
+        
+	</script>
+</HEAD>
+
+<BODY onload="bodyOnload()">
+
+	<form id="frmSel" name="frmSel" method="post" action="exportarResultadosPopUp.asp">
+
+	<div class="col66"></div>
+
+	<div ><% Call showMessages() %></div>	
+	
+    <div class="tableasidecontent">
+        
+        <div class="col66"></div>
+        <div >Seleccione el periodo a incluir en las solicitudes:</div><br>
+        <div class="col66"></div>
+        <table align="center" style="width:80%;">
+            <tr>
+                <td>
+                    <div>
+                        <div class="col36">
+                            Fecha Desde:
+                            <input type="text" name="fd" id="fd" onClick="javascript:MostrarCalendarioDesde('fd', SeleccionarCalDesde)" value="<% =GF_FN2DTE(myHoy) %>" size="10">
+                            <input type="hidden" name="fdymd" id="fdymd" value="<% =myHoy %>">
+                        </div>
+                        <div class="col36">
+                            Fecha Hasta:
+                            <input type="text" name="fh" id="fh" onClick="javascript:MostrarCalendarioHasta('fh', SeleccionarCalHasta)" value="<% =GF_FN2DTE(myHasta) %>" size="10">
+                            <input type="hidden" name="fhymd" id="fhymd" value="<% =myHasta %>">
+                        </div>
+                        <div class="col36">
+                            Muestra comercial:&nbsp&nbsp
+                            <INPUT type="checkbox" name="muestraComercial" id="muestraComercial" style="cursor:pointer;" checked />
+                        </div>
+                        <div class="col36">
+                            Muestra Biotecnologia:&nbsp&nbsp
+                            <INPUT type="checkbox" name="muestraBiotecnologia" id="muestraBiotecnologia" style="cursor:pointer;" checked />
+                        </div>
+                        <div class="col36"><input type="button" onclick="procesarExportacion('<%=pto%>')" value="Exportar"/></div>
+                    </div>
+                </td>
+            </tr>
+            <tr><td><br></td></tr>      
+         </table> 
+         <div class="col66"></div>
+         <div id="actionLabel" class="confirmsj" style="width:100%;visibility:hidden; "></div>
+        <input type="hidden" id="accion" name="accion" value="<% =accion%>" />	
+        <input type="hidden" id="pto" name="pto" value="<% =pto %>" />
+        <input type="hidden" id="fecContableDS" name="fecContableDS" />
+        <input type="hidden" id="fecContableMS" name="fecContableMS" />
+        <input type="hidden" id="fecContableAS" name="fecContableAS" />
+        <input type="hidden" id="maxSegment" name="maxSegment" />
+        <input type="hidden" id="usr" name="usr" value="<% =session("Usuario") %>" />        
+    </div>
+    
+    <div id="respuestaImportacion" style="width:100%;visibility:hidden;"></div>
+    </form>
+    <iframe name="ifrmXLS" id="ifrmXLS" width="0px" height="0px" style="visibility:hidden"></iframe>
+</BODY>
+</HTML>

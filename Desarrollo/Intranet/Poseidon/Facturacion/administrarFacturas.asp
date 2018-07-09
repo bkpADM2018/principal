@@ -1,0 +1,572 @@
+﻿<!--#include file="../../Includes/procedimientosUnificador.asp"-->
+<!--#include file="../../Includes/procedimientosParametros.asp"-->
+<!--#include file="../../Includes/procedimientosFechas.asp"-->
+<!--#include file="../../Includes/procedimientosPuertos.asp"-->
+<!--#include file="../../Includes/procedimientosformato.asp"-->
+<!--#include file="../../Includes/procedimientosLog.asp"-->
+<!--#include file="../../Includes/procedimientosTraducir.asp"-->
+<!--#include file="../../Includes/procedimientosFacturacionCalidad.asp"-->
+<%
+Dim tablaTransferidos
+'---------------------------------------------------------------------------------------------------------------------
+Function addParam(p_strKey,p_strValue,ByRef p_strParam)
+       if (not isEmpty(p_strValue)) then
+          if (isEmpty(p_strParam)) then
+             p_strParam = "?"
+          else
+             p_strParam = p_strParam & "&"
+          end if
+          p_strParam = p_strParam & p_strKey & "=" & p_strValue
+       end if
+End Function
+'---------------------------------------------------------------------------------------------------------------------
+Sub getParametros()
+        g_strPuerto = GF_PARAMETROS7("pto", "", 6)
+        call addParam("pto", g_strPuerto, params)
+                        
+        paginaActual = GF_PARAMETROS7("numeroPagina",0,6)        
+	    if (paginaActual = 0) then paginaActual = 1
+	    
+	    mostrar = GF_PARAMETROS7("registrosPorPagina",0,6)
+	    if (mostrar = 0) then mostrar = 10	
+	    '------------------------------------------------------
+		myCartaPorte = GF_PARAMETROS7("CartaPorte", "", 6)
+		if (myCartaPorte <> "") then myCartaPorte = GF_nDigits(myCartaPorte, 12)
+		call addParam("CartaPorte", myCartaPorte, params)
+			
+		myFecContableD = GF_PARAMETROS7("fecContableD", "", 6)
+		if (myFecContableD = "") then myFecContableD=Day(Now())
+		call addParam("fecContableD", myFecContableD, params)
+		myFecContableM = GF_PARAMETROS7("fecContableM", "", 6)
+		if (myFecContableM = "") then myFecContableM=Month(Now())
+		call addParam("fecContableM", myFecContableM, params)
+		myFecContableA = GF_PARAMETROS7("fecContableA", "", 6)
+		if (myFecContableA = "") then myFecContableA=Year(Now())
+		call addParam("fecContableA", myFecContableA, params)
+
+		myFecContableDH = GF_PARAMETROS7("fecContableDH", "", 6)		
+		if (myFecContableDH = "") then myFecContableDH=Day(Now())
+		call addParam("fecContableDH", myFecContableDH, params)
+		myFecContableMH = GF_PARAMETROS7("fecContableMH", "", 6)
+		if (myFecContableMH = "") then myFecContableMH=Month(Now())
+		call addParam("fecContableMH", myFecContableMH, params)
+		myFecContableAH = GF_PARAMETROS7("fecContableAH", "", 6)
+		if (myFecContableAH = "") then myFecContableAH=Year(Now())
+		call addParam("fecContableAH", myFecContableAH, params)
+    
+		
+		ret = GF_CONTROL_PERIODO(myFecContableD, myFecContableDH, myFecContableM, myFecContableMH, myFecContableA, myFecContableAH)		
+		Select case (ret)
+			case 0					
+				myFecContableDesde = myFecContableA  & myFecContableM  & myFecContableD				
+				myFecContableHasta = myFecContableAH & myFecContableMH & myFecContableDH
+			case 1
+				Call setError(FECHA_INICIO_INCORRECTA)
+			case 2
+				Call setError(FECHA_FIN_INCORRECTA)
+			case 3
+				Call setError(PERIODO_ERRONEO)
+		end select
+		
+		myCdProducto = GF_PARAMETROS7("cdProducto", 0, 6)		
+		call addParam("cdProducto", myCdProducto, params)
+		
+		myCdTransporte = GF_PARAMETROS7("cdTransporte", 0, 6)
+		if (myCdTransporte = 0) then myCdTransporte=TIPO_TRANSPORTE_CAMION
+		call addParam("cdTransporte", myCdTransporte, params)
+		
+		myCliente = GF_PARAMETROS7("cc", "", 6)		
+		if (not isToepfer(session("KCOrganizacion"))) then myCliente = session("CuitOrganizacion")
+		call addParam("cc", myCliente, params)
+		
+		myDsCliente = GF_PARAMETROS7("dc", "", 6)
+		Call addParam("dc", myCliente, params)
+		
+		myEstado = GF_PARAMETROS7("estado", 0, 6)
+		call addParam("estado", myEstado, params)
+		
+		cancelID = GF_PARAMETROS7("cancelID", 0, 6)
+		
+		mySucCbt = GF_PARAMETROS7("pv", "", 6)		
+		call addParam("pv", mySucCbt, params)
+		
+		myNroCbt = GF_PARAMETROS7("nro", "", 6)
+		call addParam("nro", myNroCbt, params)
+		
+		tipofac = GF_PARAMETROS7("tf", 0,6)
+		call addParam("tf", tipofac, params)
+
+End Sub		
+'---------------------------------------------------------------------------------------------------------------------
+Function MostrarRegistros(pCdTransporte, rs, pMostrar)
+            
+            Dim idx, aux
+                        
+            idx = 0
+			while ((not rs.eof) and (idx < pMostrar)) 
+				idx = idx + 1 
+	%>        	        
+	            <tr>
+                    <td align="center"><% =GF_FN2DTE(rs("FECHA")) %></td>
+                    <td align="center"><% =GF_EDIT_CTAPTE(rs("NUDOCUMENTO")) %></td>
+					<td align="center"><% =rs("IDTRANSPORTE") %></td>
+                    <td align="center"><% =rs("CDPRODUCTO") & "-" & rs("DSPRODUCTO") %></td>
+                    <td align="left"><% =Trim(rs("DSCLIENTE")) %></td>
+                    <td><% =rs("CDRUBRO") & "-" &rs("DSRUBRO")  %></td>
+                    <td align="right"><% =GF_EDIT_DECIMALS(CDbl(rs("VLRUBRO"))*100, 2) %></td>
+                    <td align="center">
+<%                  if (pCdTransporte = TIPO_TRANSPORTE_CAMION) then    %>                    
+                    <img style="width:20px;height:20px;cursor:pointer" src="../../images/analisis-16.png" onclick="abrirInfoAnalisis('<%=rs("IDTRANSPORTE")%>', '<% =rs("FECHA") %>', '<% =rs("NUDOCUMENTO") %>');" title="Ver analisis del Camion"/>
+<%                  else        %>
+                    <img style="width:20px;height:20px;cursor:pointer" src="../../images/analisis-16.png" onclick="abrirInfoAnalisisVagon('<%=rs("NUDOCUMENTO")%>', '<%=rs("IDTRANSPORTE")%>', '<% =rs("FECHA") %>', '<% =rs("NUDOCUMENTO") %>');" title="Ver analisis del Vagon"/>
+<%                  end if       %>                    				        
+                    </td>
+                    <td align="center"><% =rs("PTOCALIDAD") %></td>
+                    <td align="right"><% =GF_EDIT_DECIMALS(rs("KILOS"),0) %></td>
+                    <td align="right"><% =GF_EDIT_DECIMALS(rs("MERMA"),0) %></td>
+                    <td align="right"><% =getSimboloMoneda(rs("codmone")) & " " & GF_EDIT_DECIMALS(CDbl(rs("PRECIO"))*100, 2)%></td>
+                    <td align="right"><% =getSimboloMoneda(rs("codmone")) & " " & GF_EDIT_DECIMALS(CDbl(rs("IMPORTETOTAL"))*100, 2) %></td>
+                    <td align="center"><% 
+						if (CLng(rs("succbt")) = 0) then
+							response.write "<span title='Reg. " & rs("IDREGISTRO") & "'>" & getDSEstadoProformaCalidad(rs("Estado")) & "</span>"
+						else
+							response.write rs("TIPO") & " " & GF_nDigits(rs("succbt"), 4) & "-" & GF_nDigits(rs("nrocbt"), 8)
+						end if
+						%>
+					</td>
+                    <td align="center">
+					<%	if ((CInt(rs("Estado")) <> FACTURA_CALIDAD_CANCELADA) and (CInt(rs("Estado")) <> FACTURA_CALIDAD_PRE_CANCELADA)) then	%>
+                        <img title="Cancelar" style="cursor:pointer;" src="../../images/delete-16x16.png" onclick="cancelarCobro('<%=rs("IDREGISTRO") %>');">
+					<%	end if		%>
+                    </td>
+                </tr>	        
+	<%          
+				rs.MoveNext()
+	        wend
+End Function
+'------------------------------------------------------------------------
+Function MostrarTotalesPorEstado(pPto, pCdTransporte, pMyWhere)
+	Dim rsT, strSQL, totalFacturado, totalPendiente, totalProforma, totalGeneral, monedaLiq
+	
+	'Calculo los totales por estado
+	strSQL = "Select ESTADO, CODMONE, sum(case when tipcbt = " & TIPO_CBTE_EMITIDO_NCR & " then importe*-1 else importe end) TOTAL from FACTURACIONSERVICIOS FS" & pMyWhere & " group by ESTADO, CODMONE"
+	Call executeQueryDb(pPto, rsT, "OPEN",strSQL)
+	totalFacturado = 0
+	totalPendiente = 0
+	totalProforma = 0
+	while (not rsT.eof)
+		monedaLiq = rsT("CODMONE")
+		Select case rsT("ESTADO")
+			case FACTURA_CALIDAD_PROFORMA_PTO
+				totalPendiente = totalPendiente + CDbl(rsT("TOTAL"))
+			case FACTURA_CALIDAD_PROFORMA_BSAS
+				totalProforma = totalProforma + CDbl(rsT("TOTAL"))
+			case FACTURA_CALIDAD_FACTURADA
+				totalFacturado = totalFacturado + CDbl(rsT("TOTAL"))
+		End Select
+		rsT.MoveNext()	
+	wend
+	totalGeneral = totalPendiente + totalProforma + totalFacturado
+%>            
+			<tr class="rtotal">
+				<td align="right" rowspan="5" colspan="<% if (pCdTransporte = TIPO_TRANSPORTE_CAMION) then response.write "8" else response.write "9"  %>" >&nbsp;</td>
+				<td align="center" rowspan="5" colspan="3" >TOTALES DEL PER&IacuteODO</td>
+				<td style="display:none;"></td>
+				<td style="display:none;"></td>
+			</tr>
+			<tr class="rtotal">
+				<td align="right" style="border-left:1px solid #fff;">PENDIENTE EN PTO.</td>
+				<td align="right"><% =getSimboloMoneda(monedaLiq) & " " & GF_EDIT_DECIMALS(totalPendiente*100, 2) %></td>
+			</tr>
+			<tr class="rtotal">
+				<td align="right" style="border-left:1px solid #fff;">PROFORMAS</td>
+				<td align="right"><% =getSimboloMoneda(monedaLiq) & " " & GF_EDIT_DECIMALS(totalProforma*100, 2) %></td>
+			</tr>
+			<tr class="rtotal">
+				<td align="right" style="border-left:1px solid #fff;">FACTURADO</td>
+				<td align="right"><% =getSimboloMoneda(monedaLiq) & " " & GF_EDIT_DECIMALS(totalFacturado*100, 2) %></td>
+			</tr>
+			<tr class="rtotal">
+				<td align="right" style="border-left:1px solid #fff;">TOTAL GENERAL</td>
+				<td align="right"><% =getSimboloMoneda(monedaLiq) & " " & GF_EDIT_DECIMALS(totalGeneral*100, 2) %></td>
+			</tr>
+			<tr><td>&nbsp</td></tr>			
+<%	        
+End Function
+'---------------------------------------------------------------------------------------------------------------------
+Function dibujarTotalesProductos(pPto, pCdTransporte, pMyWhere)
+    Dim strSQL, rsT
+	Dim cantidadLineas,totalGeneralProductos,totalGeneralKilos, moneLiq
+	
+	strSQL = "Select FS.CDPRODUCTO, P.DSPRODUCTO, codmone, sum(KILOS) kilostotal, sum(case when tipcbt = " & TIPO_CBTE_EMITIDO_NCR & " then importe*-1 else importe end) IMPORTETOTAL from FACTURACIONSERVICIOS FS inner join PRODUCTOS P on P.CDPRODUCTO=FS.CDPRODUCTO" & pMyWhere  & " group by FS.CDPRODUCTO, DSPRODUCTO, codmone"
+	Call executeQueryDb(pPto, rsT, "OPEN",strSQL)
+	
+    if (not rsT.Eof) then		
+		moneLiq = rsT("CODMONE")
+        'Se toma en cuenta la fila de totales, se tiene en cuenta la fila cabecera de producto y la del total ademas de los productos que tenga
+        cantidadLineas = Cdbl(rsT.RecordCount) + 2  %>
+        <tr class="rtotal">
+            <td align="right" colspan="<% if (pCdTransporte = TIPO_TRANSPORTE_CAMION) then response.write "8" else response.write "9"  %>" rowspan="<%=cantidadLineas %>" >&nbsp;</td>
+		    <td align="center" rowspan="<%=cantidadLineas %>" colspan="2" >TOTALES POR PRODUCTO</td>
+            <td style="display:none;"></td>
+			<td style="display:none;"></td>
+        </tr>
+        <%  totalGeneralProductos = 0
+            totalGeneralKilos = 0
+             while (not rsT.Eof) %>
+                <tr class="rtotal">
+    			    <td align="right" style="border-left:1px solid #fff;"><%= Trim(rsT("DSPRODUCTO")) %></td>
+                    <td align="right"><%= GF_EDIT_DECIMALS(rsT("KILOSTOTAL"),0) & " kg" %></td>
+			        <td align="right"><%= getSimboloMoneda(moneLiq) & " " & GF_EDIT_DECIMALS(Cdbl(rsT("IMPORTETOTAL"))*100, 2) %></td>
+                </tr>
+        <%      totalGeneralProductos = Cdbl(totalGeneralProductos) + Cdbl(rsT("IMPORTETOTAL")) 
+                totalGeneralKilos = Cdbl(totalGeneralKilos) + Cdbl(rsT("KILOSTOTAL"))
+                rsT.MoveNext()
+            wend %>
+        <tr class="rtotal">
+            <td align="right" style="border-left:1px solid #fff;"><%= GF_TRADUCIR("TOTAL GENERAL") %></td>
+            <td align="right"><%= GF_EDIT_DECIMALS(totalGeneralKilos,0) & " kg" %></td>
+			<td align="right"><%= getSimboloMoneda(moneLiq) & " " & GF_EDIT_DECIMALS(totalGeneralProductos*100, 2) %></td>
+        </tr>
+<%  end if
+End function
+'/*************************************************************\
+' *******           COMIENZO DE LA PAGINA               *******
+'\*************************************************************/
+
+Dim myFecContableDesde, myFecContableHasta, myFecContableD, myFecContableM, myFecContableA
+Dim myFecContableDH, myFecContableMH, myFecContableAH, myCdProducto, paginaActual, mostrar, myCliente, myDsCliente
+Dim lineasTotales, rs, g_strPuerto, params, strSQL, myCartaPorte, myCdTransporte
+Dim myWhere, myEstado, cancelID, myHoy, myTipCbt, mySucCbt, myNroCbt, tipofac
+
+Call GP_CONFIGURARMOMENTOS()
+
+Call getParametros()
+
+'Primero proceso las cancelaciones si las huibiese
+if (cancelID > 0) then
+	myHoy = GF_FN2DTCONTABLE(Left(session("MmtoDato"), 8))
+	strSQL="Select * from FACTURACIONSERVICIOS where IDREGISTRO=" & cancelID
+	Call executeQueryDb(g_strPuerto, rs, "OPEN",strSQL)
+	if (not rs.eof) then
+		'Se procede a cancelar el registro indicado.
+		Select case (CInt(rs("estado")))
+			case FACTURA_CALIDAD_PROFORMA_PTO
+				strSQL="Update FACTURACIONSERVICIOS set ESTADO=" & FACTURA_CALIDAD_CANCELADA & ", usubaja='" & session("Usuario") & "', fecbaja='" & myHoy & "' where IDREGISTRO=" & cancelID	
+				Call executeQueryDb(g_strPuerto, rsX, "EXEC", strSQL)
+			case FACTURA_CALIDAD_PROFORMA_BSAS				
+				strSQL="Update FACTURACIONSERVICIOS set ESTADO=" & FACTURA_CALIDAD_PRE_CANCELADA & ", usubaja='" & session("Usuario") & "', fecbaja='" & myHoy & "' where IDREGISTRO=" & cancelID	
+				Call executeQueryDb(g_strPuerto, rsX, "EXEC", strSQL)
+			case FACTURA_CALIDAD_PRE_CANCELADA
+				strSQL="Update FACTURACIONSERVICIOS set ESTADO=" & FACTURA_CALIDAD_PROFORMA_BSAS & ", usubaja= null, fecbaja= null where IDREGISTRO=" & cancelID	
+				Call executeQueryDb(g_strPuerto, rsX, "EXEC", strSQL)
+			case else	'Estados FACTURA_CALIDAD_FACTURADA y FACTURA_CALIDAD_CANCELADA
+				myTipCbt = TIPO_CBTE_EMITIDO_NCR
+				if (CInt(rs("tipcbt")) = TIPO_CBTE_EMITIDO_NCR) then myTipCbt = TIPO_CBTE_EMITIDO_FAC	
+				strSQL="Insert into FACTURACIONSERVICIOS([tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [tipcbtrel], [letrarel], [succbtrel], [nrocbtrel], [fecalta], [usualta], [estado]) " &_
+						" Select [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], " & myTipCbt & ", '', 0, 0, [tipcbt], [letra], [succbt], [nrocbt], '" & GF_FN2DTCONTABLE(myHoy) & "', '" & session("usuario") & "', " & FACTURA_CALIDAD_PROFORMA_PTO & " from FACTURACIONSERVICIOS where IDREGISTRO=" & cancelID				
+				Call executeQueryDb(pto, rsX, "EXEC", strSQL)
+		End Select
+	end if
+end if
+
+'Proceso a cargar la página con los parametros definidos.
+myWhere = " where DTCONTABLE >= '" & GF_FN2DTCONTABLE(myFecContableDesde) & "'"
+myWhere = myWhere & " 	and DTCONTABLE <= '" & GF_FN2DTCONTABLE(myFecContableHasta) & "'"
+if (myCartaPorte <> "") then myWhere = myWhere & " and NUDOCUMENTO='" & myCartaPorte & "'"
+if (CInt(myCdProducto) <> 0) then myWhere = myWhere & " and FS.CDPRODUCTO=" & myCdProducto 
+if (mySucCbt <> "") then myWhere = myWhere & " and FS.succbt=" & mySucCbt 
+if (myNroCbt <> "") then myWhere = myWhere & " and FS.nrocbt=" & myNroCbt 
+if (myCliente <> "") then myWhere = myWhere & " and FS.CUITCLIENTE=" & myCliente 
+if (tipofac <> 0) then myWhere = myWhere & " and FS.tipcbt=" & tipofac 
+if (CInt(myEstado) <> 0) then 
+	if (CInt(myEstado) <> FACTURA_CALIDAD_CANCELADA) then
+		myWhere = myWhere & " and FS.ESTADO = " & myEstado 
+	else
+		myWhere = myWhere & " and FS.ESTADO in (" & FACTURA_CALIDAD_PRE_CANCELADA & ", " & FACTURA_CALIDAD_CANCELADA & ")"
+	end if
+else
+	myWhere = myWhere & " 	and ESTADO not in (" & FACTURA_CALIDAD_PRE_CANCELADA & ", " & FACTURA_CALIDAD_CANCELADA & ")"
+end if
+if (myCdTransporte <> "") then myWhere = myWhere & " and TIPOTRANSPORTE=" & myCdTransporte
+strSQL="Select (YEAR(dtcontable)*10000 + Month(dtcontable)*100 + DAY(dtcontable))  AS FECHA, FS.*, " &_
+		" case when tipcbt = " & TIPO_CBTE_EMITIDO_NCR & " then importe*-1 else importe end IMPORTETOTAL, " &_
+		"case when FS.TIPCBT = 1 then 'FAC' when FS.TIPCBT = 2 then 'NDB' else 'NCR' end TIPO , R.DSRUBRO, CL.DSCLIENTE, P.DSPRODUCTO from FACTURACIONSERVICIOS FS" 
+strSQL= strSQL & " inner join RUBROS R on R.CDRUBRO=FS.CDRUBRO"
+strSQL= strSQL & " inner join PRODUCTOS P on P.CDPRODUCTO=FS.CDPRODUCTO"
+strSQL= strSQL & " inner join (Select NUCUIT, DSCLIENTE from CLIENTES a where CDCLIENTE  = (Select MIN(CDCLIENTE) from CLIENTES b where b.NUCUIT=a.NUCUIT)) CL on CL.NUCUIT=FS.CUITCLIENTE"
+strSQL= strSQL & myWhere
+strSQL= strSQL & " ORDER BY DTCONTABLE, NUDOCUMENTO, IDTRANSPORTE, codconce"
+'response.write strSQL
+call executeQueryDb(g_strPuerto, rs, "OPEN",strSQL)
+lineasTotales =0
+if (not rs.eof) then
+	Call setupPaginacion(rs, paginaActual, mostrar)
+	lineasTotales = rs.recordcount
+end if
+%>
+<html>
+<head>
+    <title>Puertos - Facturacion Calidad</title>
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	
+    <link rel="stylesheet" href="../../css/ActiSAIntra-1.css" type="text/css">
+    <link rel="stylesheet" href="../../css/Toolbar.css" type="text/css">        
+    <link rel="stylesheet" href="../../css/calendar-win2k-2.css" type="text/css">
+    <link rel="stylesheet" href="../../css/jqueryUI/custom-theme/jquery-ui-1.8.15.custom.css" type="text/css" />
+    <link rel="stylesheet" href="../../css/main.css" type="text/css"> 
+    <link rel="stylesheet" href="../../css/Toolbar.css" type="text/css"> 
+    
+    <script type="text/javascript" src="../../scripts/jQueryPopUp.js"></script>
+    <script type="text/javascript" src="../../scripts/jquery/jquery-1.5.1.min.js"></script>
+    <script type="text/javascript" src="../../scripts/jqueryUI/jquery-ui-1.8.15.custom.min.js"></script>
+    <script type="text/javascript" src="../../scripts/calendar.js"></script>
+    <script type="text/javascript" src="../../scripts/calendar-1.js"></script>
+    <script type="text/javascript" src="../../scripts/controles.js"></script>
+    <script type="text/javascript" src="../../scripts/Toolbar.js"></script>
+    <script type="text/javascript" src="../../scripts/paginar.js"></script>
+	<script type="text/javascript" src="../../scripts/channel.js"></script>
+    <script type="text/javascript">
+        function bodyOnLoad() {		            
+			<% 	if (isToepfer(session("KCOrganizacion"))) then	%>
+				var tb = new Toolbar("toolbar",5, '../../images/');
+				tb.addButton("toolbar-dbupdate", "Migrar Datos", "openmigrar();");
+				tb.addButton("edit-16.png", "Tarifas", "modifyAddPrecio();");
+				tb.draw();		
+				autoCompleteCliente();
+		    <% 	end if
+				if not hayError() then
+				    if (not rs.eof) then %>				        
+					    var pgn = new Paginacion("paginacion");
+					    pgn.paginar(<% =paginaActual %>, <% =lineasTotales %>, <% =mostrar %>, 50, "administrarFacturas.asp<% = params %>");
+		    <%		end if
+			    end if	%>		
+	    }
+	    
+		function autoCompleteCliente() {
+			$("#dc").autocomplete({
+				minLength: 2,
+				source: "../puertosStreamElementos.asp?tipo=JQClientes&pto=<%=g_strPuerto%>",
+				focus: function (event, ui) {
+					$("#dc").val(ui.item.dscliente);
+					return false;
+				},
+				select: function (event, ui) {
+					$("#dc").val(ui.item.dscliente);					
+					$("#cc").val(ui.item.nucuit); 
+					return false;					
+				},
+				change: function( event, ui ) {
+				if (!ui.item)
+				{
+					$("#dc").val("");
+					$("#cc").val("");
+				}
+			}
+			})
+			.data("autocomplete")._renderItem = function (ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete", item)
+					.append("<a>" + item.cdcliente + " - <font style='font-size:10;'>" + item.dscliente + "</font></a>")
+					.appendTo(ul);
+			};
+		}
+		
+	    function openmigrar() {
+	        myPopUp = new winPopUp('Iframe', 'generarProformasCalidadPopUp.asp?pto=<% =g_strPuerto %>', '800', '300', 'Migrar Descargas');
+	    }
+	    function modifyAddPrecio(){
+	        myPopUp = new winPopUp('Iframe', 'addModifySecadoZarandaPopUp.asp?pto=<%=g_strPuerto%>', '600', '400', 'Modifcar o Agregar');
+	    }	    
+	    function dimensionarIframe(p_width, p_height){
+		    myPopUp.resize(p_width, p_height);
+	    }
+	    function CerrarCal(cal) {
+		    cal.hide();
+	    }		
+	    function MostrarCalendario(p_objID, funcSel) {
+		    var dte= new Date();		    	    
+		    var elem= document.getElementById(p_objID);
+		    if (calendar != null) calendar.hide();		
+		    var cal = new Calendar(false, dte, funcSel, CerrarCal);
+	        cal.weekNumbers = false;
+		    cal.setRange(1993, 2045);
+		    cal.create();
+		    calendar = cal;		
+	        calendar.setDateFormat("dd/mm/y");
+	        calendar.showAtElement(elem);
+	    }
+    	
+	    function SeleccionarCalDesde(cal, date) {
+		    var str= new String(date);		
+		    document.getElementById("dtFechaDesde").value = str;
+	        document.getElementById("fecContableD").value = str.substr(0,2);
+	        document.getElementById("fecContableM").value = str.substr(3,2);
+	        document.getElementById("fecContableA").value = str.substr(6,4);
+		    if (cal) cal.hide();
+	    }	
+	    function SeleccionarCalHasta(cal, date) {
+		    var str= new String(date);		
+		    document.getElementById("dtFechaHasta").value = str;	    
+	        document.getElementById("fecContableDH").value = str.substr(0,2);
+	        document.getElementById("fecContableMH").value = str.substr(3,2);
+	        document.getElementById("fecContableAH").value = str.substr(6,4);	    
+		    if (cal) cal.hide();	
+	    }	
+	    function abrirInfoAnalisis(p_idCamion, p_dtContable, p_ctaPorte){		
+			myPopUp = new winPopUp('Iframe', '../InfoAnalisisCamion.asp?Pto=<%=g_strPuerto%>&Camion=' + p_idCamion + '&dtContable=' + p_dtContable + '&ctaPorte=' + p_ctaPorte , '650', '500', 'Analisis de Camion');
+		}
+		function abrirInfoAnalisisVagon(p_cdOperativo, pNroVagon, p_dtContable, p_ctaPorte){							    		    
+			myPopUp = new winPopUp('Iframe', '../operativo/operativosInformeAjax.asp?Pto=<%=g_strPuerto%>&nroVagon=' +  pNroVagon + '&dtContable=' + p_dtContable + '&cdOperativo=' + p_cdOperativo + '&cartaporte=' + p_ctaPorte, '460', '440', 'Analisis de Vagon');
+		}
+		function cancelarCobro(p_idRegistro){
+		    if(confirm("Esta seguro que desea cancelar esta operacion?")) {
+				document.getElementById("cancelID").value=p_idRegistro;
+				document.getElementById("frmSel").submit();
+		    }
+		}
+    </script>
+	
+</head>
+<body onLoad="bodyOnLoad()">
+    <div id="toolbar"></div>
+    <form name="frmSel" id="frmSel" method="post" action="administrarFacturas.asp">	
+        <div class="tableaside size100"> <!-- BUSCAR -->
+            <h3> filtro - Consulta Facturaci&oacuten Calidad - <% =g_strPuerto %></h3>
+            
+            <div id="searchfilter" class="tableasidecontent">
+                             
+                <div class="col16 reg_header_navdos"> <% = GF_TRADUCIR("Carta de Porte") %> </div>
+                <div class="col16"> <input type="text"  id="CartaPorte" maxLength="12" size="18" name="CartaPorte" value="<% =myCartaPorte %>" onKeyPress="return controlIngreso (this, event, 'N');"> </div>
+                                
+                <div class="col16 reg_header_navdos"> <% = GF_TRADUCIR("Fecha Desde") %> </div>
+                <div class="col16"> <input type="text" name="dtFechaDesde" id="dtFechaDesde" readonly onClick="javascript:MostrarCalendario('dtFechaDesde', SeleccionarCalDesde)" value="<% =myFecContableD &"/"& myFecContableM &"/"& myFecContableA%>">
+        		        <input type="hidden" id="fecContableD" name="fecContableD" value="<%=myFecContableD%>">
+				        <input type="hidden" id="fecContableM" name="fecContableM" value="<%=myFecContableM%>">
+				        <input type="hidden" id="fecContableA" name="fecContableA" value="<%=myFecContableA%>"> </div>
+                
+                <div class="col16 reg_header_navdos"> <% = GF_TRADUCIR("Fecha Hasta") %> </div>        
+                <div class="col16"> <input type="text" name="dtFechaHasta" id="dtFechaHasta" readonly onClick="javascript:MostrarCalendario('dtFechaHasta', SeleccionarCalHasta)" value="<% =myFecContableDH &"/"& myFecContableMH &"/"& myFecContableAH%>">
+        		        <input type="hidden" id="fecContableDH" name="fecContableDH" value="<%=myFecContableDH%>">
+				        <input type="hidden" id="fecContableMH" name="fecContableMH" value="<%=myFecContableMH%>">
+				        <input type="hidden" id="fecContableAH" name="fecContableAH" value="<%=myFecContableAH%>"> </div>
+                                                                
+                <div class="col16 reg_header_navdos"> <% = GF_TRADUCIR("Producto") %> </div>
+                <div class="col16"> 
+				        <% strSQLPro = "SELECT * FROM PRODUCTOS ORDER BY DSPRODUCTO"
+				         call executeQueryDb(g_strPuerto, rsProducto, "OPEN",strSQLPro)
+				         %>
+					        <select  name="cdProducto" value="<%=myCdProducto%>">
+						        <option value="0"> <%=GF_Traducir("TODOS")%></option>
+						        <%while not rsProducto.eof
+							        mySelected = ""
+							        if trim(rsProducto("CDPRODUCTO")) = trim(myCdProducto) then mySelected = "SELECTED"%>
+							        <option value="<%=rsProducto("CDPRODUCTO")%>" <%=mySelected%>> <%=rsProducto("DSPRODUCTO")%></option>
+							        <%
+							        rsProducto.movenext
+						         wend%>
+				        </select>
+                </div>
+                
+                <div class="col16 reg_header_navdos"> <% = GF_TRADUCIR("Transporte") %> </div>
+                <div class="col16"> 
+			            <select  name="cdTransporte">
+					        <option value="<% =TIPO_TRANSPORTE_CAMION %>" <% if (myCdTransporte = TIPO_TRANSPORTE_CAMION) then response.write "selected"%>> <%=GF_Traducir("CAMIONES")%></option>
+					        <option value="<% =TIPO_TRANSPORTE_VAGON %>" <% if (myCdTransporte = TIPO_TRANSPORTE_VAGON) then response.write "selected"%>> <%=GF_Traducir("VAGONES")%></option>
+			            </select>
+                </div>
+                      
+				<div class="col16 reg_header_navdos"> <% = GF_TRADUCIR("Estado") %> </div>
+                <div class="col16"> 
+			            <select  name="estado">
+							<option value="0" <% if (myEstado = 0) then response.write "selected"%>> <% =GF_Traducir("Todas") %></option>
+					        <option value="<% =FACTURA_CALIDAD_PROFORMA_PTO %>" <% if (myEstado = FACTURA_CALIDAD_PROFORMA_PTO) then response.write "selected"%>> <%=GF_Traducir(getDSEstadoProformaCalidad(FACTURA_CALIDAD_PROFORMA_PTO))%></option>
+					        <option value="<% =FACTURA_CALIDAD_PROFORMA_BSAS %>" <% if (myEstado = FACTURA_CALIDAD_PROFORMA_BSAS) then response.write "selected"%>> <%=GF_Traducir(getDSEstadoProformaCalidad(FACTURA_CALIDAD_PROFORMA_BSAS))%></option>
+							<option value="<% =FACTURA_CALIDAD_FACTURADA %>" <% if (myEstado = FACTURA_CALIDAD_FACTURADA) then response.write "selected"%>> <%=GF_Traducir(getDSEstadoProformaCalidad(FACTURA_CALIDAD_FACTURADA))%></option>
+							<option value="<% =FACTURA_CALIDAD_CANCELADA %>" <% if (myEstado = FACTURA_CALIDAD_CANCELADA) then response.write "selected"%>> <%=GF_Traducir(getDSEstadoProformaCalidad(FACTURA_CALIDAD_CANCELADA))%></option>
+			            </select>
+                </div>
+				
+				<% if (isToepfer(session("KCOrganizacion"))) then	%>
+				<div class="col16 reg_header_navdos"> <% = GF_TRADUCIR("Cliente") %> </div>
+                <div class="col16"> 
+					<input id="dc" name="dc" type="text" style="width:98%;" value="<% =myDsCliente %>">
+				</div>								
+				<%	end if	%>
+				<input type="hidden" id="cc" name="cc" value="<% =myCliente %>"/>
+				<div class="col16 reg_header_navdos"> <%=GF_Traducir("Tipo de Comprobante:")%> </div>
+		        <div class="col16"> 
+					<select id="tf" name="tf">
+						<option value="" <% if (CInt(tipofac) = 0) then response.write "selected" %>><% =GF_TRADUCIR("- Todas -") %>
+						<option value="<% =TIPO_CBTE_EMITIDO_FAC   %>" <% if (CInt(tipofac) = TIPO_CBTE_EMITIDO_FAC)   then response.write "selected" %>><% =GF_TRADUCIR("Factura") %>
+						<option value="<% =TIPO_CBTE_EMITIDO_NDB   %>" <% if (CInt(tipofac) = TIPO_CBTE_EMITIDO_NDB)   then response.write "selected" %>><% =GF_TRADUCIR("Nota de Debito") %>				
+						<option value="<% =TIPO_CBTE_EMITIDO_NCR   %>" <% if (CInt(tipofac) = TIPO_CBTE_EMITIDO_NCR)   then response.write "selected" %>><% =GF_TRADUCIR("Nota de Credito") %>
+					</select>
+				</div>
+				
+				<div class="col16 reg_header_navdos"> <%=GF_Traducir("Nro. Comprobante:")%> </div>
+				<div class="col16"> 
+					<input type="text" size="2" maxlength="4" id="pv" name="pv" value="<% =mySucCbt %>">
+					-
+					<input type="text" size="8" maxlength="8" id="nro" name="nro" value="<% =myNroCbt %>">
+				</div>
+			
+                <span class="btnaction"><input type="submit" value="Buscar"></span>
+            </div>
+						
+				
+        </div><!-- END BUSCAR -->
+        <input type="hidden" id="pto" name="pto" value="<% =g_strPuerto %>">
+    
+    
+	    <div class="col66"></div>
+
+<%  Call showErrors()   
+
+    'Se busca para ver si hay datos para refacturar de cualquier periodo
+%>
+	    <table class="datagrid" align="center" width="100%">
+	        <thead>
+	            <tr>
+	                <th rowspan="2">Fecha</th>
+					<th rowspan="2">Carta de Porte</th>
+<%	                if (myCdTransporte = TIPO_TRANSPORTE_CAMION) then   %>	                
+	                <th rowspan="2">ID CAMION</th>
+<%                  else %>                    
+                    <th rowspan="2">COD VAGON</th>
+<%                  end if %>	                	                
+	                <th rowspan="2">Producto</th>
+                    <th rowspan="2">Cliente</th>
+	                <th colspan="3">An&aacutelisis</th>                
+	                <th rowspan="2">Punto Calidad</th>
+	                <th rowspan="2">Kg Descargados</th>
+	                <th rowspan="2">Kg Merma</th>
+	                <th rowspan="2">Precio / Tn</th>
+	                <th rowspan="2">Total</th>
+	                <th rowspan="2">Comprobante</th>
+                    <th rowspan="2">.</th>
+	            </tr>            
+	            <tr>
+	                <td align="center">Rubro</td>
+	                <td align="center">Valor</td>
+	                <td align="center">.</td>
+	            </tr>        
+	        </thead> 
+			<tbody>
+<%	    
+            Call MostrarRegistros(myCdTransporte, rs, mostrar)
+			Call MostrarTotalesPorEstado(g_strPuerto, myCdTransporte, myWhere)
+			Call dibujarTotalesProductos(g_strPuerto, myCdTransporte, myWhere)
+%>            
+			</tbody>			
+	        <tfoot>
+	            <tr>	                
+	                <td colspan="<% if (myCdTransporte = TIPO_TRANSPORTE_CAMION) then response.write "14" else response.write "15"  %>"><div id="paginacion"></div></td>
+	            </tr>
+	        </tfoot>
+	    </table>
+		<input type="hidden" id="cancelID" name="cancelID" value="0" />
+	</form>
+</body>
+</html>

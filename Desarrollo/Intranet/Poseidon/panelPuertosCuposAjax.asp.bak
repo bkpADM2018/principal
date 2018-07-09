@@ -1,0 +1,54 @@
+<!--#include file="../Includes/procedimientosParametros.asp"-->
+<!--#include file="../Includes/procedimientosFormato.asp"-->
+<!--#include file="../Includes/procedimientosPuertos.asp"-->
+<!--#include file="../Includes/procedimientosFechas.asp"-->
+<!--#include file="../Includes/procedimientosTraducir.asp"-->
+<!--#include file="../Includes/procedimientos.asp"-->
+<!--#include file="../Includes/procedimientosUnificador.asp"-->
+<%
+Const SECCION_CUPO = 1
+Const SECCION_SIN_CUPO = 2
+
+'--------------------------------------------------------------------------------------------
+Function getCuposAsignados(pPto, pFechaDesde)
+    Dim rs, ret, strSQL
+    'Cupos asignados para Hoy
+    strSQL="Select count(*) CANT from CODIGOSCUPO where FECHACUPO=" & pFechaDesde    
+    Call GF_BD_Puertos(pPto, rs, "OPEN", strSQL)
+    ret = 0
+    if (not rs.eof) then ret = CLng(rs("CANT"))
+    getCuposAsignados = ret
+End Function
+'--------------------------------------------------------------------------------------------
+Function getIngresadosHoy(pPto, pFechaDesde)
+    Dim rs, ret, strSQL
+    'Ingresados con cupos asignados para Hoy
+    strSQL="Select count(*) CANT from CAMIONES where CDESTADO<>" & CAMIONES_ESTADO_BAJA
+    Call GF_BD_Puertos(pPto, rs, "OPEN", strSQL)    
+    ret = 0
+    if (not rs.eof) then ret = CLng(rs("CANT"))
+    getIngresadosHoy = ret
+End Function
+'--------------------------------------------------------------------------------------------
+Function getTotalCupos(pFechaDesde,pFechaHasta,pCdProducto,pPuerto)
+    Dim rsCup
+    getTotalCupos = getCuposAsignados(pPuerto, pFechaDesde) & STRING_DELIMITER & getIngresadosHoy(pPuerto, pFechaDesde)
+End Function
+'*************************************************************************************
+'***************************** COMIENZO DE LA PAGINA ***********************************
+'*************************************************************************************
+Dim g_strPuerto,fechaDesde,fechaHasta,cdProducto,strValue
+   
+g_strPuerto = GF_Parametros7("pto","",6)
+fechaDesde = GF_PARAMETROS7("fechaDesde", "", 6)
+fechaHasta = GF_PARAMETROS7("fechaHasta", "", 6)
+cdProducto = GF_PARAMETROS7("cdProducto", 0, 6)
+
+if (fechaDesde = "") then fechaDesde = Year(Now()) & GF_nDigits(Month(Now()),2) & GF_nDigits(Day(Now()),2) 
+if (fechaHasta = "") then fechaHasta = Year(Now()) & GF_nDigits(Month(Now()),2) & GF_nDigits(Day(Now()),2)
+
+strValue = getTotalCupos(fechaDesde,fechaHasta,cdProducto,g_strPuerto)
+Response.Write strValue
+
+%>
+

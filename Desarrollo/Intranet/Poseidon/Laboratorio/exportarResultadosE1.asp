@@ -1,0 +1,219 @@
+<!--#include file="../../Includes/procedimientosUnificador.asp"-->
+<!--#include file="../../Includes/procedimientosParametros.asp"-->
+<!--#include file="../../Includes/procedimientosPuertos.asp"-->
+<!--#include file="../../Includes/procedimientosSQL.asp"-->
+<!--#include file="../../Includes/procedimientos.asp"-->
+<!--#include file="../../Includes/procedimientostraducir.asp"-->
+<!--#include file="../../Includes/procedimientosfechas.asp"-->
+<!--#include file="../../Includes/procedimientosuser.asp"-->
+<!--#include file="../../Includes/procedimientosFormato.asp"-->
+<!--#include file="../../Includes/procedimientosLog.asp"-->
+<!--#include file="../../Includes/procedimientosLaboratorio.asp"-->
+<!--#include file="exportarResultadosCommon.asp"-->
+<%
+'************************************************************************************************************************
+'NOTA: 
+'     Esta pagina trabaja en conjunto tanto para camiones como vagones(solo Piedrabuena).
+'     Solo los puertos de Arroyo y Transito generan los archivos de ensayos y cuenta orden (SOLICI02 y SOLICI03)
+'     
+'************************************************************************************************************************
+Dim vDatosOncca,vProcedencia,rtrnCallBack,auxCodigoPlantaOncca,auxDireccionPto,flagError
+Dim auxNroPuertoCamara,auxBarra
+	
+if (modo = MODO_FECHA) then
+	Call GF_STANDARIZAR_FECHA(fechaDesdeD, fechaDesdeM, fechaDesdeA)
+
+	fechaHastaD = fechaDesdeD
+	fechaHastaM = fechaDesdeM
+	fechaHastaA = fechaDesdeA
+
+	g_FechaDesde = fechaDesdeA & "-" & fechaDesdeM & "-" & fechaDesdeD
+	g_FechaHasta = fechaHastaA & "-" & fechaHastaM & "-" & fechaHastaD	 
+
+	logMig.info("Buscando analisis de la fecha " & g_FechaDesde)
+else
+	g_FechaDesde = ""
+	g_FechaHasta = ""
+	g_Producto = ""
+	g_idCamion = ""
+	'Transformo la muestra a formato texto para la SQL
+	'lstMuestras = "'" & replace(lstMuestras, ",", "', '") & "'"
+	logMig.info("Buscando analisis de la Muestra "& lstMuestras)
+end if
+Set rsCab = armarSQLCabecera(g_FechaDesde,g_FechaHasta,g_Producto,g_idCamion, lstMuestras,g_Pto)
+
+flagError = false
+if (not rsCab.Eof) then
+	
+    Set fs = Server.CreateObject("Scripting.FileSystemObject")
+	Set archCab = fs.OpenTextFile(strNamePathCabecera, 8, true)
+	Set archTemp = fs.OpenTextFile(pathTempExp, 8, true)
+	Set archErr = fs.OpenTextFile(strNamePathError, 8, true)
+	'Solo si es Arroyo o Transito se genera los archivos de detalle y CyO
+    if (not flagUTE) then
+        Set archDet = fs.OpenTextFile(strNamePathDetalle, 8, true)
+	    Set archCue = fs.OpenTextFile(strNamePathCuenta, 8, true)
+    end if
+    'Cargo todos los parametros necesarios para la operacion de la exportacion
+	auxDireccionPto = getValueParametro(CAMARA_PARAMETER_DIRECCIONPTO,g_Pto)	
+	auxCodigoPlantaOncca = getValueParametro(CAMARA_PARAMETER_PLANTAONCCA,g_Pto)    
+    auxProductoProteina = getValueParametro(CAMARA_PARAMETER_PRODPROTEINA,g_Pto)
+    auxNroPuertoCamara = getValueParametro(CAMARA_PARAMETER_PUERTOENCAMARA,g_Pto)
+    logMig.info("Iniciando validacion de analisis")
+
+	while (not rsCab.eof)		      
+	    if (enviarAnalisisACamra(rsCab("IcTipoEnvio"), rsCab("camara"), rsCab("CDPRODUCTO"), g_Pto, muestraBiotecnologia, muestraComercial, Trim(rsCab("BARRA")), Trim(rsCab("BARRABIO")))) then	            
+			'------------------OBTENEMOS LOS DATOS DE LA CABECERA (Solici01.txt)-------------------------			
+			'Modificacion: A pedido de la Camara se agrego al campo Muestra el numero 002 delante de todo, esto es valido solo
+            '              para archivos de Bahia Blanca              
+            myMuestra = ""
+            auxBarra = Left(rsCab("BARRA"), 10)
+            if (flagUTE) then 				
+				auxBarra = "002" & Left(rsCab("BARRA"), 8)
+				auxLen = Len(auxBarra)
+			else
+				auxLen = Len(auxBarra) - 1  'Se saca el último caracter            
+			end if
+			if (auxLen > 0) then				
+				if (auxLen > 15) then auxLen = 15				
+				'Obtengo el nro de muestra
+				myMuestra = GF_nChars(Left(auxBarra,auxLen),15," ",CHR_AFT)
+			end if
+					
+            if (Trim(myMuestra) = "") then
+                auxBarra = Left(rsCab("BARRABIO"), 10)
+                if (flagUTE) then auxBarra = "002" & Left(auxBarra, 8)
+                'Se obtiene el nro de muestra desde la tabla de biotecnologia.
+                auxLen = Len(auxBarra) - 1
+                myMuestra = GF_nChars(Left(auxBarra,auxLen),15," ",CHR_AFT)
+            end if                
+            logMig.info(" - Validando - Tipo transporte: "& rsCab("tipoTransporte") &" | Id: "& Trim(rsCab("idTransporte")) &" | Muestra: "& myMuestra &" (Camara:" & rsCab("camara") & ") | Producto: "& rsCab("CDPRODUCTO") &" | Cta.Pte: "&GF_EDIT_CTAPTE(Trim(rsCab("NUCARTAPORTE"))) )
+            vDatosOncca = getDatosOncca(rsCab)
+			auxNetoSeco = Cdbl(rsCab("BRUTO")) - Cdbl(rsCab("TARA")) - Cdbl(rsCab("MERMA"))
+			strMsgError = validarCamposObligatorios(rsCab("ACEPTACION"),rsCab("NUCUIT"),rsCab("NUDOCUMENTO"),auxNroPuertoCamara,auxNetoSeco,rsCab("DSVENDEDOR"),rsCab("NUCARTAPORTE"),vDatosOncca,rsCab("ctg"),auxCodigoPlantaOncca,rsCab("TIPOTRANSPORTE"))
+			if (strMsgError = "") then 
+			    logMig.info(" - Validación Ok " )
+				vProcedencia = getProcedencia(rsCab("CDPROCEDENCIACAMARA"))
+				if (CInt(rsCab("tipoTransporte")) = TIPO_TRANSPORTE_CAMION) then 
+                    Call cargarGruposEnsayosCamiones(Trim(rsCab("idTransporte")), rsCab("DTCONTABLE"),g_Pto)
+				else
+                    Call cargarGruposEnsayosVagones(Trim(rsCab("idTransporte")), Trim(rsCab("CDOPERATIVO")), rsCab("DTCONTABLE"), g_Pto)
+                end if
+                If (oDiccGruposEnsayosCamion.Count = 0) Then Call CargarGruposEnsayosDef (rsCab("CDPRODUCTO"), CInt(rsCab("ACEPTACION")), g_Pto)
+                auxGrupo = getGrupoCamara()
+                logMig.info(" - Armando registro de datos... " )
+				strCab = myMuestra &_
+						 GF_nDigits(rsCab("CDPRODUCTOCAMARA"),4) &_
+						 GF_nChars(Left(Trim(rsCab("DSPRODUCTO")),25),25," ",CHR_AFT) &_
+						 GF_nDigits(rsCab("NUCUIT"),11) &_
+						 GF_nDigits(rsCab("NUDOCUMENTO"),11) &_
+						 GF_nDigits(rsCab("cuitcorredor"),11) &_
+						 CAMARA_CODIGO_COMPRADOR &_
+						 GF_nDigits(vProcedencia(0),4) &_
+						 GF_nDigits(vProcedencia(1),2) &_
+						 GF_nDigits(auxNroPuertoCamara,3) &_
+						 GF_nDigits(auxNetoSeco,9) &_
+						 CAMARA_MUESTRA_LACRADA &_
+						 string(15," ") &_
+						 string(15," ") &_											 			  						          
+						 Right(rsCab("DTCONTABLEDESCARGA"),6) &_
+						 GF_nChars(Left(Trim(rsCab("RECIBIDO")),12),12," ",CHR_AFT) &_
+						 GF_nDigits(auxGrupo,2) &_
+						 CAMARA_SERVICIO_LACRADO &_
+						 GF_nChars(Trim(rsCab("CDCHAPACAMION")),8," ",CHR_AFT) &_
+						 GF_nChars(Left(Trim(rsCab("DSVENDEDOR")),40),40," ",CHR_AFT) &_
+						 GF_nDigits(rsCab("cdsucursalCliente"),3) &_
+						 GF_nDigits(rsCab("cdsucursalVendedor"),3) &_
+						 GF_nDigits(rsCab("cdsucursalCorredor"),3) &_
+						 GF_nDigits(Trim(rsCab("NUCARTAPORTE")),12) &_
+						 GF_nDigits(rsCab("ctg"),8) &_
+						 GF_nDigits(vDatosOncca(0),11) &_
+						 GF_nChars(Left(Trim(vDatosOncca(1)),40),40," ",CHR_AFT) &_						 
+						 GF_nChars(Trim(rsCab("IDBIOTECNOLOGIA")), 2,"0",CHR_FWD) &_
+						 GF_nChars(Left(vDatosOncca(5),40),40," ",CHR_AFT) &_
+						 GF_nChars( Trim(auxDireccionPto),60," ",CHR_AFT) &_
+						 GF_nDigits(vDatosOncca(4),5) &_
+						 GF_nDigits(vDatosOncca(3),5) &_
+						 GF_nChars(Left(Trim(vDatosOncca(2)),2),2," ",CHR_AFT) &_
+						 GF_nDigits(rsCab("QTVAGONES"), 2)
+						 if (CInt(vDatosOncca(6)) = TIPO_TRANSPORTE_VAGON) then 
+						    strCab = strCab & GF_nChars(Trim(rsCab("idTransporte")),15," ",CHR_AFT)						             
+						 else
+						    strCab = strCab & string(15," ")
+                         end if						     
+			    strCab = strCab & GF_nDigits(auxCodigoPlantaOncca,10) &_
+                         GF_nChars(Left(Trim(rsCab("dsCorredor")),40),40," ",CHR_AFT) &_
+                         GF_nDigits(rsCab("cuitIntermediario"),11) &_
+                         GF_nChars(Left(Trim(rsCab("dsIntermediario")),40),40," ",CHR_AFT) &_
+                         GF_nDigits(rsCab("cuitEntregador"),11) &_
+                         GF_nChars(Left(Trim(rsCab("dsEntregador")),40),40," ",CHR_AFT) &_                         
+                         GF_nChars(mid(Trim(rsCab("cdcosecha")),3,2),2," ",CHR_AFT) & GF_nChars(Right(Trim(rsCab("cdcosecha")),2),2," ",CHR_AFT)
+                         'Guardo los datos en un archivo Temporal para luego generar el reporte
+                         archTemp.writeline(imprimirDatosDetalle(rsCab("ACEPTACION"),rsCab("CDPRODUCTO"),rsCab("DTCONTABLEDESCARGA"),rsCab("DSEMPRESA"),rsCab("DSCLIENTE"),rsCab("DSPRODUCTO"),rsCab("DSCORREDOR"),rsCab("DSENTREGADOR"),rsCab("DSVENDEDOR"),rsCab("DSPROCEDENCIA"),rsCab("IDTRANSPORTE"),rsCab("TIPOTRANSPORTE"),rsCab("CDCHAPACAMION"),Trim(rsCab("NUCARTAPORTE")),auxNetoSeco,myMuestra))                            
+                         if (flagUTE) then
+                            'Si es Piedrabuena se agrega el campo Tipo de analisis, que determina si tiene rebaja convenida o no
+                            if ((CInt(rsCab("ACEPTACION")) = ACEPTACION_REBAJA_CONVENIDA) and ((tieneBiotecnologia(rsCab("CDPRODUCTO"), g_Pto)) or (CInt(rsCab("cdproducto")) = CInt(auxProductoProteina)))) then
+                                strCab = strCab & "NC"
+                            else
+                                strCab = strCab & string(2," ")
+                            end if
+                         end if
+				archCab.writeline(strCab)       
+				logMig.info(" - Registro escrito OK!. " )         
+				'----------------------------------------------------------------------
+                'OBTENEMOS LOS DATOS DEL DETALLE (Solici02.txt), SOLO TRANSITO Y ARROYO
+				if (not flagUTE) then
+                    If (oDiccGruposEnsayosCamion.Count > 0) then
+					    strDet = getEnsayosAnalisis(oDiccGruposEnsayosCamion,myMuestra,auxGrupo,g_Pto)
+				    else
+					    If (oDiccGruposEnsayos.Count > 0) Then	strDet = getEnsayosAnalisis(oDiccGruposEnsayos,myMuestra,auxGrupo,g_Pto)
+				    end if
+				    if (strDet <> "") then archDet.writeline(strDet)
+                end if
+				oDiccGruposEnsayosCamion.removeAll
+				oDiccGruposEnsayos.removeAll
+				'----------------------------------------------------------------------
+                'OBTENEMOS LOS DATOS DEL CUENTA Y ORDEN (Solici03.txt), SOLO TRANSITO Y ARROYO
+				if (not flagUTE) then
+                    strCyo = getCuentayOrdenes(rsCab("idTransporte"),rsCab("DTCONTABLE"),myMuestra,g_Pto)
+				    if (strCyo <> "") then archCue.writeline(strCyo)
+                end if
+			else
+                logMig.errors(" - ERROR: " & strMsgError & " (CartaPorte: " & GF_EDIT_CBTE(GF_nDigits(Trim(rsCab("NUCARTAPORTE")),12)) & " | Tipo Transporte: "& rsCab("tipoTransporte") &" | idTransporte: " & rsCab("idTransporte") & ")")
+				archErr.writeline("Fecha: " & GF_FN2DTE(rsCab("DTCONTABLEDESCARGA")) & " | CartaPorte: " & GF_EDIT_CBTE(GF_nDigits(Trim(rsCab("NUCARTAPORTE")),12)) & " | Tipo Transporte: "& rsCab("tipoTransporte") &" | idTransporte: " & rsCab("idTransporte") & " | ERROR: " & strMsgError)
+				'rtrnCallBack = strMsgError & " (CartaPorte: " & GF_EDIT_CBTE(GF_nDigits(Trim(rsCab("NUCARTAPORTE")),12)) & " | idTransporte: " & rsCab("idTransporte") & ")"
+				flagError = true
+			end if
+		end if
+		rsCab.MoveNext()
+	wend	
+	archCab.close()
+	archErr.close()
+	if (not flagUTE) then
+        archDet.close()
+	    archCue.close() 
+    end if    
+    logMig.info("Finalizando validacion de analisis")
+else
+	logMig.info("No se encontraron analisis para enviar a camara")
+end if
+
+'if (not flagError) then 
+'	rtrnCallBack = Replace(valParameterPath,"\","/")
+'else
+'	logMig.errors(rtrnCallBack)
+'end if
+Set fs = nothing
+
+%>
+<HTML>
+    <HEAD>
+        <META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0" />
+        <script type="text/javascript">
+	        parent.generateSegment_callback('<%=flagError%>', '<% =modo %>');
+        </script>
+    </HEAD>
+    <BODY>
+        <P>&nbsp;</P>
+    </BODY>
+</HTML>

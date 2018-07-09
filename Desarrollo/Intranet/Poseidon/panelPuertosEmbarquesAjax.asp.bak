@@ -1,0 +1,82 @@
+<!--#include file="../Includes/procedimientosParametros.asp"-->
+<!--#include file="../Includes/procedimientosFormato.asp"-->
+<!--#include file="../Includes/procedimientosPuertos.asp"-->
+<!--#include file="../Includes/procedimientosFechas.asp"-->
+<!--#include file="../Includes/procedimientosTraducir.asp"-->
+<!--#include file="../Includes/procedimientos.asp"-->
+<!--#include file="../Includes/procedimientosUnificador.asp"-->
+<%
+Const TRANSPORTE_EMBARQUE = 50
+'--------------------------------------------------------------------------------------------------------------
+Function getSQLEmbarque(pPto)
+    Dim strSQL, rsEmb
+    strSQL= "SELECT A.BUQUE,A.IDINFORME, A.MOMENTOINFORME,A.COMMODITY, "&_
+	        "       CASE WHEN SUM(DET.GROSSWEIGHT) IS NULL THEN 0 ELSE SUM(DET.GROSSWEIGHT) END AS KILONETO, "&_
+	        "       CASE WHEN SUM(DET.TAREWEIGHT) IS NULL THEN 0 ELSE SUM(DET.TAREWEIGHT) END AS TARA, "&_
+	        "       MAX(MOMENTOPESADA) AS ULTIMOPESADA "&_
+            "FROM (SELECT CAB.* "&_
+	        "      FROM IBCAB CAB "&_
+	        "      WHERE CAB.BUQUE = (SELECT TOP 1 BUQUE FROM IBCAB ORDER BY IDINFORME DESC )) A "&_
+            "INNER JOIN IBDET DET  "&_
+	        "   ON A.IDINFORME = DET.IDINFORME "&_
+            "GROUP BY A.BUQUE,A.IDINFORME, A.MOMENTOINFORME,A.COMMODITY "&_
+            "ORDER BY COMMODITY,MOMENTOINFORME "
+    Call GF_BD_Puertos(pPto, rsEmb, "OPEN", strSQL)
+    Set getSQLEmbarque = rsEmb
+End Function 
+'--------------------------------------------------------------------------------------------------------------
+Function generarCorteControlEmbarques(pRs,pProducto)
+    generarCorteControlEmbarques = false
+    if (not pRs.Eof) then
+        if (UCase(Trim(pProducto)) = UCase(Trim(pRs("COMMODITY")))) then generarCorteControlEmbarques = true
+    end if
+End Function
+'--------------------------------------------------------------------------------------------------------------
+Function getEmbarqueActual(pPto)
+    Dim rsEmb,auxHoraInicio,auxHoraFin,totSegundo,auxVlTnCarga,cantidadReg,auxFechaInicio,auxFechaFin,auxKilosxHora,auxTnCargados
+    Set rsEmb = getSQLEmbarque(pPto)
+    cantidadReg = 0
+    getEmbarqueActual = ""
+    if (not rsEmb.Eof) then
+        getEmbarqueActual = Trim(rsEmb("BUQUE"))
+        while(not rsEmb.Eof)
+            auxKilosxHora = 0
+            auxTnCargados = 0
+            cantidadReg = 0
+            auxProdcuto = rsEmb("COMMODITY")
+            auxInicio = GF_nChars(rsEmb("MOMENTOINFORME"),14,"0",CHR_AFT)
+            while(generarCorteControlEmbarques(rsEmb,auxProdcuto))
+                auxFechaInicio = GF_nChars(rsEmb("MOMENTOINFORME"),14,"0",CHR_AFT)
+                auxFechaFin    = GF_nChars(rsEmb("ULTIMOPESADA"),14,"0",CHR_AFT)
+                totSegundo = GF_DTEDIFF(auxFechaInicio,auxFechaFin,"S")
+                if (Cdbl(totSegundo) = 0) then totSegundo = 1
+                auxKilos = Cdbl(rsEmb("KILONETO")) - Cdbl(rsEmb("TARA"))
+                'Obtengo los kilos cargados por hora
+                auxKilosxHora = Cdbl(auxKilosxHora) + Round((3600*Cdbl(auxKilos))/Cdbl(totSegundo),0)
+                auxTnCargados = Cdbl(auxTnCargados) + Round((Cdbl(auxKilos)/1000),0)
+                cantidadReg = cantidadReg + 1
+                rsEmb.MoveNext()
+            Wend
+            getEmbarqueActual = getEmbarqueActual & STRING_DELIMITER & getProductoTranslatedByDs(auxProdcuto) &";"& GF_FN2DTE(auxInicio) &";"& GF_EDIT_DECIMALS(auxTnCargados,0) &";"& Round((Cdbl(auxKilosxHora)/Cdbl(cantidadReg))/1000,0)
+        Wend
+    End if
+End Function
+'------------------------------------------------------------------------------------------------------------------------------
+Function getProductoTranslatedByDs(pDsProducto)
+    Dim rs
+    getProductoTranslatedByDs = pDsProducto
+    Call executeQuery(rs, "OPEN", "SELECT INGLPR FROM MERFL.MER112F1 WHERE UPPER(RTRIM(DESCPR)) = '"& Ucase(Trim(pDsProducto)) &"'")
+    
+    if (not rs.Eof) then getProductoTranslatedByDs = rs("INGLPR")
+End Function
+'*************************************************************************************
+'***************************** COMIENZO DE LA PAGINA ***********************************
+'*************************************************************************************
+Dim g_strPuerto,gDtAviso
+   
+g_strPuerto = GF_Parametros7("pto","",6)
+
+Response.Write getEmbarqueActual(g_strPuerto)
+
+%>
+

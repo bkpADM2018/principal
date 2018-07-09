@@ -1,0 +1,366 @@
+<!--#include file="consultaCamionesCommon.asp"-->
+
+<HTML>
+<HEAD>
+<title>Consulta de Camiones</title>
+<link rel="stylesheet" href="../css/ActiSAIntra-1.css" type="text/css">
+<link rel="stylesheet" href="../css/MagicSearch.css" type="text/css">
+<link rel="stylesheet" href="../css/jqueryUI/custom-theme/jquery-ui-1.8.2.custom.css" type="text/css" />
+
+<script type="text/javascript" src="../scripts/jQueryPopUp.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../scripts/jqueryUI/jquery-ui-1.8.2.custom.min.js"></script>
+<script type="text/javascript" src="../scripts/channel.js"></script>
+<script type="text/javascript" src="../scripts/formato.js"></script>
+<script type="text/javascript" src="../scripts/controles.js"></script>
+<script type="text/javascript" src="../scripts/paginar.js"></script>
+<script type="text/javascript" src="../scripts/MagicSearchObj.js"></script>
+<script type="text/javascript">
+	
+	function abrirInfoAnalisis(p_idCamion, p_dtContable, p_ctaPorte){		
+		myPopUp = new winPopUp('Iframe', 'InfoAnalisisCamion.asp?Pto=<%=pto%>&Sector=<%=g_strSector%>&Camion=' + p_idCamion + '&dtContable=' + p_dtContable + '&ctaPorte=' + p_ctaPorte , '780', '550', 'Informacion de Camiones');		
+	}
+	
+	function dimensionarIframe(p_width, p_height){
+		myPopUp.resize(p_width, p_height);
+	}
+
+	function onLoadPage(){
+	<%  if (isToepfer(session("KCOrganizacion"))) then %>
+			var msCliente = new MagicSearch("", "divCliente", 25, 4, "puertosStreamElementos.asp?tipo=clientes&pto=<%=pto%>");
+			msCliente.setToken(";");
+			msCliente.minChar = 3			
+			msCliente.onBlur = seleccionarCliente;
+			msCliente.setValue('<% =dsCliente %>');
+			var msCorredor = new MagicSearch("", "divCorredor", 25, 4, "puertosStreamElementos.asp?tipo=corredores&pto=<%=pto%>");
+			msCorredor.setToken(";");
+			msCorredor.minChar = 3
+			msCorredor.onBlur = seleccionarCorredor;
+			msCorredor.setValue('<% =dsCorredor %>');
+			var msVendedor = new MagicSearch("", "divVendedor", 25, 4, "puertosStreamElementos.asp?tipo=vendedores&pto=<%=pto%>");
+			msVendedor.setToken(";");
+			msVendedor.minChar = 3
+			msVendedor.onBlur = seleccionarVendedor;
+			msVendedor.setValue('<% =dsVendedor %>');
+    <% end if %>			
+			var msChofer = new MagicSearch("", "divChofer", 25, 4, "puertosStreamElementos.asp?tipo=choferes&pto=<%=pto%>");
+			msChofer.setToken(";");
+			msChofer.minChar = 3
+			msChofer.onBlur = seleccionarChofer;
+			msChofer.setValue('<% =dsChofer %>');
+			var msTransportista = new MagicSearch("", "divTransportista", 25, 4, "puertosStreamElementos.asp?tipo=transportistas&pto=<%=pto%>");
+			msTransportista.setToken(";");
+			msTransportista.minChar = 3
+			msTransportista.onBlur = seleccionarTransportista;
+			msTransportista.setValue('<% =dsTransportista %>');
+			<% if not hayError() then 
+				if (not rsLista.eof) then		%>								
+					var pgn = new Paginacion("paginacion");							
+					pgn.paginar(<% =paginaActual %>, <% =lineasTotales %>, <% =mostrar %>, 200, "consultacamiones.asp<% =params %>");
+			<%	end if 
+			   end if
+			%>
+			
+	}
+	function generateExcel() {
+		document.getElementById("frmSel").action = "consultaCamionesPrintXLS.asp";
+		document.getElementById("accion").value = '<% =ACCION_PROCESAR %>';
+		document.getElementById("frmSel").submit();
+	}
+	function seleccionarCliente(ms) {
+		var desc = ms.getSelectedItem();
+		if (desc.indexOf('|') != -1) {
+			var arr = desc.split('|');
+			document.getElementById("cdCliente").value = arr[0];
+			document.getElementById("dsCliente").value = arr[1];
+			ms.setValue(arr[1]);
+		} else {
+			if (desc == ""){
+				document.getElementById("cdCliente").value = "";
+				document.getElementById("dsCliente").value = "";
+			}
+		}		
+	}		
+	function seleccionarCorredor(ms) {
+		var desc = ms.getSelectedItem();
+		if (desc.indexOf('|') != -1) {
+			var arr = desc.split('|');
+			document.getElementById("cdCorredor").value = arr[0];
+			document.getElementById("dsCorredor").value = arr[1];
+			ms.setValue(arr[1]);
+		} else {
+			if (desc == ""){
+				document.getElementById("cdCorredor").value = "";
+				document.getElementById("dsCorredor").value = "";
+			}
+		}		
+	}		
+	function seleccionarVendedor(ms) {
+		var desc = ms.getSelectedItem();
+		if (desc.indexOf('|') != -1) {
+			var arr = desc.split('|');
+			document.getElementById("cdVendedor").value = arr[0];
+			document.getElementById("dsVendedor").value = arr[1];
+			ms.setValue(arr[1]);
+		} else {
+			if (desc == ""){
+				document.getElementById("cdVendedor").value = "";
+				document.getElementById("dsVendedor").value = "";
+			}
+		}		
+	}	
+	function seleccionarChofer(ms) {
+		var desc = ms.getSelectedItem();
+		if (desc.indexOf('|') != -1) {
+			var arr = desc.split('|');
+			document.getElementById("cdChofer").value = arr[0];
+			document.getElementById("dsChofer").value = arr[1];
+			ms.setValue(arr[1]);
+		} else {
+			if (desc == ""){
+				document.getElementById("cdChofer").value = "";
+				document.getElementById("dsChofer").value = "";
+			}
+		}		
+	}		
+	function seleccionarTransportista(ms) {
+		var desc = ms.getSelectedItem();
+		if (desc.indexOf('|') != -1) {
+			var arr = desc.split('|');
+			document.getElementById("cdTransportista").value = arr[0];
+			document.getElementById("dsTransportista").value = arr[1];
+			ms.setValue(arr[1]);
+		} else {
+			if (desc == ""){
+				document.getElementById("cdTransportista").value = "";
+				document.getElementById("dsTransportista").value = "";
+			}
+		}		
+	}	
+	function submitInfo() {	
+	    document.getElementById("frmSel").action = "consultaCamiones.asp";
+		document.getElementById("accion").value = '';	
+		document.getElementById("frmSel").submit();
+	}		
+	function setSortBy(pTxt){
+		document.getElementById("sortBy").value = pTxt;
+		submitInfo();
+	}
+	function abrirNotaRecepcion(pIdCamion,pCartaPorte,pDtContable,pTipoCamion){
+	    window.open("NotaRecepcionPrint.asp?pto=<%=g_strPuerto%>&idCamion="+pIdCamion+"&cartaPorte="+pCartaPorte+"&dtContable="+pDtContable+"&tipoCamion="+pTipoCamion);
+	}	
+    function editCtaPte(p_CtaPte, p_DtContable, p_idCamion){
+        window.open("cartadeporteEdit.asp?pto=<%=g_strPuerto%>&cartaPorte="+p_CtaPte+"&dtContable="+p_DtContable + "&idcamion=" + p_idCamion);
+    }
+</script>
+
+</HEAD>
+<BODY onload="onLoadPage();">
+<form name="frmSel" id="frmSel" method="post" action="consultaCamiones.asp">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<td width="20%" align="center"><img SRC="Images/Iconos/Camion64x64.png"></td>
+			<td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;<b><%=GF_Traducir("Consulta de Camiones")%></b></td>
+		</tr>
+	</table>
+	<table id="tblBusqueda" width="95%" cellspacing="0" cellpadding="0" align="center" border="0">
+       <tr>
+           <td width="8"><img src="images/marcos/marco_r1_c1.gif"></td>
+           <td width="25%"><img src="images/marcos/marco_r1_c2.gif" width="100%" height="8"></td>
+           <td width="8"><img src="images/marcos/marco_r1_c3.gif"></td>
+           <td width="75%"><td>
+           <td></td>
+       </tr>
+       <tr>
+           <td width="8"><img src="images/marcos/marco_r2_c1.gif"></td>
+           <td align="center" valign="center"><font class="big" color="#517b4a"><% =GF_TRADUCIR("Busqueda") %></font></td>
+           <td width="8"><img src="images/marcos/marco_r2_c3.gif"></td>
+           <td align="right"></td>
+           <td></td>
+       </tr>
+       <tr>
+           <td><img src="images/marcos/marco_r2_c1.gif" height="8"  width="8"></td>
+           <td></td>
+           <td><img src="images/marcos/marco_c_s_d.gif" height="8" width="8"></td>
+           <td><img src="images/marcos/marco_r1_c2.gif" width="100%" height="8"></td>
+           <td width="8"><img src="images/marcos/marco_r1_c3.gif"></td>
+       </tr>
+       <tr>
+           <td height="100%"><img src="images/marcos/marco_r2_c1.gif" height="100%" width="8"></td>
+           <td colspan="3">
+                     <table width="95%" align="center" border="0">
+                            <tr>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Id Camion") %>:</td>
+								<td width="20%">
+									<input type="text" SIZE="9" MAXLENGTH="10" id="idCamion" name="idCamion" onKeyPress="return controlIngreso (this, event, 'N');" value="<% =idCamion %>">
+								</td>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Fecha Contable") %>:</td>
+								<td width="20%">
+                                    <input type="text" size="1" maxLength="2" value="<% =fecContableD%>" onKeyPress="return controlIngreso (this, event, 'N');" name="fecContableD"> /
+                                    <input type="text" size="1" maxLength="2" value="<% =fecContableM %>" onKeyPress="return controlIngreso (this, event, 'N');" name="fecContableM"> /
+                                    <input type="text" size="2" maxLength="4" value="<% =fecContableA %>" onKeyPress="return controlIngreso (this, event, 'N');" name="fecContableA">
+									&nbsp;&nbsp;<% = GF_TRADUCIR(" al ") %>&nbsp;&nbsp;
+                                    <input type="text" size="1" maxLength="2" value="<% =fecContableHD%>" onKeyPress="return controlIngreso (this, event, 'N');" name="fecContableHD"> /
+                                    <input type="text" size="1" maxLength="2" value="<% =fecContableHM %>" onKeyPress="return controlIngreso (this, event, 'N');" name="fecContableHM"> /
+                                    <input type="text" size="2" maxLength="4" value="<% =fecContableHA %>" onKeyPress="return controlIngreso (this, event, 'N');" name="fecContableHA">
+								</td>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Cod. Cupo") %>:</td>
+								<td width="20%">
+									<input type="text" SIZE="10" MAXLENGTH="11" id="codCupo" name="codCupo" value="<% =codCupo %>">
+								</td>
+                            </tr>                     
+                            <tr>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Nro C. Porte") %>:</td>
+								<td width="20%">
+									<input type="text" SIZE="2" MAXLENGTH="4" id="nuCartaPorte1" name="nuCartaPorte1" onKeyPress="return controlIngreso (this, event, 'N');" value="<% =nuCartaPorte1 %>">-<input type="text" SIZE="7" MAXLENGTH="8" id="nuCartaPorte2" onKeyPress="return controlIngreso (this, event, 'N');" name="nuCartaPorte2" value="<% =nuCartaPorte2 %>">
+								</td>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Pat. Chasis") %>:</td>
+								<td width="20%">
+									<input type="text" SIZE="2" MAXLENGTH="3" id="patChasis1" name="patChasis1" value="<% =patChasis1 %>">-<input type="text" SIZE="2" MAXLENGTH="3" id="patChasis2" name="patChasis2" onKeyPress="return controlIngreso (this, event, 'N');" value="<% =patChasis2 %>">
+								</td>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Pat. Acoplado") %>:</td>
+								<td width="20%">
+									<input type="text" SIZE="2" MAXLENGTH="3" id="patAcoplado1" name="patAcoplado1" value="<% =patAcoplado1 %>">-<input type="text" SIZE="2" MAXLENGTH="3" id="patAcoplado2" name="patAcoplado2" onKeyPress="return controlIngreso (this, event, 'N');" value="<% =patAcoplado2 %>">
+								</td>
+                            </tr>                     
+                            <% if (isToepfer(session("KCOrganizacion"))) then %>
+                            <tr>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Cliente") %>:</td>
+								<td width="20%">
+									<div id="divCliente"></div>																		
+									<input type="hidden" id="cdCliente" name="cdCliente" value="<%=cdCliente%>">
+									<input type="hidden" id="dsCliente" name="dsCliente" value="<%=dsCliente%>">
+								</td>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Corredor") %>:</td>
+								<td width="20%">
+									<div id="divCorredor"></div>																		
+									<input type="hidden" id="cdCorredor" name="cdCorredor" value="<%=cdCorredor%>">
+									<input type="hidden" id="dsCorredor" name="dsCorredor" value="<%=dsCorredor%>">
+								</td>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Vendedor") %>:</td>
+								<td width="20%">
+									<div id="divVendedor"></div>																		
+									<input type="hidden" id="cdVendedor" name="cdVendedor" value="<%=cdVendedor%>">
+									<input type="hidden" id="dsVendedor" name="dsVendedor" value="<%=dsVendedor%>">
+								</td>
+                            </tr>  
+                            <% end if %>
+                            <tr>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Chofer") %>:</td>
+								<td width="20%">
+									<div id="divChofer"></div>																		
+									<input type="hidden" id="cdChofer" name="cdChofer" value="<%=cdChofer%>">
+									<input type="hidden" id="dsChofer" name="dsChofer" value="<%=dsChofer%>">
+								</td>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Transportista") %>:</td>
+								<td width="20%">
+									<div id="divTransportista"></div>																		
+									<input type="hidden" id="cdTransportista" name="cdTransportista" value="<%=cdTransportista%>">
+									<input type="hidden" id="dsTransportista" name="dsTransportista" value="<%=dsTransportista%>">
+								</td>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Tipo Camión") %>:</td>
+								<td width="20%">
+									<select name="cdCircuito">
+											<option value="<% =CIRCUITO_CAMION_TODOS %>"> <%=GF_Traducir("Seleccionar...")%></option>
+											<option value="<% =CIRCUITO_CAMION_CARGA %>" <% if (cdCircuito = CIRCUITO_CAMION_CARGA)  then response.write "selected" %>> <%=GF_Traducir("CARGA")%></option>
+											<option value="<% =CIRCUITO_CAMION_DESCARGA %>" <% if (cdCircuito = CIRCUITO_CAMION_DESCARGA)  then response.write "selected" %>> <%=GF_Traducir("DESCARGA")%></option>
+									</select>
+								</td>
+                            </tr>  
+                            
+                            <tr>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Producto") %>:</td>
+								<td colspan="1">
+								<%
+									if connect(pto) then 
+										Set rsProductos = connPorts.Execute("SELECT * FROM PRODUCTOS ORDER BY CDPRODUCTO")
+										%>
+										<select name="cdProducto" value="<%=cdProducto%>">
+											<option value="0"> <%=GF_Traducir("Seleccionar...")%></option>
+										<%
+											while not rsProductos.eof
+												mySelected = ""
+												if cint(rsProductos("CDPRODUCTO")) = cint(cdProducto) then mySelected = "SELECTED"
+												%>
+												<option value="<%=rsProductos("CDPRODUCTO")%>" <%=mySelected%>> <%=rsProductos("DSPRODUCTO")%></option>
+												<%	
+												rsProductos.movenext
+										    wend
+										%>
+										</select>
+										<%
+									end if	
+								%>									
+								</td>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Estado") %>:</td>
+								<td colspan="1">
+								<%
+									if connect(pto) then 
+										Set rsEstados = connPorts.Execute("SELECT * FROM ESTADOS ORDER BY CDESTADO")
+										%>
+										<select name="cdEstado" value="<%=cdEstado%>">
+											<option value="0"> <%=GF_Traducir("Seleccionar...")%></option>
+										<%
+											while not rsEstados.eof
+												mySelected = ""
+												if cint(rsEstados("CDESTADO")) = cint(cdEstado) then mySelected = "SELECTED"
+												%>
+												<option value="<%=rsEstados("CDESTADO")%>" <%=mySelected%>> <%=rsEstados("DSESTADO")%></option>
+												<%	
+												rsEstados.movenext
+										    wend
+										%>
+										</select>
+										<%
+									end if	
+								%>	
+								</td>
+								<td width="13%" align="right"><% = GF_TRADUCIR("Solo c/Muestras Extra") %>:</td>
+								<td>
+								    <input type="checkbox" name="chkMuestrasAud" value="<% =MUESTRAS_AUDITORIA_ONLY %>" <% if (chkMuestrasAud = MUESTRAS_AUDITORIA_ONLY) then response.write "checked" %>/>
+								</td>
+                            </tr>  
+
+							<tr>
+								<td colspan="6" align="center">
+									<input type="submit" value="Buscar..." onclick="submitInfo();" id=submit1 name=submit1>
+									<input type="button" value="Exportar" onclick="generateExcel();">
+								</td>	
+                            </tr>								                            
+                     </table>
+	           </td>
+	           <td height="100%"><img src="images/marcos/marco_r2_c3.gif" width="8" height="100%"></td>
+	       </tr>
+	       <tr>
+	           <td width="8"><img src="images/marcos/marco_r3_c1.gif"></td>
+	           <td width="100%" align=center colspan="3"><img src="images/marcos/marco_r3_c2.gif" width="100%" height="8"></td>
+	           <td width="8"><img src="images/marcos/marco_r3_c3.gif"></td>
+	       </tr>
+	</table>
+        <INPUT TYPE="hidden" NAME="pto" VALUE="<%=pto%>">
+		<INPUT SIZE=50 TYPE="hidden" ID="sortBy" NAME="sortBy" VALUE="<%=sortBy%>">
+		<INPUT TYPE="hidden" NAME="accion" id="accion" VALUE="">
+</form>
+	<br>
+	<%
+	if hayError() then 	
+	%>
+	<table width="90%" cellspacing="0" cellpadding="0" align="center" border="0">
+		<tr>
+			<td colspan=3>
+				<%			
+				call showErrors()
+				%>
+			</td>
+		</tr>	
+	</table>		
+	<%else%>
+	<% 	if (not rsLista.eof) then %>
+				<tr><td colspan="10"><div id="paginacion"></div></td></tr>
+	<%	end if 	%>	
+	<br>
+	<% Call crearTabla(mostrar, accion)
+	end if%>
+	
+</BODY>
+</HTML>

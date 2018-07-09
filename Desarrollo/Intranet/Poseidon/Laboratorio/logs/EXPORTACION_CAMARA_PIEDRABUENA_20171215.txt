@@ -1,0 +1,1064 @@
+15/12/2017 11:48:16 a.m.|JAS|INFO|--------------------- INCIANDO EXPORTACION ANALISIS DE CAMARA ------------------------
+15/12/2017 11:48:16 a.m.|JAS|INFO| ---> USUARIO	: JAS
+15/12/2017 11:48:16 a.m.|JAS|INFO| ---> PUERTO	: PIEDRABUENA
+15/12/2017 11:48:16 a.m.|JAS|INFO| ---> MODO		: F
+15/12/2017 11:48:16 a.m.|JAS|INFO|Buscando analisis de la fecha 2017-12-14
+15/12/2017 11:48:18 a.m.|JAS|INFO|Iniciando validacion de analisis
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000420 | Muestra: 00207930755     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65548319
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000431 | Muestra: 00207930763     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66096578
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000473 | Muestra: 00207930771     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66242703
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000469 | Muestra: 00207930780     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65834114
+15/12/2017 11:48:18 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000405 | Muestra: 00207930798     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66228974
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000445 | Muestra: 00207930801     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65548322
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000467 | Muestra: 00207930810     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119649
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000414 | Muestra: 00207930828     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65548326
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000458 | Muestra: 00207930836     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786836
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000472 | Muestra: 00207930844     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786837
+15/12/2017 11:48:19 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000491 | Muestra: 00207930852     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119647
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000463 | Muestra: 00207930861     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119650
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000462 | Muestra: 00207930879     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65915851
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000567 | Muestra: 00207931034     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786829
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000524 | Muestra: 00207931042     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786838
+15/12/2017 11:48:20 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000559 | Muestra: 00207931051     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65834107
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000593 | Muestra: 00207931069     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65869731
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000222 | Muestra: 00207931077     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66194364
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000541 | Muestra: 00207931085     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66202701
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000522 | Muestra: 00207931093     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119653
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000569 | Muestra: 00207931107     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119652
+15/12/2017 11:48:21 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000479 | Muestra: 00207931115     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786830
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000525 | Muestra: 00207931123     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119656
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000586 | Muestra: 00207931131     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119655
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000572 | Muestra: 00207931140     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786840
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000568 | Muestra: 00207931158     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65915842
+15/12/2017 11:48:22 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000094 | Muestra: 00207931166     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66225284
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000551 | Muestra: 00207931174     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66227483
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000599 | Muestra: 00207931182     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66225283
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000028 | Muestra: 00207931191     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119657
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000051 | Muestra: 00207931204     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119658
+15/12/2017 11:48:23 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000070 | Muestra: 00207931212     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119662
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000065 | Muestra: 00207931221     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66207776
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000008 | Muestra: 00207931239     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65643467
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000089 | Muestra: 00207931247     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65936648
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000066 | Muestra: 00207931255     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66188365
+15/12/2017 11:48:24 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000052 | Muestra: 00207931263     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119664
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000053 | Muestra: 00207931271     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029517
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000079 | Muestra: 00207931280     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029521
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000047 | Muestra: 00207931298     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029524
+15/12/2017 11:48:25 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000097 | Muestra: 00207931301     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65402228
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000041 | Muestra: 00207931310     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65402224
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000032 | Muestra: 00207931328     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029520
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000026 | Muestra: 00207931336     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65343186
+15/12/2017 11:48:26 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000075 | Muestra: 00207931344     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65276775
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000069 | Muestra: 00207931352     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029531
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000092 | Muestra: 00207931361     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66026642
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000081 | Muestra: 00207931379     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66222826
+15/12/2017 11:48:27 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000073 | Muestra: 00207931387     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119644
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000004 | Muestra: 00207931395     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65936647
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000167 | Muestra: 00207931409     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66024709
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000311 | Muestra: 00207931417     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66024710
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000383 | Muestra: 00207931425     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65548321
+15/12/2017 11:48:28 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000196 | Muestra: 00207931433     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66257807
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000387 | Muestra: 00207931441     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029534
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000366 | Muestra: 00207931450     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029528
+15/12/2017 11:48:29 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000115 | Muestra: 00207931468     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029532
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000149 | Muestra: 00207931476     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029541
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000102 | Muestra: 00207931484     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65276780
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000344 | Muestra: 00207931492     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66030336
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000113 | Muestra: 00207931506     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66026643
+15/12/2017 11:48:30 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000171 | Muestra: 00207931514     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66248496
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000165 | Muestra: 00207931522     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65276776
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000334 | Muestra: 00207931531     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66053866
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000103 | Muestra: 00207931549     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028640
+15/12/2017 11:48:31 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000346 | Muestra: 00207931557     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66000962
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000131 | Muestra: 00207931565     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65915846
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000307 | Muestra: 00207931573     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65930896
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000303 | Muestra: 00207931581     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65930897
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000181 | Muestra: 00207931590     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65915840
+15/12/2017 11:48:32 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000332 | Muestra: 00207931603     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029537
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000339 | Muestra: 00207931611     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66228981
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000790 | Muestra: 00207931620     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65402222
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000178 | Muestra: 00207931638     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65930640
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000191 | Muestra: 00207931654     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66250764
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000720 | Muestra: 00207931662     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66097428
+15/12/2017 11:48:33 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000125 | Muestra: 00207931689     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66228980
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000784 | Muestra: 00207931697     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65402230
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000760 | Muestra: 00207931701     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028642
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000164 | Muestra: 00207931719     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028652
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000190 | Muestra: 00207931727     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65906326
+15/12/2017 11:48:34 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000785 | Muestra: 00207931735     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119666
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000194 | Muestra: 00207931743     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66173139
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000704 | Muestra: 00207931751     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65930895
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000766 | Muestra: 00207931760     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66200861
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000134 | Muestra: 00207931778     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66252874
+15/12/2017 11:48:35 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000123 | Muestra: 00207931786     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66261648
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000708 | Muestra: 00207931794     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65930898
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000111 | Muestra: 00207931808     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119668
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000789 | Muestra: 00207931816     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786341
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000146 | Muestra: 00207931824     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66150868
+15/12/2017 11:48:36 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000779 | Muestra: 00207931832     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028648
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000767 | Muestra: 00207931841     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028656
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000154 | Muestra: 00207931859     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66150869
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000716 | Muestra: 00207931867     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66274740
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000791 | Muestra: 00207931875     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66270680
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000740 | Muestra: 00207931883     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66272305
+15/12/2017 11:48:37 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000723 | Muestra: 00207931891     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65936650
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000138 | Muestra: 00207931905     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65930910
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000788 | Muestra: 00207931913     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028654
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000764 | Muestra: 00207931921     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65834139
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000744 | Muestra: 00207931930     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65834140
+15/12/2017 11:48:38 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000745 | Muestra: 00207931948     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65643475
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000709 | Muestra: 00207931956     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66227485
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000707 | Muestra: 00207931964     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65930901
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000706 | Muestra: 00207931972     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66263202
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000705 | Muestra: 00207931981     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786852
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000797 | Muestra: 00207931999     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786853
+15/12/2017 11:48:39 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000762 | Muestra: 00207932006     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65930911
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000700 | Muestra: 00207932014     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65936654
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000778 | Muestra: 00207932022     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028644
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000792 | Muestra: 00207932031     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66252875
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000771 | Muestra: 00207932049     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66239988
+15/12/2017 11:48:40 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000761 | Muestra: 00207932057     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66239987
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000742 | Muestra: 00207932065     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65930902
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000755 | Muestra: 00207932073     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119663
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000759 | Muestra: 00207932081     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028646
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000734 | Muestra: 00207932090     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65362637
+15/12/2017 11:48:41 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000782 | Muestra: 00207932103     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65362638
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000780 | Muestra: 00207932111     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65362645
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000717 | Muestra: 00207932120     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65362642
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000746 | Muestra: 00207932138     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65362643
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000726 | Muestra: 00207932146     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65362639
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000701 | Muestra: 00207932201     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65915864
+15/12/2017 11:48:42 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000777 | Muestra: 00207932219     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786855
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000498 | Muestra: 00278535695     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65548323
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000427 | Muestra: 00278535709     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65548325
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000441 | Muestra: 00278535717     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65834111
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000488 | Muestra: 00278535725     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66197589
+15/12/2017 11:48:43 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000453 | Muestra: 00278535733     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66159604
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000432 | Muestra: 00278535741     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66058298
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000489 | Muestra: 00278535750     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66159606
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000415 | Muestra: 00278535768     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786833
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000440 | Muestra: 00278535776     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786834
+15/12/2017 11:48:44 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000434 | Muestra: 00278535784     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786835
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000411 | Muestra: 00278535792     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119648
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000468 | Muestra: 00278535814     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66202699
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000410 | Muestra: 00278535822     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66202700
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000561 | Muestra: 00278536021     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65548314
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000232 | Muestra: 00278536039     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66207770
+15/12/2017 11:48:45 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000060 | Muestra: 00278536047     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119660
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000099 | Muestra: 00278536055     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119659
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000067 | Muestra: 00278536063     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119646
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000098 | Muestra: 00278536071     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66207775
+15/12/2017 11:48:46 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000086 | Muestra: 00278536080     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66207777
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000044 | Muestra: 00278536098     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65643466
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000062 | Muestra: 00278536101     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66246605
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000084 | Muestra: 00278536110     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66246604
+15/12/2017 11:48:47 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000031 | Muestra: 00278536128     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65930894
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000076 | Muestra: 00278536136     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66058302
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000025 | Muestra: 00278536144     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66207772
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000057 | Muestra: 00278536152     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029522
+15/12/2017 11:48:48 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000037 | Muestra: 00278536161     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66252872
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000088 | Muestra: 00278536179     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65402227
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000040 | Muestra: 00278536187     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65402225
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000045 | Muestra: 00278536195     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65402226
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000083 | Muestra: 00278536209     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66195750
+15/12/2017 11:48:49 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000012 | Muestra: 00278536217     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65786334
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000027 | Muestra: 00278536225     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65420613
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000059 | Muestra: 00278536233     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029525
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000087 | Muestra: 00278536241     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65402223
+15/12/2017 11:48:50 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000018 | Muestra: 00278536250     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029530
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000077 | Muestra: 00278536268     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65402220
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000023 | Muestra: 00278536276     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65949813
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000322 | Muestra: 00278536420     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66053869
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000372 | Muestra: 00278536446     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65834116
+15/12/2017 11:48:51 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000396 | Muestra: 00278536462     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65548320
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000153 | Muestra: 00278536471     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66239986
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000357 | Muestra: 00278536497     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66030338
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000328 | Muestra: 00278536501     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029538
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000364 | Muestra: 00278536519     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66248495
+15/12/2017 11:48:52 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000376 | Muestra: 00278536535     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65276778
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000373 | Muestra: 00278536543     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029539
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000375 | Muestra: 00278536560     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65276779
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000129 | Muestra: 00278536578     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66026644
+15/12/2017 11:48:53 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000351 | Muestra: 00278536586     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029540
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000160 | Muestra: 00278536608     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66053871
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000101 | Muestra: 00278536624     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028638
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000444 | Muestra: 00278536659     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66233717
+15/12/2017 11:48:54 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000252 | Muestra: 00278536667     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66233719
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000426 | Muestra: 00278536675     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66233721
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000330 | Muestra: 00278536705     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65464621
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000348 | Muestra: 00278536713     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66067557
+15/12/2017 11:48:55 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000133 | Muestra: 00278536721     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029536
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000189 | Muestra: 00278536730     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029535
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000126 | Muestra: 00278536748     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65946620
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000022 | Muestra: 00278536799     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029529
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000063 | Muestra: 00278536802     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029518
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000013 | Muestra: 00278536829     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66029512
+15/12/2017 11:48:56 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000104 | Muestra: 00278536870     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65949812
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000703 | Muestra: 00278536888     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66196421
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000177 | Muestra: 00278536896     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65402229
+15/12/2017 11:48:57 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000721 | Muestra: 00278536918     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65915849
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000185 | Muestra: 00278536926     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66053872
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000188 | Muestra: 00278536934     (Camara:S) | Producto: 23 | Cta.Pte: 0005-65930639
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000158 | Muestra: 00278536942     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028650
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000124 | Muestra: 00278536951     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66053867
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000127 | Muestra: 00278536969     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65834109
+15/12/2017 11:48:58 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000754 | Muestra: 00278536977     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66252866
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000793 | Muestra: 00278536985     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66252867
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000186 | Muestra: 00278536993     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66071738
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000770 | Muestra: 00278537001     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65834118
+15/12/2017 11:48:59 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000114 | Muestra: 00278537027     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65786839
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000741 | Muestra: 00278537035     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66176376
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000112 | Muestra: 00278537043     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66028658
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000168 | Muestra: 00278537060     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66067559
+15/12/2017 11:49:00 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000116 | Muestra: 00278537078     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66053870
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000192 | Muestra: 00278537086     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119669
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000729 | Muestra: 00278537094     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66119670
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000155 | Muestra: 00278537108     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65869733
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000773 | Muestra: 00278537116     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66091004
+15/12/2017 11:49:01 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Validando - Tipo transporte: 1 | Id: 0000000796 | Muestra: 00278537205     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66272304
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 887604 | Muestra: 00278536292     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 895490 | Muestra: 00278536306     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 886721 | Muestra: 00278536314     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:02 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 890871 | Muestra: 00278536322     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 823484 | Muestra: 00278536331     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 852640 | Muestra: 00278536349     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 852533 | Muestra: 00278536357     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:03 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 897140 | Muestra: 00278536365     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 806935 | Muestra: 00278536373     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 806570 | Muestra: 00278536381     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 855338 | Muestra: 00278536390     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 852921 | Muestra: 00278536403     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 851394 | Muestra: 00278536411     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:04 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 890681 | Muestra: 00278536438     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 845305 | Muestra: 00278536454     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 889725 | Muestra: 00278536489     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 837609 | Muestra: 00278536527     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 892638 | Muestra: 00278536551     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:05 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 823518 | Muestra: 00278536594     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 886929 | Muestra: 00278536616     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 891135 | Muestra: 00278536632     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 852277 | Muestra: 00278536641     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:06 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 825901 | Muestra: 00278536683     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 890806 | Muestra: 00278536691     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 461459 | Muestra: 00278536756     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 897173 | Muestra: 00278536764     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 807818 | Muestra: 00278536772     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:07 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 888750 | Muestra: 00278536781     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 891093 | Muestra: 00278536811     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 887869 | Muestra: 00278536837     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:08 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 838730 | Muestra: 00278536845     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 806844 | Muestra: 00278536853     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 843011 | Muestra: 00278536861     (Camara:S) | Producto: 19 | Cta.Pte: 0005-65773277
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 885681 | Muestra: 00278537019     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66036406
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 846857 | Muestra: 00278537141     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66036406
+15/12/2017 11:49:09 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 837583 | Muestra: 00278537159     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66036406
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 844282 | Muestra: 00278537167     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66036406
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 891267 | Muestra: 00278537175     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66036406
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 837153 | Muestra: 00278537183     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66036406
+15/12/2017 11:49:10 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 821819 | Muestra: 00278537191     (Camara:S) | Producto: 19 | Cta.Pte: 0005-66036406
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 837245 | Muestra: 00278537213     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66172801
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 838664 | Muestra: 00278537221     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66172801
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 806257 | Muestra: 00278537230     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66172801
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 805770 | Muestra: 00278537248     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66172801
+15/12/2017 11:49:11 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 837807 | Muestra: 00278537256     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66172801
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 837773 | Muestra: 00278537264     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66172801
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 827444 | Muestra: 00278537272     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66172801
+15/12/2017 11:49:12 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 888057 | Muestra: 00278537388     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66172801
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 838755 | Muestra: 00278537396     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66172801
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Validando - Tipo transporte: 2 | Id: 823450 | Muestra: 00278537400     (Camara:S) | Producto: 23 | Cta.Pte: 0005-66172801
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Validación Ok 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Armando registro de datos... 
+15/12/2017 11:49:13 a.m.|JAS|INFO| - Registro escrito OK!. 
+15/12/2017 11:49:13 a.m.|JAS|INFO|Finalizando validacion de analisis
+15/12/2017 11:49:14 a.m.|JAS|INFO|-------------------- GENERANDO ANALISIS TOTALES --------------------
+15/12/2017 11:49:14 a.m.|JAS|INFO|-------------------- GENERANDO ANALISIS TOTALES --------------------
+15/12/2017 11:49:14 a.m.|JAS|INFO|-------------------- GENERANDO ANALISIS DE BIOTECNOLOGIA --------------------
+15/12/2017 11:49:14 a.m.|JAS|INFO|-------------------- GENERANDO ANALISIS DE BIOTECNOLOGIA --------------------
+15/12/2017 11:49:14 a.m.|JAS|INFO|-------------------- GENERANDO ANALISIS DE PROTEINA --------------------
+15/12/2017 11:49:14 a.m.|JAS|INFO|-------------------- GENERANDO ANALISIS DE PROTEINA --------------------
+15/12/2017 11:49:14 a.m.|JAS|INFO|Iniciando envio de mail
+15/12/2017 11:49:14 a.m.|JAS|INFO|Enviando mail a : scalisij@toepfer.com
+15/12/2017 11:49:15 a.m.|JAS|INFO|Finalizando envio de mail

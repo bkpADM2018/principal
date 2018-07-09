@@ -1,0 +1,423 @@
+<!--#include file="../Includes/procedimientosMG.asp"-->
+<!--#include file="../Includes/procedimientosSQL.asp"-->
+<!--#include file="../Includes/procedimientos.asp"-->
+<!--#include file="../Includes/json.asp"-->
+<%
+
+'*****************************************************
+'***** 	COMIENZO DE LA PAGINA
+'*****************************************************
+Dim tipo, rtrn
+tipo = GF_PARAMETROS7("tipo","",6)
+pto = GF_PARAMETROS7("pto", "", 6)
+rtrn=""
+Select Case (tipo)
+	Case "clientes":
+		rtrn = stringClientes()
+	Case "corredores":
+		rtrn = stringCorredores()
+	Case "vendedores":
+		rtrn = stringVendedores()
+	Case "destinatarios":
+		rtrn = stringDestinatarios()
+	Case "transportistas":		
+		rtrn = stringTransportistas()
+	Case "choferes":
+		rtrn = stringChoferes()
+	Case "entregadores":
+		rtrn = stringEntregadores() 
+	Case "empresas":
+		rtrn = stringEmpresas()		
+	case "JQEmpresas":
+		rtrn = stringJQEmpresas()
+		QueryToJSON(rtrn).Flush
+		response.end		
+	case "JQClientes":
+		rtrn = stringJQClientes()
+		QueryToJSON(rtrn).Flush
+		response.end
+	case "JQVendedores":
+		rtrn = stringJQVendedores()
+		QueryToJSON(rtrn).Flush
+		response.end
+	case "JQCorredores"
+		rtrn = stringJQCorredores()
+		QueryToJSON(rtrn).Flush
+		response.end
+	case "JQEntregadores"
+		rtrn = stringJQEntregadores()
+		QueryToJSON(rtrn).Flush
+		response.end	
+	case "JQProcedenciasCamara"
+		rtrn = stringJQProcedenciasCamara()
+		QueryToJSON(rtrn).Flush
+		response.end	
+	case "JQProcedenciasONCCA"
+		rtrn = stringJQProcedenciasONCCA()
+		QueryToJSON(rtrn).Flush
+		response.end	
+    case "JQProcedenciasPto"
+		rtrn = stringJQProcedenciasPto()
+		QueryToJSON(rtrn).Flush
+		response.end
+End Select	
+response.write rtrn
+'-------------------------------------------------------------------------------------------------------------------
+Function stringClientes()
+	Dim strSQL, rs, conn, ret, str	
+	str = ucase(GF_PARAMETROS7("divCliente", "", 6))
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			strSQL="SELECT * FROM CLIENTES WHERE CDCLIENTE = " & str & " ORDER BY DSCLIENTE "
+		else
+			strSQL="SELECT * FROM CLIENTES WHERE DSCLIENTE LIKE '%" & str & "%' ORDER BY DSCLIENTE "
+		end if	
+	else
+		strSQL="SELECT * FROM CLIENTES ORDER BY DSCLIENTE "
+	end if	
+	Set rs = connPorts.Execute(strsql)
+	while (not rs.eof) 
+		if (len(ret) > 0) then ret = ret & ";"			
+		ret = ret & rs("CDCLIENTE") & "|" & rs("DSCLIENTE")			
+		rs.MoveNext()
+	wend
+	stringClientes = ret		
+End Function
+'-------------------------------------------------------------------------------------------------------------------
+Function stringEmpresas()
+	Dim strSQL, rs, conn, ret, str	
+	str = ucase(GF_PARAMETROS7("divCoordinador", "", 6))	
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			strSQL="SELECT * FROM EMPRESAS WHERE CDEMPRESA = " & str & " ORDER BY DSEMPRESA "
+		else
+			strSQL="SELECT * FROM EMPRESAS WHERE DSEMPRESA LIKE '%" & str & "%' ORDER BY DSEMPRESA "
+		end if	
+	else
+		strSQL="SELECT * FROM EMPRESAS ORDER BY DSEMPRESA "
+	end if		
+	Set rs = connPorts.Execute(strsql)
+	while (not rs.eof) 
+		if (len(ret) > 0) then ret = ret & ";"			
+		ret = ret & rs("CDEMPRESA") & "|" & rs("DSEMPRESA")			
+		rs.MoveNext()
+	wend
+	stringEmpresas = ret		
+End Function
+'-------------------------------------------------------------------------------------------------------------------
+Function stringCorredores()
+	Dim strSQL, rs, conn, ret, str	
+	str = ucase(GF_PARAMETROS7("divCorredor", "", 6))	
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			strSQL="SELECT * FROM CORREDORES WHERE CDCORREDOR = " & str & " ORDER BY DSCORREDOR "
+		else
+			strSQL="SELECT * FROM CORREDORES WHERE DSCORREDOR LIKE '%" & str & "%' ORDER BY DSCORREDOR "
+		end if	
+	else
+		strSQL="SELECT * FROM CORREDORES ORDER BY DSCORREDOR "
+	end if			
+		Set rs = connPorts.Execute(strsql)
+		while (not rs.eof) 
+			if (len(ret) > 0) then ret = ret & ";"			
+			ret = ret & rs("CDCORREDOR") & "|" & rs("DSCORREDOR")			
+			rs.MoveNext()
+		wend	
+	stringCorredores = ret		
+End Function
+'-------------------------------------------------------------------------------------------------------------------
+Function stringVendedores()
+	Dim strSQL, rs, conn, ret, str	
+	str = ucase(GF_PARAMETROS7("divVendedor", "", 6))	
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			strSQL="SELECT * FROM VENDEDORES WHERE CDVENDEDOR = " & str & " ORDER BY DSVENDEDOR "
+		else
+			strSQL="SELECT * FROM VENDEDORES WHERE DSVENDEDOR LIKE '%" & str & "%' ORDER BY DSVENDEDOR "
+		end if	
+	else
+		strSQL="SELECT * FROM VENDEDORES ORDER BY DSVENDEDOR "
+	end if			
+		Set rs = connPorts.Execute(strsql)
+		while (not rs.eof) 
+			if (len(ret) > 0) then ret = ret & ";"			
+			ret = ret & rs("CDVENDEDOR") & "|" & rs("DSVENDEDOR")			
+			rs.MoveNext()
+		wend	
+	stringVendedores = ret		
+End Function
+'-------------------------------------------------------------------------------------------------------------------
+Function stringDestinatarios()
+	Dim strSQL, rs, conn, ret, str	
+	str = ucase(GF_PARAMETROS7("divDestinatario", "", 6))	
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			strSQL="SELECT * FROM COMPRADORES WHERE CDCOMPRADOR = " & str & " ORDER BY DSCOMPRADOR "
+		else
+			strSQL="SELECT * FROM COMPRADORES WHERE DSCOMPRADOR LIKE '%" & str & "%' ORDER BY DSCOMPRADOR "
+		end if	
+	else
+		strSQL="SELECT * FROM COMPRADORES ORDER BY DSCOMPRADOR "
+	end if		
+		Set rs = connPorts.Execute(strsql)
+		while (not rs.eof) 
+			if (len(ret) > 0) then ret = ret & ";"			
+			ret = ret & rs("CDCOMPRADOR") & "|" & rs("DSCOMPRADOR")			
+			rs.MoveNext()
+		wend
+	stringDestinatarios = ret		
+End Function
+'-------------------------------------------------------------------------------------------------------------------
+Function stringEntregadores()
+	Dim strSQL, rs, conn, ret, str	
+	str = ucase(GF_PARAMETROS7("divEntregador", "", 6))	
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			strSQL="SELECT * FROM ENTREGADORES WHERE CDENTREGADOR = " & str & " ORDER BY DSENTREGADOR "
+		else
+			strSQL="SELECT * FROM ENTREGADORES WHERE DSENTREGADOR LIKE '%" & str & "%' ORDER BY DSENTREGADOR "
+		end if	
+	else
+		strSQL="SELECT * FROM ENTREGADORES ORDER BY DSENTREGADOR "
+	end if			
+		Set rs = connPorts.Execute(strsql)
+		while (not rs.eof) 
+			if (len(ret) > 0) then ret = ret & ";"			
+			ret = ret & rs("CDENTREGADOR") & "|" & rs("DSENTREGADOR")			
+			rs.MoveNext()
+		wend	
+	stringEntregadores = ret		
+End Function
+'-------------------------------------------------------------------------------------------------------------------
+Function stringChoferes()
+	Dim strSQL, rs, conn, ret, str, myWhere	
+	str = ucase(GF_PARAMETROS7("divChofer", "", 6))	
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			myWhere = " AND NUDOCUMENTO = " & str 
+		else
+			myWhere = " AND DSAPELLIDOCONDUCTOR LIKE '%" & str & "%'"
+		end if	
+	end if		
+	strSQL ="	SELECT DSAPELLIDOCONDUCTOR + ', ' + DSNOMBRECONDUCTOR AS NOMBRECOMPLETO, NUDOCUMENTO " & _
+			"		FROM CAMIONES " & _
+			"			WHERE DSNOMBRECONDUCTOR <> '' AND NOT DSNOMBRECONDUCTOR IS NULL AND DSAPELLIDOCONDUCTOR <> '' AND NOT DSAPELLIDOCONDUCTOR IS NULL AND NUDOCUMENTO <> 0 AND NOT NUDOCUMENTO IS NULL " & myWhere & _
+			"		GROUP BY DSNOMBRECONDUCTOR,DSAPELLIDOCONDUCTOR,CDTIPODOC,NUDOCUMENTO " & _
+			"	UNION" & _
+			"	SELECT DSAPELLIDOCONDUCTOR + ', ' + DSNOMBRECONDUCTOR AS NOMBRECOMPLETO, NUDOCUMENTO " & _
+			"		FROM HCAMIONES " & _
+			"			WHERE DSNOMBRECONDUCTOR <> '' AND NOT DSNOMBRECONDUCTOR IS NULL AND DSAPELLIDOCONDUCTOR <> '' AND NOT DSAPELLIDOCONDUCTOR IS NULL AND NUDOCUMENTO <> 0 AND NOT NUDOCUMENTO IS NULL " & myWhere & _
+			"		GROUP BY DSNOMBRECONDUCTOR,DSAPELLIDOCONDUCTOR,CDTIPODOC,NUDOCUMENTO " & _
+			"	ORDER BY NOMBRECOMPLETO ASC "
+
+		Set rs = connPorts.Execute(strsql)
+		while (not rs.eof) 
+			if (len(ret) > 0) then ret = ret & ";"			
+			ret = ret & rs("NUDOCUMENTO") & "|" & rs("NOMBRECOMPLETO")			
+			rs.MoveNext()
+		wend
+	stringChoferes = ret		
+End Function
+'-------------------------------------------------------------------------------------------------------------------
+Function stringTransportistas()
+	Dim strSQL, rs, conn, ret, str	
+	str = ucase(GF_PARAMETROS7("divTransportista", "", 6))	
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			strSQL="SELECT * FROM TRANSPORTISTAS WHERE CDTRANSPORTISTA = " & str & " ORDER BY DSTRANSPORTISTA "
+		else
+			strSQL="SELECT * FROM TRANSPORTISTAS WHERE DSTRANSPORTISTA LIKE '%" & str & "%' ORDER BY DSTRANSPORTISTA "
+		end if	
+	else
+		strSQL="SELECT * FROM TRANSPORTISTAS ORDER BY DSTRANSPORTISTA "
+	end if		
+		Set rs = connPorts.Execute(strsql)
+		while (not rs.eof) 
+			if (len(ret) > 0) then ret = ret & ";"			
+			ret = ret & rs("CDTRANSPORTISTA") & "|" & rs("DSTRANSPORTISTA")			
+			rs.MoveNext()
+		wend
+	stringTransportistas = ret		
+End Function
+'---------------------------------------------------------------------------------------------
+Function QueryToJSON(strSQL)
+      Dim rs, jsa, col
+			Set rs = connPorts.Execute(strSQL)
+			Set jsa = jsArray()
+			While Not (rs.EOF Or rs.BOF)				
+				Set jsa(Null) = jsObject()
+				For Each col In rs.Fields
+					jsa(Null) (lcase(col.Name)) = trim(col.Value)
+				Next
+				rs.MoveNext
+			Wend
+        Set QueryToJSON = jsa
+End Function
+'-----------------------------------------------------------------------------------------------------
+Function stringJQEmpresas()	
+	Dim strSQL, rs, conn, ret, str, myLinea, myWhere		
+	str = UCASE(GF_PARAMETROS7("term","",6))
+	myWhere = " where "
+	if len(str) > 0 then
+		if IsNumeric(str) then 			
+			myWhere = myWhere & " (CDEMPRESA like '" & str & "%')"
+		else
+			if len(str) = 1 then
+				myWhere = myWhere & " DSEMPRESA like '" & str & "%'"
+			else
+				myWhere = myWhere & " DSEMPRESA like '%" & str & "%'"
+			end if	
+		end if
+	end if		
+	strSQL= "Select cdempresa, dsempresa from EMPRESAS " & myWhere
+	stringJQEmpresas = strSQL
+End Function
+'--------------------------------------------------------------------------------------------------------
+Function stringJQClientes()
+	Dim strSQL, rs, conn, ret, str, myLinea, myWhere
+	str = UCASE(GF_PARAMETROS7("term","",6))
+	myWhere = " where "
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			myWhere = myWhere & " (CDCLIENTE like '" & str & "%' or NUCUIT like '" & str & "%')"
+		else
+			if len(str) = 1 then
+				myWhere = myWhere & " DSCLIENTE like '" & str & "%'"
+			else
+				myWhere = myWhere & " DSCLIENTE like '%" & str & "%'"
+			end if
+		end if
+	end if
+	strSQL= "Select cdcliente, dscliente, nucuit from CLIENTES " & myWhere	
+	stringJQClientes = strSQL
+End Function
+'--------------------------------------------------------------------------------------------------------
+Function stringJQVendedores()
+	Dim strSQL, rs, conn, ret, str, myLinea, myWhere
+	str = UCASE(GF_PARAMETROS7("term","",6))
+	myWhere = " where CDESTADO <> '*' and "
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			myWhere = myWhere & " (CDVENDEDOR like '" & str & "%')"
+		else
+			if len(str) = 1 then
+				myWhere = myWhere & " DSVENDEDOR like '" & str & "%'"
+			else
+				myWhere = myWhere & " DSVENDEDOR like '%" & str & "%'"
+			end if
+		end if
+	end if
+	strSQL= "Select cdvendedor, dsvendedor,nudocumento from VENDEDORES " & myWhere	
+	stringJQVendedores = strSQL
+End Function
+'-----------------------------------------------------------------------------------------------------------
+Function stringJQCorredores()
+	Dim strSQL, rs, conn, ret, str, myLinea, myWhere
+	str = UCASE(GF_PARAMETROS7("term","",6))
+	myWhere = " where CDESTADO <> '*' and "
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			myWhere = myWhere & " (CDCORREDOR like '" & str & "%')"
+		else
+			if len(str) = 1 then
+				myWhere = myWhere & " DSCORREDOR like '" & str & "%'"
+			else
+				myWhere = myWhere & " DSCORREDOR like '%" & str & "%'"
+			end if
+		end if
+	end if
+	strSQL= "Select cdcorredor, dscorredor,nucuit FROM CORREDORES " & myWhere
+	stringJQCorredores = strSQL
+End Function
+'-----------------------------------------------------------------------------------------------------------
+Function stringJQEntregadores()
+	Dim strSQL, rs, conn, ret, str, myLinea, myWhere
+	str = UCASE(GF_PARAMETROS7("term","",6))
+	myWhere = " where "
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			myWhere = myWhere & " (CDENTREGADOR like '" & str & "%')"
+		else
+			if len(str) = 1 then
+				myWhere = myWhere & " DSENTREGADOR like '" & str & "%'"
+			else
+				myWhere = myWhere & " DSENTREGADOR like '%" & str & "%'"
+			end if
+		end if
+	end if
+	strSQL= "Select cdentregador, dsentregador FROM ENTREGADORES " & myWhere
+	stringJQEntregadores = strSQL
+End Function
+'-----------------------------------------------------------------------------------------------------------
+Function stringJQProcedenciasONCCA()
+	Dim strSQL, rs, conn, ret, str, myLinea, myWhere
+	str = UCASE(GF_PARAMETROS7("term","",6))
+	pcia = UCASE(GF_PARAMETROS7("pcia",0,6))
+	myWhere = " where "
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			myWhere = myWhere & " (DSLOC like '" & str & "%')"
+		else
+			if len(str) = 1 then
+				myWhere = myWhere & " DSLOC like '" & str & "%'"
+			else
+				myWhere = myWhere & " DSLOC like '%" & str & "%'"
+			end if
+		end if
+		if pcia > 0 then myWhere = myWhere & " AND PR.CDPROVINCIA = " & pcia
+	end if
+	strSQL= "Select IDLOC, DSLOC, PR.CDPROVINCIA AS IDPROV, UPPER(PR.DSPROVINCIA) AS DSPROV, PA.ID AS IDPART, UPPER(PA.[DESC]) AS DSPART " & _
+			"  FROM LOCPROVPART LPP " & _
+			"	INNER JOIN PROVINCIASONCCA PO ON LPP.IDPROV=PO.ID " & _
+			"	INNER JOIN PROVINCIAS PR ON PO.ID=PR.CDONCCA " & _
+			"	INNER JOIN PARTIDOS PA ON LPP.IDPART=PA.ID " & myWhere
+			'Response.Write STRSQL
+	stringJQProcedenciasONCCA = strSQL
+End Function
+'-----------------------------------------------------------------------------------------------------------
+Function stringJQProcedenciasCamara()
+	Dim strSQL, rs, conn, ret, str, myLinea, myWhere
+	str = UCASE(GF_PARAMETROS7("term","",6))
+	pcia = UCASE(GF_PARAMETROS7("pcia",0,6))
+	myWhere = " where "
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			myWhere = myWhere & " (DSLOCALIDAD like '" & str & "%')"
+		else
+			if len(str) = 1 then
+				myWhere = myWhere & " DSLOCALIDAD like '" & str & "%'"
+			else
+				myWhere = myWhere & " DSLOCALIDAD like '%" & str & "%'"
+			end if
+			
+		end if
+		if pcia > 0 then myWhere = myWhere & " AND PR.CDPROVINCIA = " & pcia
+	end if
+	strSQL= "Select CDLOCALIDADCAMARA, CDLOCALIDADSUBCAMARA, DSLOCALIDAD, UPPER(PR.DSPROVINCIA) AS DSPROV " & _
+			"  FROM LOCALIDADESCAMARAS LC " & _
+			"	INNER JOIN PROVINCIAS PR ON LC.CDPROVINCIA=PR.CDCAMARA " & myWhere
+	'Response.Write strSQL
+	stringJQProcedenciasCamara = strSQL
+End Function
+'-----------------------------------------------------------------------------------------------------------
+Function stringJQProcedenciasPto()
+	Dim strSQL, rs, conn, ret, str, myLinea, myWhere
+	str = UCASE(GF_PARAMETROS7("term","",6))
+	pcia = UCASE(GF_PARAMETROS7("pcia",0,6))
+	myWhere = " where "
+	if len(str) > 0 then
+		if IsNumeric(str) then
+			myWhere = myWhere & " (cdprocedencia = " & str & ")"
+		else
+			if len(str) = 3 then
+				myWhere = myWhere & " UPPER(dsprocedencia) like '" & str & "%'"
+			else
+				myWhere = myWhere & " UPPER(dsprocedencia) like '%" & str & "%'"
+			end if
+		end if
+		if pcia > 0 then myWhere = myWhere & " AND CDPROV = " & pcia
+	end if
+	strSQL= "SELECT cdprocedencia, dsprocedencia FROM PROCEDENCIAS "& myWhere
+    stringJQProcedenciasPto = strSQL
+End Function
+%>
