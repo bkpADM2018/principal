@@ -1,0 +1,930 @@
+/*
+=================================================================================================
+
+         JJJJJ  QQQ   U   U EEEEE RRRR  Y   Y        U   U PPPP  L       OOO    AAA  DDD  
+           J   Q   Q  U   U E     R   R  Y Y         U   U P   P L      O   O  A   A D  D 
+           J  Q   Q Q U   U EEE   RRRR    Y    ====  U   U PPPP  L     O     O A   A D   D
+        J  J   Q   Q  U   U E     R  R    Y          U   U P     L      O   O  AAAAA D  D 
+         JJJ    QQQ Q  UUU  EEEEE R   R   Y           UUU  P     LLLLL   OOO   A   A DDD  
+
+=================================================================================================
+    JQUERY UPLOAD V 1.2.4
+=================================================================================================
+ Autor: GFG - Guido Fonticelli
+ Fecha: 13/04/2011
+ Pagina del componente base: http://aquantum-demo.appspot.com/file-upload
+ 
+ Modificaciones:
+	Fecha: 19/04/20011
+	Usuario: GFG
+	Motivo: Se agrego compatibilidad con IE8
+
+	Fecha: 27/04/20011
+	Usuario: GFG
+	Motivo: Se agrego el parametro "closeAction"
+	
+
+ Archivos necesarios para el funcionamiento:
+	+ JS
+		<script type="text/javascript" src="scripts/channel.js"></script>
+		<script type="text/javascript" src="scripts/jquery/jquery-1.5.1.min.js"></script>
+		<script type="text/javascript" src="scripts/JQueryUpload.js"></script>
+		<script type="text/javascript" src="scripts/JQueryPopUp.js"></script>
+		<script type="text/javascript" src="scripts/jquery/jquery.fileupload.js"></script>
+		<script type="text/javascript" src="scripts/jquery/jquery.fileupload-ui.js"></script>
+		<script type="text/javascript" src="scripts/jqueryUI/jquery-ui-1.8.2.custom.min.js"></script>
+	+ CSS
+		<link rel="stylesheet" href="css/ActiSAIntra-1.css" type="text/css">
+		<link rel="stylesheet" href="css/jquery.fileupload-ui.css"	 type="text/css">
+		<link rel="stylesheet" href="css/jqueryUI/custom-theme/jquery-ui-1.8.2.custom.css"	 type="text/css">
+		
+===================================================================================================
+ADVERTENCIA:
+	Si el upload es utilizado dentro de un popUp, este debe tener una dimension minima de 600x420
+	para evitar problemas con los mensajes emergentes
+===================================================================================================
+Parametros:
+	*************************************************************
+	* NOTA: Los parametros deben respetar mayuscula y minuscula *
+	*************************************************************
+	
+		- id
+			Es el Id del Div que se utilizara para el upload
+			Valor default: ninguno, es obligatorio este campo
+			Valores posibles: cualquiera
+			
+		- folder
+			Indica donde se subiran los archivos
+			Valor default: ninguno, es obligatorio
+			Valores posibles: cualquiera
+		
+		- subFolder
+			Si la carpeta donde se subiran los archivos es la carpeta TEMP
+			se deberá agregar este parametro para que no se genere conflicto con otros
+			uploads que esten utilizando esta misma carpeta
+			Valores default: ""
+			Valores posibles: 
+				Se debe escribir el siguiente codigo:
+				"<%=GF_PARAMETROS7("files_subf_XXX","",6)%>"
+				Siendo XXX el id del div
+				
+		- files
+			Recupera los archivos despues de submitir la pagina.
+			Es obligatorio si la pagina tiene que submitirse para controlarse antes de guardarse
+			Valores default: ""
+			Valores posibles: 
+				Se debe escribir el siguiente codigo:
+				<%=GF_PARAMETROS7("files_XXX","",6)%>
+				Siendo XXX el id del div
+			
+		- showFolderFiles
+			Indica si al abrir el upload se mostraran los archivos que existan en la carpeta
+			Valor default: true
+			Valores posibles: true , false
+			
+		- showCantFiles:
+			Indica si se mostrara la cantidad de archivos subidos
+			Valor default: false
+			Valores posibles: true , false
+				
+		- source: 
+			Si los archivos estan en la base de datos este parametro indicara donde y cual obtener
+			Valores default: ""
+			Valores:
+						- type
+							Indica de donde cargara el archivo
+							Valores posibles: "pct"
+						- id
+							Indica el id por el cual identificar el archivo
+							Valores posibles: el ID del pedido para los pct,
+						- num
+							Indica el numero del archivo que se obtendra
+							Valores posibles: valores obtenidos previamente
+
+		- size
+			Indica el tamaño del icono de upload
+			Valores default: "normal" (32x32)
+			Valores posibles: "small" (16x16), "normal" (32x32) , "big" (64x64)
+			
+		- maxFiles
+			Indica la cantidad maxima de archivos que se podran subir
+			Valores default: 99
+			Valores posibles: cualquier numero
+			
+		- filter
+			Indica los archivos que se aceptaran para el upload
+			Valores default: todos los archivos de extension valida
+			Valores posibles: "images" , "documents" , "zips"
+								o pueden ser un grupo de extensiones a eleccion
+								y deberan expresarse asi:
+								new Array(".doc",".txt",....)
+		- itemclass
+			Indica la clase se utilizara la previsualizacion de los archivos subidos
+			Valores default: "items"
+			Valroes posibles: cualquiera nombre de clase
+			
+		- divclass
+			Indica la clase se utilizara el contenedor del upload
+			Valores default: "uploader"
+			Valroes posibles: cualquiera nombre de clase
+			
+		- color
+			Indica el color que tendra los botones del upload
+			Valores default: "green"
+			Valores posibles: "green" , "red" , "blue"
+		
+		- closeAction
+			Indica la funcion que se ejecutara al cerrar el PopUp del Upload
+			Valores default: ""
+			Valores posibles: cualquier funcion javascript
+			
+---------------------------------------------------------------------------------------------------
+Ejemplos de uso:
+
+		up1 = new JQueryUpload	({
+									id: "fileEspec",
+									folder: "<% =PATH_COMPRAS_TEMP %>",
+									subFolder:"<%=GF_PARAMETROS7("files_subf_fileEspec","",6)%>",
+									files:"<%=GF_PARAMETROS7("files_fileEspec","",6)"%>,
+									color:"blue",
+									itemclass:"clase1",
+									divclass:"clase2",
+									showFolderFiles:true,
+									showCantFiles:true,
+									source: {
+												type:"pct",
+												id:"<%=idPedido%>",
+												num:"<%=PCT_BINARY_SPECIFICATION%>"
+											},
+									size:"small",
+									maxFiles:1,
+									filter: new Array (".doc",".txt"),
+								});
+		
+		up1 = new JQueryUpload	({
+									id: "fileEspec",
+									folder: "<% =PATH_OBRAS_IMAGES %>",
+									files:<%=GF_PARAMETROS7("files_fileEspec","",6)%>
+									showFolderFiles:false,
+									showCantFiles:true,
+									size:"small",
+									maxFiles:5,
+									filter: "images",
+									closeAction:"alert('cerrando')"
+								});
+
+---------------------------------------------------------------------------------------------------
+Obtener Path de los archivos
+	Es posible obtener el path de los archivos subidos con la funcion getFilesPaths()
+
+Obtener Nombres de los archivos
+	Es posible obtener los nombres de los archivos con la function getFilesNames()
+
+Cambiar de Carpeta destino
+	Es posible cambiar la carpeta donde se guardaran los archivos cno la funcion setFolder()
+
+*/
+
+var navegador = navigator.appName 
+
+//Array con imagenes que se pueden previsualizar directamente en el browser
+var images_ext = new Array	(
+								".gif",".jpg",".png"
+							); 
+
+//Array con las extensiones que tienen imagen personalizada
+// ( extension , nombre del archivo )							
+var images_files_ext = new Array(
+									Array(".pdf" , "pdf"    ),
+									Array(".doc" , "word"   ),
+									Array(".xls" , "excel"  ),
+									Array(".rar" , "winrar" ),
+									Array(".docx" , "word" ),
+									Array(".xlsx" , "excel" ),
+									Array(".zip" , "winrar" )
+								);
+
+//Array con los diferentes tipos de tamaños que puede adoptar los items
+var sizes = {
+				small: {celWidth:50  , celHeight:50  , imgWidth:16  , imgHeight:16 },
+				normal:{celWidth:50  , celHeight:50  , imgWidth:32  , imgHeight:32 , nameLen:0 },
+				big:   {celWidth:90  , celHeight:90  , imgWidth:64  , imgHeight:64 , nameLen:16}
+			};
+
+//Array con las extensiones validas
+var valid_extension = new Array (
+									".doc" , ".pdf" , ".xls" ,
+									".txt" , ".gif" , ".jpg" ,
+									".png" , ".tif" , ".zip" ,
+									".rar" , ".msg" , ".xml" ,
+									".csv" , ".rtf"
+								);
+
+var buttonGradColor = 	{
+							green: {start:"#517B4A",end:"#294900"},
+							blue : {start:"#0E00DB",end:"#000970"},
+							red  : {start:"#D80700",end:"#6D0900"}
+						};
+						
+var filter_extension =  {
+							images:     new Array(".jpg",".gif",".png",".tif"),
+							documents: 	new Array(".doc",".xls",".pdf",".csv",".rtf", ".msg"),
+							zips:		new Array(".zip",".rar")
+						};
+
+//Path donde buscara las imagenes personalizadas								
+
+var urlWeb = String(window.location);
+var root = "actisaintra"
+var rootURL = urlWeb.substring(0, urlWeb.indexOf(root)+root.length+1);
+
+var uploadImgPath = rootURL + "images/upload/";
+
+
+var vUploads = new Array();
+
+var chUpload = new channel();
+
+function JQueryUpload(param)
+{	
+
+	this.index = vUploads.push(this)-1;
+	
+	this.myUrl      = param["folder"].replace(/\\/g,"\/");
+	this.DivId      = param["id"];
+	this.actualSize = "";	
+	this.itemclass  = "items";
+	this.divclass   = "uploader";
+	this.celWidth   = 0;
+	this.celHeight  = 0;
+	this.imgWidth   = 0;
+	this.imgHeight  = 0;
+	this.color		= "green";
+	this.files 		= "";
+	this.formAction = rootURL+"uploadSubmitFile2.asp?accion=upload&folder=";
+	this.uploadUrl  = rootURL+"uploadSubmitFile2.asp?";
+	this.filter     = "";
+	this.inPopUp	= false;
+	this.subFolder  = "";
+	this.showFolderFiles = true;
+	this.cantFiles = 0;
+	this.showCantFiles = false;
+	this.parentIndex = -1;
+	this.maxFiles = 99;
+	this.isDb = false;
+	this.source = "";
+	this.fileName = "";
+	this.closeAction = "";
+	
+	
+	
+	var ch = new channel();
+	
+	if (param["closeAction"] != undefined && param["closeAction"] != "")
+	{
+		this.closeAction = param["closeAction"];
+		this.closeAction = this.closeAction.replace(/\"/g,"\\\"");
+		this.closeAction = this.closeAction.replace(/\'/g,"\\\"");
+	}
+	
+	if (param["files"] != undefined && param["fiels"] != "")
+		this.files = param["files"];
+	
+	if (param["source"] != undefined && param["source"] != 0)
+	{
+		this.source = param["source"];
+		this.isDb = true;
+		
+		if (this.source.num == undefined)
+			this.source.num = "";
+	}
+	
+	if (param["maxFiles"] != undefined && param["maxFiles"] != 0)
+		this.maxFiles = param["maxFiles"];
+	
+	if (param["parentIndex"] != undefined)
+		this.parentIndex = param["parentIndex"];
+	
+	if (param["showFolderFiles"] != undefined)
+		this.showFolderFiles = param["showFolderFiles"];
+	
+	if (param["showCantFiles"] != undefined)
+		this.showCantFiles = param["showCantFiles"];
+	
+
+	if (this.myUrl == "Temp" )
+	{
+		if (param["subFolder"] != undefined && param["subFolder"] != "")
+			this.subFolder = param["subFolder"];
+		else
+		{
+			var dt = new Date();
+			this.subFolder = "/"+dt.getTime()+"-"+this.index;
+		}
+	}
+	
+	if (param["inPopUp"] != undefined)
+		this.inPopUp = param["inPopUp"];
+	
+	if (param["filter"] != undefined){
+		this.filter = param["filter"];
+	}
+	
+	if (param["itemclass"] != undefined)
+		this.itemclass = param["itemclass"];
+	
+	if (param["divclass"] != undefined)
+		this.divclass = param["divclass"];
+	
+	if (param["size"] != undefined){
+		//Se define los tamaños deacuerdo al enviado como parametro
+		this.actualSize = param["size"];
+		this.celWidth   = sizes[param["size"]]["celWidth" ];
+		this.celHeight  = sizes[param["size"]]["celHeight"];
+		this.imgWidth   = sizes[param["size"]]["imgWidth" ];
+		this.imgHeight  = sizes[param["size"]]["imgHeight"];
+	}else{
+		//Se define los tamaños default
+		this.actualSize = "normal";
+		this.celWidth   = sizes["normal"]["celWidth" ];
+		this.celHeight  = sizes["normal"]["celHeight"];
+		this.imgWidth   = sizes["normal"]["imgWidth" ];
+		this.imgHeight  = sizes["normal"]["imgHeight"];
+	}
+	
+	if (param["color"] != undefined)
+		this.color = param["color"];
+	
+	this.buttonStyle = 	".file_delete, .file_upload_highlight, .file_upload_large, .file_upload_small, .file_upload{"+
+						"background: "+buttonGradColor[this.color]["start"]+"; /* old browsers */"+
+						"background: -moz-linear-gradient(top, "+buttonGradColor[this.color]["start"]+" 0%, "+buttonGradColor[this.color]["end"]+" 100%); /* firefox */"+
+						"background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,"+buttonGradColor[this.color]["start"]+"), color-stop(100%,"+buttonGradColor[this.color]["end"]+")); /* webkit */"+
+						"filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='"+buttonGradColor[this.color]["start"]+"', endColorstr='"+buttonGradColor[this.color]["end"]+"',GradientType=0 ); /* ie */"+
+						"border: 1px solid #334530;"+
+						"color:white;"+
+						"}";
+	
+	this.show = function()
+				{
+					//document.getElementById(this.DivId).innerHTML = "<img src='images/upload/Loading2.gif'>";
+					myInnerHTML("<img src='"+uploadImgPath+"Loading2.gif'>",this.DivId)
+					if(this.inPopUp)
+						this.loadFiles('vUploads[pIndex].showUpload();');
+					else
+					{
+						this.loadFiles('vUploads[pIndex].drawPopUp();');
+					}
+				}
+	
+	this.drawPopUp = function()
+				{
+					var myDiv = document.getElementById(this.DivId);
+					var htmlCant = ""
+					var htmlFile = ""
+					var htmlButton = ""
+	
+					//var auxUrl = usuarioDesarrollo.replace(/\/"/g,"\\\/") + "\/actisaintra\/";
+
+					if (this.isDb)
+					{
+						
+						if (this.cantFiles == 0)
+						{
+							//si no hay archivos en la db muestro el upload
+							
+							htmlButton = "<img src='"+uploadImgPath+"up-"+this.imgWidth+".png' width="+this.imgWidth+" height="+this.imgHeight+" style='cursor:pointer;' onclick='"+
+											"winPopUp(\"iframe_"+this.DivId+"\", \""+rootURL+"uploadPopUp.asp?divId="+this.DivId+"&folder="+this.myUrl+"&subFolder="+this.subFolder+"&size="+this.actualSize+"&filter="+this.filter+"&index="+this.index+"&maxFiles="+this.maxFiles+"&showFolderFiles="+this.showFolderFiles+"\", 500, 250, \"Subir Archivo\", \""+this.closeAction+"\")"+
+											"' title='Subir Archivo'>"+
+										 "</img>"
+						}
+						else
+						{	
+							htmlFile = "<img align='absMiddle' src='images/doc.gif'> <a target='_blank' href='comprasOpenArchivo.asp?id="+this.source.id+"&type="+this.source.type+"-OPEN&fileno="+this.source.num+"'>"+this.fileName+"</a>";
+							
+							//muestro para borrar el archivo de la db primero
+							htmlButton = "<img src='"+uploadImgPath+"delete-"+this.imgWidth+".png' width="+this.imgWidth+" height="+this.imgHeight+" style='cursor:pointer;' onclick='"+
+											"confirmDeleteDb(\""+this.index+"\",\""+this.source.id+"\",\""+this.source.num+"\")"+
+											"' title='Borrar Archivo'>"+
+										 "</img>";
+						}
+						
+					}
+					else
+					{
+						htmlButton = "<img src='"+uploadImgPath+"up-"+this.imgWidth+".png' width="+this.imgWidth+" height="+this.imgHeight+" style='cursor:pointer;' onclick='"+
+										"winPopUp(\"iframe_"+this.DivId+"\", \""+rootURL+"uploadPopUp.asp?divId="+this.DivId+"&folder="+this.myUrl+"&subFolder="+this.subFolder+"&size="+this.actualSize+"&filter="+this.filter+"&index="+this.index+"&maxFiles="+this.maxFiles+"&showFolderFiles="+this.showFolderFiles+"\", 500, 250, \"Subir Archivos\", \""+this.closeAction+"\")"+
+										"' title='Subir Archivo'>"+
+									 "</img>";
+					}
+					
+					if (this.showCantFiles == true)
+						htmlCant = this.cantFiles +" file/s  "
+									
+									
+									
+					var myHtml = "<table><tr><td>"+htmlFile +"</td><td>"+ htmlCant +"</td><td>"+ htmlButton +"</td></tr></table>"+
+								"<input type='hidden' name='files_"+this.DivId+"' id='files_"+this.DivId+"' value='"+this.files+"'>"+
+								"<input type='hidden' name='files_subf_"+this.DivId+"' id='files_subf_"+this.DivId+"' value='"+this.subFolder+"'>";
+					
+					
+					
+					//myDiv.innerHTML = myHtml;
+					myInnerHTML(myHtml,this.DivId);
+				}
+			
+	this.loadFiles = function(pContinue)
+				{
+					if (this.isDb)
+					{
+						chUpload.bind("comprasOpenArchivo.asp?type="+this.source.type+"&id="+this.source.id+"&fileNum="+this.source.num,"callback_loadDBFiles('"+this.index+"','"+pContinue+"')");
+						chUpload.send();
+					}	
+					else
+						//desde el disco
+						this.getCantFiles(pContinue);
+				}
+	
+	
+	this.showUpload = function()
+				{
+					this.newStyle(this.buttonStyle);
+					
+					var myDiv = document.getElementById(this.DivId);
+					
+					//myDiv.innerHTML = this.getUploadDiv();
+					myInnerHTML(this.getUploadDiv(),this.DivId)
+					
+					//Al no poder utilizar el this haciendo referencia al objeto creado
+					//se utilizan variables con su instancia para que se pueda invocar
+					//variables y funciones del upload
+					var $this = this;
+					var $sizes = sizes;
+					var $filters = filter_extension;
+					
+					$(function () {
+						$('#file_upload_'+$this.DivId).fileUploadUI({
+							uploadTable: $('#Upload_'+$this.DivId),
+							downloadTable: $('#Download_'+$this.DivId),
+							buildUploadRow: function (files, index) {
+								
+								var rtrn = "";
+								var aux01 = $this.cantFiles;
+								var auxFileName = "";
+								
+								if ($this.cantFiles <= $this.maxFiles){
+									$this.cantFiles = aux01 + 1;
+									var filesName = ""
+									for (var i = 0; i < files.length; i++){
+										
+										
+										if (navegador == "Microsoft Internet Explorer") 
+										{
+											auxFileName = files[i].name;
+											
+											auxFileName = auxFileName.substring(auxFileName.lastIndexOf("\\")+1);
+											
+											if (filesName == "")
+												filesName += auxFileName;
+											else
+												filesName += "," + auxFileName;
+										}
+										else
+										{
+										
+										}
+										
+									}
+									document.getElementById("files_"+$this.DivId).value += filesName;
+									
+									var myExtension = (files[index].name.substring(files[index].name.lastIndexOf("."))).toLowerCase();
+									
+									var isOk = false;
+									var customFilter = true;
+									var extensions = new Array();
+									
+									if ($this.filter != ""){
+										for (var item in $filters ){
+											if (item == $this.filter)
+											{
+												customFilter = false;
+												extensions = $filters[item];
+											}
+										}
+										if (customFilter)
+											extensions = $this.filter.split(",");
+									}
+									else
+										extensions = valid_extension
+									
+									
+									for (var i = 0; i < extensions.length; i++) {
+										if (extensions[i] == myExtension) {
+											//La extension es valida, se procese a subirla
+											if (navegador == "Microsoft Internet Explorer") 
+											{
+												rtrn = 	'<tr><td>' + files[index].name.substring(files[index].name.lastIndexOf("\\")+1) + '<\/td>' +
+														'<td class="file_upload_progress"><div><\/div><\/td><\/tr>';
+											}
+											else
+											{
+												rtrn = 	'<tr><td>' + files[index].name + '<\/td>' +
+														'<td class="file_upload_progress"><div><\/div><\/td><\/tr>';
+											}
+											
+											isOk = true;
+											break;
+										}
+									}
+									if (!isOk)
+									{
+										$this.cantFiles -=1;
+										//La extension no es valida, se advierte sobre ello
+										$this.alertBadExtension(files[index].name);
+									}
+								}
+								else
+								{
+									$this.alertMaxFiles(files[index].name);
+								}
+								
+								
+								return $(rtrn);
+							},
+							buildDownloadRow: function (file) {
+								$this.setFiles(file.name);
+								return $($this.getFileHtml(file.name));
+							}
+						});
+					});
+					
+					
+					if (param["showFolderFiles"] != undefined && param["showFolderFiles"] != false)
+					{
+						chUpload.bind(this.uploadUrl+"folder="+this.myUrl+this.subFolder+"&accion=files","callback_addFilesFromFolder('"+this.DivId+"','"+this.index+"')");
+						chUpload.send();
+					}
+					
+					
+				}
+	
+	this.alertBadExtension = function(pFileName)		
+				{
+					this.openDialog("El archivo '"+pFileName+"' no sera cargado por no ser un archivo valido.")
+				}
+
+	this.alertMaxFiles = function(pFileName)		
+				{
+					this.openDialog("El archivo '"+pFileName+"' no sera cargado porque se supero el máximo de archivos permitidos.")
+				}
+	
+	this.openDialog = function(pTxt)
+				{
+					$(function() {
+						$( "<table height='120px' cellpadding=5><tr valign='middle'><td><img src='"+uploadImgPath+"alert.png'></td><td><p>"+pTxt+"</p></td></tr></table>" ).dialog({
+							resizable: false,
+							height:200,
+							width:400,
+							modal: true,
+							buttons: {
+								"Aceptar": function() {
+									$( this ).dialog( "close" );
+								}
+							}
+						});
+					});
+				}
+	
+				
+	this.createFormAction = function(pUrl)
+				{
+					return this.formAction +pUrl;
+				}
+	
+	this.newStyle = function(str)
+				{
+					var pa= document.getElementsByTagName('head')[0] ;
+					var el= document.createElement('style');
+					el.type= 'text/css';
+					el.media= 'screen';
+					if(el.styleSheet) el.styleSheet.cssText= str;// IE method
+					else el.appendChild(document.createTextNode(str));// others
+					pa.appendChild(el);
+					return el;
+				}
+	
+	this.getFileHtml = function(pFileName)
+				{
+					//Acorto el nombre dependiendo del tamaño elegido para la previsualizacion
+					var myFileName = pFileName;
+					if (myFileName.length > sizes[this.actualSize]["nameLen"])
+						myFileName = myFileName.substring(0,sizes[this.actualSize]["nameLen"]-4) + '...';
+					
+					var myRtrn = "";
+
+					myRtrn += 	'<td >';
+					myRtrn +=		'<table id="'+pFileName+this.DivId+'" class="'+this.itemclass+' ui-corner-all" style="border:1px solid #517B4A">';
+					if (this.actualSize != "small"){
+						//si el tamaño elegido es small no se mostrara el nombre del archivo por razones de espacio
+						myRtrn +=			'<tr">';
+						myRtrn +=				'<td align="center" title="'+pFileName+'" style="font-family:Lucida Console;font-size:10px;">';
+						myRtrn +=					myFileName;
+						myRtrn +=				'<\/td>';
+						myRtrn +=			'<\/tr>';
+					}
+					myRtrn +=			'<tr valign="middle">';
+					myRtrn +=				this.getImageHtml(pFileName) ;
+					myRtrn +=			'<\/tr>';
+					myRtrn +=			'<tr">';
+					myRtrn +=				'<td align="center">';
+					myRtrn +=					this.getDeleteButton(pFileName) ;
+					myRtrn +=				'<\/td>' ;
+					myRtrn +=			'<\/tr>';
+					myRtrn +=		'<\/table>';
+					myRtrn +=	'<\/td>';
+					
+					
+					
+					return myRtrn;
+				}
+	
+	this.getImageHtml = function(pFileName)
+				{
+					var extension = (pFileName.substring(pFileName.lastIndexOf("."))).toLowerCase(); 
+					
+					var rtrn = '<td align="center" width='+this.celWidth+' height='+this.celHeight+'>';
+					
+					var myLink = '<a target="_blank" href="'+this.getFileUrl(pFileName)+'"><img width='+this.imgWidth+' height='+this.imgHeight+' src="'+uploadImgPath+'other-'+this.imgWidth+'.png" alt="'+pFileName+'" title="'+pFileName+'"><\/a><\/td>';
+					
+					for (var i = 0; i < images_ext.length; i++) {
+						if (images_ext[i] == extension) {
+							//Es un archivo de imagen visualizable
+							myLink = '<a target="_blank" href="'+this.getFileUrl(pFileName)+'"><img width='+this.imgWidth+' height='+this.imgHeight+' src="'+this.getFileUrl(pFileName)+'" alt="'+pFileName+'" title="'+pFileName+'"><\/a>';
+							break;
+						}
+					}
+					for (var i = 0; i < images_files_ext.length; i++) {
+						if (images_files_ext[i][0] == extension) {
+							//Este tipo de archivo tiene una imagen que lo identifica
+							myLink = '<a target="_blank" href="'+this.getFileUrl(pFileName)+'"><img width='+this.imgWidth+' height='+this.imgHeight+' src="'+uploadImgPath+images_files_ext[i][1]+'-'+this.imgWidth+'.png" alt="'+pFileName+'" title="'+pFileName+'"><\/a>';
+							break;
+						}
+					}
+					
+					rtrn += myLink + "<\/td>";
+					return rtrn;
+				}
+				
+	this.getFileUrl = function(pFileName)
+				{
+					var rtrn = this.myUrl+this.subFolder;
+					rtrn += "\/" + pFileName;
+					return rtrn;
+				}
+	
+	this.getDeleteButton = function(pFileName)
+				{
+					var rtrn = 	'<div class="botones">';
+					
+					if(this.actualSize != "small")
+						//Si el tamaño seleccionado es small se utilizara un icono 
+						rtrn += '<input type="button" class="file_delete ui-corner-all" id="borrar" value="Borrar" style="cursor:pointer;" onclick="confirmDelete(\''+pFileName+'\',\''+this.myUrl+this.subFolder+'\',\''+this.DivId+'\',\''+this.index+'\')">';
+					else
+						//Se utilizara un boton con la palabra Borrar
+						rtrn += '<button class="file_delete ui-corner-all" style="width:25px" title="Borrar" onclick="(\''+pFileName+'\',\''+this.myUrl+this.subFolder+'\',\''+this.DivId+'\',\''+this.index+'\')"><span class="ui-icon ui-icon-trash">Borrar<\/span><\/button>';
+					
+					rtrn += '<\/div>';
+								
+					return rtrn;
+				}
+	this.getUploadDiv = function()
+				{	
+					//Contenido basico inicial
+					var rtrn = '<table class="'+this.divclass+' ui-corner-all" align="center"><tr valign="middle"><td>'+
+								'<form  id="file_upload_'+this.DivId+'" action="'+this.createFormAction(this.myUrl.replace(/\//g,'\\')+this.subFolder.replace(/\//g,'\\'))+'" method="POST" enctype="multipart/form-data">'+
+									'<input type="file" name="file" id="myFiles" multiple>'+
+									'<button>Upload</button>'+
+									'<div><table><tr valign="middle"><td><img src="'+uploadImgPath+'up.png"></td><td class="uploaderText">Haga click aqui para subir sus archivos.</td></tr></table></div>'+
+								'</form>'+
+								'<table id="Upload_'+this.DivId+'"></table>' +
+								'<div id="Download_'+this.DivId+'"></div>'+
+								'</td></tr></table>'+
+								'<input type="hidden" name="files_'+this.DivId+'" id="files_'+this.DivId+'" value='+this.subFolder+'>';
+								
+					return rtrn;
+				}
+	
+	this.getCantFiles = function(pContinue)
+				{
+					chUpload.bind(this.uploadUrl+"folder="+this.myUrl+this.subFolder+"&accion=cant", "callback_cantFiles('"+this.index+"','"+pContinue+"')" );
+					chUpload.send();
+				}
+				
+	this.getFilesPaths = function()
+				{
+					if (this.subFolder != "")
+						if (this.files != "")
+							return this.subFolder+"\/"+this.files;
+						else
+							return "";
+					else
+						return this.files;
+				}
+	
+	this.getFilesPathsFisicos = function()
+				{
+					if (this.subFolder != "")
+						return this.subFolder.replace("\/","")+"\\"+this.files;
+					else
+						return this.files;
+				}
+	
+	this.getFilesNames = function()
+				{
+					return this.files;
+				}
+	
+	this.getFolder = function()
+				{
+					return this.myUrl+this.subFolder;
+				}
+				
+	this.setFolder = function(pFolder)
+				{
+					
+					pFolder = pFolder.replace(/\\/g,"\/"); // para reemplazar todo debe encerrar se entre /(a buscar)/g
+					if (this.inPopUp)
+						document.getElementById("file_upload_"+this.DivId).action = this.createFormAction(pFolder);
+					
+					this.myUrl = pFolder;
+					this.drawPopUp();
+				}
+				
+	this.setFiles = function(pFiles)
+				{
+						this.files = pFiles;
+						document.getElementById("files_"+this.DivId).value = pFiles;
+						
+						this.cantFiles += 1;
+
+						if (this.parentIndex != -1)
+						{
+							//les paso los archivos subidos al objeto de origen
+							var auxFiles = this.files.split(",")
+							parent.upload_setFiles(this.parentIndex,auxFiles);
+						}
+					
+				}
+				
+	this.setCantFiles = function(pCant)
+				{
+					this.cantFiles = pCant;
+				}
+				
+	this.setFileName = function(pName)
+				{
+					this.fileName = pName;
+				}
+}
+//*************************************************************************************************
+function callback_addFilesFromFolder(pDivId,pIndex)
+{
+	var myFiles = chUpload.response();
+	var vFiles = myFiles.split(",");
+	var myFilesHTML = "";
+	
+	
+	for (i = 0;i<vFiles.length; i++)
+	{
+		if (myFiles != ""){
+			myFilesHTML += vUploads[pIndex].getFileHtml(vFiles[i]);
+		}
+	}
+	
+	
+	myInnerHTML(myFilesHTML,"Download_"+pDivId)
+	
+	
+	upload_setFiles(pIndex,myFiles);
+}
+
+function myInnerHTML(pHTML,pDiv)
+{
+	
+	if (navegador == "Microsoft Internet Explorer") 
+	{
+		var newdiv = document.createElement("div");
+		newdiv.innerHTML = pHTML;
+		var aux1 = document.getElementById(pDiv);
+		
+		while(aux1.hasChildNodes()){
+			aux1.removeChild(aux1.lastChild);
+		}
+		
+		aux1.appendChild(newdiv);
+	}
+	else
+	{
+		document.getElementById(pDiv).innerHTML = pHTML
+	}
+}
+
+function callback_deleteFile(pFileName,pDivId,pIndex)
+{
+	var myFile = document.getElementById(pFileName+pDivId);
+	var fila  = myFile.parentNode.removeChild(myFile);
+	
+	vUploads[pIndex].cantFiles -= 1;
+	vUploads[pIndex].show();
+}
+
+function callback_deleteFileDb(pIndex)
+{
+	vUploads[pIndex].show();
+}
+
+function callback_cantFiles(pIndex,pContinue)
+{
+	vUploads[pIndex].setCantFiles(parseInt(chUpload.response()));
+	eval(pContinue);
+}
+
+function callback_loadDBFiles(pIndex,pContinue)
+{
+	var aux = chUpload.response();
+	aux = aux.split("|")
+	
+	if (aux[0]==0)
+	{
+		//no se encontraron archivos en la base de datos, busco en la carpeta temporal
+		vUploads[pIndex].isDb = false;
+		vUploads[pIndex].loadFiles('vUploads[pIndex].drawPopUp();');
+	}
+	else
+	{
+		vUploads[pIndex].setCantFiles(parseInt(aux[0]));
+		vUploads[pIndex].setFileName(aux[1]);
+		eval(pContinue);
+	}
+}
+
+function upload_setFiles(pIndex,pFiles)
+{
+	
+	vUploads[pIndex].setFiles(pFiles);
+	if (vUploads[pIndex].parentIndex == -1)
+		vUploads[pIndex].show();
+}
+
+function confirmDeleteDb(pIndex,pId,pFileNum)
+{
+	$(function() {
+		$( "<table height='120px'  cellpadding=5><tr valign='middle'><td><img src='"+uploadImgPath+"help.png'></td><td><p>Esta seguro que quiere borrar el archivo?</p></td></tr></table>" ).dialog({
+			resizable: false,
+			height:200,
+			width:400,
+			modal: true,
+			buttons: {
+				"Cancelar": function() {
+					$( this ).dialog( "close" );
+				},
+				"Aceptar": function() {
+					$( this ).dialog( "close" );
+					deleteFileDb(pIndex,pId,pFileNum);
+				}
+			}
+		});
+	});
+}
+
+function deleteFileDb(pIndex,pId,pFileNum)
+{
+	chUpload.bind("comprasOpenArchivo.asp?type="+vUploads[pIndex].source.type+"-DELETE&id="+pId+"&fileNum="+pFileNum,"callback_deleteFileDb('"+pIndex+"')");
+	chUpload.send();
+}
+
+function confirmDelete(pFileName,pFolder,pDivId,pIndex)
+{
+	$(function() {
+		$( "<table height='120px'  cellpadding=5><tr valign='middle'><td><img src='"+uploadImgPath+"help.png'></td><td><p>Esta seguro que quiere borrar el archivo "+pFileName+"?</p></td></tr></table>" ).dialog({
+			resizable: false,
+			height:200,
+			width:400,
+			modal: true,
+			buttons: {
+				"Cancelar": function() {
+					$( this ).dialog( "close" );
+				},
+				"Aceptar": function() {
+					$( this ).dialog( "close" );
+					deleteFile(pFileName,pFolder,pDivId,pIndex);
+				}
+			}
+		});
+	});
+}
+
+function deleteFile(pFileName,pFolder,pDivId,pIndex)
+{
+	chUpload.bind(vUploads[pIndex].uploadUrl+"folder="+pFolder+"&accion=delete&file="+pFileName,"callback_deleteFile('"+pFileName+"','"+pDivId+"','"+pIndex+"')");
+	chUpload.send();
+}

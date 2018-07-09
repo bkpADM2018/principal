@@ -1,0 +1,335 @@
+/******************************************************************************\
+ *                                  IWIN  
+ *
+ * Este componente crea una ventana en HTML.                                
+ *
+ * Developer: Javier A.Scalisi
+ * Release  : 1.0.0 - 02/05/2004
+ * Release	: 2.0.0 - 18/02/2008
+ * Release	: 3.0.0 - 10/04/2008
+ * Release	: 3.1.0 - 29/04/2008
+ *		Se incorporo la posibilidad redimensionar la ventana de pop up.
+\******************************************************************************/
+var gko = navigator.userAgent.toLowerCase(); //detectar si el navegador del ciente soporta Gecko 
+
+/* AbstractWindow Constructor */
+/*
+  *   p_xo = Coordenada X en pixels.
+  *   p_yo = Coordenada Y en pixels.
+  *   p_to = Timeout en segundos
+  *   p_hgt = Altura en pixels.
+  *   p_wth = Ancho X en pixels.
+  */
+function AbstractWindow(url, p_xo, p_yo, p_wth, p_hgt) {
+    /* Clase para mostrar la ventana*/
+	this.classHide = "iwinContainerHide";
+	/* Clase para ocultar la ventana*/
+	this.classShow = "iwinContainer";	
+	/* Atributos */
+    this.xo = p_xo || 0;
+    this.yo = p_yo || 0;
+    this.wth = p_wth || 100;
+    this.hgt = p_hgt || 100;
+    this.url = url;
+    this.created = false;
+    this.visible = false;
+    /*HTML Atributes */
+    this.element = null;
+    /* Methods */
+	/* This function shows de basedow */
+	this.show = function() {
+						this.show_prev();
+						/* Se crea la ventana */
+						this.element = document.createElement("div");												
+						this.element.appendChild(this.createContent());
+						/* Se agrega la ventana al cuerpo de la pagina */
+						document.body.appendChild(this.element);
+						this.element.className = this.classShow;						
+						this.locateWindow(this.xo, this.yo, this.wth, this.hgt);
+						this.visible = true;
+						this.show_next();
+				}
+	
+    /* This function Hides the basedow */
+	this.hide =	function() {		
+					var ret = true;
+					if (this.onHideStart) eval(this.onHideStart);
+					if (ret) {
+						this.hide_prev();
+						this.element.className = this.classHide;
+						this.visible = false;
+						this.hide_next();
+						if (this.onHideEnd) eval(this.onHideEnd);
+					}
+				}
+								
+	this.locateWindow =	function (x, y, w, h) {
+								this.wth=w;
+								this.hgt=h;
+								this.xo=x;
+								this.yo=y;
+								this.element.style.left = x + 'px' ;
+								this.element.style.top = y + 'px';	
+							}
+	this.determineWidth = 	function() {								
+								var w = window.innerWidth
+										|| document.documentElement.clientWidth
+										|| document.body.clientWidth;										
+								return w;
+							}
+	this.determineHeight =	function() {
+								var h = window.innerHeight
+									|| document.documentElement.clientHeight
+									|| document.body.clientHeight; 
+								return h;
+							}
+	/****
+	** Metodos a definir en una clase hijo
+	*****/
+	/* Funcion que genera el contenido de la ventana, debe ser redefinida por las clases herederas para cambiar su funcionamiento 
+	*  @Abstract
+	*/
+	this.createContent = 	function() { alert("Debe redefinir el metodo 'createContent'");	}
+	/* Metodos a redefinir en una clase hijo para ejecutar codigo propio antes y despues de la operacion show*/			
+	this.show_prev = function() {}
+	this.show_next = function() {}	
+	/* Metodos a redefinir en una clase hijo para ejecutar codigo propio antes y despues de la operacion hide */			
+	this.hide_prev = function() {}
+	this.hide_next = function() {}	
+	/**
+	 * Eventos que el usuario puede definir para obtener control de la ventana
+	 * Si devuelven false, susupende la ejecución del evento. 
+	 */
+	this.onHideStart = undefined;	//Antes de Cerrar (Debe devolver true/false).
+	this.onHideEnd = undefined;	//Despues de Cerrar
+}
+/******************************************************************************\
+ *                               SlideWindow                    
+ *
+ * Este componente muestra una ventana emergente al estilo MSN Messenger.                   
+ ******************************************************************************
+/* Global Variables */
+var slideRegister = Array();		//Registro de los slides por orden de aparicion.
+var slideNameRegister = Array();	//Registro de los slides por nombre.
+var slideNumberRegister = Array();	//Registro de los slides por numero.
+/* SlideWindow Constructor */
+/*
+  *   p_xo = Coordenada X en pixels.
+  *   p_yo = Coordenada Y en pixels.
+  *   p_hgt = Altura en pixels.
+  *   p_wth = Ancho X en pixels.
+  *   p_to = Timeout en segundos
+  */
+function SlideWindow(name, url, p_wth, p_hgt, p_to) {
+	this.base = AbstractWindow;
+	this.base(url, 0, 0, p_wth, 1);
+	/* Atributes */
+	this.name = name;
+	this.timeOut = p_to * 1000 || 15000; //TimeOut
+	this.yoEnd; //Ending move coordinate
+	this.xoEnd; //Ending move coordinate
+	this.process = -1; //Generic process
+	
+	this.createContent = 	function() {
+								var ifrm = document.createElement("iframe");
+								ifrm.className= this.classShow;
+								ifrm.setAttribute("class", this.classShow);
+								ifrm.height = this.hgt;
+								ifrm.src = this.url;
+								ifrm.style.scrolling = "auto";
+								return ifrm;
+							}
+							
+	this.ultimoElementoActivo = function() {
+									var index = slideRegister.length - 1;
+									while ((index >= 0) && (slideRegister[index] == undefined)) index--;
+									var ret = (slideRegister[index])? slideRegister[index] : undefined;
+									//Si se acumularon muchas ventanas cerradas y no hay ninguna activa, reinicio el registro.
+									if ((!ret) && (slideRegister.length > 50)) slideRegister = Array();
+									return ret;
+								}
+	/* Determina Xo e Yo */
+	//Asume que es la primera ventana.
+	this.xo = this.determineWidth() - this.wth - 5;
+	this.yo = this.determineHeight() - 5;
+	//Se posiciona basandose en el slide anterior.
+	var elem = this.ultimoElementoActivo();
+	if (elem != undefined) {
+		//Se supone que la nueva ventana va a estar encima de la ultima mostrada.
+		var xoAux = this.xo;
+		this.xo = elem.xo;
+		//Se calcula hasta donde llega, si se sale de la pantalla, lo mueve al costado.
+		var yoAux = elem.yoEnd;
+		if ((yoAux - p_hgt) < 0)
+			//Se va de pantalla.	
+			this.xo = this.xo - this.wth - 5;
+		else
+			//No se va de pantalla.
+			this.yo = elem.yoEnd;
+	}
+	/* Determina la posicion final */
+	this.yoEnd = this.yo - p_hgt - 5;
+	this.xoEnd = this.xo;
+	/* Se setean los estilos */
+	this.classShow = "iwinSlideWindow";
+	/* Muestra la ventana */
+	this.show();
+	/* Registra la ventana */
+	slideRegister.push(this); 
+	slideNameRegister[this.name] = this;
+	/* Mueve la ventana */
+	iwinMoveIt(slideRegister.length - 1);
+	return this;
+}
+
+/* SlideWindow Animation (private) */
+function iwinMoveIt(index) {
+		//Window must be created before.
+		if (slideRegister[index].process != -1) clearInterval(slideRegister[index].process);
+		if (slideRegister[index].yo > slideRegister[index].yoEnd) {
+			//Move and run...
+			slideRegister[index].yo -= 3;
+			slideRegister[index].hgt += 3;
+			slideRegister[index].show();
+			slideRegister[index].process = setInterval("iwinMoveIt('" + index + "')",7);
+		} else {
+			//Keep position and hide!
+			slideRegister[index].process = setInterval("iwinHideIt('" + index + "')", slideRegister[index].timeOut);
+		}
+}
+/* SlideWindow Hide (private)*/
+function iwinHideIt(index) {
+        if (slideRegister[index].process != -1) clearInterval(slideRegister[index].process);
+		slideRegister[index].hide(); 	
+		slideNameRegister[slideRegister[index].name] = undefined;
+		slideRegister[index] = undefined;
+}
+/* SlideWindow Hide (private)*/
+function iwinHideItByNumber(index) {
+        if (slideNumberRegister[index].process != -1) clearInterval(slideNumberRegister[index].process);
+		slideNumberRegister[index].hide(); 
+		slideNameRegister[slideNumberRegister[index].name] = undefined;
+		slideNumberRegister[index] = undefined;		
+}
+/* SlideWindow Hide (private)*/
+function iwinHideItByName(index) {
+        if (slideNameRegister[index].process != -1) clearInterval(slideNameRegister[index].process);
+		slideNameRegister[index].hide(); 
+		slideNumberRegister[slideNnameRegister[index].number] = undefined;
+		slideNameRegister[index] = undefined;
+}
+/******************************************************************************
+ *                               PopUpWindow
+ *
+ * Crea una ventana estilo popup, que permite mostrar datos y desplazarla a
+ * voluntad por la pantalla.
+ ******************************************************************************/
+
+function PopUpWindow(name, url, p_wth, p_hgt, title) {
+	this.base = AbstractWindow;
+    this.base(url, 0, 0, p_wth, p_hgt);
+	this.name = name;
+	this.title = title || name;
+	/* Registra la ventana */
+	this.number = (new Date()).getTime();
+	slideNameRegister[this.name] = this;	
+	slideNumberRegister[this.number] = this;	
+	/* Se setean los estilos */
+	this.classShow = "iwinPopUpWindow";
+	this.classTitle = "iwinPopUpTitle";
+	this.classClose = "iwinPopUpClose";
+	this.classCloseButton = "iwinCloseButton";	
+	
+	this.hide_prev =	function() {		
+							document.body.removeChild(this.back);					
+						}
+	this.show_prev =	function() {		
+							/* Se construye el background */
+							this.back = document.createElement("div");
+							this.back.className="iwinBack";	
+							document.body.appendChild(this.back);										
+						}
+	this.determineX =	function(p_wth, p_hgt) {
+							var maxXo = this.determineWidth();							
+							return Math.floor((maxXo-p_wth)/2);							
+						}
+	this.determineY =	function(p_wth, p_hgt) {							
+							var maxYo = this.determineHeight();							
+							return Math.floor((maxYo-p_hgt)/2);
+						}
+	this.locatePopUp =	function(x, y, w, h) {
+							this.locateWindow(x, y, w, h);
+							document.getElementById("ifr" + this.number).width = w;
+							document.getElementById("ifr" + this.number).height = h;
+						}						
+	this.resize = 	function (w, h) {
+						if ((w != this.wth) || (h != this.hgt)) {
+							var x = this.determineX(w, h);							
+							var y = this.determineY(w, h);
+							this.locatePopUp(x, y, w, h);						
+						}
+					}
+	this.createContent = 	function() {
+								var tbl = document.createElement("table");
+								tbl.setAttribute("cellSpacing", 0);								
+								tbl.setAttribute("cellPadding", 1);					
+								tbl.setAttribute("width",  this.wth);
+								tbl.setAttribute("height",  this.hgt);
+								var tBody = document.createElement("tbody");
+								tbl.appendChild(tBody);
+								tbl.className = "iwinPopUpTable";
+								//Primera fila, el titulo
+								var rTitulo = tBody.insertRow(0);								
+								var c10 = rTitulo.insertCell(0)
+								c10.innerHTML = this.title;
+								c10.className=this.classTitle;
+								var c11 = rTitulo.insertCell(1);
+								c11.className=this.classClose;
+								var anchor = document.createElement("a");
+								anchor.className=this.classCloseButton;
+								anchor.innerHTML = "[X]";
+								if (gko.indexOf('gecko')!=-1){ //si soporta gecko, es Mozilla, Netscape, Safari, etc
+									anchor.setAttribute('onclick', "iwinHideItByNumber(" + this.number + ");");
+								} else{
+									anchor['onclick']=new Function("iwinHideItByNumber(" + this.number + ");return false;");
+								}	
+								c11.appendChild(anchor);
+								//Segunda fila, el cuerpo
+								var rCuerpo = tBody.insertRow(1);
+								var cCuerpo = rCuerpo.insertCell(0);
+								cCuerpo.colSpan = 2;
+								var ifrm = document.createElement("iframe");
+								ifrm.id = "ifr" + this.number;
+								ifrm.marginHeight = 0;	
+								ifrm.marginWidth = 0;
+								ifrm.setAttribute("scrolling", "scrolling");
+								ifrm.frameBorder = 0;
+								ifrm.src = this.url;
+								ifrm.setAttribute("class", this.classShow);
+								ifrm.width = this.wth;
+								ifrm.height = this.hgt;								
+								cCuerpo.appendChild(ifrm);			
+								//rCuerpo.appendChild(cCuerpo);									
+								return tbl;
+							}
+	/* Determina Xo e Yo */
+	this.xo = this.determineX(p_wth, p_hgt);							
+	this.yo = this.determineY(p_wth, p_hgt);
+	/* Muestra la ventana */
+	this.show();	
+	return this;
+}
+
+/* Metodo a ser agregado al evento 'onload' del body de la ventana popup.
+   Devuelve una referencia a la instancia de la variable de la ventana padre
+   que controla el popup. */
+function startIWin(name) {
+	if (arguments.length==1) {
+		//Child side.
+		var p = window.parent;
+		if (typeof(p.startIWin) == "function") return p.startIWin(name, true);
+	} else {
+		//Parent side.
+		return slideNameRegister[name];
+	}
+}

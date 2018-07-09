@@ -1,0 +1,259 @@
+/**
+ * TOOLBAR                 
+ * Barra de herramientas Web.             
+ *                                        
+ * Release :1.0 - 18/01/2007 - Javier A. Scalisi      
+ * Release: 2.0 - 14/02/2007 - Javier A. Scalisi
+ * Release: 3.0 - 14/04/2008 - Javier A. Scalisi
+ * Release: 4.0 - 14/05/2008 - Javier A. Scalisi 	
+ * Release: 5.0 - 20/11/2008 - Javier A. Scalisi 	
+ */
+
+/* Como Usar:                            
+ *    Crear un objeto Toolbar y definir un 
+ *    DIV con el mismo ID, al final del  
+ *    body llamar a la funcion draw().   
+ */
+
+var TOOL_IMAGE_DIR = "images/";
+
+function Toolbar(pid, pButtons, imgDir) {
+//Atributos
+this.key = pid;
+this.imgDir = imgDir || TOOL_IMAGE_DIR;
+this.buttons = new Array();
+this.index = 0;
+this.totalButtons = pButtons;
+this.buttonWidth = 100/pButtons;
+
+//Funciones
+
+/**
+ * Botones pre-configurados
+**/
+/*ADD*/
+this.addButtonADD 			=	function(text, func) { return this.addButton("plus-16.png",text,func); } /*Generico, simbolo + */
+this.addButtonADDDOC		=	function(text, func) { return this.addButton("add-16.png",text,func); }	/*Añadir document*/
+this.addButtonADDPERFIL     =   function(text, func) { return this.addButton("add-user-16.png", text, func); } /*Añadir user*/
+
+/*EXPORT - PRINT*/
+this.addButtonEXPORT 		=	function(text, func) { return this.addButton("export-16.png",text,func); }	/*Generico exportar*/
+this.addButtonPRINT			=	function(text, func) { return this.addButton("print-16.png",text,func); }
+this.addButtonPDF           =   function(text, func) { return this.addButton("pdf-16.png", text, func); } /*Exportar en PDF*/
+this.addButtonEXCEL         =   function(text, func) { return this.addButton("excel-16.png", text, func); } /*Exportar en Excel*/
+
+this.addButtonSEE			=	function(text, func) { return this.addButton("see-16.png",text,func); } /*VER - icon ojo*/
+
+this.addButtonSEARCH		=	function(text, func) { return this.addButton("buscar-16.png",text,func); } /*Lupa de buscar*/
+
+this.addButtonHOME 			=	function(text, func) { return this.addButton("home-16.png",text,func); }
+this.addButtonREFRESH 		=	function(text, func) { return this.addButton("refresh-16.png",text,func); }
+this.addButtonCANCEL 		=	function(text, func) { return this.addButton("cross-16.png",text,func); }
+this.addButtonCONFIRM 		=	function(text, func) { return this.addButton("checkmark-16.png",text,func); }
+this.addButtonSAVE 			=	function(text, func) { return this.addButton("save-16.png",text,func); }
+this.addButtonWATCH			=	function(text, func) { return this.addButton("see-16.png",text,func); }
+this.addButtonRETURN 		= 	function(text, func) { return this.addButton("back-16.png",text,func); }
+
+this.addButtonMAXIMIZE 		=	function(text, func) { return this.addButton("zoom_in-16x16.png",text,func); }
+this.addButtonREDUCE 		=	function(text, func) { return this.addButton("zoom_out-16x16.png",text,func); }
+
+
+
+
+/**
+ *	AGREGAR BOTON
+ * 		Esta funcion permite agregar un boton standard a la barra de herramientas.
+ */
+this.addButton = function(img, text, func) {
+					var button = new GenericButton(this.imgDir);
+					button.funcOn = func;					
+					button.imageOff = img;					
+					button.textOff = text;					
+					button.width = this.buttonWidth;					
+					this.buttons.push(button);		
+					var nbr = this.buttons.length - 1;
+					//this.changeLook(nbr, img, text);					
+					return nbr;
+				}
+
+/**
+ * Funcion que se utiliza para insertar una tecla de dos estados en la barra.
+ * 
+ * * img*: Imagen para on/off;
+ * func*: Funcion a ejecutar para cuando se cambia al estado on/off;
+ * text*: Texto a mostrar en el estado on/off.
+ */
+this.addSwitcher = 	function(img, text, funcOn, funcOff) {
+						var button = new GenericSwitcher(this.imgDir);
+						button.funcOn = funcOn;
+						button.funcOff = funcOff;		
+						button.imageOn = img;
+						button.imageOff = img;
+						button.textOn = text;
+						button.textOff = text;						
+						button.onHold = true;
+						button.width = this.buttonWidth;
+						this.buttons.push(button);
+						var nbr = this.buttons.length - 1;
+						//this.changeLook(nbr, img, text);
+						return nbr;						
+					}
+this.addSwitch = 	function(imgOff, textOff, funcOn, imgOn, textOn, funcOff) {
+						var button = new GenericSwitcher(this.imgDir);
+						button.funcOn = funcOn;
+						button.funcOff = funcOff;						
+						button.imageOn = imgOn;
+						button.imageOff = imgOff;						
+						button.textOn = textOn;
+						button.textOff = textOff;						
+						button.onHold = true;
+						button.width = this.buttonWidth;
+						this.buttons.push(button);
+						var nbr = this.buttons.length - 1;
+						//this.changeLook(nbr, imgOff, textOff);
+						return nbr;						
+					}
+					
+/**
+ * Funcion que inserta un espacio en blanco en la barra, este esacio es del tamaño de un boton.
+ */
+this.addEmtyBlock = function() {
+						var button = new GenericButton(this.imgDir);
+						this.buttons.push(button);
+					}
+
+/**
+ *	Funcion que permite modificar el aspecto fisico de un boton.
+ */
+this.changeLook =	function(idButton, img, text) {
+						var button = this.buttons[idButton];		
+						button.changeLook(img, text);						
+					} 
+
+/**
+ *	Funcion que permite cambiar el estado de un Switch (Solo para Switchs!!!)) 
+ */
+this.changeState =	function(idButton) {
+						var button = this.buttons[idButton];		
+						button.changeState();						
+					} 					
+this.draw = function() {
+		        //Se abre la barra
+		        var html = "<table class=\"toolBar\">";			
+				var max = this.buttons.length;
+				var first = 0;
+				while (max > 0) {
+			        html += "<tr>";
+			        //Se dibujan los botones				
+					var maxLine = max;
+					if (maxLine > this.totalButtons) maxLine=this.totalButtons;
+					max -= maxLine;
+			        for (var i=first; i < (first + maxLine); i++) html += this.buttons[i].draw();							        
+					//Si la ultima linea quedo incompleta, se completa.
+					if (maxLine < this.totalButtons) html += "<td width=\"" + (this.totalButtons-maxLine)*(100/this.totalButtons) + "%\"></td>";
+			        html += "</tr>";
+					first = maxLine+1;
+				}
+				//Se cierra la barra
+				html += "</table>";
+		        //Se dibuja en la pantalla				
+		        document.getElementById(this.key).innerHTML = html;
+			}
+}
+/**
+ *  GENERIC BUTTON
+ */
+//Clase generica para dibujo de botones.
+var $toolButtons = new Array();
+
+function GenericButton(imgDir) {
+
+	//Atributos
+	this.xNumber = $toolButtons.length; 
+	$toolButtons.push(this);
+	this.id= "TOOLB" + this.xNumber;
+	this.imgId = this.id + "IMG";
+	this.spanId = this.id + "DIV";
+	this.imgDir = imgDir;
+	this.funcOff;
+	this.funcOn;
+	this.imageOn = undefined;
+	this.imageOff = "generic.gif";
+	this.status = 0;
+	this.textOff = "No Definido";
+	this.textOn = "No Definido";
+	this.width = 10;
+	this.onHold = false;
+	this.isDrawn = false;
+	
+	//FUNCIONES
+	//Funcion que devuelve el HTML de un boton.
+	this.draw = function() {
+					var html = "<td id=\"" + this.id + "\" class=\"toolButtonNormal\"";
+					html += "width=\"" + this.width + "%\" ";
+					if (this.funcOn) {
+						html += "onMouseOver=\"toolRemark(" + this.xNumber + ", true)\" ";
+						html += "onMouseOut=\"toolRemark(" + this.xNumber + ", false) \" ";								
+						html += "onClick=\"toolSwitchState('" + this.xNumber + "')\"><img id=\"" + this.imgId + "\" src=\"" + this.imgDir + this.imageOff + "\" align=\"absMiddle\"/>&nbsp;&nbsp;<span id=\"" + this.spanId + "\">" + this.textOff + "</span></td>";
+					} else {
+						html += "></td>";
+					}				
+					this.isDrawn = true;
+					return html;
+				}		
+	
+	this.changeLook = 	function(img, text) {
+							if (img) {								
+								if (this.isDrawn) document.getElementById(this.imgId).src = this.imgDir + img;
+							}							
+							if (text) {
+								if (this.isDrawn) document.getElementById(this.spanId).innerHTML = text;
+							}							
+						}
+						
+	return this;
+}
+
+function GenericSwitcher(imgDir) {
+	this.base= GenericButton;
+	this.base(imgDir);
+	
+	this.changeState = 	function() {
+							toolSwitchState(this.xNumber);
+						}
+	return this;
+}
+
+function toolSwitchState(btnNbr) {
+	var td = document.getElementById($toolButtons[btnNbr].id);
+	var img = document.getElementById($toolButtons[btnNbr].imgId);
+	var span = document.getElementById($toolButtons[btnNbr].spanId);
+	if ($toolButtons[btnNbr].status == 1) { 
+		td.className="toolButtonNormal";		
+		img.src = $toolButtons[btnNbr].imgDir + $toolButtons[btnNbr].imageOff;
+		span.innerHTML = $toolButtons[btnNbr].textOff;					
+		$toolButtons[btnNbr].status=0;
+		if ($toolButtons[btnNbr].funcOff) eval($toolButtons[btnNbr].funcOff);		
+	} else {			
+		if ($toolButtons[btnNbr].onHold) {
+			td.className="toolButtonSelected";		
+			img.src = $toolButtons[btnNbr].imgDir + $toolButtons[btnNbr].imageOn;
+			span.innerHTML = $toolButtons[btnNbr].textOn;		
+			$toolButtons[btnNbr].status=1;
+		}
+		if ($toolButtons[btnNbr].funcOn) eval($toolButtons[btnNbr].funcOn);		
+	}	
+}
+
+function toolRemark(btnNbr, state) {
+	var td = document.getElementById($toolButtons[btnNbr].id);
+	if ($toolButtons[btnNbr].status == 0) {
+		if (state) {
+			//Mouse over.					
+			td.className="toolButtonOver";			
+		} else {
+			//Mouse Out
+			td.className="toolButtonNormal";		
+		}
+	}
+}
