@@ -1,0 +1,112 @@
+<!--#include file="Includes/procedimientosMG.asp"-->
+<!--#include file="Includes/procedimientosAlmacenes.asp"-->
+<!--#include file="Includes/procedimientosVales.asp"-->
+<!--#include file="Includes/procedimientosFechas.asp"-->
+<%
+dim idAlmacenes, fechaCierre, strSQL, rs, con, rtrn, myName, flagHeader, fs, fname
+flagHeader = false
+idAlmacenes = GF_Parametros7("idAlmacenes", "", 6)
+fechaCierre = GF_Parametros7("fechaCierre", "", 6)
+fechaCierreAnterior = GF_Parametros7("fechaCierreAnt", "", 6)
+strSQL ="SELECT IDARTICULO, IDALMACEN, SUM(TOTALEXISTENCIA) AS TOTALEXISTENCIA, SUM(TOTALSOBRANTE) AS TOTALSOBRANTE FROM " & _
+		"( " & _
+		"SELECT '1' as ETAPA, IDARTICULO, IDALMACEN, SUM(EXISTENCIA) AS TOTALEXISTENCIA, SUM(SOBRANTE) AS TOTALSOBRANTE FROM " & _
+		"	TBLREMCABECERA RC INNER JOIN TBLREMDETALLE RD " & _
+		"	    ON RC.IDREMITO = RD.IDREMITO " & _
+		"	        WHERE RC.IDALMACEN IN (" & idAlmacenes & ") AND FECHA LIKE '" & left(fechaCierre,6) & "%' " & _
+		"	            GROUP BY IDALMACEN, IDARTICULO " & _
+		" UNION " & _
+		"SELECT '2' as ETAPA, IDARTICULO, IDALMACEN, SUM(-ABS(EXISTENCIA)) AS TOTALEXISTENCIA, SUM(-ABS(SOBRANTE)) AS TOTALSOBRANTE FROM  " & _
+		"    TBLVALESCABECERA VC INNER JOIN TBLVALESDETALLE VD " & _
+		"        ON VC.IDVALE = VD.IDVALE " & _
+		"            WHERE VC.IDALMACEN IN (" & idAlmacenes & ") AND VC.FECHA LIKE '" & left(fechaCierre,6) & "%' AND VC.ESTADO=" & ESTADO_ACTIVO & _
+		"                AND VC.CDVALE IN ('" & CODIGO_VS_SALIDA & "','" & CODIGO_VS_TRANSFERENCIA & "','" & CODIGO_VS_PRESTAMO & "') " & _
+		"					GROUP BY IDALMACEN, IDARTICULO " & _
+		" UNION " & _
+		"SELECT '3' as ETAPA, IDARTICULO, IDALMACEN, SUM(EXISTENCIA) AS TOTALEXISTENCIA, SUM(SOBRANTE) AS TOTALSOBRANTE FROM  " & _
+		"    TBLVALESCABECERA VC INNER JOIN TBLVALESDETALLE VD " & _
+		"        ON VC.IDVALE = VD.IDVALE " & _
+		"            WHERE VC.IDALMACEN IN (" & idAlmacenes & ") AND VC.FECHA LIKE '" & left(fechaCierre,6) & "%' AND VC.ESTADO=" & ESTADO_ACTIVO & _
+		"                AND VC.CDVALE IN ('" & CODIGO_VS_DEVOLUCION & "','" & CODIGO_VS_ENTRADA & "','" & CODIGO_VS_RECEPCION & "') " & _
+		"					GROUP BY IDALMACEN, IDARTICULO " & _		
+		" UNION " & _
+		"SELECT '4' as ETAPA, IDARTICULO, IDALMACEN, SUM(EXISTENCIA) AS TOTALEXISTENCIA, SUM(SOBRANTE) AS TOTALSOBRANTE FROM  " & _
+		"    TBLVALESCABECERA VC INNER JOIN TBLVALESDETALLE VD " & _
+		"        ON VC.IDVALE = VD.IDVALE " & _
+		"            WHERE VC.IDALMACEN IN (" & idAlmacenes & ") AND VC.FECHA LIKE '" & left(fechaCierre,6) & "%' AND VC.ESTADO=" & ESTADO_ACTIVO & _
+		"                AND VC.CDVALE IN ('" & CODIGO_VS_AJUSTE_STOCK & "', '" & CODIGO_VS_RECLASIFICACION_STOCK & "','" & CODIGO_VS_FIX & "') "  & _
+		"					GROUP BY IDALMACEN, IDARTICULO " & _		
+		")TA " & _ 		
+		"GROUP BY TA.IDALMACEN, TA.IDARTICULO"
+		'Response.Write strSQL
+Call executeQueryDB(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)		
+while not rs.eof
+		call insertCierreReg(rs("IDALMACEN"), rs("IDARTICULO"), rs("TOTALEXISTENCIA"), rs("TOTALSOBRANTE"))
+		rs.movenext
+wend	
+
+if len(rtrn) = 0 then	
+	Response.Write "Hecho..."
+else
+	Response.Write rtrn & "-" & myName
+end if	
+'--------------------------------------------------------------------------------------
+sub insertCierreReg(pIdAlmacen, pidArticulo, pExistencia, pSobrante)
+dim strSQL, rs2, con2, sqlINS, rsINS, conINS
+	strSQL = "SELECT * FROM TBLCIERRESARTICULOS2 WHERE IDARTICULO=" & pidArticulo & " AND FECHACIERRE = " & fechaCierre & " AND IDALMACEN = " & pIdAlmacen
+	'Response.Write "<BR>" & strSQL
+	Call executeQueryDB(DBSITE_SQL_INTRA, rs2, "OPEN", strSQL)
+	if rs2.eof then
+		if not hayStockNegativo(pIdAlmacen, cdbl(pExistencia),cdbl(pSobrante)) then
+			sqlINS = "INSERT INTO TBLCIERRESARTICULOS2 VALUES(" & fechaCierre & "," & pIdAlmacen & _
+					"," & pidArticulo & "," & pExistencia & "," & pSobrante & ",'" & session("usuario") & "'," & session("momentodato") & ")"
+		else
+			fname.WriteLine("IDARTICULO" & vbTab & "EXISTENCIA" & vbTab & "SOBRANTE")
+			fname.WriteLine(pidArticulo & vbTab & vbTab & pExistencia & vbTab & vbTab & pSobrante)
+		end if			
+	else
+		'Response.Write "<br>Valores " & cdbl(pExistencia) & "," & cdbl(rs2("EXISTENCIA")) & " Sum(" & cdbl(pExistencia) + cdbl(rs2("EXISTENCIA")) & "), sob (" & cdbl(pSobrante) & "," & cdbl(rs2("SOBRANTE")) & ") sum(" & cdbl(pSobrante) + cdbl(rs2("SOBRANTE")) & ")"
+		if not hayStockNegativo(pIdAlmacen, cdbl(pExistencia) + cdbl(rs2("EXISTENCIA")),cdbl(pSobrante) + cdbl(rs2("SOBRANTE"))) then
+			sqlINS = "UPDATE TBLCIERRESARTICULOS2 SET EXISTENCIA=EXISTENCIA + " & pExistencia & ", SOBRANTE=SOBRANTE + " & pSobrante & " WHERE IDARTICULO=" & pidArticulo & " AND FECHACIERRE = " & fechaCierre & " AND IDALMACEN=" & pIdAlmacen		
+		else
+			fname.WriteLine("IDARTICULO" & vbTab & "CIERRE ANTERIOR (EXI)" & vbTab & "MOV DEL MES (EXI)" & vbTab & "CIERRE ANTERIOR (SOB)" & vbTab & "MOV DEL MES (SOB)")
+			fname.WriteLine(pidArticulo & vbTab & vbTab & vbTab & rs2("EXISTENCIA") & vbTab & vbTab & vbTab & pExistencia & vbTab & vbTab & vbTab & rs2("SOBRANTE") & vbTab & vbTab & vbTab & pSobrante)
+		end if	
+	end if
+	'Response.Write "<BR>" & sqlINS
+	'Response.End 
+	if len(sqlINS)>0 then call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "OPEN", sqlINS)
+end sub
+'------------------------------------------------------------------------------------------------------------
+function hayStockNegativo(pIdAlmacen, pExistencia, pSobrante)
+dim myRtrn
+myRtrn = false
+'pExistencia = abs(pExistencia)
+'pSobrante = abs(pSobrante)
+if (clng(fechaCierre)< clng(20110801)) then exit function
+
+if CDBL(pExistencia)<0 or CDBL(pSobrante)<0 then
+	'Response.End 
+	if len(rtrn) = 0 then rtrn = "ERROR"
+	set fs = Server.CreateObject("Scripting.FileSystemObject")
+	if not isObject(fname) then
+		myName = "logs/CierresContables_StockFisicoNegativo_(" & pIdAlmacen & ")_" & replace(GF_MOMENTOSISTEMA,"'","") & ".txt"
+		myPath = Server.MapPath(myName)
+		set fname = fs.CreateTextFile(myPath,true)
+	else
+		fname.WriteLine("")
+	end if
+	if not flagHeader then
+		fname.WriteLine("*****************************************************************************************************************************")
+		fname.WriteLine("ARTICULOS CON STOCK FISICO NEGATIVO")
+		fname.WriteLine("*****************************************************************************************************************************")
+		fname.WriteLine("Mes de Cierre.: " & mid(fechaCierre,5,2) & "/" & left(fechaCierre,4))
+		fname.WriteLine("Almacen.......: " & pIdAlmacen)
+		fname.WriteLine("-----------------------------------------------------------------------------------------------------------------------------")
+		flagHeader = true
+	end if
+	myRtrn = true
+end if
+hayStockNegativo = myRtrn
+end function
+%>

@@ -1,0 +1,114 @@
+<!--#include file="Includes/procedimientosMG.asp"-->
+<!--#include file="Includes/procedimientostraducir.asp"-->
+<!--#include file="Includes/procedimientosfechas.asp"-->
+<!--#include file="Includes/procedimientosLog.asp"-->
+<!--#include file="Includes/procedimientosUnificador.asp"-->
+<!--#include file="Includes/procedimientosSeguridad.asp"-->
+<!--#include file="Includes/GF_ARMAR_LISTA_CARGOS.asp"-->
+<%
+	Dim oConn,rs,strSQL,newUser, ip
+	Dim strUsr,intIdioma,strPage,strLogInfo	
+	Call startLog(HND_FILE,MSG_INF_LOG+MSG_WRN_LOG+MSG_ERR_LOG)
+	
+	session.Contents.RemoveAll()	
+	    
+    newUser = GF_PARAMETROS7("u","",6)
+	newToken = GF_PARAMETROS7("k","",6)
+    'response.Write "("&newUsuario&")"	
+	
+    if ((newUser <> "") and (newToken = "kt3n$0lz"))then 		
+		session("Usuario") = UCase(newUser)			
+	else
+		'Verifico si esta autorizado a ingresarse un usuario.
+		ip = Request.ServerVariables("REMOTE_ADDR") 'recupero la IP de la pc
+		Call executeQueryDb(DBSITE_SQL_INTRA, rs, "OPEN", "Select * from TBLLOGINTOKENS where TOKENOWNER='" & ip & "' and USEROWNER <> ''")			
+		if (not rs.eof) then 
+			session("Usuario") = UCase(rs("USEROWNER"))			
+			Call executeQueryDb(DBSITE_SQL_INTRA, rs, "EXEC", "Update TBLLOGINTOKENS Set USEROWNER= '' where TOKENOWNER='" & ip & "'")		
+		else			
+			'Solo usuarios internos.
+			if (SITE_INTRANET) then			
+				myusrArr = Split(Request.ServerVariables("LOGON_USER"), "\")				
+				session("Usuario") = ucase(Trim(myusrArr(1)))
+				'>>--- TEMP PERMISOS ---
+				Call executeQueryDb(DBSITE_SQL_INTRA, rs, "OPEN", "Select * from TBLUSUARIOS where NombreUsuario='" & session("Usuario") & "'")			
+				if (rs.eof) then Call executeQueryDb(DBSITE_SQL_INTRA, rs, "EXEC", "Insert into TBLUSUARIOS values('" & session("Usuario") & "', '', 0, 0, '', '', 1, 99999997, 0)")			
+				'<<--- TEMP PERMISOS ---
+			end if
+		end if
+	end if
+	'Response.Write "(" & strLogInfo & ")(" & session("Usuario") & ")(" & Request.ServerVariables("LOGON_USER") & ")"
+	if session("Usuario") = "" then response.redirect "comprasAccesoDenegado.asp"	
+		
+	'Cargo los datos de sesion del usuario
+	Call executeQueryDb(DBSITE_SQL_INTRA, rs, "OPEN", "Select U.company, P.nrodoc, P.nomemp, U.IDSector from TBLUSUARIOS U inner join [Database].dbo.MET001A P on U.COMPANY=P.nroemp where NombreUsuario='" & session("Usuario") & "'")
+	if (not rs.eof) then		
+		session("KCOrganizacion") = CStr(rs("company"))
+		session("NombreOrganizacion") = CStr(rs("nomemp"))
+		session("CuitOrganizacion") = CStr(rs("nrodoc"))
+		session("UsuarioSector") = rs("idsector")
+	end if
+	Session("Security_User") = session("Usuario")
+	Call loadConfigFile(DBSITE_ARROYO)
+	Call loadConfigFile(DBSITE_TRANSITO)
+	Call loadConfigFile(DBSITE_BAHIA)
+    intIdioma=GF_PARAMETROS7("P_IDIOMA","",6)   
+    if (session("UsuarioIdiomaCodigo") = "") or (intIdioma <> "") then GF_SET_IDIOMA(intIdioma)  
+    intIdioma=GF_GET_IDIOMA()
+	GP_CONFIGURARMOMENTOS
+	Call GF_SET_IDIOMA(intIdioma)
+	Call GF_ARMAR_LISTA_CARGOS(GF_SESSIONKR("UP",session("Usuario")))
+	Call LoadAccessInfo(session("Usuario"))
+   strUsr=session("Usuario")
+   'Traigo el menu del usuario.
+   strSQL= "Select top 1 sro3KC from RelacionesConsulta where sro1kc='EXEC' and sro2kc='" & session("Usuario") & "' and SRVALOR <> '*'" 
+   strSQL= strSQL & " and sro3KM = 'UC' and sro3kc like '%tree%' order by sro3KC"
+   'response.write strsql
+   call GF_BD_CONTROL(rs,oConn,"OPEN",strSQL)  
+   strArbol = ""
+	if not rs.eof then 
+		strArbol = "menu.asp?P_MNU=" & rs("sro3kc")	
+	'>>--- TEMP PERMISOS ---
+	else		
+		Call executeQueryDb(DBSITE_SQL_INTRA, rs, "OPEN", "Select * from MG where MG_KM='UP' and MG_KC='" & session("Usuario") & "'")					
+		if (rs.eof) then 
+			'No existe en el UP!
+			Call executeQueryDb(DBSITE_SQL_INTRA, rs, "OPEN", "Select * from MG where MG_KM='SG' and MG_KC='" & session("Usuario") & "'")			
+			if (not rs.eof) then 
+				Call executeQueryDb(DBSITE_SQL_INTRA, rs2, "OPEN", "Select MAX(MG_KR) MAXIMO from MG")
+				myKR = CLng(rs2("MAXIMO")) + 1
+				Call executeQueryDb(DBSITE_SQL_INTRA, rs, "EXEC", "Insert into MG values(" & myKR & ", 'UP', '" & rs("MG_KC") & "', '" & rs("MG_DS") & "', 1, '20180109090000',	'20180109090000')")			
+			else
+				myKR = 0
+			end if
+		else
+			myKR = rs("MG_KR")
+		end if
+		if (CLng(myKR) > 0) then
+			Call executeQueryDb(DBSITE_SQL_INTRA, rs2, "OPEN", "Select MAX(SRO3KR) MAXIMO from MGSR")
+			myMAXO3 = CLng(rs2("MAXIMO")) + 1
+			Call executeQueryDb(DBSITE_SQL_INTRA, rs, "EXEC", "Insert into MGSR values(5, " & myKR & ", 140, " & myMAXO3 & ", '1', '20180109090000', '20180109090000', 'SYN')")			
+			strArbol = "menu.asp?P_MNU=" & myMAXO3
+		end if		
+	end if
+	'<<--- TEMP PERMISOS ---
+%>
+<html>
+<head>
+<title>ADM Agro S.R.L.</title>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+
+<!--<link rel="shortcut icon" href="images/Logo.ico">-->
+</head>
+
+<frameset rows="150,*" cols="*" frameborder="NO" border="0" framespacing="0">
+  <frame src="header.asp" id="topFrame" name="topFrame" scrolling="NO" noresize >
+  <frameset cols="220,*" frameborder="NO" border="0" framespacing="0" >
+    <frame src="<% =strArbol %>" name="leftFrame" MARGINWIDTH="0" MARGINHEIGHT="0" scrolling="AUTO">    
+    <frame src="appPanel.asp" id="MainFrame" name="MainFrame">
+  </frameset>
+</frameset>
+<noframes><body>
+</body></noframes>
+</html>

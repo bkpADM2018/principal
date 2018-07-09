@@ -1,0 +1,241 @@
+<!--#include file="Includes/procedimientostraducir.asp"-->
+<!--#include file="Includes/procedimientosFechas.asp"-->
+<!--#include file="Includes/procedimientosSQL.asp"-->
+<!--#include file="Includes/procedimientosCompras.asp"-->
+<!--#include file="Includes/procedimientosParametros.asp"-->
+
+<%
+Call initAccessInfo(RES_INV_SM)
+Dim idEquipoActivo, idEquipo, cdEquipo, dsEquipo, idDivision, dsDivision, idSector, dsSector, idUbicacion, dsUbicacion, cdActivoFijo
+dim myWhere, strSQL, rs, conn, cdActivacion, dsActivacion
+
+idEquipo = GF_PARAMETROS7("idEquipo", 0 ,6)
+idEquipoActivo = GF_PARAMETROS7("idEquipoActivo", 0 ,6)
+tipoOperacion = GF_PARAMETROS7("tipoOperacion", "" ,6)
+if (idEquipoActivo <> 0) then 'Viene a Editar, Activar o Desactivar
+	call executeProcedureDb(DBSITE_SQL_INTRA, rs, "TBLSMACTIVEEQUIPMENT_GET_FULL_BY_ID", idEquipoActivo)
+		if not rs.eof then
+		   idEquipo = rs("IDEQUIPMENT")
+		   cdEquipo = rs("CDEQUIPMENT")
+		   dsEquipo = rs("DSEQUIPMENT") 
+		   idDivision = rs("IDDIVISION") 
+		   dsDivision = rs("DSDIVISION") 
+		   idSector = rs("IDSECTOR") 
+		   dsSector = rs("DSSECTOR") 
+		   if tipoOperacion = "M" or tipoOperacion = "A" then
+				cdActivacion = trim(right(rs("CDACTIVATION"),len(rs("CDACTIVATION"))-2))
+		   else	
+		   		cdActivacion = trim(rs("CDACTIVATION"))
+		   end if
+   		   dsActivacion = trim(rs("DSACTIVATION")) 
+		   cdActivoFijo = trim(rs("CDACTIVECODE"))
+		end if
+else
+	call executeProcedureDb(DBSITE_SQL_INTRA, rs, "TBLSMEQUIPMENT_GET_BY_PARAMETERS", idEquipo & "|| || ||0||")
+			 if not rs.eof then
+				cdEquipo = rs("CDEQUIPMENT")
+				dsEquipo = rs("DSEQUIPMENT") 
+			 end if			 	
+end if	
+
+
+'Acciones
+'A = Activar
+'B = Desactivar
+'M = Modificar
+'H = Habilitar existente
+if tipoOperacion = "A" then
+	myPregunta = "Activación de nuevo equipo"
+	myLabel = "Activar"
+elseif tipoOperacion = "H" then
+	myPregunta = "Esta seguro que desea activar este equipo nuevamente?"	
+	myLabel = "Activar"
+elseif tipoOperacion = "B" then
+	myPregunta = "Esta seguro que desea desactivar el siguiente equipo activo?"	
+	myLabel = "Desactivar"
+elseif tipoOperacion = "M" then
+	myPregunta = "Modificación de equipo activo"	
+	myLabel = "Modificar"
+else
+	myPregunta = "Ninguna accion se ha especificado"
+end if	
+'------------------------------------------------------------------------------------------------------------------------
+
+%>
+
+<html>
+<head>
+<title>Sistema de Mantenimiento - Activación de Master</title>
+<link rel="stylesheet" href="css/main.css" type="text/css">
+<link rel="stylesheet" href="css/jqueryUI/custom-theme/jquery-ui-1.8.2.custom.css" type="text/css" />
+<style type="text/css">
+.divOculto {
+	display: none;
+}
+.titleStyle {
+	font-weight: bold;
+	font-size: 20px;
+}
+</style>
+<script defer type="text/javascript" src="scripts/pngfix.js"></script>
+<script type="text/javascript" src="scripts/channel.js"></script>
+<script type="text/javascript" src="scripts/formato.js"></script>
+<script type="text/javascript" src="scripts/MagicSearchObj.js"></script>
+<script type="text/javascript" src="scripts/controles.js"></script>
+<script type="text/javascript" src="scripts/jQueryPopUp.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="scripts/jqueryUI/jquery-ui-1.8.2.custom.min.js"></script>
+<script type="text/javascript" src="scripts/paginar.js"></script>
+<script type="text/javascript" src="scripts/Toolbar.js"></script>
+
+<script type="text/javascript">
+	var ch = new channel();	
+	function submitInfo() {		
+		document.getElementById("frmSel").submit();
+	}
+	function irA(pLink) {
+		location.href = pLink;
+	}	
+	function activarEquipo(pAccion){
+		ch.bind("mantenimientoActivacionABMAJAX.asp?idEquipo=" + document.getElementById("idEquipo").value + "&idEquipoActivo=" + document.getElementById("idEquipoActivo").value + "&idDivision=" + document.getElementById("idDivision").value + "&idSector=" + document.getElementById("idSector").value + "&cdActivoFijo=" + document.getElementById("cdActivoFijo").value + "&cdActivacion=" + document.getElementById("cdActivacionPrefijo").value + document.getElementById("cdActivacion").value + "&dsActivacion=" + document.getElementById("dsActivacion").value + "&tipoOperacion=" + pAccion, "activarEquipo_Callback()");
+		ch.send();			
+	}
+	function activarEquipo_Callback(){
+		if (ch.response() == ''){
+			document.getElementById("divError").innerHTML = '';
+			cerrarPopUp();
+		}
+		else{
+			document.getElementById("divError").innerHTML = ch.response();
+		}
+		
+	}
+var refPopUpEquipo;
+
+function activacionOnLoad() {		
+	refPopUpEquipo = getObjPopUp('popupEquipo');
+}
+function cerrarPopUp(){
+	refPopUpEquipo.hide();
+}	
+</script>
+</head>
+<body onload="activacionOnLoad()">
+<form id="frmSel" name="frmSel">
+
+<div class="tableaside size100"> 
+	<h3><%=GF_Traducir("Datos del Master")%></h3>
+  
+    <div class="tableasidecontent">
+        <div class="col26 reg_header_navdos"> <% =GF_TRADUCIR("ID") %> </div>
+        <div class="col26"> <% =idEquipo%> </div>
+       
+        <div class="col26 reg_header_navdos"> <% =GF_TRADUCIR("Código") %> </div>
+        <div class="col26"> <% =cdEquipo %> </div>
+        
+        <div class="col26 reg_header_navdos"> <% =GF_TRADUCIR("Descripción") %> </div>
+        <div class="col36"> <% =dsEquipo%> </div>
+	</div>
+</div>
+
+<div class="col66"></div>	
+
+<div class="tableaside size100"> 
+	<h3><%=GF_Traducir("Datos de Activación")%></h3>
+  
+    <div class="tableasidecontent">
+        <div class="col26 reg_header_navdos"> <% =GF_TRADUCIR("Código") %> </div>
+        <div class="col26">
+        		<%
+				if tipoOperacion = "M" or tipoOperacion = "A" then
+					Response.Write "<b>" & left(cdEquipo,2) & " </b>"
+					%>
+					<input type="text" size="7" maxlength="8" id="cdActivacion" name="cdActivacion" value="<%=cdActivacion%>">
+				<%else
+					Response.Write cdActivacion
+					%>
+					<input type="hidden" name="cdActivacion" id="cdActivacion" value="<%=cdActivacion%>">
+				<%end if%>
+				<input type="hidden" name="cdActivacionPrefijo" id="cdActivacionPrefijo" value="<%=left(cdEquipo,2)%>">
+		</div>
+       
+        <div class="col26 reg_header_navdos"> <% =GF_TRADUCIR("Descripción") %> </div>
+        <div class="col26"> 
+   				<%if tipoOperacion = "M" or tipoOperacion = "A" then%>
+					<input type="text" size="30" maxlength="100" id="dsActivacion" name="dsActivacion" value="<%=dsActivacion%>">
+				<%else
+					Response.Write dsActivacion
+					%>
+					<input type="hidden" name="dsActivacion" id="dsActivacion" value="<%=dsActivacion%>">
+				<%end if%>
+		</div>
+        
+        <div class="col26 reg_header_navdos"> <% =GF_TRADUCIR("División") %> </div>
+        <div class="col26"> 
+				<%if tipoOperacion = "M" or tipoOperacion = "A" then
+					%>
+					<select name="idDivision" id="idDivision">
+						<%
+						
+						call executeProcedureDb(DBSITE_SQL_INTRA, rsSel, "TBLDIVISIONES_GET_BY_LIST", getListaCargosAdmin())
+						while not rsSel.eof
+							if not isAuditor(rsSel("IDDIVISION")) then
+							%>	
+								<option value="<%=rsSel("IDDIVISION")%>" <%if cint(idDivision)=cint(rsSel("IDDIVISION")) then Response.Write "Selected"%>><%=rsSel("DSDIVISION")%></option>
+							<%	
+							end if
+							rsSel.movenext
+						wend	
+						%>
+					</select>
+				<%else
+					Response.Write dsDivision
+					%>
+					<input type="hidden" name="idDivision" id="idDivision" value="<%=idDivision%>">
+				<%end if%>
+        </div>
+        
+        <div class="col26 reg_header_navdos"> <% =GF_TRADUCIR("Sector") %> </div>
+        <div class="col26"> 
+				<%if tipoOperacion = "M" or tipoOperacion = "A" then%>
+					<select name="idSector" id="idSector">
+						<%
+						call executeProcedureDb(DBSITE_SQL_INTRA, rsSel, "TBLSMSECTOR_GET", "")
+						while not rsSel.eof
+							%>	
+								<option value="<%=rsSel("IDSECTOR")%>" <%if cint(idSector)=cint(rsSel("IDSECTOR")) then Response.Write "Selected"%>><%=rsSel("DSSECTOR")%></option>
+							<%	
+							rsSel.movenext
+						wend	
+						%>
+					</select>				
+				<%else
+					Response.Write dsSector
+					%>
+					<input type="hidden" name="idSector" id="idSector" value="<%=idSector%>">
+				<%end if%>
+        </div>
+        
+        <div class="col26 reg_header_navdos"> <% =GF_TRADUCIR("Activo Fijo") %> </div>
+        <div class="col26"> 
+				<%if tipoOperacion = "M" or tipoOperacion = "A" then%>
+					<input type="text" size="9" maxlength="9" id="cdActivoFijo" name="cdActivoFijo" value="<%=cdActivoFijo%>">
+				<%else
+					Response.Write cdActivoFijo
+					%>
+					<input type="hidden" name="cdActivoFijo" id="cdActivoFijo" value="<%=cdActivoFijo%>">
+				<%end if%>
+		</div>
+        
+	</div>
+    <span style="text-align:center; margin-top:20px; clear:both; float:left; width:100%"><input type="BUTTON" value="<%=GF_Traducir(myLabel)%>" onclick="activarEquipo('<%=tipoOperacion%>')" id=BUTTON1 name=BUTTON1></span>
+</div>
+<div id="divError">
+	<%=showMessages()%>
+</div>
+<input type="HIDDEN" name="idEquipo" id="idEquipo" value="<%=idEquipo%>">
+<input type="HIDDEN" name="idEquipoActivo" id="idEquipoActivo" value="<%=idEquipoActivo%>">	
+<input type="HIDDEN" name="tipoOperacion" id="tipoOperacion">
+</form>	
+</body>
+</html>

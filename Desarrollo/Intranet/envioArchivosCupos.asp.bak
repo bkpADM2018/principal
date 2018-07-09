@@ -1,0 +1,428 @@
+<!--#include file="Includes/procedimientosAS400.asp"-->
+<!-- #include file="Includes/procedimientosUnificador.asp"-->
+<!--#include file="Includes/procedimientosfechas.asp"-->
+<!--#include file="Includes/procedimientosMG.asp"-->
+<!-- #include file="Includes/procedimientosMail.asp" -->
+<!-- #include file="Includes/procedimientosFormato.asp" -->
+<!-- #include file="Includes/procedimientos.asp" -->
+<!-- #include file="Includes/procedimientosPuertos.asp" -->
+<!-- #include file="Includes/includeGeneracionArchivos.asp" -->
+<!--#include file="Includes/procedimientostraducir.asp"-->
+<!-- #Include File="Includes/ExternalFunctions.ASP" -->
+<%
+Server.ScriptTimeout = 1200
+'*****************************************************************************************
+function getEnterpriseData(cdEmpresa, ByRef dsEmpresa, ByRef cuitEmpresa)
+    dim strSQl, rs
+
+    if (session("PLAYA_CUIT_" & cdEmpresa) = "") then
+        cuitEmpresa = "00-00000000-0"
+        dsEmpresa = ""
+        if isnumeric(cdEmpresa) then
+            if (cdEmpresa <> 15) then
+                strSQL = "select NUDOCUMENTO, DSVENDEDOR from VENDEDORES where CDVENDEDOR=" & cdEmpresa
+                Call GF_BD_Puertos(TERMINAL_PIEDRABUENA, rs, "OPEN", strSQL)
+                if not rs.eof then
+                    cuitEmpresa = GF_STR2CUIT(Trim(rs("NUDOCUMENTO")))
+                    dsEmpresa = Trim(rs("DSVENDEDOR"))
+                end if
+            end if            
+        end if
+        session("PLAYA_CUIT_" & cdEmpresa) = cuitEmpresa
+        session("PLAYA_DESC_" & cdEmpresa) = dsEmpresa
+    else
+        cuitEmpresa = session("PLAYA_CUIT_" & cdEmpresa)
+        dsEmpresa = session("PLAYA_DESC_" & cdEmpresa)
+    end if        
+end function
+'*****************************************************************************************
+Function generarArchivo(p_dteDate)
+    dim arch, fs, strPath, CU_KCVEN, CU_KCCOR, CU_KCCOR_CUIT, CU_KCVEN_CUIT, CU_DS_KCCOR, CU_DS_KCVEN
+	dim CU_NroCupo, CU_NroCupoDesde, CU_NroCupoHasta, CU_NroCupoTxt, CU_CantCamiones, CU_producto
+	dim CU_auxFecha, CU_CuitDestinatario, CU_dsDestinatario, CU_lugarDescarga	
+	
+    'Establezco la ruta y el nombre del archivo a crear
+    strPath = Server.mapPath("temp\cuposToepfer.txt")
+    'Si existe la borro
+    set fs = Server.CreateObject("Scripting.FileSystemObject")
+    If fs.FileExists(strPath) Then  call fs.deleteFile(strPath, true)
+    set arch = fs.CreateTextFile(strPath)
+    set fs = nothing
+
+    'Obtengo las patentes del puerto.
+    g_strPuerto = TERMINAL_PIEDRABUENA
+    strSQL="Select * from CODIGOSCUPO where FECHACUPO >= '" & p_dteDate & "'"    
+    Call GF_BD_PUERTOS(g_strPuerto, rsPatente, "OPEN", strSQL)
+    while (not rsPatente.eof)
+        myKey = rsPatente("CODIGOCUPO")
+        if (isNull(rsPatente("PATENTE"))) then myValue = "" else myValue = rsPatente("PATENTE") end if
+        g_diccPatentes.Add myKey, myValue
+        rsPatente.MoveNext()
+    wend
+    
+    Call escribirCabeceraArchivo(arch)
+    
+    'Se incluyen en el archivo los cupos asignados para contratos propios, en estos contratos se debe mostrar todos los c{odigos de cupo asignados ya que el corredor y vendedor se conocen de antemano.
+    strSQL = "select A.CUCODI IDCupo, A.CUFCCP as Fecha, A.CUCPRO as Producto, A.CUCDES as LugarDescarga, A.CUZINF as Destino, A.CUCCCP as CantidadCupeada, A.CUCCCP CantidadNominada, B.C5DSDE as NroCupoDesde, B.C5HSTA as NroCupoHasta, A.CUCVEN as KCVEN, A.CUCCOR as KCCOR, A.CUCCOO as Coordinado "
+	strSQL = strSQL & "from MERFL.MER517F1 A inner join MERFL.MER517F5 B on A.CUCODI=B.C5CODI where A.CUFCCP >= '" & p_dteDate & "' and A.CUCDES=91 and A.CUCOPE <> 4 "
+	'strSQL = strSQL & "from MERFL.MER517F1 A inner join MERFL.MER517F5 B on A.CUCODI=B.C5CODI where A.CUFCCP > '" & p_dteDate & "' and A.CUCDES=91 "
+    strSQL = strSQL & "order by A.CUFCCP asc, A.CUCODI asc"
+    Call GF_BD_AS400_2(rs, conn, "OPEN", strSQL)
+    
+    Call escribirDetalleArchivo(arch, rs)
+    
+    'Se incluyen al archivo los datos de prestamos. Estos cupos solo se informan cuando los mismos hayan sido nominados por el exportador
+    'Para determinar que los cupos pertenecen a un exportador se consideran solo los contratos con codigo de operacion 04.
+    strSQL = "select A.CUCODI IDCupo, A.CUFCCP as Fecha, A.CUCPRO as Producto, A.CUCDES as LugarDescarga, A.CUZINF as Destino, A.CUCCCP as CantidadCupeada, B.NOMINADOS as CantidadNominada, N.CODIGO as NroCupoDesde, N.CODIGO as NroCupoHasta, N.IDVENDEDOR as KCVEN, N.IDCORREDOR as KCCOR, A.CUCVEN as Coordinado " &_
+	        " from MERFL.MER517F1 A " &_
+	        " inner join (Select IDCUPO, count(*) NOMINADOS from MERFL.TBLCUPOSNOMINADOS Group by IDCUPO) B on A.CUCODI=B.IDCUPO " &_	        	        
+	        " inner join MERFL.TCB6A1F1 PRO on PRO.NROPRO=A.CUCVEN " &_
+	        " inner join MERFL.TBLCUPOSNOMINADOS N on A.CUCODI=N.IDCUPO " &_	        
+            " where A.CUFCCP >= '" & p_dteDate & "' and A.CUCDES=91 and A.CUCOPE = 4 " &_	        
+            " order by A.CUFCCP asc, A.CUCODI asc"
+    Call GF_BD_AS400_2(rs, conn, "OPEN", strSQL)
+    
+    Call escribirDetalleArchivo(arch, rs)
+    
+    arch.close()
+    set arch = Nothing
+    generarArchivo = strPath
+end function
+'*****************************************************************************************    
+Function escribirCabeceraArchivo(ByRef arch)
+    
+    Call escribirArchivo(arch, "99999999",8)
+    Call escribirArchivo(arch, GetDsEnterprise2("7431"),20) 'Destinatario = Toepfer
+    Call escribirArchivo(arch, "",131) 'El resto en blanco
+    Call escribirArchivo(arch, "!" & chr(13) & chr(10),3)    
+    g_cant = 0            
+    
+End Function    
+'*****************************************************************************************
+Function escribirDetalleArchivo(ByRef arch, rs)
+            
+    'dim dicCupos
+	Dim idCupoActual, cuposMaxInforme, myTotalEnviados, myPatente
+	'Set dicCupos = Server.CreateObject("Scripting.Dictionary")	
+	CU_CantCamiones = 1
+	idCupoActual = 0
+    while (not rs.eof)
+        if (idCupoActual <> CLng(rs("IDCupo"))) then
+            'Determino el nro de cupos a transmitir. Siempre sera la menor de ambas medidas (cupeado vs nominados) 
+            idCupoActual = CLng(rs("IDCupo"))
+	        cuposMaxInforme = CLng(rs("CantidadCupeada"))
+	        if (cuposMaxInforme > CLng(rs("CantidadNominada"))) then cuposMaxInforme = CLng(rs("CantidadNominada"))
+	        myTotalEnviados = 0
+        end if	        
+	    '--	    
+        CU_KCVEN = CLng(rs("KCVEN"))
+		CU_KCCOR = CLng(rs("KCCOR"))
+		if ((CU_KCVEN = 0) and (CU_KCCOR = 0)) then
+			CU_KCVEN = CLng(rs("Coordinado"))
+			CU_KCCOR = CLng(rs("Coordinado"))
+		end if
+		Call getEnterpriseData(CLng(rs("Coordinado")), CU_dsDestinatario, CU_CuitDestinatario)
+		Call getEnterpriseData(CU_KCVEN, CU_DS_KCVEN, CU_KCVEN_CUIT)		
+		Call getEnterpriseData(CU_KCCOR, CU_DS_KCCOR, CU_KCCOR_CUIT)				
+		CU_producto = getProductDescription(rs("Producto"))
+		CU_NroCupoTxtdesde = left(CU_producto,1)
+		CU_NroCupoDesde = CDbl(rs("NroCupoDesde"))
+		CU_NroCupoHasta = CDbl(rs("NroCupoHasta"))
+		if (CU_NroCupoDesde > CU_NroCupoHasta) then CU_NroCupoHasta = CU_NroCupoDesde
+		CU_auxFecha = right(rs("Fecha"),2) & mid(rs("Fecha"),5,2) & left(rs("Fecha"), 4)
+		CU_lugarDescarga = rs("LugarDescarga")
+		i = CU_NroCupoDesde
+		while ((i <= CU_NroCupoHasta) and (myTotalEnviados < cuposMaxInforme))
+		    CU_NroCupo = CU_NroCupoTxtdesde
+			if (len(CStr(CU_NroCupoDesde)) < 8) then CU_NroCupo = CU_NroCupo & "0"
+			CU_NroCupo = CU_NroCupo & i						
+			myPatente=""
+			if (g_diccPatentes.Exists(CU_NroCupo)) then
+			    myPatente = g_diccPatentes(CU_NroCupo)
+            end if			    
+			call escribirArchivo(arch, CU_auxFecha,8)
+			call escribirArchivo(arch, CU_dsDestinatario,20)
+			call escribirArchivo(arch, CU_producto,20)
+			call escribirArchivo(arch, CU_lugarDescarga,2)
+			call escribirArchivo(arch, CU_Cantcamiones,10)
+			call escribirArchivo(arch, CU_NroCupo,10)
+			call escribirArchivo(arch, CU_DS_KCVEN,20)
+			call escribirArchivo(arch, CU_DS_KCCOR,20)
+			call escribirArchivo(arch, CU_CuitDestinatario,13)
+			call escribirArchivo(arch, CU_KCVEN_CUIT,13)
+			call escribirArchivo(arch, CU_KCCOR_CUIT,13)
+			call escribirArchivo(arch, myPatente,10)
+			call escribirArchivo(arch, "!" & chr(13) & chr(10),3)			
+			g_cant = g_cant + 1
+			myTotalEnviados = myTotalEnviados + 1
+			i = i + 1
+		wend
+        rs.movenext
+    wend    
+End Function        
+'*****************************************************************************************
+sub escribirArchivo(byref p_arch, p_strValor, p_longitud)
+    dim k
+    if len(p_strValor) <= p_longitud then
+        p_arch.write p_strValor
+        for k = len(p_strValor) + 1 to p_longitud
+            p_arch.write " "
+        next
+    else
+        p_arch.write left(p_strValor, p_longitud)
+    end if
+end sub
+'*****************************************************************************************
+function getProductDescription(byval p_kcProducto)
+    dim strSQL, rs, conn, aux, auxDs 'No puedo agregarle a un dictiopnary el rs directamente
+
+    aux = p_kcProducto
+    if not g_diccProductos.Exists(aux) then
+        strSQL = "Select * from MERFL.MER112F1 where CODIPR=" & aux
+        call GF_BD_AS400_2(rs, conn, "OPEN", strSQL)
+        if not rs.eof then
+            auxDs = trim(rs("DESCPR"))
+            call g_diccProductos.Add(aux, auxDs)
+            getProductDescription = auxDs
+        else
+            getProductDescription = "#Producto Invalido#"
+        end if
+    else
+        getProductDescription = g_diccProductos.item(aux)
+    end if
+end function
+'*****************************************************************************************
+sub enviarMailCupos()
+    dim strDestinatarios, strAsunto, strPathAttachment, ORKC
+    dim conn, rs, strSQL, cant
+    dim vecMailsToepfer(10), vecMailsAdminPlaya(10)
+
+    'completo los datos del mail
+    strAsunto = "Cupos Toepfer"
+    strPathAttachment = Server.mapPath("temp/cuposToepfer.txt")
+    strToepferDenomination = GetDsEnterprise2("7431")
+    strBody = "Se adjuntan los cupos asigandos. Total:" & g_cant
+    strDestinatarios = "ScalisiJ@toepfer.com;"
+    cant = obtenerMailCuposProveedor(7431, vecMailsToepfer)
+    while (cant > 0)
+        cant= cant-1
+        strDestinatarios = strDestinatarios & vecMailsToepfer(cant) & "; "
+    wend
+    cant = obtenerMailCuposProveedor(13411, vecMailsAdminPlaya)
+    while (cant > 0)
+        cant= cant-1
+        strDestinatarios = strDestinatarios & vecMailsAdminPlaya(cant) & "; "
+    wend
+    strDestinatarios = strDestinatarios & "estudiokleos@gmail.com;"        
+    call GP_ENVIAR_MAIL_ATTACHMENT(strAsunto, strBody,strToepferDenomination & " <" & SENDER_MERCADERIAS & ">",strDestinatarios, strPathAttachment)
+end sub
+'*****************************************************************************************
+sub writeLog(p_type, p_message)
+    dim archLog, fs, strPathLog
+
+    strPathLog = Server.mapPath("LOGS\logEnvioAutomaticoCupos.txt")
+    set fs = Server.CreateObject("Scripting.FileSystemObject")
+    if not fs.FileExists(strPathLog) then
+        set archLog = fs.CreateTextFile(strPathLog)
+    else
+        set archLog = fs.OpenTextFile(strPathLog, 8)
+    end if
+    archLog.writeline replace(session("MomentoSistema"),"'","") & "  " & p_type & "  " & p_message
+    archLog.close
+
+    set fs = Nothing
+    set archLog = Nothing
+end sub
+'*****************************************************************************************
+Function Bach(p_dteDate)
+
+dim conn, strSQL, rs, strPath
+
+'Actualizo la Base Settings
+'strSQL = "update settings set Valor = 'V' where Concepto = 'bndExEnvArchCupos'"
+'call GF_BD_AS400(rs, conn, "EXEC", strSQL)
+call writeLog("INF","Inicio proceso")
+Call writeLog("INF","Generando Archivo")
+call generarArchivo(p_dteDate)
+Call writeLog("INF","Enviando Mails...")
+call enviarMailCupos()
+call writeLog("INF","Fin proceso")
+call writeLog("INF", "--------------------------------------------------")
+'Actualizo la Base Settings
+'strSQL = "update settings set Valor = 'F' where Concepto = 'bndExEnvArchCupos'"
+'call GF_BD_AS400(rs, conn, "EXEC", strSQL)
+'call conn.close()
+
+End Function
+'*****************************************************************************************
+'******                           COMIENZO DE LA PAGINA                             ******
+'*****************************************************************************************
+'Este dictionary lo uso como cache para las ds de los productos, para no tener
+'q ir a buscar a la BD
+dim g_diccProductos, dteFecha, intFecha
+dim p_oper, strPath, g_cant, g_diccPatentes
+
+p_oper = GF_PARAMETROS7("P_ACTION","",6)
+if (p_oper = "") then p_oper="BACH"
+dteFecha = GF_PARAMETROS7("txtFechadesde","",6)
+
+set g_diccProductos = Server.CreateObject("Scripting.Dictionary")
+set g_diccPatentes = Server.CreateObject("Scripting.Dictionary")
+
+'Abro una sesion para tener los momentos y un usuario para las consultas a la base
+session("Usuario")="GUEST"
+GP_CONFIGURARMOMENTOS
+Call GF_SET_IDIOMA(1)
+
+intFecha = mid(session("MomentoSistema"),2, 8)
+if (dteFecha = "") then dteFecha = GF_FN2DTE(intFecha)
+if (p_oper = "BACH") then
+    Call Bach(intFecha)
+end if
+if (p_oper <> "BACH") then
+%>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="CSS/ActiSAIntra-1.css" type="text/css">
+  <!-- Estilo de Calendario -->
+  <link rel="stylesheet" type="text/css" media="all" href="CSS/calendar-win2k-2.css" title="win2k-2" />
+  <!-- Script del calendario -->
+  <script type="text/javascript" src="scripts/calendar.js"></script>
+  <!-- Modulo de Lenguaje -->
+  <script type="text/javascript" src="scripts/calendar-<% =GF_GET_IDIOMA() %>.js"></script>
+  <script language="javascript">
+        /* Variable globales de calendarios */
+        var nombre = null;
+        var cals = new Array();
+        cals[0]= null;
+        cals[1]= null;
+        /* Funcion de Seleccion del Calendario */
+        function SeleccionarCal(cal,date) {
+            var obj = document.getElementById(nombre);
+            var str= new String(date);
+            obj.value = str;
+            cal.hide();
+        }
+        /* Funcion de Cierre del Calendario */
+        function CerrarCal(cal)
+        {
+          nombre = null;
+		  cal.hide();
+	    }
+        /* Funcion para mostrar calendario */
+        function MostrarCalendario(p_cal, p_name)
+        {
+	           var dte= new Date();
+               var obj = document.getElementById(p_name);
+               var strFecha = obj.value;
+               var arrFecha = strFecha.split("/");
+               dte.setFullYear(arrFecha[2],arrFecha[1]-1,arrFecha[0]);
+               if (cals[p_cal] != null)
+	           {
+                    // Ya hay un calendario creado, se oculta.
+                    cals[p_cal].hide();
+	           }
+	           else
+	           {
+                    cal = new Calendar(false, dte, SeleccionarCal,CerrarCal);
+                    cal.weekNumbers = false;
+                    cal.setRange(1993, 2033);
+                    cal.create();
+                }
+                nombre = p_name;
+                cals[p_cal] = cal;
+                cals[p_cal].setDateFormat("dd/mm/y");
+                cals[p_cal].showAtElement(obj);
+        }
+  </script>
+</head>
+
+<body>
+    <%=Gf_Titulo_2(GF_Traducir("Descarga de Archivos"))%>
+<form id="frmContenedor" name="frmContenedor" method="GET">
+<table width="90%" cellspacing="0" cellpadding="0" align="center" border="0">
+       <tr>
+           <td width="8"><img src="images/marco_r1_c1.gif"></td>
+           <td width="25%"><img src="images/marco_r1_c2.gif" width="100%" height="8"></td>
+           <td width="8"><img src="images/marco_r1_c3.gif"></td>
+           <td width="73%"><td>
+           <td></td>
+       </tr>
+       <tr>
+           <td width="8"><img src="images/marco_r2_c1.gif"></td>
+           <td align=center valign="center"><font class="big" color="#517b4a"><% =GF_Traducir("Cupos")%></font></td>
+           <td width="8"><img src="images/marco_r2_c3.gif"></td>
+           <td></td>
+           <td></td>
+       </tr>
+       <tr>
+           <td><img src="images/marco_r2_c1.gif" height="8"  width="8"></td>
+           <td></td>
+           <td valign="top" align="right"><img src="images/marco_r1_c2.gif" height="8" width="5"></td>
+           <td><img src="images/marco_r1_c2.gif" width="100%" height="8"></td>
+           <td width="8"><img src="images/marco_r1_c3.gif"></td>
+       </tr>
+       <% if (errMsg <> "") then %>
+       <tr>
+            <td height="100%"><img src="images/marco_r2_c1.gif" width="8" height="100%"></td>
+            <td class="TDERROR" width="100%" align=center colspan="3"><% =GF_TRADUCIR(errMsg) %></td>
+            <td height="100%"><img src="images/marco_r2_c3.gif" width="8" height="100%"></td>
+       </tr>
+       <% end if%>
+       <tr>
+            <td height="100%"><img src="images/marco_r2_c1.gif" width="8" height="100%"></td>
+            <td width="100%" align=center colspan="3">&nbsp;</td>
+            <td height="100%"><img src="images/marco_r2_c3.gif" width="8" height="100%"></td>
+       </tr>
+       <tr>
+           <td height="100%"><img src="images/marco_r2_c1.gif" height="100%" width="8"></td>
+           <td colspan="3">
+            <table width="100%" height="100%" cellpadding="2" cellspacing="0" border="0">
+                <tr>
+                    <td width="10%">&nbsp;</td>
+                    <td COLSPAN="2">
+                        <font><% =GF_TRADUCIR("Fecha Desde")%></font><br>
+                    </td>
+                    <td width="10%">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="right"><img align="absMiddle" src="images/DATE.gif" alt="Seleccionar Fecha" style="cursor:hand" onclick="MostrarCalendario(0,'txtFechaDesde')"></td>
+                    <td >
+                        <input type="text" name="txtFechaDesde" value="<% =dteFecha %>">
+                    </td>
+                    <td ><input type=submit value="<%=GF_Traducir("Generar Archivo")%>"></td>
+                    <td width="10%">&nbsp;</td>
+                </tr>
+            </table>
+           </td>
+           <td height="100%"><img src="images/marco_r2_c3.gif" width="8" height="100%"></td>
+       </tr>
+       <tr>
+            <td height="100%"><img src="images/marco_r2_c1.gif" width="8" height="100%"></td>
+            <td width="100%" align=center colspan="3">&nbsp;</td>
+            <td height="100%"><img src="images/marco_r2_c3.gif" width="8" height="100%"></td>
+       </tr>
+       <tr>
+            <td height="100%"><img src="images/marco_r2_c1.gif" width="8" height="100%"></td>
+            <td width="100%" align=center colspan="3">&nbsp;</td>
+            <td height="100%"><img src="images/marco_r2_c3.gif" width="8" height="100%"></td>
+       </tr>
+       <tr>
+           <td width="8"><img src="images/marco_r3_c1.gif"></td>
+           <td width="100%" align=center colspan="3"><img src="images/marco_r3_c2.gif" width="100%" height="8"></td>
+           <td width="8"><img src="images/marco_r3_c3.gif"></td>
+       </tr>
+</table>
+<input type="HIDDEN" name="P_ACTION" value="GENERATE">
+</form>
+</body>
+
+</html>
+<%
+end if
+if (p_oper = "GENERATE") then
+    strPath = GenerarArchivo(GF_DTE2FN(dteFecha))
+    Call Descargar(strPath)
+end if
+%>

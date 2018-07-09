@@ -1,0 +1,316 @@
+<!--#include file="Includes/procedimientosMG.asp"-->
+<!--#include file="Includes/procedimientostraducir.asp"-->
+<!--#include file="Includes/procedimientosfechas.asp"-->
+<!--#include file="Includes/procedimientosAlmacenes.asp"-->
+<!--#include file="Includes/procedimientosFormato.asp"-->
+<!--#include file="Includes/procedimientosVales.asp"-->
+<!--#include file="Includes/procedimientosSQL.asp"-->
+<!--#include file="Includes/procedimientosObras.asp"-->
+<!--#include file="Includes/procedimientosPDF.asp"-->
+<!--#include file="Includes/procedimientosUser.asp"-->
+<!--#include file="Includes/procedimientosCTZ.asp"-->
+<%
+dim rs, conn, strSQL, oPDF, rsMovimientos, contador, color, nroPagina, currentY 
+dim  RPT_FechaDesde, RPT_FechaHasta, RPT_idArticulo, RPT_dsArticulo, picSearch_radioMoneda, RPT_pagosEfectuados,RPT_idCategoria,RPT_verDetalle
+dim SEPARATION, MARGIN, PAGE_HEIGHT_SIZE, PAGE_TOP_INIT
+
+SEPARATION = 12
+MARGIN = 0
+PAGE_HEIGHT_SIZE = 760
+PAGE_TOP_INIT = 82
+nroPagina = 1
+
+RPT_FechaDesde = GF_Parametros7("issuedate", "", 6)
+RPT_FechaHasta = GF_Parametros7("closingdate", "", 6)
+RPT_idArticulo = GF_Parametros7("idArticulo", 0, 6)
+RPT_division = GF_Parametros7("division", 0, 6)
+picSearch_radioMoneda = GF_PARAMETROS7("radio_TipoMoneda","",6)
+RPT_verDetalle = false
+if (RPT_idArticulo > 0) then
+	RPT_verDetalle = true
+else
+	RPT_pagosEfectuados = GF_Parametros7("verPagosEfectuados", "", 6)			
+	if (RPT_pagosEfectuados = "on") then RPT_verDetalle = true
+end if
+RPT_idCategoria = GF_Parametros7("idCategoria", 0, 6)
+'Response.Write "("& RPT_pagosEfectuados&")" 
+'Response.End
+Set oPDF = GF_createPDF("PDFTemp")
+Call GF_setPDFMODE(PDF_STREAM_MODE)
+call armadoPDF()
+Call GF_closePDF(oPDF)
+'-----------------------------------------------------------------------------------------------
+Function filtrarListaPIC(byref myWhere, fechaDesde, fechaHasta, iddivision)
+	Dim mmto	
+			
+	Call mkWhere(myWhere, "estado", CTZ_ANULADA, "<>", 3)
+	if (fechaDesde <> "")then 
+		mmto = GF_DTE2FN(fechaDesde) & "000000"	'Desde el inicio del día.
+		Call mkWhere(myWhere, "momento", mmto, ">=", 1)
+	end if
+	if (fechaHasta <> "")then 
+		mmto = GF_DTE2FN(fechaHasta) & "235959" 'Se incluye el día final completo.
+		Call mkWhere(myWhere, "momento", mmto, "<=", 1)
+	end if
+	if (iddivision <> 0)then Call mkWhere(myWhere, "iddivision", iddivision, "=", 1)
+	
+	filtrarListaPIC = myWhere	
+End function
+'---------------------------------------------------------------------------------------------------------
+Function obtenerListaPIC(idarticulo,fechadesde,fechahasta,iddivision,idCategoria)
+	Dim strSQL, rs, myWhere, conn
+	Call filtrarListaPIC(myWhere,fechadesde, fechahasta,iddivision)
+	
+	strSQL	  = "SELECT CAB.idproveedor, "&_
+			    "      CAB.momento FECHAPIC, "&_
+			    "      DET.*, "&_
+				"      ART.idunidad, "&_
+				"      ART.dsarticulo "&_
+				"FROM   (SELECT idcotizacion, "&_
+				"               idarticulo, "&_
+				"               Sum(cantidad)          cantidad, "&_
+				"               Sum(td.importepesos)   valtotpes, "&_
+				"               Sum(td.importedolares) valtotdol "&_
+				"        FROM   tblctzdetalle td " &_
+				"        WHERE (CANTIDAD > 0 or IMPORTEPESOS > 0 or IMPORTEDOLARES > 0)" 
+	IF(idarticulo <> 0)then strSQL = strSQL & " AND td.idarticulo = "& idarticulo
+	strSQL = strSQL & "  GROUP  BY idcotizacion, "&_
+				"                  idarticulo) DET "&_
+				"      INNER JOIN (SELECT * "&_
+				"                  FROM tblctzcabecera "& myWhere &" )CAB "&_
+				"              ON CAB.idcotizacion = DET.idcotizacion "&_
+				"      INNER JOIN tblarticulos ART "&_
+				"              ON DET.idarticulo = ART.idarticulo "&_
+				"      INNER JOIN tblartcategorias CAT "&_
+				"              ON CAT.idcategoria = ART.idcategoria "
+	IF(idCategoria <> 0)then strSQL = strSQL & " WHERE CAT.idCategoria = "& idCategoria
+	strSQL = strSQL & " ORDER  BY DET.idarticulo,DET.idcotizacion "
+	'Response.Write strSQL
+	'Response.end
+	Call executeQueryDb(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+	Set obtenerListaPIC = rs
+End Function
+'------------------------------------------------------------------------------------------
+Function armadoPDF()
+dim totalReg, i, myImporteUnitarioArt, myImporteTotalArt,rsFAC, myImporteFac, totalImporte, myMoneda	
+	totalImporte=0
+	currentY = armadoCabecera(GF_TRADUCIR("COMPRAS POR ARTICULO"), RPT_FechaDesde, RPT_FechaHasta, RPT_idArticulo, RPT_division, picSearch_radioMoneda,RPT_idCategoria)
+	set rsPIC = obtenerListaPIC(RPT_idArticulo,RPT_FechaDesde,RPT_FechaHasta,RPT_division,RPT_idCategoria)	
+	totalReg = rsPIC.RecordCount
+	if rsPIC.eof then
+		Call GF_horizontalLine(oPDF,20,currentY ,558)
+		Call GF_writeTextAlign(oPDF,20, currentY + 6, ucase("No se han encontrado resultados"), 590, PDF_ALIGN_CENTER)
+	else 
+		 currentY = currentY + SEPARATION
+		  while not rsPIC.eof
+			 i = i + 1			 
+			 cdArticuloOld = rsPIC("IDARTICULO")
+			 Call dibujarTitulosDetalle(currentY,rsPIC("idarticulo"))
+			 while (corteControlByProducto(rsPIC,cdArticuloOld))
+			 	if (picSearch_radioMoneda = "$") then
+			 		myMoneda = MONEDA_PESOS
+			 		myImporteTotalArt =Cdbl(rsPIC("valtotpes"))
+			 	else
+					myMoneda = MONEDA_DOLAR					
+					myImporteTotalArt = Cdbl(rsPIC("valtotdol"))					
+				end if				
+				myImporteUnitarioArt = myImporteTotalArt/Cdbl(rsPIC("cantidad"))
+				totalImporte = totalImporte+myImporteTotalArt
+				call dibujarPIC(currentY,rsPIC("IDCOTIZACION"),rsPIC("FechaPic"),rsPIC("idproveedor"), rsPIC("cantidad"), myImporteUnitarioArt, myImporteTotalArt,rsPIC("IDUNIDAD"),myMoneda)				
+				currentY = currentY + (SEPARATION)
+				if (RPT_verDetalle) then					
+					Set rsFAC = getRsFAC(rsPIC("IDCOTIZACION"))
+					response.write "3<br>"
+					if not rsFAC.eof then
+						Call dibujarTitularBoxDetalle(currentY)
+						currentY = currentY + SEPARATION + 1
+						if (picSearch_radioMoneda = "$") then 
+							myImporteFac = rsFAC("TOTALPESOS")
+						else
+							myImporteFac = rsFAC("TOTALDOLAR")
+						end if	
+					currentY = dibujarDetalleVale(currentY, rsFAC("FECHA"), rsFAC("MINUTA"), myImporteFac, rsFAC("TCBTE"), rsFAC("CBTE"),myMoneda)
+					end if
+				end if				
+				if currentY > PAGE_HEIGHT_SIZE and i <= totalReg then Call nuevaPagina()
+				rsPIC.moveNext
+			wend
+			if not rsPIC.Eof then currentY = currentY + 6
+		wend		
+		Call GF_horizontalLine(oPDF,20,currentY + 6 ,558)
+		call GF_setFont(oPDF,"COURIER",8,8)
+		Call GF_writeTextAlign(oPDF,454, currentY + 8, GF_TRADUCIR("TOTAL"), 60, PDF_ALIGN_LEFT)
+		Call GF_writeTextAlign(oPDF,506, currentY + 8, getSimboloMoneda(myMoneda)&" "&GF_EDIT_DECIMALS(CDbl(totalImporte),2) , 69,  PDF_ALIGN_RIGHT)
+		currentY = currentY + SEPARATION
+		Call GF_horizontalLine(oPDF,20,currentY + 6 ,558)
+		Call GF_writeTextAlign(oPDF, 20, currentY + 10, GF_TRADUCIR("FIN DEL REPORTE"), 550, PDF_ALIGN_CENTER)
+	end if
+end Function
+'------------------------------------------------------------------------------------------
+function nuevaPagina()
+	Call GF_newPage(oPDF)
+	currentY = PAGE_TOP_INIT
+	nroPagina = nroPagina + 1
+	call dibujarTitulo(GF_TRADUCIR("COMPRAS POR ARTÍCULO"))
+end function
+'------------------------------------------------------------------------------------------
+Function dibujarDetalleVale(currentY,fecha,nminuta, timporte, tipoF, ncomprobante,myMoneda)
+	call GF_setFont(oPDF,"COURIER",6,0)
+	Call GF_squareBox(oPDF, 100, currentY, 370, 10, 0, "#F5F6CE", "#F5F6CE", 1, PDF_SQUARE_NORMAL)
+	Call GF_writeTextAlign(oPDF,102, currentY+2,GF_FN2DTE(fecha), 100, PDF_ALIGN_CENTER)	
+	Call GF_writeTextAlign(oPDF,202, currentY+2, tipoF &" "& nminuta, 90, PDF_ALIGN_CENTER)	
+	Call GF_writeTextAlign(oPDF,292, currentY+2,  GF_EDIT_CBTE(ncomprobante), 90, PDF_ALIGN_CENTER)
+	Call GF_writeTextAlign(oPDF,402, currentY+2, getSimboloMoneda(myMoneda)&" "&timporte, 90, PDF_ALIGN_CENTER)
+	currentY = currentY + SEPARATION	
+	dibujarDetalleVale = currentY
+end Function
+'------------------------------------------------------------------------------------------
+function dibujarTitulosDetalle(ByRef pY,pIdArticulo)
+	Dim auxArtDS,auxArtAbrev
+	call GF_setFont(oPDF,"ARIAL",8,8)
+	if (RPT_idArticulo = 0) then
+		call getArticuloFull(pIdArticulo, auxArtDS, auxArtAbrev)
+		auxArt = pIdArticulo & " - " & auxArtDS & "[" & auxArtAbrev & "]"
+		Call GF_writeTextAlign(oPDF,20, pY, GF_TRADUCIR("Articulo: ") & auxArt, 200, PDF_ALIGN_LEFT)
+		pY = pY + SEPARATION
+	end if	
+	Call GF_squareBox(oPDF, 20	,pY , 40	, 13, 0, "#517b4a", "#000000", 1, PDF_SQUARE_NORMAL)
+	Call GF_squareBox(oPDF, 60	,pY , 50	, 13, 0, "#517b4a", "#000000", 1, PDF_SQUARE_NORMAL)	
+	Call GF_squareBox(oPDF, 110	,pY , 294	, 13, 0, "#517b4a", "#000000", 1, PDF_SQUARE_NORMAL)
+	Call GF_squareBox(oPDF, 404	,pY , 35	, 13, 0, "#517b4a", "#000000", 1, PDF_SQUARE_NORMAL)
+	Call GF_squareBox(oPDF, 439	,pY , 67	, 13, 0, "#517b4a", "#000000", 1, PDF_SQUARE_NORMAL)	
+	Call GF_squareBox(oPDF, 506	,pY , 69	, 13, 0, "#517b4a", "#000000", 1, PDF_SQUARE_NORMAL)	
+	call GF_setFontColor("FFFFFF")
+	pY = pY + 2
+	Call GF_writeTextAlign(oPDF, 20, pY 	, GF_TRADUCIR("NºPIC")			, 40	, PDF_ALIGN_CENTER)
+	Call GF_writeTextAlign(oPDF, 60, pY	, GF_TRADUCIR("FECHA")			, 50	, PDF_ALIGN_CENTER)	
+	Call GF_writeTextAlign(oPDF, 110, pY	, GF_TRADUCIR("PROVEEDOR")	, 294	, PDF_ALIGN_CENTER)
+	Call GF_writeTextAlign(oPDF, 404, pY	, GF_TRADUCIR("CANT.")	, 35	, PDF_ALIGN_CENTER)
+	Call GF_writeTextAlign(oPDF, 439, pY	, GF_TRADUCIR("PRECIO U.")			, 67	, PDF_ALIGN_CENTER)	
+	Call GF_writeTextAlign(oPDF, 506, pY	, GF_TRADUCIR("TOTAL")			, 69	, PDF_ALIGN_CENTER)	
+	call GF_setFontColor("000000")
+	pY = pY + SEPARATION
+end function
+'------------------------------------------------------------------------------------------
+Function dibujarTitularBoxDetalle(pY)
+	Call GF_squareBox(oPDF, 100, pY, 100, 12, 0, "#F2F5A9", "#000000", 1, PDF_SQUARE_NORMAL)
+	Call GF_squareBox(oPDF, 200, pY, 90, 12, 0, "#F2F5A9", "#000000", 1, PDF_SQUARE_NORMAL)
+	Call GF_squareBox(oPDF, 290, pY, 90, 12, 0, "#F2F5A9", "#000000", 1, PDF_SQUARE_NORMAL)
+	Call GF_squareBox(oPDF, 380, pY, 90, 12, 0, "#F2F5A9", "#000000", 1, PDF_SQUARE_NORMAL)
+	call GF_setFont(oPDF,"ARIAL",6,8)
+	call GF_setFontColor("000000")
+	Call GF_writeTextAlign(oPDF, 102, pY+2	, GF_TRADUCIR("FECHA PAGO"), 100	, PDF_ALIGN_CENTER)
+	Call GF_writeTextAlign(oPDF, 202, pY+2	, GF_TRADUCIR("Nº MINUTA"), 90	, PDF_ALIGN_CENTER)	
+	Call GF_writeTextAlign(oPDF, 292, pY+2	, GF_TRADUCIR("Nº FACTURA")	, 90	, PDF_ALIGN_CENTER)		
+	Call GF_writeTextAlign(oPDF, 382, pY+2	, GF_TRADUCIR("IMPORTE")	, 90	, PDF_ALIGN_CENTER)		
+	call GF_setFontColor("000000")
+end Function
+'----------------------------------------------------------------------------------
+Function dibujarPIC(pY, idCotizacion, fechaPIC, idproveedor, cantidad, precioUnitario, precioTotal, unidad,myMoneda)
+	Dim auxValeRelacionado, dsPartSector, proveedor
+
+	call GF_setFont(oPDF,"COURIER",8,0)
+	contador = contador + 1
+	if (contador mod 2) then 
+		color = "#FFFFFF"			
+	else
+		color = "#CECEF6"
+	end if	
+	proveedor = idProveedor&"-"&getDescripcionProveedor(idProveedor)
+	if (len(trim(proveedor))>55) then proveedor  = left(proveedor ,50) & "..."
+	Call GF_squareBox(oPDF, 20, pY, 555, 12, 0, color, color, 1, PDF_SQUARE_NORMAL)
+	Call GF_writeTextAlign(oPDF,20, pY, idCotizacion, 40, PDF_ALIGN_CENTER)	
+	Call GF_writeTextAlign(oPDF,60, pY, GF_FN2DTE(left(fechaPic, 8)), 50, PDF_ALIGN_CENTER)
+	Call GF_writeTextAlign(oPDF,115, pY, proveedor , 294, PDF_ALIGN_LEFT)	
+	Call GF_writeTextAlign(oPDF,404, pY, cantidad&" "&getAbreviaturaUnidad(unidad), 35, PDF_ALIGN_CENTER)
+	Call GF_writeTextAlign(oPDF,439, pY, getSimboloMoneda(myMoneda)&" "&GF_EDIT_DECIMALS(CDbl(precioUnitario),2), 67, PDF_ALIGN_RIGHT)	
+	Call GF_writeTextAlign(oPDF,506, pY, getSimboloMoneda(myMoneda)&" "&GF_EDIT_DECIMALS(CDbl(precioTotal),2), 69, PDF_ALIGN_RIGHT)	
+end function
+'------------------------------------------------------------------------------------------
+function dibujarTitulo(pTitulo)
+	Call GF_squareBox(oPDF, 2, 2, 590, 833, 0, "", "#0B3B0B", 2, PDF_SQUARE_ROUND)
+	'Call GF_writeImage(oPDF, Server.MapPath("images\ADMLogo2.jpg"), 20, 10, 75, 75, 0)
+	call GF_setFont(oPDF,"ARIAL",16,8)
+	Call GF_writeTextAlign(oPDF,2, 25, GF_TRADUCIR(pTitulo), 590, PDF_ALIGN_CENTER)
+	Call GF_horizontalLine(oPDF,2,65,590)
+	call GF_setFont(oPDF,"ARIAL",8,0)
+	Call GF_writeTextAlign(oPDF, 10 , 840, "Pagina  " & nroPagina		 , 580 , PDF_ALIGN_RIGHT)		
+
+	Call GF_setFont(oPDF,"COURIER",8,0)
+	GP_CONFIGURARMOMENTOS
+	Call GF_writeTextAlign(oPDF,5,5,GF_FN2DTE(session("MmtoSistema")), 580 , PDF_ALIGN_RIGHT)
+	Call GF_writeTextAlign(oPDF,5,15,session("Usuario"), 580 , PDF_ALIGN_RIGHT)
+end function
+'------------------------------------------------------------------------------------------
+Function armadoCabecera(p_Titulo, fechaDesde, fechaHasta, idArticulo, division, moneda, idCategoria)
+	dim yInicio, ySeparation 
+	yInicio = PAGE_TOP_INIT
+	call dibujarTitulo(p_Titulo)
+	call GF_setFont(oPDF,"COURIER",8,0)
+	
+	auxFechaDesde = GF_Traducir("Todas") 
+	Call GF_writeTextAlign(oPDF, 20, yInicio, GF_TRADUCIR("Fecha Desde.....:")	, 50, PDF_ALIGN_LEFT)
+	if (fechaDesde <> "") then auxFechaDesde = fechaDesde 
+	Call GF_writeTextAlign(oPDF, 110, yInicio, ucase(auxFechaDesde), 200, PDF_ALIGN_LEFT)	
+	yInicio = yInicio + SEPARATION
+
+	auxFechaHasta = GF_Traducir("Todas") 
+	Call GF_writeTextAlign(oPDF, 20, yInicio, GF_TRADUCIR("Fecha Hasta.....:")	, 50, PDF_ALIGN_LEFT)
+	if (fechaHasta <> "") then auxFechaHasta = fechaHasta  
+	Call GF_writeTextAlign(oPDF, 110, yInicio, ucase(auxFechaHasta), 200, PDF_ALIGN_LEFT)
+	yInicio = yInicio + SEPARATION
+	
+	Call GF_writeTextAlign(oPDF, 20, yInicio, GF_TRADUCIR("Categoria.......:")		, 50, PDF_ALIGN_LEFT)	
+	auxCategoria = GF_Traducir("Todas")
+	if (idCategoria <> 0) then auxCategoria = getCategoriaDS(idCategoria)
+	Call GF_writeTextAlign(oPDF, 110, yInicio, ucase(auxCategoria), 200, PDF_ALIGN_LEFT)
+	yInicio = yInicio + SEPARATION
+	
+	auxArt = GF_Traducir("Todos") 
+	Call GF_writeTextAlign(oPDF, 20, yInicio, GF_TRADUCIR("Articulo........:")		, 50, PDF_ALIGN_LEFT)
+	if (idArticulo <> 0) then 
+		call getArticuloFull(idArticulo, auxArtDS, auxArtAbrev)
+		auxArt = idArticulo & " - " & auxArtDS & "[" & auxArtAbrev & "]"
+	end if	
+	Call GF_writeTextAlign(oPDF, 110, yInicio , ucase(auxArt), 200, PDF_ALIGN_LEFT)
+	yInicio = yInicio + SEPARATION	
+	
+	auxDivision = GF_Traducir("Todas") 
+	Call GF_writeTextAlign(oPDF, 20, yInicio, GF_TRADUCIR("Division........:")	, 50, PDF_ALIGN_LEFT)
+	if (division <> "") then auxDivision = division  
+	Call GF_writeTextAlign(oPDF, 110, yInicio, ucase(getDivisionDS(auxDivision)), 200, PDF_ALIGN_LEFT)
+	yInicio = yInicio + SEPARATION
+	
+	auxMoneda = GF_Traducir("Todas")
+	Call GF_writeTextAlign(oPDF, 20, yInicio, GF_TRADUCIR("Moneda..........:")	, 50, PDF_ALIGN_LEFT)
+	if (moneda <> "") then auxMoneda = moneda
+	Call GF_writeTextAlign(oPDF, 110, yInicio, moneda, 200, PDF_ALIGN_LEFT)
+	yInicio = yInicio + SEPARATION
+		
+	armadoCabecera = yInicio
+
+end Function
+'------------------------------------------------------------------------------------------	
+Function getRsFAC(idPIC)
+	dim strSQL, conn, rs	
+
+    strSQL = "Select   convert(varchar(10),c.fecvto,112) as FECHA, "
+	strSQL = strSQL &"  A.NroInt as MINUTA, "
+	strSQL = strSQL &"  A.ImportePesos as TOTALPESOS, "
+	strSQL = strSQL &"  A.ImporteDolares as TOTALDOLAR,  "
+	strSQL = strSQL &"  C.tipcbt as TCBTE, "
+	strSQL = strSQL &"  C.nrocbt as CBTE  "
+	strSQL = strSQL &" from (select * from VWMEP001C Where IDPIC = " & idPIC &") A "
+ 	strSQL = strSQL &" inner join VWCOMPROBANTES C on A.NroInt = C.nroint "
+    Call executeQueryDb(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+	Set getRsFAC = rs
+End Function
+
+'------------------------------------------------------------------------------------------	
+Function corteControlByProducto(pRs,pCdArticulo)
+	corteControlByProducto = false
+	if (not pRs.Eof) then
+		if (Cdbl(pRs("IDARTICULO")) = Cdbl(pCdArticulo)) then corteControlByProducto = true
+	end if
+End function
+%>

@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<script type="text/javascript" src="scripts/md5.js"></script>
+		<script type="text/javascript">
+			function genMD5pass() {
+				var p = document.getElementById("clave").value;
+				document.getElementById("clave2").innerHTML = MD5(p);
+			}
+		</script>
+	</head>
+	<body>
+		Password: <input type="password" id="clave"><br />
+		<br />
+		MD5: <span id="clave2"></span><br />
+		<br />
+		<br />
+		<input type="button" onclick="genMD5pass();" value="GENERAR" />
+	</body>
+</html>

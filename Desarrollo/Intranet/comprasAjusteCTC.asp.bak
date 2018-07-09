@@ -1,0 +1,343 @@
+<!--#include file="Includes/procedimientosMG.asp"-->
+<!--#include file="Includes/procedimientostraducir.asp"-->
+<!--#include file="Includes/procedimientosfechas.asp"-->
+<!--#include file="Includes/procedimientosCompras.asp"-->
+<!--#include file="Includes/procedimientosCTC.asp"-->
+<!--#include file="Includes/procedimientosCTZ.asp"-->
+<!--#include file="Includes/procedimientosUser.asp"-->
+<!--#include file="Includes/procedimientosFormato.asp"-->
+<!--#include file="Includes/procedimientosObras.asp"-->
+<%
+'***********************************************************************************
+'*******	                     COMIENZO DE LA PAGINA                      ********
+'***********************************************************************************
+
+Dim idContrato, idArticulo, accion, newTotalPesos, newTotalDolares, saldoPesos, saldoDolares, ajuPesos, ajuDolares
+Dim guardado, aprobado, idArea, idDetalle, abrevUnidad, ajuCantidad, saldoCantidad, estado, ajusteImporte
+Dim myObraIdDivision, myObraDsDivision, member2Cd
+
+guardado = false
+idContrato = GF_Parametros7("idContrato",0,6)
+accion = GF_PARAMETROS7("accion","",6)
+newTotalPesos = GF_PARAMETROS7("newTotalPesos",2,6)
+newTotalDolares = GF_PARAMETROS7("newTotalDolares",2,6)
+CTC_observaciones = GF_PARAMETROS7("CTC_observaciones","",6)
+member2Cd = GF_PARAMETROS7("member2Cd","",6)
+
+'Se controla que se haya indicado un contrato y que este existe.
+if idContrato <> 0 then
+	Set rsContrato = readCTC(idContrato)
+	CTC_cdMoneda = rsContrato("CDMONEDA")
+	if (rsContrato.eof) then Response.Redirect "comprasAccesoDenegado.asp"
+	Call readCTCTotalPagado(idContrato, CTC_ImportePesosFacturado, CTC_ImporteDolaresFacturado)
+else
+	Response.Redirect "comprasAccesoDenegado.asp"
+end if
+
+CTC_cdResponsable = rsContrato("CDRESPONSABLE")
+CTC_ContratoPesos	= Cdbl(rsContrato("IMPORTEPESOS"))
+CTC_ContratoDolares = Cdbl(rsContrato("IMPORTEDOLARES"))
+CTC_tipoCambio		= 0
+if (CTC_ContratoDolares > 0) then 
+    CTC_tipoCambio = round(CTC_ContratoPesos/CTC_ContratoDolares, 3)
+else
+    CTC_tipoCambio = getTipoCambio(MONEDA_DOLAR,"")
+end if
+CTC_idDivision = rsContrato("IDDIVISION")
+CTC_idObra = rsContrato("IDOBRA")
+CTC_areaObra = rsContrato("IDAREA")
+CTC_detalleObra = rsContrato("IDDETALLE")
+'El importe ajustado estará en la moneda en la cual se nomine el contrato!!!. En la pantalla se mostrará solo uno de los campos, segun corresponda.
+if ((newTotalDolares = 0) and (newTotalPesos = 0) and (accion = "")) then
+	newTotalPesos = CTC_ContratoPesos/100
+	newTotalDolares = CTC_ContratoDolares/100
+else	
+	if newTotalDolares = 0 then
+		if (CTC_tipoCambio <> 0) then newTotalDolares = round(newTotalPesos/CTC_tipoCambio,2)
+	end if	
+	if newTotalPesos = 0 then
+		if (CTC_tipoCambio <> 0) then newTotalPesos = round(newTotalDolares*CTC_tipoCambio,2)
+	end if	
+end if
+
+'Si se anula completamente uno de los dos importes, se anula el otro.
+if (((newTotalPesos*100) = CTC_ImportePesosFacturado) or ((newTotalDolares*100) = CTC_ImporteDolaresFacturado)) then
+	newTotalPesos = CTC_ImportePesosFacturado/100
+	newTotalDolares = CTC_ImporteDolaresFacturado/100
+end if
+
+ajuPesos = (newTotalPesos*100) - CTC_ContratoPesos
+ajuDolares = (newTotalDolares*100) - CTC_ContratoDolares
+
+saldoPesos = CTC_ContratoPesos-CTC_ImportePesosFacturado+ajuPesos
+saldoDolares = CTC_ContratoDolares-CTC_ImporteDolaresFacturado+ajuDolares
+
+if Controlar then
+	if accion = ACCION_GRABAR then
+		guardado = true
+		'GUARDAR <CABECERA> DEL AJUSTE
+		strSQL = "SELECT * FROM TOEPFERDB.TBLOBRACTCAJUSTES WHERE IDCONTRATO=" & idContrato & " AND APLICADO='" & TIPO_NEGACION & "' AND TIPOAJUSTE='" & CTC_AJUSTE_GENERAL & "'"  				
+		Call executeQuery(rs, "OPEN", strSQL)
+		if not rs.eof then
+			myIdAjuste = rs("IDAJUSTE")
+			strSQL = "UPDATE TOEPFERDB.TBLOBRACTCAJUSTES SET APLICADO='" & TIPO_NEGACION & "', IMPORTEPESOS=" & ajuPesos & ", IMPORTEDOLARES=" & ajuDolares & ", OBSERVACIONES='" & CTC_observaciones & "', CDUSUARIO='" & session("usuario") & "', MOMENTO=" & session("MmtoSistema") & " WHERE IDAJUSTE=" & myIdAjuste			
+			Call executeQuery(rs, "EXEC", strSQL)
+		else
+			strSQL = "INSERT INTO TOEPFERDB.TBLOBRACTCAJUSTES(IDCONTRATO, IMPORTEPESOS, IMPORTEDOLARES, OBSERVACIONES, APLICADO, CDUSUARIO, MOMENTO, TIPOAJUSTE) VALUES(" & idContrato & "," & ajuPesos & "," & ajuDolares & ", '" & CTC_observaciones & "','" & TIPO_NEGACION & "','" & session("usuario") & "'," & session("MmtoSistema") & ", '" & CTC_AJUSTE_GENERAL & "')"				
+			Call executeQuery(rs, "EXEC", strSQL)
+			strSQL = "SELECT * FROM TOEPFERDB.TBLOBRACTCAJUSTES WHERE IDCONTRATO=" & idContrato & " AND APLICADO='" & TIPO_NEGACION & "'" 
+			Call executeQuery(rs, "OPEN", strSQL)
+			myIdAjuste = rs("IDAJUSTE")
+		end if	
+		
+		'Response.Write strSQL
+
+		'GUARDAR <FIRMAS> DEL AJUSTE
+		'Si el precio del contrato aumento, se debe autorizar el ajuste.
+		ajusteImporte = ajuDolares
+		if (rsContrato("CDMONEDA") = MONEDA_PESO) then ajusteImporte = ajuPesos
+		'Si se esta disminuyendo el importe del contrato, se da por aprobado automaticamente el ajuste.		
+		if (CDbl(ajusteImporte) < 0)  then					            
+            myEstado = ESTADO_CTC_AUTORIZADO
+            if (saldoPesos <= 0) or (saldoDolares <= 0) then myEstado = ESTADO_CTC_FINALIZADO
+            'Se actualiza el estado del contrato.
+			strSQL="Update TOEPFERDB.TBLOBRACONTRATOS set IMPORTEPESOS=" & (newTotalPesos*100) & ", IMPORTEDOLARES=" & (newTotalDolares*100) & ", ESTADO=" & myEstado & " where IDCONTRATO=" & idContrato
+			Call executeQuery(rs, "EXEC", strSQL)
+			
+			'ACTUALIZAR ESTADO DE AJUSTE
+			strSQL = "UPDATE TOEPFERDB.TBLOBRACTCAJUSTES SET APLICADO='" & TIPO_AFIRMACION & "' WHERE IDAJUSTE=" & myIdAjuste
+			'Response.Write strSQLAux
+			Call executeQuery(rs, "EXEC", strSQL)				
+			
+			Call setInfo(CTZ_AJU_APROBADO)		
+		else 			
+			'EL Contrato PASA A ESTADO EN AJUSTE
+			strSQL = "UPDATE TOEPFERDB.TBLOBRACONTRATOS SET ESTADO=" & ESTADO_CTC_EN_AJUSTE & " WHERE IDCONTRATO=" & idContrato			
+			Call executeQuery(rs, "EXEC", strSQL)
+		    'Se cargan las firmas.
+		    Call addAJUCTCFirmas(myIdAjuste, CTC_idDivision, rsContrato("CDRESPONSABLE"), member2Cd)		    		    
+		    Call setWarning(CTZ_AJU_NO_APROBADO)
+		end if
+			        			
+		
+	end if		
+end if
+'----------------------------------------------------------------------------------------------------------------------------------
+function Controlar
+	if accion = "" then 
+		accion = ACCION_CONTROLAR
+	else	
+	    if (CTC_cdMoneda = MONEDA_PESO) then
+		    if (Round(cdbl(newTotalPesos)*100, 0) < Round(cdbl(CTC_ImportePesosFacturado), 0)) then Call setError(CTZ_AJU_TOTAL_BAJO)
+        else
+            if (Round(cdbl(newTotalDolares)*100, 0) < Round(cdbl(CTC_ImporteDolaresFacturado), 0)) then Call setError(CTZ_AJU_TOTAL_BAJO)
+        end if		    
+				
+		if  ((cdbl(newTotalPesos)*100 = cdbl(CTC_ContratoPesos)) and (cdbl(newTotalDolares)*100 = cdbl(CTC_ContratoDolares))) then
+			Call setError(CTZ_AJU_IMP_IGUALES)
+		end if			
+		
+		if len(CTC_observaciones) < 1 then Call setError(COMENTARIO_REQUERIDO) 
+		
+		if (member2Cd = "") then Call setError(AUTORIZANTE_NO_EXISTE)
+		
+        'Controlo que la partida presupuestaria del contrato no este en proceso de reasignacion/ajuste
+        if (tieneReasignacionAjusteActivo(CTC_idObra, CTC_areaObra, CTC_detalleObra)) then Call setError(BUDGET_REASIGNACION_EN_PROCESO)
+	end if
+	if not hayError() then Controlar = true
+end function
+'----------------------------------------------------------------------------------------------------------------------------------
+%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title><% =GF_TRADUCIR("Sistema de Compras - Ajuste CTC") %></title>
+<link rel="stylesheet" href="css/ActiSAIntra-1.css" type="text/css">
+<link rel="stylesheet" href="css/Toolbar.css" type="text/css">
+<link rel="stylesheet" href="css/iwin.css" type="text/css">
+<style type="text/css">
+.titleStyle {
+	font-weight: bold;
+	font-size: 20px;
+}
+.labelStyle {
+	font-weight: bold;	
+}
+.numberStyle {
+	font-weight: bold;
+	font-size: 14px;
+}
+.msgOK {
+	font-weight: bold;
+	font-size: 14px;
+	color: #44CC66;
+}
+</style>
+<script type="text/javascript" src="scripts/channel.js"></script>
+<script type="text/javascript" src="scripts/calendar.js"></script>
+<script type="text/javascript" src="scripts/formato.js"></script>
+<script type="text/javascript" src="scripts/controles.js"></script>
+<script type="text/javascript" src="scripts/Toolbar.js"></script>
+<script type="text/javascript" src="scripts/calendar-1.js"></script>
+<script type="text/javascript" src="scripts/iwin.js"></script>
+<script type="text/javascript">
+	var importesItemDolares;
+	var importesItemPesos;
+	var importesScrDolares;	//Backup de los valores enviados a pantalla (Sirve para detectar cambio)
+	var importesScrPesos;		//Backup de los valores enviados a pantalla (Sirve para detectar cambio)
+	var refpopupAjuCTC;
+	function bodyOnLoad(){
+		var tb = new Toolbar('toolbar', 4, 'images/compras/');
+		<% if not guardado then %>
+		idBtnGuardar = tb.addButtonSAVE("Guardar", "submitInfo('<% =ACCION_GRABAR %>')");
+		idBtnControl = tb.addButtonCONFIRM("Controlar",  "submitInfo('<% =ACCION_CONTROLAR %>')");			
+		<% end if %>	
+		tb.draw();
+	}
+	
+	function seleccionAutorizante() {
+        if (document.getElementById("cmbUsrAut")) {
+	        var e = document.getElementById("cmbUsrAut");
+            document.getElementById("member2Cd").value = e.options[e.selectedIndex].value;
+        }            
+    }
+	    
+	function submitInfo(acc){
+		document.getElementById("accion").value = acc;
+		document.getElementById("frmSel").submit();
+	}		
+	function sumarTotal(cur) {
+		var tipoCambio = <% =CTC_tipoCambio %>;
+		var totalDolares = 0;
+		var totalPesos = 0;
+		var aux1 = 0;
+
+		var objP = document.getElementById("newTotalPesos");
+		var objPValue = objP.value.replace(/,/,".");
+		var objD = document.getElementById("newTotalDolares");
+		var objDValue = objD.value.replace(/,/,".");
+		if (cur == "D") {
+			if (importesScrDolares != objD.value){ 
+				aux1 = objD.value * tipoCambio;
+				objP.value = aux1;
+			}	
+		} else {
+			if (importesScrPesos != objP.value)
+				if (tipoCambio > 0){ 
+					aux1 = objPValue / tipoCambio;
+					objD.value = aux1;					
+				}	
+		}				
+		importesItemDolares = objD.value;
+		importesItemPesos = objP.value;
+		objP.value = editarImporte(objP.value);
+		if (objP.value == 0) objP.value = "";
+		objD.value = editarImporte(objD.value);
+		if (objD.value == 0) objD.value = "";
+		importesScrDolares = objD.value;
+		importesScrPesos = objP.value;		
+	}	
+</script>
+</head>
+<body onLoad="bodyOnLoad()">
+<form method="post" id="frmSel" action="comprasAjusteCTC.asp?idContrato=<%=idContrato%>">
+<div id="toolbar"></div><br>
+<table class="reg_header" align="center" width="95%" border="0">				
+	<tr>
+		<td colspan="3"><% call showErrors() %></td>
+	</tr>
+	<tr>
+		<td align="right" class="numberStyle" colspan="3"><% =GF_TRADUCIR("Contrato:") %>&nbsp;<% =rsContrato("CDCONTRATO") %></td>				
+	</tr>
+	<tr>
+		<td class="reg_header_nav recuadroRound" colspan="3"><% =GF_TRADUCIR("Datos del Contrato") %></td>
+	</tr>
+	<tr>
+		<td></td>						
+		<td align="center" width="20%" id="tituloPesos"><b><u><% =GF_TRADUCIR("Pesos")   %></u></b></td>
+		<td align="center" width="20%" id="tituloDolares"><b><u><% =GF_TRADUCIR("Dolares") %></u></b></td>						
+	</tr>
+	<tr>
+		<td class="reg_header_nav recuadroRound"><% =GF_TRADUCIR("Total del Contrato") %></td>				
+		<td align="right"><font size="+1"><b><%=getSimboloMoneda(MONEDA_PESO) & " " & GF_EDIT_DECIMALS(CTC_ContratoPesos,2)%></b></font></td>	
+		<td align="right"><font size="+1"><b><%=getSimboloMoneda(MONEDA_DOLAR) & " " & GF_EDIT_DECIMALS(CTC_ContratoDolares,2)%></b></font></td>	
+	</tr>
+	<tr>
+		<td COLSPAN="3" align="right"><HR></td>	
+	</tr>			
+	<tr>
+		<td class="reg_header_nav recuadroRound"><% =GF_TRADUCIR("Facturado hasta el momento") %></td>						
+		<td align="right"><font size="+1"><b><%=getSimboloMoneda(MONEDA_PESO) & " " & GF_EDIT_DECIMALS(CTC_ImportePesosFacturado,2)%></b></font></td>
+		<td align="right"><font size="+1"><b><%=getSimboloMoneda(MONEDA_DOLAR) & " " & GF_EDIT_DECIMALS(CTC_ImporteDolaresFacturado,2)%></b></font></td>
+	</tr>
+	<tr>
+		<td class="reg_header_nav recuadroRound"><% =GF_TRADUCIR("Ajuste") %></td>						
+		<td align="right"><font size="+1"><b><%=getSimboloMoneda(MONEDA_PESO) & " " & GF_EDIT_DECIMALS(ajuPesos,2)%></b></font></td>
+		<td align="right"><font size="+1"><b><%=getSimboloMoneda(MONEDA_DOLAR) & " " & GF_EDIT_DECIMALS(ajuDolares,2)%></b></font></td>
+	</tr>
+	<tr>
+		<td class="reg_headeAr_nav recuadroRound"></td>				
+		<td align="right"><HR></td>	
+		<td align="right"><HR></td>
+	</tr>
+	<tr>
+		<td class="reg_header_nav recuadroRound"><b><% =GF_TRADUCIR("Saldo") %></b></td>		
+		<td align="right"><font size="+1"><b><%=getSimboloMoneda(MONEDA_PESO) & " " & GF_EDIT_DECIMALS(saldoPesos,2)%></b></font></td>	
+		<td align="right"><font size="+1"><b><%=getSimboloMoneda(MONEDA_DOLAR) & " " & GF_EDIT_DECIMALS(saldoDolares,2)%></b></font></td>
+	</tr>
+	<tr>
+		<td COLSPAN="3" align="right"><HR></td>	
+	</tr>
+	<%if not guardado then %>
+	<tr>
+		<td class="reg_header_nav recuadroRound"><% =GF_TRADUCIR("Nuevo Total del Contrato") %></td>		
+		<%	if (rsContrato("CDMONEDA") = MONEDA_PESO) then 
+				tipoInputPesos = "text" 
+				tipoInputDolares = "hidden"
+			else
+				tipoInputPesos = "hidden" 
+				tipoInputDolares = "text"
+			end if
+		%>
+		<td align="right"><input style="text-align:right;" type="<% =tipoInputPesos %>" size="25" onBlur="sumarTotal('P')" name="newTotalPesos" id="newTotalPesos" size="10" onkeypress="return controlIngreso(this, event, 'I');" value="<%=newTotalPesos%>"></td>		
+		<td align="right"><input style="text-align:right;" type="<% =tipoInputDolares %>" size="25" onBlur="sumarTotal('D')" name="newTotalDolares" id="newTotalDolares" size="10" onkeypress="return controlIngreso(this, event, 'I');" value="<%=newTotalDolares%>"></td>
+	</tr>
+	<tr>
+		<td COLSPAN="3" align="right"><HR></td>	
+	</tr>
+	<%end if %>
+	<tr>
+		<td class="reg_header_nav recuadroRound" colspan="3"><% =GF_TRADUCIR("Justificación del Ajuste") %></td>				
+	</tr>
+	<tr>		
+			<%if guardado then			
+				Response.Write "<td colspan='3' align=left>" & CTC_observaciones
+			else%>	
+				<td colspan="3" align=center>
+					<textarea name="CTC_observaciones" id="CTC_observaciones" cols="100"><%=CTC_observaciones%></textarea>				
+			<%end if%>	
+		</td>
+	</tr>
+	<tr>
+		<td class="reg_header_nav" colspan="4"><% =GF_TRADUCIR("Firmantes") %></td>
+	</tr>
+	<tr>
+		<td align="center">
+		    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+		        <tr>
+		            <td width="50%" align="center">Responsable</td>
+		            <td width="50%" align="center">Autorizante</td>
+		        </tr>
+		        <tr>
+		            <td width="50%" align="center"><b><% =getUserDescription(CTC_cdResponsable) %></b></td>
+		            <td width="50%" align="center"><% Call dibujarComboGte(CTC_cdResponsable, member2Cd) %></td>
+		        </tr>
+		    </table>					
+		</td>
+	</tr>
+</table>
+<input type="hidden" name="accion" id="accion">
+<input type="hidden" id="member2Cd" name="member2Cd" value="<%=member2Cd%>">
+</form>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!--#include file="Includes/procedimientostraducir.asp"-->
+<!--#include file="Includes/procedimientosfechas.asp"-->
+<!--#include file="Includes/procedimientosAlmacenes.asp"-->
+<!--#include file="Includes/procedimientosFormato.asp"-->
+<!--#include file="Includes/procedimientosVales.asp"-->
+<!--#include file="Includes/procedimientosSQL.asp"-->
+<!--#include file="Includes/procedimientosObras.asp"-->
+<!--#include file="Includes/procedimientosExcel.asp"-->
+<!--#include file="Includes/procedimientosUser.asp"-->
+<!--#include file="Includes/procedimientosCTZ.asp"-->
+<%
+'-----------------------------------------------------------------------------------------------
+Function filtrarListaPIC(byref myWhere, fechaDesde, fechaHasta, iddivision)
+	Dim mmto	
+			
+	Call mkWhere(myWhere, "estado", CTZ_ANULADA, "<>", 3)
+	if (fechaDesde <> "")then 
+		mmto = GF_DTE2FN(fechaDesde) & "000000"	'Desde el inicio del día.
+		Call mkWhere(myWhere, "momento", mmto, ">=", 1)
+	end if
+	if (fechaHasta <> "")then 
+		mmto = GF_DTE2FN(fechaHasta) & "235959" 'Se incluye el día final completo.
+		Call mkWhere(myWhere, "momento", mmto, "<=", 1)
+	end if
+	if (iddivision <> 0)then Call mkWhere(myWhere, "iddivision", iddivision, "=", 1)
+	
+	filtrarListaPIC = myWhere	
+End function
+'---------------------------------------------------------------------------------------------------------
+Function obtenerListaPIC(idarticulo,fechadesde,fechahasta,iddivision,idCategoria)
+	Dim strSQL, rs, myWhere, conn
+	Call filtrarListaPIC(myWhere,fechadesde, fechahasta,iddivision)
+	
+	strSQL	  = "SELECT CAB.idproveedor, "&_
+			    "      CAB.momento FECHAPIC, "&_
+			    "      DET.*, "&_
+				"      ART.idunidad, "&_
+				"      ART.dsarticulo "&_
+				"FROM   (SELECT idcotizacion, "&_
+				"               idarticulo, "&_
+				"               Sum(cantidad)          cantidad, "&_
+				"               Sum(td.importepesos)   valtotpes, "&_
+				"               Sum(td.importedolares) valtotdol "&_
+				"        FROM   tblctzdetalle td " &_
+				"        WHERE (CANTIDAD > 0 or IMPORTEPESOS > 0 or IMPORTEDOLARES > 0)"
+	IF(idarticulo <> 0)then strSQL = strSQL & " AND td.idarticulo = "& idarticulo
+
+	strSQL = strSQL & "  GROUP  BY idcotizacion, "&_
+				"                  idarticulo) DET "&_
+				"      INNER JOIN (SELECT * "&_
+				"                  FROM tblctzcabecera "& myWhere &" )CAB "&_
+				"              ON CAB.idcotizacion = DET.idcotizacion "&_
+				"      INNER JOIN tblarticulos ART "&_
+				"              ON DET.idarticulo = ART.idarticulo "&_
+				"      INNER JOIN tblartcategorias CAT "&_
+				"              ON CAT.idcategoria = ART.idcategoria "
+	IF(idCategoria <> 0)then strSQL = strSQL & " WHERE CAT.idCategoria = "& idCategoria
+	strSQL = strSQL & " ORDER  BY DET.idarticulo,DET.idcotizacion "
+	'Response.Write strSQL
+	'Response.end
+	Call executeQueryDb(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+	Set obtenerListaPIC = rs
+End Function
+'------------------------------------------------------------------------------------------
+Function dibujarDetalleVale(fecha,nminuta, timporte, tipoF, ncomprobante,myMoneda)
+	%>
+	<tr>
+		<td align="center" class="itemDetalle" ><%=GF_FN2DTE(fecha)%></td>
+		<td align="center" class="itemDetalle"><%=tipoF &" "& nminuta%></td>
+		<td align="center" class="itemDetalle"><%=GF_EDIT_CBTE(ncomprobante)%></td>
+		<td align="right"  class="itemDetalle"><%=getSimboloMoneda(myMoneda)&" "&timporte%></td>
+	</tr>
+	<%
+end Function
+'------------------------------------------------------------------------------------------
+function dibujarTitulosDetalle()
+%>	
+	<tr>
+	    <td class="titulosCabecera" align="center"><% =GF_TRADUCIR("N° ARTICULO") %></td>
+	    <td class="titulosCabecera" align="center"><% =GF_TRADUCIR("DESC. ARTICULO") %></td>
+	    <td class="titulosCabecera" align="center"><% =GF_TRADUCIR("N° PIC") %></td>
+		<td class="titulosCabecera" align="center"><% =GF_TRADUCIR("FECHA") %></td>			
+		<td class="titulosCabecera" align="center"><% =GF_TRADUCIR("Nº PROVEEDOR") %></td>
+		<td class="titulosCabecera" align="center"><% =GF_TRADUCIR("DESC. PROVEEDOR") %></td>
+		<td class="titulosCabecera" align="center"><% =GF_TRADUCIR("CANT.") %></td>
+		<td class="titulosCabecera" align="center"><% =GF_TRADUCIR("PRECIO U.") %></td>			
+		<td class="titulosCabecera" align="center"><% =GF_TRADUCIR("TOTAL") %></td>
+	</tr>
+	<%
+end function
+'------------------------------------------------------------------------------------------
+Function dibujarTitularBoxDetalle()
+	%>
+	<tr>
+		<td align="center" class="titulosDetalle"><%=GF_TRADUCIR("FECHA PAGO")%></td>
+		<td align="center" class="titulosDetalle"><%=GF_TRADUCIR("Nº MINUTA")%></td>
+		<td align="center" class="titulosDetalle"><%=GF_TRADUCIR("Nº FACTURA")%></td>
+		<td align="center" class="titulosDetalle"><%=GF_TRADUCIR("IMPORTE")%></td>
+	</tr>
+	<%	
+end Function
+'----------------------------------------------------------------------------------
+Function dibujarPIC(idArticulo, dsArticulo, idCotizacion, fechaPIC, idproveedor, cantidad, precioUnitario, precioTotal, unidad,myMoneda)
+	Dim auxValeRelacionado, dsPartSector
+	contador = contador + 1
+	if (contador mod 2) then 
+		color = "##D8D8D8"			
+	else
+		color = "#CECEF6"
+	end if		
+	if (len(trim(proveedor))>55) then proveedor  = left(proveedor ,50) & "..."
+	%>
+	<tr>
+	    <td style="background-color:<%=color%>" align="center"><%=idArticulo%></td>
+	    <td style="background-color:<%=color%>" align="left"><%=dsArticulo%></td>
+		<td style="background-color:<%=color%>" align="center"><%=idCotizacion%></td>
+		<td style="background-color:<%=color%>" align="center"><%=GF_FN2DTE(left(fechaPic, 8))%></td>
+		<td style="background-color:<%=color%>" align="center"><%=idProveedor%></td>		
+		<td style="background-color:<%=color%>" align="left"><% =getDescripcionProveedor(idProveedor) %></td>
+		<td style="background-color:<%=color%>" align="right"><%=cantidad&" "&getAbreviaturaUnidad(unidad)%></td>
+		<td style="background-color:<%=color%>" align="right"><%=getSimboloMoneda(myMoneda)&" "&GF_EDIT_DECIMALS(CDbl(precioUnitario),2)%></td>
+		<td style="background-color:<%=color%>" align="right"><%=getSimboloMoneda(myMoneda)&" "&GF_EDIT_DECIMALS(CDbl(precioTotal),2)%></td>		
+	</tr>
+	<%
+end function
+'------------------------------------------------------------------------------------------
+Function getRsFAC(idPIC)
+	dim strSQL, conn, rs	
+
+    strSQL = "Select   convert(varchar(10),c.fecvto,112) as FECHA, "
+	strSQL = strSQL &"  A.NroInt as MINUTA, "
+	strSQL = strSQL &"  A.ImportePesos as TOTALPESOS, "
+	strSQL = strSQL &"  A.ImporteDolares as TOTALDOLAR,  "
+	strSQL = strSQL &"  C.tipcbt as TCBTE, "
+	strSQL = strSQL &"  C.nrocbt as CBTE  "
+	strSQL = strSQL &" from (select * from VWMEP001C Where IDPIC = " & idPIC &") A "
+ 	strSQL = strSQL &" inner join VWCOMPROBANTES C on A.NroInt = C.nroint "
+    Call executeQueryDb(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+	Set getRsFAC = rs
+End Function
+
+'------------------------------------------------------------------------------------------	
+Function armarDetalle()
+	dim totalReg, i, myImporteUnitarioArt, myImporteTotalArt,rsFAC, myImporteFac, totalImporte, myMoneda
+	totalImporte=0
+	set rsPIC = obtenerListaPIC(RPT_idArticulo,RPT_FechaDesde,RPT_FechaHasta,RPT_division,RPT_idCategoria)
+	totalReg = rsPIC.RecordCount
+	if rsPIC.eof then
+		%><tr><td colspan="6" align="center"><%=GF_TRADUCIR("No se han encontrado resultados")%></td></tr><%
+	else 
+	    Call dibujarTitulosDetalle()
+		While (not rsPIC.eof)
+			i = i + 1			
+		 	if (picSearch_radioMoneda = "$") then
+		 		myMoneda = MONEDA_PESOS
+		 		myImporteTotalArt =Cdbl(rsPIC("valtotpes"))
+		 	else
+				myMoneda = MONEDA_DOLAR
+				myImporteTotalArt = Cdbl(rsPIC("valtotdol"))
+			end if
+			myImporteUnitarioArt = myImporteTotalArt/Cdbl(rsPIC("cantidad"))
+			totalImporte = totalImporte+myImporteTotalArt
+			call dibujarPIC(rsPIC("IDArticulo"), rsPIC("DSARTICULO"), rsPIC("IDCOTIZACION"),rsPIC("FechaPic"),rsPIC("idproveedor"), rsPIC("cantidad"), myImporteUnitarioArt, myImporteTotalArt,rsPIC("IDUNIDAD"),myMoneda)
+			if (RPT_verDetalle) then
+				Set rsFAC = getRsFAC(rsPIC("IDCOTIZACION"))
+				if not rsFAC.eof then %>
+					<tr>
+						<td></td>
+						<td colspan="4" align="center">
+							<table align="center">
+							<%	Call dibujarTitularBoxDetalle()
+								if (picSearch_radioMoneda = "$") then
+									myImporteFac = rsFAC("TOTALPESOS")
+								else
+									myImporteFac = rsFAC("TOTALDOLAR")
+								end if
+								Call dibujarDetalleVale(rsFAC("FECHA"), rsFAC("MINUTA"), myImporteFac, rsFAC("TCBTE"), rsFAC("CBTE"),myMoneda) %>
+							</table>
+						</td>
+						<td></td>
+					</tr>
+			<%	end if
+			end if			
+			rsPIC.MoveNext()
+	    wend
+		%>			
+			<tr>
+				<td colspan="8" class="total" align="right"><%=GF_TRADUCIR("Total")%></td>
+				<td align="right" class="total"><%=getSimboloMoneda(myMoneda)&" "&GF_EDIT_DECIMALS(CDbl(totalImporte),2)%></td>
+			</tr>
+			<tr>
+				<td colspan="8" class="border" align="center"><%=GF_TRADUCIR("Fin del Reporte")%></td>
+			</tr>
+		<%
+	end if
+End Function
+'-------------------------------------------------------------------------------------------------------------------
+Function writeFilter(fechaDesde, fechaHasta, idArticulo, division, moneda, idCategoria)
+	Dim auxFechaDesde,auxFechaHasta
+	auxFechaDesde = GF_Traducir("Todas")
+	if (fechaDesde <> "") then auxFechaDesde = fechaDesde
+	%>
+	<tr>
+		<th align="left"><%=GF_TRADUCIR("Fecha Desde:")%></th>
+		<th align="left" colspan="2"><%=auxFechaDesde%></th>	
+		<th ></th>
+	<% 	auxFechaHasta = GF_Traducir("Todas")
+		if (auxFechaHasta <> "") then auxFechaHasta = fechaHasta  %>	
+		<th align="left"><%=GF_TRADUCIR("Fecha Hasta:")%></th>
+		<th align="left"><%=auxFechaHasta%></th>
+	</tr>
+	<% 	auxCategoria = GF_Traducir("Todas")
+		if (idCategoria <> 0) then auxCategoria = getCategoriaDS(idCategoria)  %>
+	<tr>
+		<th align="left"><%=GF_TRADUCIR("Categoria:")%></th>
+		<th align="left" colspan="2"><%=auxCategoria%></th>
+		<th ></th>
+		<% 	auxDivision = GF_Traducir("Todas")
+		if (division <> 0) then auxDivision = Ucase(getDivisionDS(division))   %>
+		<th align="left"><%=GF_TRADUCIR("Division:")%></th>
+		<th align="left"><%=auxDivision%></th>	
+	</tr>
+	<tr>
+	<% 	auxArt = GF_Traducir("Todos")
+		if (idArticulo <> 0) then 
+			call getArticuloFull(idArticulo, auxArtDS, auxArtAbrev)
+			auxArt = idArticulo & " - " & auxArtDS & "[" & auxArtAbrev & "]"
+		end if	  %>
+		<th align="left"><%=GF_TRADUCIR("Articulo:")%></th>
+		<th align="left" colspan="2"><%=auxArt%></th>
+		<th ></th>
+	<%  auxMoneda = GF_Traducir("Todas")
+	    if (moneda <> "") then auxMoneda = moneda %>
+		<th align="left"><%=GF_TRADUCIR("Moneda:")%></th>
+		<th align="left"><%=auxMoneda%></th>
+	</tr>
+	<tr><td></td></tr>
+<%
+End Function
+'-------------------------------------------------------------------------------------------------------------------
+'-------------------------------------------------------------------------------------------------------------------
+
+dim rs, conn, strSQL, oPDF, rsMovimientos, contador, color, nroPagina, currentY 
+dim  RPT_FechaDesde, RPT_FechaHasta, RPT_idArticulo, RPT_dsArticulo, picSearch_radioMoneda, RPT_pagosEfectuados,RPT_idCategoria,RPT_verDetalle
+
+
+RPT_FechaDesde = GF_Parametros7("issuedate", "", 6)
+RPT_FechaHasta = GF_Parametros7("closingdate", "", 6)
+RPT_idArticulo = GF_Parametros7("idArticulo", 0, 6)
+RPT_division = GF_Parametros7("division", 0, 6)
+picSearch_radioMoneda = GF_PARAMETROS7("radio_TipoMoneda","",6)
+RPT_verDetalle = false
+if (RPT_idArticulo > 0) then
+	RPT_verDetalle = true
+else
+	RPT_pagosEfectuados = GF_Parametros7("verPagosEfectuados", "", 6)			
+	if (RPT_pagosEfectuados = "on") then RPT_verDetalle = true
+end if
+RPT_idCategoria = GF_Parametros7("idCategoria", 0, 6)
+fname = "REPORTE_ARTICULOS_" & session("MmtoSistema")
+Call GF_createXLS(fname)
+%>
+<html>
+<head>
+	<style type="text/css">
+		.border { 
+			border-color:#666666;
+			font-size: 12px;
+			font-weight:bold;
+		}
+
+		.titulosCabecera {
+			background-color:#2A7254;			
+			font-weight:bold;
+			font-size: 12px;
+			color: #FFFFFF;
+			
+		}
+		.titulosDetalle {
+			background-color:#F2F5A9;			
+			font-weight:bold;
+			font-size: 10px;
+			color: #000000;
+		}
+		.articulo{
+			font-size: 14px;
+			font-weight:bold;
+		}
+		.itemDetalle {
+			background-color:#F5F6CE;
+			font-size: 10px;
+			color: #000000;
+		}
+		.total{
+			font-size: 14px;
+			font-weight:bold;
+			BORDER-BOTTOM: #000000 1px solid;
+			BORDER-TOP: #000000 1px solid;
+		}
+	</style>
+</head>
+<body>	
+	<table>
+		<thead>
+			<tr><th colspan="9" align="right" style="font-size:9;font-weight:arial;"><%=GF_FN2DTE(session("MmtoSistema"))%></th></tr>
+			<tr><th colspan="9" align="right" style="font-size:9;font-weight:arial;"><%=session("Usuario")%></th></tr>
+			<tr><th colspan="9" align="center"><h2><%=GF_TRADUCIR("COMPRAS POR ARTICULO")%></h2></th></tr>
+			<%Call writeFilter(RPT_FechaDesde, RPT_FechaHasta, RPT_idArticulo, RPT_division, picSearch_radioMoneda,RPT_idCategoria)%>
+		</thead>
+		<tbody>
+			<%Call armarDetalle()%>
+		</tbody>
+	</table>
+</body>
+</html>
+

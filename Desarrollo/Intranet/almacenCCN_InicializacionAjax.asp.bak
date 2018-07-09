@@ -1,0 +1,93 @@
+<!--#include file="Includes/procedimientosMG.asp"-->
+<!--#include file="Includes/procedimientosAlmacenes.asp"-->
+<!--#include file="Includes/procedimientosVales.asp"-->
+<%
+dim idDivision, idAlmacen, fechaCierre, fechaCierreAnterior, sqlINS, rsINS, conINS, rtrn, anio, mes, idCierre, tipoCierre, clearAsientoExpo, idCierreExpo
+idDivision = GF_Parametros7("idDivision", 0, 6)
+clearAsientoExpo = GF_Parametros7("clearAsientoExpo", 0, 6)
+idAlmacen = GF_Parametros7("idAlmacen", "", 6)
+fechaCierre = GF_Parametros7("fechaCierre", "", 6)
+fechaCierreAnterior = GF_Parametros7("fechaCierreAnt", "", 6)
+tipoCierre = GF_Parametros7("tipoCierre", "", 6) 
+idCierre = 0
+anio = left(fechaCierre,4)
+mes = mid(fechaCierre,5,2)
+'Response.Write "Hecho..."
+'Response.End 
+	'BORRAR TODAS LAS TABLAS 
+	strSQL = "SELECT * FROM TBLCIERRESCABECERA2 WHERE ANIO=" & anio & " AND MES = " & mes & " AND IDDIVISION=" & idDivision & " and ESTADO='" & tipoCierre & "'"
+	Call executeQueryDB(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+	if not rs.eof then idCierre = rs("IDCIERRE")
+	
+	if idCierre <> 0 then 'Borrar los asientos si hay...
+		sqlINS = "DELETE FROM TBLCIERRESASIENTOS2 WHERE IDCIERRE=" & idCierre 
+		'Response.Write "<BR>" & sqlINS
+		Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+		sqlINS = "DELETE FROM TBLCIERRESFIRMAS2 WHERE IDCIERRE=" & idCierre 
+		'Response.Write "<BR>" & sqlINS
+		Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+	end if
+	
+	sqlINS = "DELETE FROM TBLCIERRESARTICULOS2 WHERE FECHACIERRE LIKE '" & LEFT(fechaCierre,6) & "%' AND IDALMACEN IN (" & idAlmacen & ")"
+	'Response.Write "<BR>" & sqlINS
+	Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+	sqlINS = "INSERT INTO TBLCIERRESARTICULOS2 SELECT " & fechaCierre & ",IDALMACEN,IDARTICULO,EXISTENCIA,SOBRANTE,'" & session("usuario") & "'," & session("momentodato") & " FROM TBLCIERRESARTICULOS2 WHERE FECHACIERRE LIKE '" & LEFT(fechaCierreAnterior,6) & "%' AND IDALMACEN IN (" & idAlmacen & ")"
+	'Response.Write "<BR>" & sqlINS
+	Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+
+
+	sqlINS = "DELETE FROM TBLCIERRESCABECERA2 WHERE ANIO=" & anio & " AND MES = " & mes & " AND IDDIVISION=" & idDivision & " and ESTADO='" & tipoCierre & "'"
+	'Response.Write "<BR>" & sqlINS
+	Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+
+	'INSERTAR NUEVA CABECERA
+	sqlINS = "INSERT INTO TBLCIERRESCABECERA2 (ANIO, MES, IDDIVISION, ESTADO, CDUSUARIO, MOMENTO) VALUES(" & anio & "," & mes & _
+   			"," & idDivision & ",'" & tipoCierre & "','" & session("usuario") & "'," & session("momentodato") & ")"
+	'Response.Write "<BR>" & sqlINS
+	Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+	
+	'INSERTAR FIRMAS
+	idCierre = 0
+	strSQL = "SELECT MAX(IDCIERRE) AS IDCIERRE FROM TBLCIERRESCABECERA2"
+	Call executeQueryDB(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+	if not rs.eof then idCierre = rs("IDCIERRE")
+	
+	sqlINS = "INSERT INTO TBLCIERRESFIRMAS2 VALUES(" & idCierre & "," & FIRMA_ROL_RESP_CONTADURIA & ",'" & FIRMA_NO_USER & "',null, null)"
+	Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+	'Response.Write "<BR>" & sqlINS
+	sqlINS = "INSERT INTO TBLCIERRESFIRMAS2 VALUES(" & idCierre & "," & FIRMA_ROL_RESP_PUERTO & ",'" & FIRMA_NO_USER & "',null, null)"
+	Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+	'Response.Write "<BR>" & sqlINS
+	
+	
+	'BORRAR LAS VALUACIONES CONTABLES DEL MES
+	sqlINS = "DELETE FROM TBLARTVALUACION WHERE FECHACIERRE>=" & fechaCierre & " AND IDDIVISION=" & idDivision 
+	'Response.Write "<BR>" & sqlINS
+	Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+
+	'Ver si hay datos en ARTVALUACION
+	strSql = "SELECT '" & fechaCierre & "',IDDIVISION, IDARTICULO, VLUPESOS, VLUDOLARES, STOCKDISPONIBLE, " & session("momentodato") & "," & _
+			 "'" & session("usuario") & "' FROM TBLARTVALUACION WHERE FECHACIERRE=" & fechaCierreAnterior & " AND IDDIVISION=" & idDivision
+	Call executeQueryDB(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+	if not rs.eof then 
+		'INSERTAR NUEVA CABECERA
+		sqlINS = "INSERT INTO TBLARTVALUACION " & _
+				 " (SELECT '" & fechaCierre & "',IDDIVISION, IDARTICULO, VLUPESOS, VLUDOLARES, STOCKDISPONIBLE, " & session("momentodato") & "," & _
+				 "'" & session("usuario") & "' FROM TBLARTVALUACION WHERE FECHACIERRE=" & fechaCierreAnterior & " AND IDDIVISION=" & idDivision & ")"
+		'Response.Write "<BR>" & sqlINS
+		Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+	end if
+	
+	'BORRAR LA APLICACION DE PRECIOS CONTABLES A VALES
+	'Se borran todos los cierres haci adelante ya que un vale pudo haber sido valuado en meses posteriores y por lo cual no se tomara este.
+	sqlINS = "DELETE FROM TBLVALESCONTABLE WHERE FECHACIERRE>=" & fechaCierre
+	'Response.Write "<BR>" & sqlINS
+	Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+	
+	'BORRAR LA CUENTA CORRIENTE POR ARTICULO DEL MES A CERRAR
+	sqlINS = "DELETE FROM TBLARTCTACTE WHERE FECHACIERRE>=" & fechaCierre
+	'Response.Write "<BR>" & sqlINS
+	Call executeQueryDB(DBSITE_SQL_INTRA, rsINS, "EXEC", sqlINS)
+	
+	Response.Write "Hecho..."
+%>

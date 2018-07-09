@@ -1,0 +1,80 @@
+<!--#include file="Includes/procedimientosParametros.asp"-->
+<!--#include file="Includes/procedimientosAlmacenes.asp"-->
+<!--#include file="Includes/procedimientosFechas.asp"-->
+<%
+dim idDivision, fechaCierre, strSQL, rs, con
+flagHeader = false
+idDivision = GF_Parametros7("idDivision", 0, 6)
+fechaCierre = GF_Parametros7("fechaCierre", "", 6)
+'Obtener todas las facturas del mes a fin de registrar la mercaderia contable y recalcular precios del mes
+'Se deben excluir todo lo que sea inversion ya estos no registran un aumento en la existencia del inventario, se activa por la obra
+'SE ASUME QUE TODOS LOS PICS QUE TENGAN PARTIDA PRESUPUESTARIA NO VAN A INVENTARIO
+strSQL = "SELECT IDARTICULO, SUM(CANTIDAD) AS TOTAL_UNIDADES, SUM(IMPORTEP) AS TOTAL_IMPORTE, SUM(IMPORTED) AS TOTAL_IMPORTE_D FROM " & _
+		 " ( " & _
+		 "	SELECT DF.IDArticulo AS IDARTICULO, CANTIDAD AS CANTIDAD, ImportePesos AS IMPORTEP, ImporteDolares AS IMPORTED, ESINVERSION " & _
+		 "    FROM MEP001C DF  " & _ 
+		 "        INNER JOIN [Database].[dbo].[MEP001A] CF ON CF.NROINT = DF.NROINT AND CF.ANULADO<>'S' " & _
+		 "		  INNER JOIN TBLARTICULOS ART ON ART.IDARTICULO=DF.IDARTICULO " & _
+		 "		  INNER JOIN TBLARTCATEGORIAS CAT ON CAT.IDCATEGORIA=ART.IDCATEGORIA " & _
+		 "	      LEFT JOIN TBLDATOSOBRAS DOB ON DOB.IDOBRA=DF.IDOBRA " & _
+		 "         WHERE CF.FECCBT BETWEEN '" & GF_FN2DTE(LEFT(fechaCierre,6) & "01") & "' AND '" & GF_FN2DTE(fechaCierre) & "' " & _
+		 "             AND CF.codcia=" & getCIADivision(idDivision) & _
+		 "             AND ART.BIENUSO='N' " & _
+		 "			   AND TIPCBT IN (3,2,1) AND CF.ESTADO IN ('P','','E') " & _
+		 "			   AND CAT.TIPOCATEGORIA='" & TIPO_CAT_BIENES & "' " & _
+		 " ) TG " & _
+		 " WHERE TG.ESINVERSION IS NULL " & _
+         "GROUP BY IDARTICULO"
+
+'Ver que formularios entran
+'"			   AND ((TIPCBT = 1 AND LETRA = 'A') OR (TIPCBT IN (3,2))) AND CF.ESTADO IN ('P','','E') " & _
+
+Response.Write "<BR>" & strSQL 
+Call executeQueryDB(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+while not rs.eof 
+	if cdbl(rs("TOTAL_UNIDADES")) <> 0 then call acumularArticulo(idDivision, rs("IDARTICULO"), rs("TOTAL_UNIDADES"), Cdbl(rs("TOTAL_IMPORTE"))*10000, Cdbl(rs("TOTAL_IMPORTE_D"))*10000)
+	rs.movenext
+wend
+
+'Ver como generar el control de abajo
+response.Write "Hecho..."
+Response.End 	
+	
+	
+'Guardar aquellas FAC o NCR que no tienen asociados un PIC
+strSQL = "SELECT * FROM " & _
+		 "	( " & _
+		 "	SELECT DSQFNB, DSOPR1,DSCRDT,DSDUST,DWBTCD,DWQ6NB, NINGX7 " & _ 
+         "		FROM PROVFL.VWACDSREP CF " & _ 
+         "			INNER JOIN PROVFL.VWACDWREP DW ON CF.DSQFNB=DW.DWQFNB AND CF.DSAPRC=DW.DWAPRC AND CF.DSMPRC=DW.DWMPRC AND LEFT(DW.DWBTCD,3) = '114' AND DWDCST <> '*' " & _
+         "			LEFT JOIN PROVFL.VWACD7REP DF ON CF.DSQFNB=DF.NINGX7 AND CF.DSAPRC=DF.APRCX7 AND CF.DSMPRC=DF.MPRCX7 " & _ 
+		 "		WHERE CF.DSCSDT BETWEEN '1" & mid(fechaCierre,3,4) & "01'AND '1" & mid(fechaCierre,3,4) & "99' " & _ 
+         "			AND CF.DSC8ST='" & getDivisionAbreviada(idDivision) & "' AND DSDUST IN ('RDB','FAC','NCR','NDB','FTM') AND DSELST IN ('R','P','','A','B') " & _
+		 "	) T1 " & _
+		 "WHERE T1.NINGX7 IS NULL"
+Call executeQueryDB(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)		 
+'Response.Write "<BR>" & strSQL 
+if not rs.eof then
+	set fs = Server.CreateObject("Scripting.FileSystemObject")
+	myName = "logs/CierresContables_FacturasSinPic_Div(" & idDivision & ")_" & replace(GF_MOMENTOSISTEMA,"'","") & ".txt"
+	myPath = Server.MapPath(myName)
+	set fname = fs.CreateTextFile(myPath,true)
+	fname.WriteLine("*****************************************************************************************************************************")
+	fname.WriteLine("FAC/NCR sin PIC")
+	fname.WriteLine("*****************************************************************************************************************************")
+	fname.WriteLine("Mes de Cierre.: " & mid(fechaCierre,5,2) & "/" & left(fechaCierre,4))
+	fname.WriteLine("Division......: " & getDivisionDS(idDivision))
+	fname.WriteLine("-----------------------------------------------------------------------------------------------------------------------------")
+	fname.WriteLine("NRO" & vbTab & "PROVEEDOR" & vbTab & vbTab & "FECHA" & vbTab & "TIPO" & vbTab & vbTab & "CDCUENTA" & vbTab & "IMPORTE")
+end if
+while not rs.eof 
+		fname.WriteLine(rs("DSQFNB") & vbTab & rs("DSOPR1") & vbTab & rs("DSCRDT") & vbTab & rs("DSDUST") & vbTab & rs("DWBTCD") & vbTab & rs("DWQ6NB"))
+	rs.movenext
+wend
+if len(myName) = 0 then	
+	Response.Write "Hecho..."
+else
+	Response.Write "ERROR-" & myName
+end if	
+'Response.Write "Hecho..."
+%>

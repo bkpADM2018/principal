@@ -1,0 +1,220 @@
+<!--#include file="Includes/procedimientosMG.asp"-->
+<!--#include file="Includes/procedimientostraducir.asp"-->
+<!--#include file="Includes/procedimientosfechas.asp"-->
+<!--#include file="Includes/procedimientosCompras.asp"-->
+<!--#include file="Includes/procedimientosSql.asp"-->
+<%
+Call comprasControlAccesoCM(RES_ADM)
+
+Function controlar(idCategoria, cdCategoria, dsCategoria, cdCuenta, tipoCategoria, esMantenimiento, cdCuentaGastos, cCostos, cdCuentaSAF)
+	Dim strSQL, rs, conn, ret
+	
+	ret = RESPUESTA_OK
+	if (idCategoria = 0) then
+		if (cdCategoria = "") then
+			ret = CODIGO_VACIO
+		else
+			strSQL="Select * from TBLARTCATEGORIAS where CDCATEGORIA='" & cdCategoria & "'"
+			Call executeQueryDB(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+			if (not rs.eof) then ret = CODIGO_EXISTE
+		end if
+	end if
+	if (ret = RESPUESTA_OK) then		
+		'Se controla que el tipo de categoria sea valido.
+		ret = TIPO_CAT_INVALIDO
+		Select case (tipoCategoria)
+			case TIPO_CAT_BIENES, TIPO_CAT_SERVICIOS, TIPO_CAT_IMPUESTOS, TIPO_CAT_FONDO_REPARO, TIPO_CAT_ANTICIPO, TIPO_CAT_ESPECIAL_IVA:			
+				ret = RESPUESTA_OK
+		End Select
+	end if
+	controlar = ret
+End Function
+
+Function accionGrabar(idCategoria, cdCategoria, dsCategoria, cdCuenta, tipoCategoria, esMantenimiento, cdCuentaGastos, cCostos, cdCuentaSAF)
+	Dim strSQL, rs, conn
+	
+	if (idCategoria = 0) then
+		'Es una unidad nueva
+		strSQL="Insert into TBLARTCATEGORIAS(CDCATEGORIA, DSCATEGORIA, CDCUENTA, TIPOCATEGORIA, ESTADO, REFERENCIAS, ESMANTENIMIENTO, CDCUENTAGASTOS, CCOSTOS, CDCUENTASAF, CDUSUARIO, MOMENTO)"
+		strSQL= strSQL & " values('" & cdCategoria & "', '" & UCase(dsCategoria) & "', '" & cdCuenta & "', '" & tipoCategoria & "', " & ESTADO_ACTIVO & ", 0, '" & esMantenimiento & "','" & cdCuentaGastos & "','" & cCostos & "','" & cdCuentaSAF & "','" & session("Usuario") & "', " & session("MmtoSistema") & ")"
+	else
+		'Es una modificacion
+		strSQL="Update TBLARTCATEGORIAS Set CDCATEGORIA='" & cdCategoria & "', ESMANTENIMIENTO='" & esMantenimiento & "', DSCATEGORIA='" & dsCategoria & "', CDCUENTA='" & cdCuenta & "', CDCUENTAGASTOS='" & cdCuentaGastos & "', CCOSTOS='" & cCostos & "', CDCUENTASAF='" & cdCuentaSAF & "',TIPOCATEGORIA='" & tipoCategoria & "' ,CDUSUARIO='" & session("Usuario") & "', MOMENTO=" & session("MmtoSistema")		
+		strSQL = strSQL & " where IDCATEGORIA=" & idCategoria
+	end if
+	'response.write strSQL
+	Call executeQueryDB(DBSITE_SQL_INTRA, rs, "EXEC", strSQL)
+	accionGrabar = true
+	
+End Function
+
+Function accionConsulta(idCategoria, ByRef cdCategoria, ByRef dsCategoria, ByRef cdCuenta, ByRef tipoCategoria, ByRef esMantenimiento, byRef cdCuentaGastos, byRef cCostos, byref cdCuentaSAF)
+	
+	Dim strSQL, rs, conn
+	
+	strSQL="Select * from TBLARTCATEGORIAS where IDCATEGORIA=" & idCategoria
+	Call executeQueryDB(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+	if (not rs.eof) then		
+		cdCategoria = Trim(rs("CDCATEGORIA"))
+		dsCategoria = Trim(rs("DSCATEGORIA"))
+		cdCuenta = Trim(rs("CDCUENTA"))
+		cdCuentaSAF = Trim(rs("CDCUENTASAF"))
+		tipoCategoria = Trim(rs("TIPOCATEGORIA"))
+		esMantenimiento = Trim(rs("ESMANTENIMIENTO"))
+		cdCuentaGastos = Trim(rs("CDCUENTAGASTOS")) 
+		cCostos = Trim(rs("CCOSTOS"))
+	end if
+	
+	
+End Function
+'***************************************************
+'******   COMIENZO DE LA PAGINA
+'***************************************************
+Dim accion, errMsg, idCategoria, cdCategoria, dsCategoria, cdCuenta, tipoCategoria, esMantenimiento, cdCuentaGastos, cCostos, cdCuentaSAF
+
+idCategoria = GF_PARAMETROS7("idCategoria",0,6)
+cdCategoria = UCase(GF_PARAMETROS7("codigo","",6))
+dsCategoria = UCase(GF_PARAMETROS7("descripcion","",6))
+cdCuenta = GF_PARAMETROS7("cuenta","",6)
+cdCuentaGastos = GF_PARAMETROS7("cuentaGastos","",6)
+cdCuentaSAF = GF_PARAMETROS7("cuentaSAF","",6)
+cCostos = GF_PARAMETROS7("cCostos","",6)
+tipoCategoria = GF_PARAMETROS7("tipoCategoria","",6)
+accion = GF_PARAMETROS7("accion","",6)
+esMantenimiento = GF_PARAMETROS7("esMantenimiento","",6)
+IF esMantenimiento = "" THEN esMantenimiento = CATEGORIA_COMUN
+Call GP_ConfigurarMomentos
+if (accion = ACCION_GRABAR) then
+	errMsg = controlar(idCategoria, cdCategoria, dsCategoria, cdCuenta, tipoCategoria, esMantenimiento, cdCuentaGastos, cCostos, cdCuentaSAF)
+	if (errMsg = RESPUESTA_OK) then
+		Call accionGrabar(idCategoria, cdCategoria, dsCategoria, cdCuenta, tipoCategoria, esMantenimiento, cdCuentaGastos, cCostos, cdCuentaSAF)
+		accion = ACCION_CERRAR
+	else
+		setError(errMsg)
+	end if
+else
+	Call accionConsulta(idCategoria, cdCategoria, dsCategoria, cdCuenta, tipoCategoria, esMantenimiento, cdCuentaGastos, cCostos, cdCuentaSAF)
+end if
+if (accion = "") then accion = ACCION_GRABAR
+ %>
+<html>
+<head>
+<link rel="stylesheet" href="css/ActiSAIntra-1.css" type="text/css">
+<script defer type="text/javascript" src="scripts/pngfix.js"></script>
+<script type="text/javascript" src="scripts/controles.js"></script>
+<script type="text/javascript" src="scripts/formato.js"></script>
+<script type="text/javascript" src="scripts/jQueryPopUp.js"></script>
+<script type="text/javascript">
+var refPopUpCategoria;
+
+function codigoOnBlur(ref) {
+	if (ref.value == "") {
+		document.getElementById("aceptar").disabled = true;
+	} else {
+		document.getElementById("aceptar").disabled = false;
+	}			
+}
+
+function categoriaOnLoad() {
+	var elem = document.getElementById("codigo");
+	if (elem.type != "hidden")
+		elem.focus();
+	else
+		document.getElementById("descripcion").focus();
+
+	refPopUpCategoria = getObjPopUp('popupCategoria');
+	<% if (accion = ACCION_CERRAR) then %>
+		refPopUpCategoria.hide();
+	<% end if %>
+}
+</script>
+</head>
+<body onLoad="categoriaOnLoad()">
+<form name="frmSel" method="post" action="comprasPropCategoria.asp">
+<table width="100%" align=center>
+	<tr>
+		<td class="title_sec_section" colspan="2"><img align="absMiddle" src="images/compras/categories-32x32.png"> <% =GF_TRADUCIR("Propiedades de Categoria") %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><% call showErrors() %></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<table width="100%">				
+				<tr>
+					<td width="30%" class="reg_header"><% =GF_TRADUCIR("Categoria") %></td>
+					<td><% =idCategoria %></td>
+				</tr>
+				<tr>
+					<td class="reg_header"><% =GF_TRADUCIR("Nombre") %></td>
+					<td><%
+						if (idCategoria = 0) then
+					%>
+							<input type="text" id="codigo" name="codigo" maxlength="10" size="10" value="<% =cdCategoria %>" onblur="codigoOnBlur(this)" onkeypress="return controlSalto(this, event)"></td>
+					<%  else %> 
+							<b><% =cdCategoria %></b> 
+							<input type="hidden" id="codigo" name="codigo" value="<% =cdCategoria %>">
+					<%	end if 	%>
+					</td> 
+				</tr>				
+				<tr>
+					<td class="reg_header"><% =GF_TRADUCIR("Descripcion") %></td>
+					<td><input type="text" id="descripcion" name="descripcion" maxlength="50" size="37" value="<% =dsCategoria %>" onkeypress="return controlSalto(this, event)"></td>
+				</tr>				
+				<tr>
+					<td class="reg_header"><% =GF_TRADUCIR("Cuenta") %></td>
+					<td><input type="text" id="cuenta" name="cuenta" maxlength="9" size="10" value="<% =cdCuenta %>" onKeyPress="return controlDatos(this, event, 'N')"></td>
+				</tr>
+				<tr>
+					<td class="reg_header"><% =GF_TRADUCIR("Tipo") %></td>
+					<td>
+						<select id="tipoCategoria" name="tipoCategoria">
+							<option value="<% =TIPO_CAT_BIENES %>" <% if (tipoCategoria=TIPO_CAT_BIENES) then Response.write "selected='true'" %>><% =GF_TRADUCIR("Categoria de Bienes") %></option>
+							<option value="<% =TIPO_CAT_SERVICIOS %>" <% if (tipoCategoria=TIPO_CAT_SERVICIOS) then Response.write "selected='true'" %>><% =GF_TRADUCIR("Categoria de Servicios") %></option>
+							<option value="<% =TIPO_CAT_IMPUESTOS %>" <% if (tipoCategoria=TIPO_CAT_IMPUESTOS) then Response.write "selected='true'" %>><% =GF_TRADUCIR("Categoria de Impuestos") %></option>
+							<option value="<% =TIPO_CAT_FONDO_REPARO %>" <% if (tipoCategoria=TIPO_CAT_FONDO_REPARO) then Response.write "selected='true'" %>><% =GF_TRADUCIR("Categoria de Fondos de Reparo") %></option>
+							<option value="<% =TIPO_CAT_ANTICIPO %>" <% if (tipoCategoria=TIPO_CAT_ANTICIPO) then Response.write "selected='true'" %>><% =GF_TRADUCIR("Categoria de Anticipos") %></option>
+							<option value="<% =TIPO_CAT_ESPECIAL_IVA %>" <% if (tipoCategoria=TIPO_CAT_ESPECIAL_IVA) then Response.write "selected='true'" %>><% =GF_TRADUCIR("Categoria de Items Esp. c/IVA") %></option>							
+						</select>
+					</td>					
+				</tr>
+				<tr>
+					<td nowrap class="reg_header"><% =GF_TRADUCIR("Es mantenimiento?") %></td>
+					<td><input style="cursor:pointer;" type="checkbox" id="esMantenimiento" name="esMantenimiento" value="<% =CATEGORIA_MANTENIMIENTO %>" <% if esMantenimiento=CATEGORIA_MANTENIMIENTO then Response.Write "checked"%>></td>
+				</tr>
+				<tr>
+					<td class="reg_header"><% =GF_TRADUCIR("Cuenta Gastos") %></td>
+					<td><input type="text" id="cuentaGastos" name="cuentaGastos" maxlength="9" size="10" value="<% =cdCuentaGastos %>" onKeyPress="return controlDatos(this, event, 'N')"></td>
+				</tr>
+				<tr>
+					<td class="reg_header"><% =GF_TRADUCIR("Centro Costos") %></td>
+					<td><input type="text" id="cCostos" name="cCostos" maxlength="6" size="7" value="<% =cCostos %>" onKeyPress="return controlDatos(this, event, 'N')"></td>
+				</tr>
+				<tr>
+					<td class="reg_header"><% =GF_TRADUCIR("Cuenta SAF") %></td>
+					<td><input type="text" id="cuentaSAF" name="cuentaSAF" maxlength="13" size="11" value="<% =cdCuentaSAF %>" onKeyPress="return controlDatos(this, event, 'N')"></td>
+				</tr>
+							
+			</table>
+		</td>
+	</tr>	
+	<tr><td>&nbsp;</td><tr>
+	<tr>
+		<td></td>
+		<td align="right">
+			<table>	
+				<tr><td align="center">
+					<%  if (not isAuditor(SIN_DIVISION)) then %>
+					<input type="submit" id="aceptar" name="aceptar" value="<% =GF_TRADUCIR("Aceptar") %>" <% if (idCategoria = 0) then response.write "disabled=true" %>>
+					<%	end if	%>
+				</td></tr>
+			</table>
+		</td>		
+	</tr>
+</table>
+<input type="hidden" name="accion" value="<% =ACCION_GRABAR %>">
+<input type="hidden" name="idCategoria" value="<% =idCategoria %>">
+</form>
+</body>
+</html>

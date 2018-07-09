@@ -1,0 +1,210 @@
+<%
+Dim ds, cdResponsable, dsResponsable, valor, hkResponsable, myHKEY
+Dim myChkExpAjs,myChkArroyoAjs,myChkPiedrabuenaAjs,myChkTransitoAjs
+dim	chkAsientoEXP, chkAsientoARR, chkAsientoBBA, chkAsientoTRA
+dim	modificaArt, confirmaContratos
+'-------------------------------------------------------------
+Function puedeParticiparAjuste(valor)
+	Dim ret 
+	ret =""
+	if (valor=1) then
+		ret ="<img src='images/compras/accept-16x16.png'>"
+	end if
+	puedeParticiparAjuste = ret
+End Function
+'-------------------------------------------------------------
+Function puedeModificarArticulos(valor)
+	Dim ret 
+	ret =""
+	if (valor=1) then
+		ret ="<img src='images/compras/accept-16x16.png'>"
+	end if
+	puedeModificarArticulos = ret
+End Function
+'-------------------------------------------------------------
+Function puedeConfirmarContratos(valor)
+	Dim ret 
+	ret =""
+	if (valor=1) then
+		ret ="<img src='images/compras/accept-16x16.png'>"
+	end if
+	puedeConfirmarContratos = ret
+End Function
+'-------------------------------------------------------------
+
+
+'**************************************************
+cdResponsable = UCase(GF_PARAMETROS7("cdResponsable", "" ,6))
+dsResponsable = GF_PARAMETROS7("dsResponsable", "",6)
+hkResponsable = GF_PARAMETROS7("hkResponsable", "",6)
+verEmpleados = GF_PARAMETROS7("verEmpleados", 0,6)
+if (verEmpleados = 0) then verEmpleados = ESTADO_ACTIVO
+
+strSQL="Select * from WFPROFESIONAL inner join MG on idProfesional=MG_KR where EGRESOVALIDO in (" 
+if (verEmpleados = ESTADO_ACTIVO) then 
+	strSQL  = strSQL & "'F'"
+else
+	strSQL  = strSQL & "'V'"
+end if
+strSQL  = strSQL & ")"
+if (cdResponsable <> "") then strSQL= strSQL & " and MG_KC='" & cdResponsable & "'"
+if (dsResponsable <> "") then strSQL= strSQL & " and NOMBRE LIKE '%" & dsResponsable & "%'"
+if (hkResponsable <> "") then 
+	'Primero armo la lista
+	strSQL2= "Select CDUSUARIO from TBLREGISTROFIRMAS where HKEY LIKE '%" & hkResponsable & "%'"
+	Call executeQueryDB(DBSITE_SQL_INTRA, rs, "OPEN", strSQL2)
+	listaHk = ""
+	while (not rs.eof) 		
+		listaHk = listaHk & "'" & rs("CDUSUARIO") & "',"
+		rs.MoveNext()
+	wend
+	'Agrego los usuarios que cumplen la condicion a la SQL principal.
+	if (Len(listaHk) > 0) then
+		listaHk = left(listaHk, Len(listaHk)-1)
+		strSQL= strSQL & " and MG_KC IN (" & listaHk & ")"
+	else	
+		'No hay nadie con esa llave!
+		strSQL= strSQL & " and IDPROFESIONAL=0"
+	end if
+end if	
+strSQL= strSQL & " order by NOMBRE"
+Call executeQueryDB(DBSITE_SQL_INTRA, rs, "OPEN", strSQL)
+Call setupPaginacion(rs, pagina, regXPag) 
+'Se procesa el codigo interno de la seccion.	
+%>	
+	
+	<% =rs.RecordCount %>-h-
+	<table width="100%" align="center" border="0">
+		<tr>
+			<td align="right"><% = GF_TRADUCIR("Usuario") %>:</td>
+			<td><input type="text" maxlength="6" id="cdResponsable" value="<% =cdResponsable %>" ></td>
+		</tr>														
+		<tr>
+			<td align="right"><% = GF_TRADUCIR("Nombre") %>:</td>
+			<td><input type="text" id="dsResponsable" value="<% =dsResponsable %>"></td>
+		</tr>																
+		<tr>
+			<td align="right"><% = GF_TRADUCIR("Llave (HK)") %>:</td>
+			<td><input type="text" id="hkResponsable" value="<% =hkResponsable %>"></td>
+		</tr>																
+		<tr>
+			<td align="right"><% = GF_TRADUCIR("EStado") %>:</td>
+			<td>
+				<input type="radio" id="verEmpleados1" name="verEmpleados" value="<% =ESTADO_ACTIVO %>" <% if (verEmpleados = ESTADO_ACTIVO) then  Response.Write "checked" %>> Activos
+				<input type="radio" id="verEmpleados2" name="verEmpleados" value="<% =ESTADO_BAJA %>"   <% if (verEmpleados <> ESTADO_ACTIVO)	then  Response.Write "checked" %>> Ex-Empleados
+			</td>
+		</tr>																
+	</table>	  	
+	-#-	
+	<table id="tableSeccion3" align="center" width="80%" height="100%" class="reg_header" cellspacing="2" cellpadding="1">
+	<tr class="reg_header_nav">
+		<td align="center" rowspan="2">.</td>
+		<td width="75" rowspan="2"><% =GF_TRADUCIR("Nombre") %></td>
+		<td width="361" rowspan="2"><% =GF_TRADUCIR("Descripcion") %></td>
+		<td width="200" rowspan="2"><% =GF_TRADUCIR("Llave (HK)") %></td>		
+		<td align="center" colspan="4"><% =GF_TRADUCIR("Ajuste de Stock") %></td>
+		<td align="center" colspan="4"><% =GF_TRADUCIR("Asientos") %></td>
+		<td align="center" rowspan="2"><% =GF_TRADUCIR("Articulos") %></td>
+		<td align="center" rowspan="2"><% =GF_TRADUCIR("Contratos") %></td>
+		<td align="center" colspan="4"><% =GF_TRADUCIR("Ajuste de Puertos") %></td>
+		<td align="center" rowspan="2" width="40"><% =GF_TRADUCIR(".") %></td>
+		<td align="center" rowspan="2" width="40"><% =GF_TRADUCIR(".") %></td>
+		<td align="center" rowspan="2" width="40"><% =GF_TRADUCIR(".") %></td>
+	</tr>
+	<tr class="reg_header_nav">
+	  <td width="24" align="center"><% =GF_TRADUCIR("Exp") %></td>
+	  <td width="24" align="center"><% =GF_TRADUCIR("Arr") %></td>
+	  <td width="24" align="center"><% =GF_TRADUCIR("Pie") %></td>
+	  <td width="24" align="center"><% =GF_TRADUCIR("Tra") %></td>
+      <td width="24" align="center"><% =GF_TRADUCIR("Exp") %></td>
+	  <td width="24" align="center"><% =GF_TRADUCIR("Arr") %></td>
+	  <td width="24" align="center"><% =GF_TRADUCIR("Pie") %></td>
+	  <td width="24" align="center"><% =GF_TRADUCIR("Tra") %></td>
+	  <td width="24" align="center"><% =GF_TRADUCIR("Exp") %></td>
+	  <td width="24" align="center"><% =GF_TRADUCIR("Arr") %></td>
+	  <td width="24" align="center"><% =GF_TRADUCIR("Pie") %></td>
+	  <td width="24" align="center"><% =GF_TRADUCIR("Tra") %></td>
+	<tr>
+	<%		i=0
+	while ((not rs.eof)	and (i < regXPag))
+		i = i+1			
+		strSQL = "Select * from TBLREGISTROFIRMAS where CDUSUARIO='" & UCase(rs("MG_KC")) & "'"
+        Call executeQueryDb(DBSITE_SQL_INTRA, rsRegistro, "OPEN", strSQL)
+		if (not rsRegistro.eof) then
+			myChkExpAjs = rsRegistro("AJEXPORTACION")
+			myChkArroyoAjs = rsRegistro("AJARROYO")
+			myChkPiedrabuenaAjs = rsRegistro("AJPIEDRABUENA")
+			myChkTransitoAjs = rsRegistro("AJTRANSITO")
+			chkAsientoEXP = rsRegistro("ASEXPORTACION")
+			chkAsientoARR = rsRegistro("ASARROYO")
+			chkAsientoBBA = rsRegistro("ASPIEDRABUENA")
+			chkAsientoTRA = rsRegistro("ASTRANSITO")
+			modificaArt = rsRegistro("MODIFICAARTICULOS")
+			confirmaContratos = rsRegistro("CONFIRMACONTRATOS")
+			myHKEY = rsRegistro("HKEY")
+			chkAjsPtoEXP = rsRegistro("AJPTOEXPORTACION")
+			chkAjsPtoARR = rsRegistro("AJPTOARROYO")
+			chkAjsPtoBBA = rsRegistro("AJPTOPIEDRABUENA")
+			chkAjsPtoTRA = rsRegistro("AJPTOTRANSITO")
+		end if
+	%>
+			<tr class="reg_header_navdos" onMouseOver="this.className='reg_header_navdosHL';" onMouseOut="this.className='reg_header_navdos';">
+				<td align="center" width="33"><img src="images/compras/users-16x16.png"></td>
+			  <td align="center" width="75"><b>
+		      <% =UCase(rs("MG_KC")) %></b></td>
+			  <td><% =getUserDescription(UCase(rs("MG_KC"))) %></td>
+				<td align="center"><% =myHKEY %></td>				
+				<td align="center"><% =puedeParticiparAjuste(myChkExpAjs) %></td>
+				<td align="center"><% =puedeParticiparAjuste(myChkArroyoAjs) %></td>
+				<td align="center"><% =puedeParticiparAjuste(myChkPiedrabuenaAjs) %></td>
+				<td align="center"><% =puedeParticiparAjuste(myChkTransitoAjs) %></td>
+				<td align="center"><% =puedeParticiparAjuste(chkAsientoEXP) %></td>
+				<td align="center"><% =puedeParticiparAjuste(chkAsientoARR) %></td>
+				<td align="center"><% =puedeParticiparAjuste(chkAsientoBBA) %></td>
+				<td align="center"><% =puedeParticiparAjuste(chkAsientoTRA) %></td>
+				<td align="center"><% =puedeModificarArticulos(modificaArt) %></td>
+				<td align="center"><% =puedeConfirmarContratos(confirmaContratos) %></td>
+				<td align="center"><% =puedeParticiparAjuste(chkAjsPtoEXP) %></td>
+				<td align="center"><% =puedeParticiparAjuste(chkAjsPtoARR) %></td>
+				<td align="center"><% =puedeParticiparAjuste(chkAjsPtoBBA) %></td>
+				<td align="center"><% =puedeParticiparAjuste(chkAjsPtoTRA) %></td>
+				<td align="center">
+				    <img src="images/access-16.png" onclick="loadPopUpResponsablesRoles('<% =rs("MG_KC") %>')" title="Roles de Firma">
+				</td>
+				<%  if (not isAuditor(SIN_DIVISION)) then %>
+				<td align="center">
+					<img src="images/edit-16.png" onclick="loadPopUpResponsablesApertura(<% =rs("IDPROFESIONAL") %>)" title="Propiedades">
+				</td>
+				<td align="center">
+					<img src="images/lock-16.png" onclick="loadPopUpResponsablesAccesos('<% =rs("MG_KC") %>')" title="Accesos">
+				</td>
+				<%	else %>
+				<td align="center">.</td>
+				<td align="center">.</td>
+				<%	end if %>
+			</tr>
+			<%
+			myChkExpAjs = 0
+			myChkArroyoAjs = 0
+			myChkPiedrabuenaAjs = 0
+			myChkTransitoAjs = 0
+			chkAsientoEXP = 0
+			chkAsientoARR = 0
+			chkAsientoBBA = 0
+			chkAsientoTRA = 0
+			modificaArt = 0
+			confirmaContratos = 0
+			myHKEY = ""
+			chkAjsPtoEXP = 0
+			chkAjsPtoARR = 0
+			chkAjsPtoBBA = 0
+			chkAjsPtoTRA = 0
+		rs.MoveNext()
+	wend
+	if (i = 0) then		
+	%>			
+	<tr>
+		<td class="TDNOHAY" colspan="23"><% =GF_TRADUCIR("No existe personal registrado") %></td>
+	</tr>
+	<%		end if %>
+	</table>

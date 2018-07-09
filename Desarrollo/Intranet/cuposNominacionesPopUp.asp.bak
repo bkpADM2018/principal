@@ -1,0 +1,178 @@
+<!--#include file="Includes/procedimientosUnificador.asp"-->
+<!--#include file="Includes/procedimientostraducir.asp"-->
+<!--#include file="Includes/procedimientosFechas.asp"-->
+<!--#include file="Includes/procedimientosParametros.asp"-->
+<!--#include file="Includes/procedimientosFormato.asp"-->
+<!--#include file="Includes/procedimientosPuertos.asp"-->
+<!--#include file="Includes/procedimientos.asp"-->
+<!--#include file="Includes/procedimientosCupos.asp"-->
+<!--#include file="Includes/procedimientosAS400.asp"-->
+<%
+'-----------------------------------------------------------------------------------------------------------------------------
+'Obtenemos el estado del cupo, si se encuentra en los puertos es Recibido, caso contrario es pendiente
+Function obtenerCuposPto(p_CdCupo, p_CdProducto, p_Pto)
+    Dim auxEstado, auxFecha
+    auxFecha = GF_DTEADD(Left(Session("MmtoDato"),8),-1,"D")
+    strSQL = "SELECT RTRIM(NUCUPO) AS CUPO  "&_
+             "FROM CAMIONES WHERE CDPRODUCTO = "& p_CdProducto & " AND RTRIM(NUCUPO) <> ''"&_
+             " UNION "&_
+             "SELECT RTRIM(NUCUPO) AS CUPO "&_
+             " FROM HCAMIONES WHERE DTCONTABLE >= '"& GF_FN2DTCONTABLE(auxFecha) &"' AND CDPRODUCTO = "& p_CdProducto & " AND RTRIM(NUCUPO) <> ''" &_
+             " ORDER BY CUPO"
+    Call GF_BD_Puertos(p_Pto, rsPto, "OPEN", strSQL)
+    set obtenerCuposPto = rsPto
+End Function
+'-----------------------------------------------------------------------------------------------------------------------------
+'Controla si existe el codigo de cupo en el Puerto, si existe devuelve true, caso contrario devuelve false
+'Para realizar la comparacion se utiliza la parte numerica del cupo de los puertos (en la nominacion ya es numerica)
+'NOTA: esta funcion trabaja solo para el formato de cupo de Piedrabuena
+Function comprobarCupoPuerto(ByRef p_Rs, p_CdCupoNominado)
+    Dim flagSeguir, rtrn, numeroCupoPto
+    flagSeguir = true   
+    rtrn = ""
+    while ((not p_Rs.Eof)and(flagSeguir)) 
+        'el codigo de cupo proveniente del puerto posee un formato alfanumerico, para procesar y validar si es mayor o no al codigo de cupo nominado lo que hago es obenter la parte entera (sin la abreviatura del producto)
+        numeroCupoPto = Right(p_Rs("CUPO"),Len(Trim(p_Rs("CUPO")))-1)
+        if (Cdbl(p_CdCupoNominado) <= Cdbl(numeroCupoPto)) then
+            if (Cdbl(p_CdCupoNominado) = Cdbl(numeroCupoPto)) then rtrn = numeroCupoPto
+            flagSeguir = false
+        else
+            p_Rs.MoveNext()
+        end if
+    wend
+    comprobarCupoPuerto = false
+    if (rtrn <> "") then comprobarCupoPuerto = true
+End Function
+'********************************************************************************************************************************
+'********************************************************* INICIO DE PAGINA *****************************************************
+'********************************************************************************************************************************
+Dim cdProveedor, cdProducto, nroPuerto, fecha, idCorredor , idVendedor, rsNom, g_strPuerto,fechaPermitida, totalNominados,rsPto
+
+cdProveedor = GF_PARAMETROS7("cdProveedor",0,6)
+cdProducto  = GF_PARAMETROS7("cdProducto",0,6)
+g_strPuerto = GF_PARAMETROS7("pto","",6)
+fecha       = GF_PARAMETROS7("fecha","",6)
+idCorredor  = GF_PARAMETROS7("idCorredor","",6)
+idVendedor  = GF_PARAMETROS7("idVendedor","",6)
+nroPuerto   = getNumeroPuerto(g_strPuerto)
+'Esta fecha permitida valida que solo se puedan eliminar nominaciones de mañana en adelante
+fechaPermitida = GF_DTEADD(Left(Session("MmtoDato"),8), 1, "D")
+
+Set sp_return = executeSP(rsNom, "MERFL.TBLCUPOSNOMINADOS_GET_BY_PARAMETERS",fecha &"||"& fecha &"||"& nroPuerto &"||"& cdProducto &"||"& idCorredor &"||"& idVendedor &"||"& cdProveedor)
+
+set rsPto = obtenerCuposPto(auxCodigoDesde,cdProducto,g_strPuerto)
+%>
+<html>
+<head>
+<title>Sistema de Cupos</title>
+<link rel="stylesheet" href="css/main.css" type="text/css">
+<style type="text/css">
+    .tdTotalNominacion {
+        font-weight:bold;
+        font-size:11px;
+        background-color:#2e6b4d;
+        color:#fff;
+    }
+</style>
+    
+<script type="text/javascript" src="scripts/channel.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="scripts/jqueryUI/jquery-ui-1.8.2.custom.min.js"></script>
+<script type="text/javascript" src="scripts/jQueryPopUp.js"></script>
+<script type="text/javascript">
+    var ch = new channel();
+    var cuposEliminados = 0;
+
+    function eliminarNominacion(p_CdCupo, p_Index) {
+        if (confirm("Desea eliminar la nominacion?")) {
+            var strParameter = "accion=<%=ACCION_BORRAR %>&cdProveedor=<%=cdProveedor%>&fechaDesde=<%=fecha%>&fechaHasta=<%=fecha%>&cdVendedor=<%=idVendedor%>&cdCorredor=<%=idCorredor%>&pto=<%=g_strPuerto%>&cdProducto=<% =cdProducto %>&cdCupo=" + p_CdCupo;
+            ch.bind("cuposNominacionAjax.asp?" + strParameter, "eliminarNominacion_Callback(" + p_Index + ")");
+            ch.send();
+        }
+    }
+    function eliminarNominacion_Callback(p_Index) {
+        $("#tr_" + p_Index).remove();
+        cuposEliminados++;
+        parent.window.cuposEliminadosPopUp = cuposEliminados;
+        var totalNominados = document.getElementById("totalNominados").value;        
+        var total = parseInt(totalNominados) - parseInt(cuposEliminados);
+        if (total == 0) {
+            var tabla = document.getElementsByTagName("tbody")[0];
+            var tr = document.createElement("tr");
+            var td = document.createElement("td");
+            td.colSpan = "3";
+            td.align = "center";
+            td.innerHTML = "No se encontraron nominaciones";
+            tr.appendChild(td);
+            tabla.appendChild(tr);
+            document.getElementById("trTotal").style.display = "none";
+        }
+        else {            
+            document.getElementById("tdTotal").innerHTML = "Total: " + total;
+        }
+        document.getElementById("totalNominados").value = total;
+    }
+    
+</script>
+</head>
+<body >
+    <div class="tableasidecontent">
+    
+        <div class="col26 reg_header_navdos"> Fecha </div>
+        <div class="col46"><% =GF_FN2DTE(fecha) %> </div>
+        
+        <div class="col26 reg_header_navdos"> Producto </div>
+        <div class="col46"><%= cdProducto &"-"& Trim(getDsProduct(cdProducto)) %></div>
+        
+        <div class="col26 reg_header_navdos"> Corredor </div>
+        <div class="col46"><%= idCorredor &"-"& Trim(getDsCorredor(idCorredor)) %></div>
+        
+        <div class="col26 reg_header_navdos"> Vendedor </div>
+        <div class="col46"><%= idVendedor &"-"& getDsVendedor(idVendedor) %></div>
+        
+    </div>   
+    <div class="col66"></div>
+    <table class="datagrid" align="center" width="95%">
+        <thead>
+            <tr>
+                <th style="width:45%;" align="center"><%=GF_TRADUCIR("Cupo") %></th>
+                <th style="width:50%;" align="center"><%=GF_TRADUCIR("Estado") %></th>
+                <th style="width:5%;"  align="center">.</th>
+            </tr>
+        </thead>
+
+        <tbody>
+      <%    index = 0
+            while (not rsNom.Eof) 
+                'Se arma el codigo de cupo alfanumerico  
+                auxCodigoDesde = GF_nDigits(rsNom("CODIGO"),8)
+                auxCodigoDesde = Left(Trim(rsNom("DSPRODUCTO")),1) & auxCodigoDesde
+                'Determino que estado tendra el cupo
+                flagCupoRecibido = comprobarCupoPuerto(rsPto, rsNom("CODIGO"))
+                if (flagCupoRecibido) then
+                    auxEstado = "RECIBIDO"
+                else
+                    auxEstado = "OTORGADO"
+                end if %>
+                <tr id="tr_<%=index %>">
+                    <td align="center"><%= auxCodigoDesde %></td>
+                    <td align="center"><%= auxEstado %></td>
+                    <td align="center">
+                    <% if ((fecha >= fechaPermitida)and(not flagCupoRecibido)) then %>
+                        <img src="images/compras/cancel-16x16.png" style="cursor:pointer;" title="Eliminar" onclick="eliminarNominacion(<%=rsNom("CODIGO") %>,<%=index %>)"/>
+                    <% end if %>
+                    </td>
+                </tr>
+          <%    index = index + 1
+                rsNom.MoveNext() %>
+          <% wend %>
+            </tbody>
+            <tfoot>
+            	<tr id="trTotal">
+					<td align="center" colspan=3 class="tdTotalNominacion" id="tdTotal"><%=GF_TRADUCIR("Total: ") & index %></td>
+				</tr>
+			</tfoot>
+    </table>
+    <input type="hidden" id="totalNominados" value="<% =index %>" />
+</body>
+</html>

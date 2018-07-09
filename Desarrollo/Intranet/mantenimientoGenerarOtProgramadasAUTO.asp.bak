@@ -1,0 +1,114 @@
+<!--#include file="Includes/procedimientosFechas.asp"-->
+<!--#include file="Includes/procedimientosCompras.asp"-->
+<!--#include file="Includes/procedimientosParametros.asp"-->
+<!--#include file="Includes/procedimientosMantenimiento.asp"-->
+<!--#include file="Includes/procedimientosUser.asp"-->
+<!--#include file="Includes/procedimientosFormato.asp"-->
+<!--#include file="Includes/procedimientosMail.asp"-->
+<!--#include file="Includes/procedimientosLog.asp"-->
+<%
+dim logMig
+call GP_ConfigurarMomentos
+Set logMig = new classLog
+Call startLog(HND_VIEW+HND_FILE,MSG_INF_LOG+MSG_ERR_LOG+MSG_WRN_LOG)
+logMig.fileName = "GeneracionOtAuto-"& left(session("MmtoDato"),8)
+Call logMig.info("--------------------------------------------------------------")
+Call logMig.info("Verificando si hay OT por generar....")
+
+dim strSQL, rsList, diffDays, nextExecution
+dim strTitle, strBody, strMailFrom, strMailTo, G_BodyMailAS, G_BodyMailET, G_BodyMailBB
+'Obtener todos las OT planificadas que requieren que se les genere una OT recurrente
+call executeSP(rsList, "TOEPFERDB.TBLSMOTEXECUTIONS_GET_BY_IDOTGENERATED", 0)
+Call logMig.info("Es EOF? " & rsList.eof)
+while not rsList.eof 
+		'Se toma una semana como tiempo prudencial a la generacion de una OT recurrente
+		diffDays = Clng(rsList("NEXTEXECUTIONEX")) - clng(GF_DTE2FN(GF_STANDARIZAR_FECHA_RTRN(DateAdd("d",7,date()))))
+		Call logMig.info("NEXTEXECUTIONEX(" & Clng(rsList("NEXTEXECUTIONEX")) & "), date(" & date() & "),Standard(" & GF_DTE2FN(GF_STANDARIZAR_FECHA_RTRN(DateAdd("d",7,date()))) & ")")
+		if diffDays<=0 then
+			Call logMig.info("Se debe crear OT a partir de " & rsList("IDOT") & ", Proxima Ejecucion Estimada:" & rsList("NEXTEXECUTIONEX"))
+			'Implica que se alcanzo la fecha estimada de ejecucion de la proxima ocurrencia 
+			'Se debe crear una OT copia de la master
+			myOtGenerated = copyMasterOT(rsList("IDOT"), rsList("NEXTEXECUTIONEX"))
+			'Se guarda en la tabla de ejecuciones, la ot generada
+			call updateOtGenerated(rsList("IDOT"), myOtGenerated)
+		end if
+	rsList.movenext
+wend	
+strTitle = "Sistema de Mantenimiento - Planificaciones"
+if G_BodyMailAS <> "" then
+	Call logMig.info("Enviando Mail Arroyo. Sender(" & SENDER_TECH_SUPPORT & "), To(" & MAILTO_SM_AS & ")")
+	strBody = "Detalle de las Ordenes de Trabajo generadas a partir de la planificación:" & G_BodyMailAS
+	Call GP_ENVIAR_MAIL(strTitle, strBody, SENDER_TECH_SUPPORT, MAILTO_SM_AS)	
+end if
+if G_BodyMailET <> "" then
+	Call logMig.info("Enviando Mail Transito. Sender(" & SENDER_TECH_SUPPORT & "), To(" & MAILTO_SM_ET & ")")
+	strBody = "Detalle de las Ordenes de Trabajo generadas a partir de la planificación:" & G_BodyMailET
+	Call GP_ENVIAR_MAIL(strTitle, strBody, SENDER_TECH_SUPPORT, MAILTO_SM_ET)	
+end if
+if G_BodyMailBB  <> "" then
+	Call logMig.info("Enviando Mail Piedrabuena. Sender(" & SENDER_TECH_SUPPORT & "), To(" & MAILTO_SM_BB & ")")
+	strBody = "Detalle de las Ordenes de Trabajo generadas a partir de la planificación:" & G_BodyMailBB
+	Call GP_ENVIAR_MAIL(strTitle, strBody, SENDER_TECH_SUPPORT, MAILTO_SM_BB)	
+end if
+'-----------------------------------------------------
+function copyMasterOT(pIdOtSource, pScheduledDate)
+dim idOtGenerated, rsOT, abrDivision, auxText
+idOtGenerated = 0
+SM_idOrder = pIdOtSource
+'Leer cabecera de OT maestra
+call readHeaderOtDB()
+'Generar nuevo numero
+
+SM_nroOrder = getNumeracionOT(SM_idActiveEquipment)
+SM_cdState = STATE_STAND_BY 
+
+auxText = "Nro de Orden: " & SM_nroOrder & vbcrlf & "Titulo: " & SM_dsOrder & vbcrlf & "Fecha Programada: " & GF_FN2DTE(pScheduledDate) & vbcrlf & vbcrlf
+abrDivision = trim(getDivisionAbreviada(SM_idDivision))
+if abrDivision = CODIGO_ARROYO then
+	G_BodyMailAS =  vbcrlf & G_BodyMailAS & auxText
+elseif abrDivision = CODIGO_TRANSITO then	
+	G_BodyMailET =  vbcrlf & G_BodyMailET & auxText
+elseif abrDivision = CODIGO_PIEDRABUENA then	
+	G_BodyMailBB =  vbcrlf & G_BodyMailBB & auxText
+end if
+
+call executeSP(rs, "TOEPFERDB.TBLSMORDER_INS", SM_nroOrder & "||" & SM_dsOrder & "||" & SM_idDivision & "||" & SM_idActiveEquipment & "||" & pScheduledDate & "||" & SM_maintenanceType & "||" & SM_cdState & "||" & SM_cdApplicant & "||" & SM_orderType & "||" & SM_idResponsableCompany & "||" & SM_idObra & "||" & SM_idBudgetArea & "||" & SM_idBudgetDetalle & "||AUT||" & session("MmtoDato") & "||" )
+
+'Obtener id de la OT recientemente generada
+call executeSP(rsMax, "TOEPFERDB.TBLSMORDER_GET_MAX_ID","" )
+idOtGenerated = rsMax("MAXID")
+'Para el detalle de las OT se va a leer de la maestra y se va a grabar en la generada con lo cual se va a ir cambiando
+'el valor de la variable global SM_idOrder dependiendo de la accion que se va a realizar
+
+'Leer detalles de OT Maestra
+SM_idOrder = cLng(pIdOtSource)
+call initTasksOTDB()
+while readNextTaskOtDB()
+	SM_doneTask = SM_TASK_DONE_NO 
+	'guardar nuevo detalle en id de OT generada
+	SM_idOrder = cLng(idOtGenerated)
+	SM_nroTask = 0
+	saveOtTasks()
+	'Se vuelve a poner la OT maestra para que continue leyendo sus items
+	SM_idOrder = cLng(pIdOtSource)
+wend
+
+
+SM_idOrder = cLng(pIdOtSource)
+call initItemsOTDB()
+while readNextItemOtDB()
+	SM_idPMItem = 0
+	SM_realQuantityItem = 0
+	SM_idOrder = cLng(idOtGenerated)
+	SM_nroItem = 0
+	saveOtItems()
+	SM_idOrder = cLng(pIdOtSource)
+wend
+
+copyMasterOT = idOtGenerated
+end function
+'-----------------------------------------------------
+sub updateOtGenerated(pMasterOT, pGeneratedOT)
+	call executeSP(rs, "TOEPFERDB.TBLSMOTEXECUTIONS_INS", pMasterOT & "||0||" & pGeneratedOT & "||S")
+end sub
+%>
