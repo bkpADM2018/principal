@@ -1,0 +1,129 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background:#4d7c4e;
+	margin:2px;
+}
+#pp{
+	height:100%;
+	width:100%;
+	vertical-align:middle;
+	margin:3%;
+}
+#head{
+	width:100%;
+	background:url(FondoFrente.png);
+	background-repeat:repeat-x;
+	background-color:#fffefa;
+}
+#frente{
+	float:left;
+	background:url(Frente.png);
+	background-repeat:no-repeat;
+	height:60px;
+	width:100%;
+	vertical-align:top;
+}
+.titulo{
+	text-align:right;
+	text-decoration:none;
+	font-family:Arial, Helvetica, sans-serif;
+	font-style:oblique;
+	font-size:9pt;
+	font-weight:100;
+	margin-top:15px;
+	margin-right:2px;
+}
+#medio{
+	background-color:#4d7c4e;
+}
+.volver{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:12pt;
+	color:#FFF;
+	text-decoration:none;
+}
+.volver:hover{
+	font-style:oblique;
+}
+#salida{
+	position:absolute;
+	margin-top:170px;
+	margin-left:300px;
+	background-image:url(../images/Salida.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	color:#ddd;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:16pt;
+	float:left;
+	width:170px;
+	height:68px;
+	text-decoration:none;
+}
+#salida:hover{
+	background-position:bottom;
+	color:#fff;
+}
+#estacionamiento{
+	position:absolute;
+	margin-top:192px;
+	margin-left:356px;
+	background-image:url(../images/Estacionamiento.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	color:#ddd;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:16pt;
+	float:left;
+	width:380px;
+	height:141px;
+	text-decoration:none;
+}
+#estacionamiento:hover{
+	background-position:bottom;
+	color:#fff;
+}
+#entrada{
+	position:absolute;
+	margin-top:218px;
+	margin-left:566px;
+	background-image:url(../images/Entrada.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	color:#ddd;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:16pt;
+	float:left;
+	width:180px;
+	height:83px;
+	text-decoration:none;
+}
+#entrada:hover{
+	background-position:bottom;
+	color:#fff;
+}
+#calada{
+	position:absolute;
+	margin-top:264px;
+	margin-left:328px;
+	background-image:url(../images/Calada.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	float:left;
+	width:340px;
+	height:123px;
+	color:#ddd;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:16pt;
+	text-decoration:none;
+}
+#calada:hover{
+	background-position:bottom;
+	color:#fff;
+}

@@ -1,0 +1,106 @@
+.qq-uploader { position:relative; width: 100%;}
+
+.qq-upload-button {
+    display:block; /* or inline-block */
+    width: 120px; 
+	text-align:center;    
+	border: 1px solid #293e25;
+	background-color:transparent;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	
+	background-image: -moz-linear-gradient(top, #517b4a, #293e25);
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#517b4a), to(#293e25));
+	background-image: -o-linear-gradient(top, #517b4a, #293e25);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#517b4a', endColorstr='#293e25');
+	
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#517b4a', endColorstr='#293e25')";
+	
+	background-image: linear-gradient(top, #517b4a, #293e25);
+	-moz-background-clip: padding-box;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.7),
+		0px 1px 0px rgba(255,255,255,0.3);
+	padding: 4px 10px;
+	
+	-moz-box-shadow:
+		0px 0px 0px rgba(000,000,000,0),
+		inset 0px 0px 1px rgba(255,255,255,0.5);
+	-webkit-box-shadow:
+		0px 0px 0px rgba(000,000,000,0),
+		inset 0px 0px 1px rgba(255,255,255,0.5);
+	
+
+
+
+}
+.qq-upload-button-hover {
+	display:block; /* or inline-block */
+    width: 120px; 
+	text-align:center;    
+	border: 1px solid #8e9692;
+	background-color:transparent;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	
+	background-image: -moz-linear-gradient(top, #e1e1eb, #8e9692);
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#e1e1eb), to(#8e9692));
+	background-image: -o-linear-gradient(top, #e1e1eb, #8e9692);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1e1eb', endColorstr='#8e9692');
+	
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1e1eb', endColorstr='#8e9692')";
+	
+	background-image: linear-gradient(top, #e1e1eb, #8e9692);
+	-moz-background-clip: padding-box;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #444444;
+	text-shadow:
+		0px 1px 0px rgba(255,255,255,0.7),
+		0px 1px 0px rgba(255,255,255,0.3);
+	padding: 4px 10px;
+	
+	-moz-box-shadow:
+		0px 0px 0px rgba(000,000,000,0),
+		inset 0px 0px 1px rgba(50,50,50,0.5);
+	-webkit-box-shadow:
+		0px 0px 0px rgba(000,000,000,0),
+		inset 0px 0px 1px rgba(50,50,50,0.5);
+	
+}
+.qq-upload-button-focus {outline:1px dotted black;}
+
+.qq-upload-drop-area {
+    position:absolute; top:0; left:0; width:100%; height:100%; min-height: 70px; z-index:2;
+    background:#FF9797; text-align:center; 
+}
+.qq-upload-drop-area span {
+    display:block; position:absolute; top: 50%; width:100%; margin-top:-8px; font-size:16px;
+}
+.qq-upload-drop-area-active {background:#FF7171;}
+
+.qq-upload-list {margin:15px 35px; padding:0; list-style:disc;}
+.qq-upload-list li { margin:0; padding:0; line-height:15px; font-size:12px;}
+.qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text {
+    margin-right: 7px;
+}
+
+.qq-upload-file {}
+.qq-upload-spinner {display:inline-block; background: url("../images/upload/loading.gif"); width:15px; height:15px; vertical-align:text-bottom;}
+.qq-upload-size,.qq-upload-cancel {font-size:11px;}
+
+.qq-upload-failed-text {display:none;}
+.qq-upload-fail .qq-upload-failed-text {display:inline;}

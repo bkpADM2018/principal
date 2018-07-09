@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* ======================================================================
+=====   SEARCHBAR - FILTRO DE BUSQUEDA								=====
+====================================================================== */
+#searchfilter 		{ display:; } /* DEAFULT STYLE -> HIDE */
+#searchfilter a		{ color:#333 !important; } /* DEAFULT STYLE -> HIDE */
+#searchfilter img	{ vertical-align:middle; } 
+
+#searchfilter .reg_header_navdos		{ background:#fff !important; }
+
+#searchfilter input						{ /*width:97%;*/ border:0px solid #bbb; background:#D8D8D8; }
+#searchfilter input[type="checkbox"]	{ margin:5px; }
+
+#searchfilter select 					{ width:100%; border:1px solid #bbb; background:#D8D8D8; }
+#searchfilter input[type="submit"]		{ height:auto; clear:both; background:#555 !important; margin:20px auto 3px auto !important; padding:5px 25px; color:#fff; font-size:14px; border:none !important; cursor:pointer; }
+
+#searchfilter .half			{ width:30% !important; }
+#searchfilter .wnone		{ width:23% !important; }
+
+.btnaction 					{ width:100%; float:left; clear:both; margin:0px auto; text-align:center;  }
+.btnaction input			{ width:auto !important; }
+
+
+/* ====================================================================== */

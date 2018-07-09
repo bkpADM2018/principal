@@ -1,0 +1,2254 @@
+<%
+
+Const HEX_COLOR_BLUE = "0055AA"
+Const HEX_COLOR_GREEN = "00AA00"
+Const HEX_COLOR_RED = "BB0000"
+
+
+'Requerimientos 
+const REQ_IDREQ  = 0
+
+'Tareas
+' idreq = 0
+const REQ_IDTAREA = 1
+const REQ_STATUS_TAREA = 2
+const REQ_LOTE = 3
+
+'Archivos
+'idreq = 0
+const REQ_SECUENCIA 	 = 1
+const REQ_EXT 			 = 2
+const REQ_NOMBRE_ARCHIVO = 3
+
+'Solicitantes
+'idreq = 0
+const REQ_USER 	 = 1
+const REQ_SECTOR = 2
+
+const EST_DESC_PERMITIDO = 1
+const EST_DESC_NOPERMITIDO = 2
+
+'Estados requerimiento
+Const REQ_STATUS_PENDING 	= 0
+Const REQ_STATUS_ACTIVE 	= 1
+Const REQ_STATUS_TESTING  	= 2
+Const REQ_STATUS_TESTING_OK = 3
+Const REQ_STATUS_CANCELED 	= 4
+Const REQ_STATUS_APROBADO 	= 5
+Const REQ_STATUS_FINALIZED 	= 6
+Const REQ_STATUS_RELEASED 	= 7
+
+
+Const REQ_ESTADO_ARCHIVO_PUBLICADO = 2
+
+'Secuencias Firma
+Const REQ_SEC_FIRMA_TESTER 			 = 0
+Const REQ_SEC_FIRMA_PUBLICO 		 = 1
+Const REQ_SEC_FIRMA_SOLICITANTE_BASE = 2
+'hay que agregar los demas solicitantes cuando se implementen las firmas electronicas'
+
+'Firmas
+' idreq = 0
+' secuencia = 1
+Const REQ_CDUSUARIO  = 2
+Const REQ_HKEY 		 = 3
+Const REQ_MMTO_FIRMA = 4
+Const REQ_OBS 		 = 5
+
+Const REQ_CANT_FILES_SECTOR = 1000
+
+Const PREF_FILES_OTROS  = 1000
+Const PREF_FILES_TESTER = 2000
+Const PREF_FILES_PUBLIC = 3000
+
+Const ORIGEN_REQUERIMIENTO 	= "requerimiento"
+Const ORIGEN_AUDITORIA		= "auditoria"
+
+'Permisos
+Const REQ_ALTA 				= 0
+Const REQ_BAJA 				= 1
+Const REQ_MOD_REQ 			= 2
+Const REQ_MOD_TAREAS 		= 3
+Const REQ_MOD_TESTING 		= 4
+Const REQ_MOD_APROV 		= 5
+Const REQ_MOD_PUBLIC 		= 6
+Const REQ_FILE_REQ_UP		= 7
+Const REQ_FILE_REQ_DOWN 	= 8
+Const REQ_FILE_REQ_DELETE 	= 9
+Const REQ_FILE_TEST_UP 		= 10
+Const REQ_FILE_TEST_DOWN 	= 11
+Const REQ_FILE_TEST_DELETE 	= 12
+
+Const REQ_FILE_PUBL_UP		= 22
+Const REQ_FILE_PUBL_DOWN	= 23
+Const REQ_FILE_PUBL_DELETE	= 24
+
+Const REQ_VISUALIZ 			= 13
+Const REQ_PDF 				= 14
+Const REQ_ROLES 			= 15
+Const REQ_FIRMA_TEST 		= 16
+Const REQ_FIRMA_APROV 		= 17
+Const REQ_FIRMA_PROBLIC 	= 18
+Const REQ_COMENT_TEST 		= 19
+Const REQ_COMENT_APROV 		= 20
+Const REQ_COMENT_PROBLIC 	= 21
+
+Const REQ_BOTON_GUARDAR 	= 22
+
+
+Const REQ_VERSION_UNRELEASED = 1 
+Const REQ_VERSION_RELEASED 	 = 2
+Const REQ_VERSION_ACTUAL 	 = 3
+
+Const REQ_SIN_VERSION = "0.0.0:0"
+
+Const REQ_CANT_PENDIENTES 	= 0
+Const REQ_CANT_PROCESO 		= 1
+Const REQ_CANT_TESTING 		= 2
+Const REQ_CANT_TESTING_OK	= 3
+Const REQ_CANT_APP_USUARIO  = 4
+Const REQ_CANT_FINALIZADAS 	= 5
+
+Const REQ_CAMBIO_MAYOR = 0
+Const REQ_CAMBIO_MENOR = 1
+Const REQ_CAMBIO_ERROR = 2
+
+Const REQ_VERSION_MAYOR = 0
+Const REQ_VERSION_MENOR = 1
+Const REQ_VERSION_ERROR = 2
+
+'Secciones
+Const SECCION_REQUERIMIENTO = 0
+Const SECCION_TAREAS 		= 1
+Const SECCION_TESTING 		= 2
+Const SECCION_APROBACION 	= 3
+Const SECCION_PUBLICACION 	= 4
+
+'Plataformas'
+Const REQ_PLATAFORMA_WINDOWS = "W"
+Const REQ_PLATAFORMA_AS400   = "I"
+Const REQ_PLATAFORMA_AMBOS   = "A"
+
+Const REQ_MAX_SOLICITANTES = 3
+
+Const REQ_BUSQUEDA_ACTIVOS = -1
+Const REQ_BUSQUEDA_TODOS   = -2
+
+Const REQ_MOSTRAR_ICONO = "SI"
+Const REQ_OCULTAR_ICONO = "NO"
+
+Const REQ_AJAX_SAVE_SOLICITANTE = "solicitante"
+Const REQ_AJAX_SAVE_TITULO = "titulo"
+Const REQ_AJAX_SAVE_DSREQ = "dsreq"
+Const REQ_AJAX_SAVE_OBSTESTER = "obstester"
+Const REQ_AJAX_SAVE_OBSPUBLICADOR = "obspublicador"
+Const REQ_AJAX_SAVE_OBSSOLICITANTE = "obsolicitante"
+
+Const TIPO_TAREA_DESARROLLO = "desarrollo"
+Const TIPO_TAREA_TESTING    = "testing"
+Const TIPO_TAREA_APROBACION = "aprobacion"
+Const TIPO_TAREA_PUBLICACION= "publicacion"
+
+Const TIPO_CLASE_TAREA = "TAREA"
+Const TIPO_CLASE_ILUMINAR = "ILUMINAR"
+Const TIPO_CLASE_RESALTAR = "RESALTAR"
+Const TIPO_CLASE_DS = "DS"
+
+Const REQ_ORIGEN_FIRMA_SOLICITANTE = "solicitante"
+
+Const REQ_ARCHIVO_DEL_REQUERIMIENTO = 0
+
+Const REQ_ORDENAR_IDTAREA = "IDTAREA"
+Const REQ_ORDENAR_LOTE = "LOTE"
+'Productos'
+Const REQ_ULTIMAS_VERSIONES = 5
+Const REQ_TODAS_LAS_VERSIONES = 0
+Set oDiccLastProdVer  = createObject("Scripting.Dictionary")
+
+Dim  vTareas ,vArchivos ,vSolicitantes() ,vTester ,vSolic ,vPublico ,flagSolicitante
+Redim vSolicitantes(REQ_MAX_SOLICITANTES-1)
+flagSolicitante = ""
+
+Dim GR_Req
+Set oDiccPermisos =Server.CreateObject("Scripting.Dictionary")
+'--------------------------------------------------------------------------------------------------
+'Se podria haber creado una clase classMG y luego una clase classSector que herede de esta pero
+' por la actual politica de ir eliminando el uso del MG no lo considere necesario, por el hecho de que 
+' no se utilizaria salvo casos como este.
+'--------------------------------------------------------------------------------------------------
+' Clase sector
+'	Creacion:
+'			Set sector = new classSector
+'	Carga:
+'			Call sector.loadDbWithKr(kr)
+'			Call sector.loadDbWithKc(kc)
+'	Propiedades:
+'			sector.kr
+'			sector.kc
+'			sector.ds
+'--------------------------------------------------------------------------------------------------
+Class classSector
+	private m_kr
+	private m_kc
+	private m_ds
+	private m_km
+
+	Private Sub Class_Initialize
+		m_kr = 0
+		m_kc = ""
+		m_ds = ""
+		m_km = "SS" ' Sectores '
+	End Sub
+
+	public property get kr()
+		kr = m_kr
+	end property
+	public property get kc()
+		kc = m_kc
+	end property
+	public property get ds()
+		ds = m_ds
+	end property
+
+	Function loadDbWithKr(pKr)
+		Dim rs,oConn,strSQL,rtrn
+		strSQL = "select * from mg where mg_kr = '"&pKr&"'"
+		Call GF_BD_CONTROL(rs,oConn,"OPEN",strSQL)
+		if (not rs.EoF) then
+			m_kr = pKr
+			m_kc = rs("mg_kc")
+			m_ds = rs("mg_ds")
+		end if
+	End Function
+
+	Function loadDbWithKc(pKc)
+		Dim rs,oConn,strSQL,rtrn
+		strSQL = "select mg_kr,mg_ds from mg where mg_km = '"&m_km&"' and mg_kc = '"&pKc&"'"
+		Call GF_BD_CONTROL(rs,oConn,"OPEN",strSQL)
+		if (not rs.EoF) then
+			m_kr = rs("mg_kr")
+			m_kc = pKc
+			m_ds = rs("mg_ds")
+		end if
+	End Function
+End Class
+'--------------------------------------------------------------------------------------------------
+' Clase solicitante
+'	Creacion:
+'			Set solicitante = new classSolicitante
+'	Carga:
+'			Call solicitante.loadDb(idRequerimiento,nroSecuencia)
+'			Call solicitante.loadUrl(nroSecuencia)
+'	Propiedades:
+'			solicitante.cdSolicitante
+'			solicitante.dsSolicitante
+'			solicitante.secuencia
+'			solicitante.sectorKr
+'			solicitante.sectorKc
+'			solicitante.sectorDs
+'			solicitante.loaded	----> se utiliza para saber si es un usuario del sistema
+'--------------------------------------------------------------------------------------------------
+Class classSolicitante
+	private m_CdSolicitante
+	private m_DsSolicitante
+	private m_Sector
+	private m_Secuencia
+	private m_loaded
+	private m_Comentario
+	private m_MmtoFirma
+	private m_HKey
+
+	Private Sub Class_Initialize
+		'propiedades por defecto
+		m_CdSolicitante = FIRMA_NO_USER
+		m_DsSolicitante = ""
+		m_Comentario = ""
+		m_MmtoFirma = 0
+		m_HKey = ""
+		Set m_sector = new classSector
+		m_secuencia = 0
+		m_loaded = false
+	End Sub
+
+	public property get cdSolicitante()
+		cdSolicitante = m_CdSolicitante
+	end property
+	public property get dsSolicitante()
+		dsSolicitante = m_DsSolicitante
+	end property
+	public property get secuencia()
+		secuencia = m_secuencia
+	end property
+
+	public property get sectorKr()
+		sectorKr = m_Sector.kr
+	end property
+	public property get sectorKc()
+		sectorKc = m_Sector.kc
+	end property
+	public property get sectorDs()
+		sectorDs = m_Sector.ds
+	end property
+	public property get loaded()
+		loaded = m_loaded
+	end property
+	public property get comentario()
+		comentario = m_Comentario
+	end property
+	public property get mmtoFirma()
+		mmtoFirma = m_MmtoFirma
+	end property
+	public property get hkey()
+		hkey = m_HKey
+	end property
+
+	Function loadDb(pNroReq,pSecuencia)
+		Dim strSQL,rs
+		strSQL = "select * from toepferdb.tblsyssolicitantes where idrequerimiento = " & pNroReq & " and secuencia = " & pSecuencia
+		call executeQuery(rs, "OPEN", strSQL)	
+		if (not rs.EoF) then
+			m_CdSolicitante = rs("cdusuario")
+			m_DsSolicitante = getUserDescription(m_CdSolicitante)
+			m_Secuencia = pSecuencia
+			m_sector.loadDbWithKc(rs("idsector"))
+			if (m_CdSolicitante <> FIRMA_NO_USER) then m_loaded = true
+
+			strSQL = "select * from toepferdb.tblsysfirmas where idrequerimiento = " & pNroReq & " and secuencia = " & pSecuencia
+			call executeQuery(rs2, "OPEN", strSQL)	
+			if (not rs2.EoF) then
+				m_Comentario = rs2("observaciones")
+				m_MmtoFirma = 0
+				if (not isnull(rs2("mmto"))) then m_MmtoFirma = cdbl(rs2("mmto"))
+				m_HKey = ""
+				if (not isnull(rs2("hkey"))) then m_HKey = cdbl(rs2("hkey"))
+			end if
+		end if
+	End Function
+
+	Function loadDbFirma(pNroReq,pSecuencia,pIdTarea)
+		Dim strSQL,rs
+		strSQL = "select * from toepferdb.tblsyssolicitantes where idrequerimiento = " & pNroReq & " and secuencia = " & pSecuencia
+		call executeQuery(rs, "OPEN", strSQL)	
+		if (not rs.EoF) then
+			m_CdSolicitante = rs("cdusuario")
+			m_DsSolicitante = getUserDescription(m_CdSolicitante)
+			m_Secuencia = pSecuencia
+			m_sector.loadDbWithKc(rs("idsector"))
+			if (m_CdSolicitante <> FIRMA_NO_USER) then m_loaded = true
+
+			strSQL = "select * from toepferdb.tblsysfirmas where idrequerimiento = " & pNroReq & " and secuencia = " & pSecuencia & " and idtarea = " & pIdTarea
+			call executeQuery(rs2, "OPEN", strSQL)	
+			if (not rs2.EoF) then
+				m_Comentario = rs2("observaciones")
+				m_MmtoFirma = 0
+				if (not isnull(rs2("mmto"))) then m_MmtoFirma = cdbl(rs2("mmto"))
+				m_HKey = ""
+				if (not isnull(rs2("hkey"))) then m_HKey = cdbl(rs2("hkey"))
+			end if
+		end if
+	End Function
+
+	Function loadUrl(pSecuencia)
+		if (GF_PARAMETROS7("cdsolicitante_" & pSecuencia,"" ,6) <> "") then
+			m_CdSolicitante = GF_PARAMETROS7("cdsolicitante_" & pSecuencia,"" ,6)
+			m_DsSolicitante = GF_PARAMETROS7("solicitante_" & pSecuencia,"" ,6)
+			m_Sector.loadDbWithKr(GF_PARAMETROS7("sector_" & pSecuencia ,0,6))
+			m_Secuencia = pSecuencia
+			m_loaded = true
+		end if
+	End Function
+
+End Class
+'--------------------------------------------------------------------------------------------------
+Function cargarRoles()
+	Dim strSQL,rs
+	strSQL = "select * from toepferdb.tblrolesusuarios where IDSISTEMA=" & SEC_SYS_HEFESTO & " and cdusuario = '"&session("Usuario")&"'"
+	call executeQuery(rs, "OPEN", strSQL)
+
+	while not rs.EoF
+		session("rol_hefesto_"&rs("idrol")) = rs("idrol")
+		rs.MoveNext
+	wend
+
+End Function 
+'--------------------------------------------------------------------------------------------------
+Function tienePermisos(pSecciones)
+	Dim i,auxSecciones
+	rtrn = false
+	
+	auxSecciones = split(pSecciones,",")
+	for i = 0 to ubound(auxSecciones)
+		if ( session("rol_hefesto_"&auxSecciones(i)) <> "" ) then
+			rtrn = true
+			exit for
+		end if
+	next
+
+	tienePermisos = rtrn
+
+End Function
+'--------------------------------------------------------------------------------------------------
+Function comprobarPermisos(pSeccion,pIdReq)
+	Dim rtrn
+	
+	Const TODOS = true
+	
+	rtrn = false
+
+	select case pSeccion
+		case REQ_ALTA
+			rtrn = tienePermisos(ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+		case REQ_BAJA
+			rtrn = tienePermisos(ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+		case REQ_MOD_REQ
+			rtrn = tienePermisos(ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+		case REQ_MOD_TAREAS
+			rtrn = tienePermisos(ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+		case REQ_MOD_TESTING
+			rtrn = tienePermisos(ROL_HEFESTO_TESTER)
+		case REQ_MOD_APROV
+			if (esSolicitante(session("usuario"),pIdReq)) then rtrn = true
+		case REQ_MOD_PUBLIC
+			rtrn = tienePermisos(ROL_HEFESTO_PUBLICADOR)	
+		case REQ_MOD_PUBLIC
+			rtrn = tienePermisos(ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT&","&ROL_HEFESTO_PUBLICADOR)	
+		case REQ_FILE_REQ_UP
+			rtrn = tienePermisos(ROL_HEFESTO_ANALISTA&","&ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+		case REQ_FILE_REQ_DOWN 
+			rtrn = tienePermisos(ROL_HEFESTO_ANALISTA&","&ROL_HEFESTO_DESARROLLADOR&","&ROL_HEFESTO_TESTER&","&ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+		case REQ_FILE_REQ_DELETE 
+			rtrn = tienePermisos(ROL_HEFESTO_ANALISTA&","&ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+		case REQ_FILE_TEST_UP 
+			rtrn = tienePermisos(ROL_HEFESTO_TESTER)
+		case REQ_FILE_TEST_DOWN
+			rtrn = tienePermisos(ROL_HEFESTO_ANALISTA&","&ROL_HEFESTO_DESARROLLADOR&","&ROL_HEFESTO_TESTER&","&ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+		case REQ_FILE_TEST_DELETE
+			rtrn = tienePermisos(ROL_HEFESTO_TESTER)
+		case REQ_FILE_PUBL_UP
+			rtrn = tienePermisos(ROL_HEFESTO_PUBLICADOR)
+		case REQ_FILE_PUBL_DOWN
+			rtrn = tienePermisos(ROL_HEFESTO_ANALISTA&","&ROL_HEFESTO_DESARROLLADOR&","&ROL_HEFESTO_TESTER&","&ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT&","&ROL_HEFESTO_PUBLICADOR)
+		case REQ_FILE_PUBL_DELETE
+			rtrn = tienePermisos(ROL_HEFESTO_PUBLICADOR)
+		case REQ_VISUALIZ
+			rtrn = TODOS
+		case REQ_PDF
+			if (esSolicitante(session("usuario"),pIdReq)) then
+				rtrn = true
+			else
+				rtrn = tienePermisos(ROL_HEFESTO_PUBLICADOR&","&ROL_HEFESTO_TESTER&","&ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+			end if 
+		case REQ_ROLES
+			rtrn = tienePermisos(ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+		case REQ_FIRMA_TEST
+			rtrn = tienePermisos(ROL_HEFESTO_TESTER)
+		case REQ_COMENT_TEST
+			rtrn = tienePermisos(ROL_HEFESTO_TESTER)
+		case REQ_FIRMA_APROV
+			if (esSolicitante(session("usuario"),pIdReq)) then rtrn = true
+		case REQ_COMENT_APROV
+			if (esSolicitante(session("usuario"),pIdReq)) then	rtrn = true
+		case REQ_FIRMA_PROBLIC
+			rtrn = tienePermisos(ROL_HEFESTO_PUBLICADOR)
+		case REQ_COMENT_PROBLIC
+			rtrn = tienePermisos(ROL_HEFESTO_PUBLICADOR)
+		'Los Analistas y desarrolladores no necesitan ver el boton guardar
+		' porque no tienen permiso de modificar ningun campo, amenos que sean el solicitante
+		case REQ_BOTON_GUARDAR
+			if (esSolicitante(session("usuario"),pIdReq)) then
+				rtrn = true
+			else
+				rtrn = tienePermisos(ROL_HEFESTO_PUBLICADOR&","&ROL_HEFESTO_TESTER&","&ROL_HEFESTO_PROJECT_LEADER&","&ROL_HEFESTO_GERENTE_IT)
+			end if
+			
+	end select
+	
+	comprobarPermisos = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function esSolicitante(pUser,pReq)
+	Dim rs,conn,strSQL
+
+	
+	if (flagSolicitante = "") then
+		strSQL = "select * from toepferdb.tblsyssolicitantes where idrequerimiento = "&pReq&" and cdusuario ='"&ucasE(pUser)&"'"
+		call executeQuery(rs, "OPEN", strSQL)
+		
+		rtrn = not rs.EoF
+		flagSolicitante = rtrn
+	else
+		rtrn = flagSolicitante
+	end if
+	
+	esSolicitante = rtrn
+End Function 
+
+'--------------------------------------------------------------------------------------------------
+Function loadRequerimientoFullDB(pNroReq,byRef pCantTareas)
+	if (pNroReq <> "") then
+		Call loadRequerimientoDB(pNroReq)
+		vTareas = loadTareasDb(pNroReq,REQ_ORDENAR_IDTAREA)
+		if (ubound(vTareas) > 1) then
+			pCantTareas = ubound(vTareas)-1
+		else
+			pCantTareas = 0
+		end if 
+
+		vTester = loadFirmaData(pNroReq,REQ_SEC_FIRMA_TESTER)
+		vSolic = loadFirmaData(pNroReq,REQ_SEC_FIRMA_SOLICITANTE_BASE)
+		vPublico = loadFirmaData(pNroReq,REQ_SEC_FIRMA_PUBLICO)
+	end if
+End Function
+'--------------------------------------------------------------------------------------------------
+Function loadRequerimientoDB(pNroReq)
+	Dim strSQL,rsReq,conn
+	strSQL = "SELECT req.*,prod.dsProducto,prod.plataforma,ver.mayor,ver.menor,ver.revision,ver.svn " 
+	strSQL = strSQL & "FROM   (SELECT * " 
+	strSQL = strSQL & "        FROM   toepferdb.tblsysrequerimientos " 
+	strSQL = strSQL & "        WHERE  idrequerimiento = "&pNroReq&") req " 
+	strSQL = strSQL & "       LEFT JOIN toepferdb.tblsysproductos prod " 
+	strSQL = strSQL & "         ON prod.idproducto = req.idproducto "
+	strSQL = strSQL & "		  left join TOEPFERDB.TBLSYSVERSIONES ver on ver.idversion = req.idversion"
+
+	call executeQuery(GR_Req, "OPEN", strSQL)
+
+End Function
+'--------------------------------------------------------------------------------------------------
+Function loadTareasDB(pNroReq,pOrden)
+	Dim strSQL,rsTareas,conn,pVec(),aux(3),rs0,tareaVieja,vSoli(4),ordenListado
+	ordenListado = pOrden
+	'EN CASO DE QUE SE QUIERA ORDENAR POR LOTES, SE LO HARÁ DESDE EL LOTE MAS RECIENTE AL LOTE MAS ANTIGUO
+	if(ordenListado = REQ_ORDENAR_LOTE)then ordenListado = ordenListado &" DESC "
+	strSQL = "select * from toepferdb.tblsystareas where idrequerimiento = " & pNroReq & " order by " & ordenListado
+	call executeQuery(rsTareas, "OPEN", strSQL)
+	redim pVec(0)
+
+	tareaVieja = false
+	if (not rsTareas.EoF) then
+		strSQL = "select * from toepferdb.tblsysfirmas where idrequerimiento = " & pNroReq & " and idtarea = " & rsTareas("idtarea")
+		call executeQuery(rs0, "OPEN", strSQL)
+		'Si no encuentra la primer tarea asumo que tampoco estan las demas, ya que la creacion de estos registros se hacen
+		' cuando se asocia la tarea al requerimiento, quedando los registros viejos sin la nueva estructura
+		if (rs0.EoF) then 
+			strSQL = "select * from toepferdb.tblsysfirmas where idrequerimiento = " & pNroReq
+			call executeQuery(rs0, "OPEN", strSQL)
+			'Obtengo los solicitantes'
+			while not rs0.EoF
+				if (cdbl(rs0("secuencia")) >= 2 ) then
+					vSoli(rs0("secuencia")) = rs0("cdusuario")
+				end if
+				rs0.MoveNext
+			wend
+			tareaVieja = true
+		end if
+
+	end if
+
+	while not rsTareas.EoF
+		if (tareaVieja) then
+			for i = 0 to 4
+				strSQL = "insert into toepferdb.tblsysfirmas (idrequerimiento,secuencia,cdusuario,observaciones,idtarea) "
+				strSQL = strSQL & " values ("&pNroReq&","&i&",'"&vSoli(i)&"','',"&rsTareas("idtarea")&")"
+				call executeQuery(rs0, "EXEC", strSQL)
+			next
+		end if
+
+		redim preserve pVec(ubound(pVec)+1)
+		aux(REQ_IDREQ) = pNroReq
+		aux(REQ_IDTAREA) = cdbl(rsTareas("idtarea"))
+
+		
+		aux(REQ_STATUS_TAREA) = getIssueStatus(rsTareas("idtarea"))
+		aux(REQ_LOTE) = cdbl(rsTareas("lote"))
+
+
+		pVec(ubound(pVec)) = aux
+		rsTareas.MoveNext
+	wend
+
+	if (tareaVieja) then
+		strSQL = "delete from toepferdb.tblsysfirmas where idrequerimiento = " & pNroReq & " and idtarea = 0"
+		call executeQuery(rs0, "EXEC", strSQL)
+	end if
+	
+	loadTareasDB = pVec
+End Function
+'--------------------------------------------------------------------------------------------------
+Function loadArchivosDb(pNroReq,pIdTarea,pInicioSec)
+	Dim strSQl,rsFiles,conn,aux(3),pVec
+	
+	strSQL = "select * from toepferdb.tblsysarchivos where idrequerimiento = " & pNroReq 
+	if (cstr(pidTarea) <> "") then
+		strSQL = strSQL & " and idTarea = " & pIdTarea
+	end if
+	
+		strSQL = strSQL & " and secuencia >= " & pInicioSec
+		
+		strSQL = strSQL & " and secuencia < " & cdbl(pInicioSec) + REQ_CANT_FILES_SECTOR
+		
+
+	call executeQuery(rsFiles, "OPEN", strSQL)
+	
+	redim pVec(0)
+	while not rsFiles.EoF
+		redim preserve pVec(ubound(pVec)+1)
+		aux(REQ_IDREQ) = pNroReq
+		aux(REQ_SECUENCIA) = cdbl(rsFiles("secuencia"))
+		aux(REQ_EXT) = rsFiles("ext")
+		aux(REQ_NOMBRE_ARCHIVO) = rsFiles("nombre")
+		pVec(ubound(pVec)) = aux
+
+		rsFiles.MoveNext
+		
+	wend
+	
+	loadArchivosDb = pVec
+	
+End Function
+'--------------------------------------------------------------------------------------------------
+Function loadFirmaData(pNroReq,pSec)
+	Dim strSQL,rsFirmas,conn,aux(5),rtrn,pVec
+	
+	if (pSec <> REQ_SEC_FIRMA_SOLICITANTE_BASE )then
+		strSQL = "select * from toepferdb.tblsysfirmas where idrequerimiento = " & pNroReq &  " and SECUENCIA = "& pSec &" order by secuencia asc"
+	else
+		strSQL = "select * from toepferdb.tblsysfirmas where idrequerimiento = " & pNroReq &  " and SECUENCIA >= "& pSec &" order by secuencia asc"
+	end if
+	
+	call executeQuery(rsFirmas, "OPEN", strSQL)
+	
+	redim pVec(0)
+	'si no existen registros le asigno el vector vacio para que mantenga la estructura
+	if (rsFirmas.EoF) then pVec(ubound(pVec)) = aux 
+	while not rsFirmas.EoF
+		aux(REQ_IDREQ) = rsFirmas("IDREQUERIMIENTO")
+		aux(REQ_SECUENCIA) = rsFirmas("SECUENCIA")
+		aux(REQ_CDUSUARIO) = rsFirmas("CDUSUARIO")
+		aux(REQ_HKEY) = rsFirmas("HKEY")
+		aux(REQ_MMTO_FIRMA) = rsFirmas("MMTO")
+		if (isnull(rsFirmas("OBSERVACIONES"))) then
+			aux(REQ_OBS) = ""
+		else
+			aux(REQ_OBS) = rsFirmas("OBSERVACIONES")
+		end if
+		pVec(ubound(pVec)) = aux
+		redim preserve pVec(ubound(pVec)+1)
+		rsFirmas.MoveNext
+	wend
+	
+	if (pSec <> REQ_SEC_FIRMA_SOLICITANTE_BASE )then
+		rtrn = aux
+	else
+		rtrn = pVec
+	end if
+	
+	loadFirmaData = rtrn
+	
+End Function 
+'--------------------------------------------------------------------------------------------------
+Function getRequerimientosSearch(pNroReq,pTitulo,pSolicitante,pEstado,pProducto)
+	Dim strSQL, conn, rsReq,auxWhere,auxWhere2
+
+	auxWhere = ""
+	
+	if (cstr(pNroReq) <> "0" and cstr(pNroReq)<> "") then Call mkWhere(auxWhere, "idrequerimiento"  , pNroReq,"=", SQL_WHERE_INTEGER)
+	if (pTitulo <> "")then Call mkWhere(auxWhere, "titulo"  , pTitulo,"LIKE", SQL_WHERE_STRING)
+	if (pProducto <> 0)then Call mkWhere(auxWhere, "idproducto"  , pProducto,"=", SQL_WHERE_INTEGER)
+	if (trim(pEstado) <> "-1") then Call mkWhere(auxWhere, "idestado", "("&pEstado&")",  "in" , SQL_WHERE_INTEGER)
+	
+	strSQL = "select req.*,ver.mayor,ver.menor,ver.revision,ver.svn from "
+	if (pSolicitante <> "") then 
+		strSQL = "select req.*,sol.*,ver.mayor,ver.menor,ver.revision,ver.svn from "
+	end if
+	
+	strSQL = strSQL & " (select * from toepferdb.tblsysrequerimientos "& auxWhere &") req "
+	if (pSolicitante <> "") then 
+		strSQL = strSQL & " inner join toepferdb.tblsyssolicitantes sol on sol.idrequerimiento = req.idrequerimiento "
+		strSQL = strSQL & " and sol.cdusuario = '"&pSolicitante&"'"
+	end if
+	strSQL = strSQL & "LEFT JOIN toepferdb.tblsysversiones ver on ver.idversion = req.idversion"
+	
+	strSQL = strSQL & " order by idrequerimiento"
+	call executeQuery(rsReq, "OPEN", strSQL)
+
+	Set getRequerimientosSearch = rsReq
+	
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getRequerimientosSearchIdOnly(pNroReq,pTitulo,pSolicitante,pEstado,pProducto,soloMio,soloTesting,pIdTarea,pLeader,pFile,pPlataforma)
+	Dim strSQL, conn, rsReq,auxWhere,auxWhere2,auxIssuesId
+
+	auxIssuesId = pIdTarea	
+	
+	
+	if ((soloMio) or (soloTesting)) then
+	    auxEstados = ISSUE_STATUS_UNASSIGNED_OLD&","&ISSUE_STATUS_ASSIGNED_OLD&","&ISSUE_STATUS_IN_PROGRESS_OLD&","&ISSUE_STATUS_TESTING_OLD&","&ISSUE_STATUS_FAIL_TEST_OLD&","&ISSUE_STATUS_APP_USUARIO_OLD
+	    auxEstados = auxEstados & "," & ISSUE_STATUS_UNASSIGNED_NEW&","&ISSUE_STATUS_ASSIGNED_NEW&","&ISSUE_STATUS_IN_PROGRESS_NEW&","&ISSUE_STATUS_TESTING_NEW&","&ISSUE_STATUS_FAIL_TEST_NEW&","&ISSUE_STATUS_APP_USUARIO_NEW
+	    if (soloTesting) then auxEstados = ISSUE_STATUS_TESTING_OLD & ", " & ISSUE_STATUS_TESTING_NEW	    
+	
+		'Obtengo el Id de todas las tareas activas del usuario
+		strSQL = " SELECT * "
+		strSQL = strSQL & "FROM   (SELECT issueid "
+		strSQL = strSQL & "       FROM    gemini_issues "
+		strSQL = strSQL & "       WHERE   issuestatusid IN ("&auxEstados&") "
+		strSQL = strSQL & "       ) "
+		strSQL = strSQL & "       a "
+	
+	    if (soloMio) then
+		    strSQL = strSQL & "WHERE  issueid IN "
+		    strSQL = strSQL & "       ( SELECT issueid "
+		    strSQL = strSQL & "       FROM    gemini_issueresources "
+		    strSQL = strSQL & "       WHERE   userid = "
+		    strSQL = strSQL & "               (SELECT userid "
+		    strSQL = strSQL & "               FROM    gemini_users "
+		    strSQL = strSQL & "               WHERE   username = '"&session("Usuario")&"' "
+		    strSQL = strSQL & "               ) "
+		    strSQL = strSQL & "       )"		    
+	    end if	
+	    call GF_BD_GEMINI(rsIssues,  "OPEN", strSQL)
+	 end if
+	
+	
+	if (soloTesting or soloMio) then
+		while not rsIssues.EoF
+			auxIssuesId = auxIssuesId & rsIssues("issueid") & ","
+			rsIssues.MoveNext
+		wend	
+		if (auxIssuesId <> "") then	auxIssuesId = left(auxIssuesId,len(auxIssuesId)-1) 'le quito la ultima coma
+	end if
+	
+	auxWhere = ""
+	
+	if (cstr(pNroReq) <> "0" and cstr(pNroReq)<> "") then Call mkWhere(auxWhere, "idrequerimiento"  , pNroReq,"=", SQL_WHERE_INTEGER)
+	if (pTitulo <> "")then Call mkWhere(auxWhere, "titulo"  , pTitulo,"LIKE", SQL_WHERE_STRING)
+	if (pProducto <> 0)then Call mkWhere(auxWhere, "idproducto"  , pProducto,"=", SQL_WHERE_INTEGER)
+	if (pEstado <> REQ_BUSQUEDA_ACTIVOS and pEstado <> REQ_BUSQUEDA_TODOS ) then Call mkWhere(auxWhere, "idestado", "("&pEstado&")",  "in" , SQL_WHERE_INTEGER)
+	if (trim(pLeader) <> "" ) then call mkWhere(auxWhere,"LEADER",pLeader,"=",SQL_WHERE_STRING)
+
+	strSQL = "select req.idrequerimiento from "
+	if (pSolicitante <> "") then 
+		strSQL = "select req.*,sol.*,ver.mayor,ver.menor,ver.revision,ver.svn from "
+	end if
+	
+	strSQL = strSQL & " (select * from toepferdb.tblsysrequerimientos "& auxWhere &") req "
+	if (pSolicitante <> "") then 
+		strSQL = strSQL & " inner join toepferdb.tblsyssolicitantes sol on sol.idrequerimiento = req.idrequerimiento "
+		strSQL = strSQL & " and sol.cdusuario = '"&pSolicitante&"'"
+	end if
+	
+	if (auxIssuesId <> "") then
+		strSQL = strSQL & "inner join toepferdb.tblsystareas tareas on req.idrequerimiento =tareas.IDREQUERIMIENTO and tareas. idtarea in ("&auxIssuesId&") "
+	end if
+	
+	if (pFile <> "") then
+		'Como no se si el archivo a buscar es de AS400 o de Windows hago un union de las 2 tablas que contienen'
+		'dichos archivos buscand por el nombre pasado'
+		strSQL = strSQL & "INNER JOIN  ( "
+        strSQL = strSQL & "       select substr(syissu,4,4) idreq from sysfl.sys001f1 where syobje = '"&ucase(pFile)&"' "
+        strSQL = strSQL & "        union "
+        strSQL = strSQL & "        select idrequerimiento idreq from toepferdb.tblsysarchivosaproduccion where pathFile like '%"&ucase(pFile)&"%' "
+        strSQL = strSQL & ") file "
+        strSQL = strSQL & " on file.idreq = req.idrequerimiento "
+	end if
+
+	if (pPlataforma <> "") then
+		strSQL = strSQL & " INNER JOIN ("
+		strSQL = strSQL & "		select * from toepferdb.tblsysproductos where plataforma = '"&pPlataforma&"'"	
+		strSQL = strSQL & " ) productos "
+		strSQL = strSQL & " on productos.idproducto = req.idproducto "
+	end if
+
+	strSQL = strSQL & "LEFT JOIN toepferdb.tblsysversiones ver on ver.idversion = req.idversion"
+	
+	strSQL = strSQL & " order by idestado desc "
+
+	call executeQuery(rsReq, "OPEN", strSQL)
+
+	Set getRequerimientosSearchIdOnly = rsReq
+	
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 15/11/2011
+' Objetivo:
+'			Obtener El porcentaje de progreso de las tareas asociadas
+' Parametros:
+'			[int]	pNroReq
+' Devuelve:
+'			[int]	porcentaje
+' Modificaciones:
+'			--/--/-- - XXX
+'- DEPRECATED -
+'--------------------------------------------------------------------------------------------------
+Function getPorcentajeFinalizado(pNroReq)
+	Dim	myTareas,suma,rtrn,i,cantidad
+	
+	myTareas = loadTareasDB(pNroReq,REQ_ORDENAR_IDTAREA)
+
+	suma = 0
+	cantidad = 0
+	for i = 1 to ubound(myTareas)
+		cantidad = cantidad +1
+		suma = suma +getIssueProgress(myTareas(i)(REQ_IDTAREA))
+	next
+	
+	if (cantidad <> 0) then
+		rtrn = suma\cantidad 'division entera
+	else
+		rtrn = 0
+	end if
+	
+	getPorcentajeFinalizado = rtrn
+	
+end Function 
+'--------------------------------------------------------------------------------------------------
+Function asignarVersionRequerimiento(pNroReq,pIdVersion)
+	Dim strSQL,rs
+	strSQL = "update toepferdb.tblsysrequerimientos set idversion = " & pIdVersion & " where idrequerimiento = " & pNroReq
+	call executeQuery(rs, "EXEC", strSQL)
+End Function
+'--------------------------------------------------------------------------------------------------
+Function actualizarDatosRequerimiento(pNroReq,pTitulo,pDesc,pIdVersion)
+	Dim strSQL,rs
+
+	strSQL = "update TOEPFERDB.TBLSYSREQUERIMIENTOS set "
+
+	if (pTitulo <> "") then strSQL = strSQl & " titulo = '"&pTitulo&"',"
+	if (pDesc <> "") then strSQL = strSQl & " dsrequerimiento = '"&pDesc&"',"
+	if (pIdVersion <> 0) then strSQL = strSQl & " idversion = "&pIdVersion&","
+
+	'le quito la ultima coma'
+	strSQL = left(strSQL,len(strSQL)-1)
+	strSQL = strSQL & " where idrequerimiento = " & pNroReq
+
+	call executeQuery(rs, "EXEC", strSQL)
+
+End Function
+'--------------------------------------------------------------------------------------------------
+'pSolicitantes es un array de clases solicitantes'
+Function actualizarSolicitantes(pNroReq,pSolicitantes)
+	Dim strSQL,rs, lsSolicitantes
+	'Solo se actualizan los solicitantes de las tareas en donde aún no han firmado.
+	
+	'Muevo a los solicitantes preexistentes
+	strSQL = "update toepferdb.TBLSYSSOLICITANTES set "
+	strSQL = strSQL & " secuencia = secuencia+10 "
+	strSQL = strSQL & " where idrequerimiento = " & pNroReq
+	'response.write strSQL & "<hr>"
+	Call executeQuery(rs, "EXEC", strSQL)
+	
+	'guardo los Solicitantes cargados
+	strSQL = "insert into toepferdb.TBLSYSSOLICITANTES (idrequerimiento,cdusuario,idsector,secuencia) values"
+	for i = 0 to REQ_MAX_SOLICITANTES-1		
+		if ((pSolicitantes(i).cdSolicitante <> FIRMA_NO_USER) and (pSolicitantes(i).cdSolicitante <> ""))then			
+			lsSolicitantes = lsSolicitantes & pSolicitantes(i).cdSolicitante & ", "
+			strSQL = strSQL & "("&pNroReq&",'"&pSolicitantes(i).cdSolicitante&"','"&pSolicitantes(i).sectorKc&"',"&REQ_SEC_FIRMA_SOLICITANTE_BASE+i&"),"
+		end if
+	next
+	strSQL = left(strSQL,len(strSQL)-1) 'quito la ultima coma'
+	lsSolicitantes = left(lsSolicitantes,len(lsSolicitantes)-2) 'quito la ultima coma'
+	'response.write strSQL & "<hr>"		
+	Call executeQuery(rs, "EXEC", strSQL)
+	
+	'Borro los viejos solicitantes'
+	strSQL = "delete from toepferdb.TBLSYSSOLICITANTES where secuencia >= 10 and idrequerimiento = " & pNroReq
+	'response.write strSQL & "<hr>"
+	Call executeQuery(rs, "EXEC", strSQL)
+
+End Function
+'--------------------------------------------------------------------------------------------------
+Function actualizarDatosTareas(pNroReq,idTarea,pSolicitantes)
+	Dim strSQL,rs,forzarAsociacionGemini,vSoli(4)
+
+	'Muevo la tarea a un nro negativo'
+	strSQL = "update TOEPFERDB.TBLSYSTAREAS set idrequerimiento = "&pNroReq*-1&", idtarea = " & idTarea* -1
+	strSQL = strSQl & " where idrequerimiento  = " & pNroReq & " and idtarea = " & idTarea
+	call executeQuery(rs, "EXEC", strSQL)
+
+	'Inserto la tarea'
+	strSQL = "insert into toepferdb.tblsystareas (idrequerimiento,idtarea,lote)"
+	strSQL = strSQL & " values ("&pNroReq&","&idTarea&",0)"
+	call executeQuery(rs, "EXEC", strSQL)
+	
+	
+	strSQL = "select count(*) cantidad from toepferdb.tblsystareas where idtarea = " &idTarea
+	call executeQuery(rs, "OPEN", strSQL)
+	
+	'Si no hay ningun requerimiento que tenga esta tarea, le graba en la seccion de versiones
+	' el id del requerimiento
+	forzarAsociacionGemini = false
+	if (rs("cantidad")=0) then forzarAsociacionGemini = true
+	
+	'creo la relacion entre Tarea de gemini y Hefesto
+	Call createVersionToIssue(idTarea,pNroReq,forzarAsociacionGemini)
+
+	'Borro la tarea que anteriormente pase a negativo'
+	strSQL = "delete from  TOEPFERDB.TBLSYSTAREAS where idrequerimiento = "&pNroReq*-1&" and idtarea = " & idTarea* -1
+	call executeQuery(rs, "EXEC", strSQL)
+
+
+	for i = 0 to 4
+		vSoli(i) = ""
+		if (i >= REQ_SEC_FIRMA_SOLICITANTE_BASE) then
+			vSoli(i) = pSolicitantes(i-REQ_SEC_FIRMA_SOLICITANTE_BASE).cdSolicitante
+		end if
+
+		strSQL = "insert into toepferdb.tblsysfirmas (idrequerimiento,secuencia,cdusuario,observaciones,idtarea) "
+		
+		if (vSoli(i) <> FIRMA_NO_USER) then
+			strSQL = strSQL & " values ("&pNroReq&","&i&",'"&vSoli(i)&"','',"&idTarea&")"
+		end if
+		call executeQuery(rs0, "EXEC", strSQL)
+	next
+
+End Function
+'--------------------------------------------------------------------------------------------------
+Function guardarRequerimientos(pNroReq,pTitulo,pDs,pEstado,pSolicitantes,pKrSector,pCantTareas,pProducto,pVersion,pProjectLeader,pTipoCambio,pListaArchivos)
+	Dim strSQL, conn,rs
+
+	rtrn = 0
+	if (cdbl(pNroReq) = 0) then
+		' es nuevo, hago el insert
+		strSQL = "Insert into toepferdb.tblsysrequerimientos (titulo,dsrequerimiento,idestado,idproducto,leader,tipomodificacion,idversion,momento) "
+		strSQL = strSQL & " values ('"&pTitulo&"','"&pDs&"',"&pEstado&","&pProducto&",'"&pProjectLeader&"',"&pTipoCambio&",0,"& session("MmtoSistema") &")"		
+		call executeQuery(rs, "EXEC", strSQL)
+		
+		strSQL = "select max(idrequerimiento) nroreq from toepferdb.tblsysrequerimientos"
+		call executeQuery(rs, "OPEN", strSQL)
+		
+		rtrn = rs("nroreq")
+		
+		'cargo los Solicitantes
+		strSQL = "insert into toepferdb.TBLSYSSOLICITANTES (idrequerimiento,cdusuario,idsector,secuencia) values"
+		for i = 0 to REQ_MAX_SOLICITANTES-1
+			if (pSolicitantes(i).cdSolicitante <> FIRMA_NO_USER) then
+				strSQL = strSQL & "("&rtrn&",'"&pSolicitantes(i).cdSolicitante&"','"&pSolicitantes(i).sectorKc&"',"&REQ_SEC_FIRMA_SOLICITANTE_BASE+i&"),"
+			end if
+
+		next
+
+		strSQL = left(strSQL,len(strSQL)-1) 'quito la ultima coma'
+		call executeQuery(rs, "EXEC", strSQL)
+		
+		'Cargo las tareas
+		for i = 0 to cdbl(pCantTareas)
+			idTarea = GF_PARAMETROS7("idtarea"&i,0,6)
+			if (idTarea <> 0) then
+				strSQL = "insert into toepferdb.tblsystareas (idrequerimiento,idtarea,lote)"
+				strSQL = strSQL & " values ("&rtrn&","&idTarea&",0)"
+				call executeQuery(rs, "EXEC", strSQL)
+				
+				strSQL = "select count(*) cantidad from toepferdb.tblsystareas where idtarea = " &idTarea
+				call executeQuery(rs, "OPEN", strSQL)
+				
+				'Si no hay ningun requerimiento que tenga esta tarea, le graba en la seccion de versiones
+				' el id del requerimiento
+				forzarAsociacionGemini = false
+				if (rs("cantidad")=0) then forzarAsociacionGemini = true
+				
+				'creo la relacion entre Tarea de gemini y Hefesto
+				Call createVersionToIssue(idTarea,rtrn,forzarAsociacionGemini)
+				
+
+				strSQL = "insert into toepferdb.tblsysfirmas (idrequerimiento,secuencia,cdusuario,observaciones,idTarea) values"
+				strSQL = strSQL & " ("&rtrn&","&REQ_SEC_FIRMA_TESTER&",'','',"&idTarea&"),"
+				strSQL = strSQL & " ("&rtrn&","&REQ_SEC_FIRMA_PUBLICO&",'','',"&idTarea&")"								
+				call executeQuery(rs, "EXEC", strSQL)
+			end if
+		next
+		
+		'Subo los archivos'
+		'le quito la ultima coma'
+		if (len(pListaArchivos) > 0) then
+			pListaArchivos = left(pListaArchivos,len(pListaArchivos)-1)
+			auxFiles = split(pListaArchivos,",")
+			for i = 0 to ubound(auxFiles)
+				'separa el nombre de la extencion'
+				auxFileName = split(auxFiles(i),".")
+
+				Call file2Binary(rtrn,PREF_FILES_OTROS,"../"&PATH_COMPRAS_TEMP&"/"&auxFiles(i),auxFileName(0),REQ_ARCHIVO_DEL_REQUERIMIENTO)
+			next
+		end if
+	end if
+	
+	guardarRequerimientos = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getProjectLeaderRequerimiento(pNroReq)
+	Dim strSQL, rs,conn,rtrn	
+	strSQL = "select leader from toepferdb.tblsysrequerimientos where idrequerimiento = " & pNroReq
+	call executeQuery(rs, "OPEN", strSQL)	
+	rtrn = ""
+	if (not rs.EoF) then rtrn = rs("leader")	
+	getProjectLeaderRequerimiento = rtrn
+End Function 
+'--------------------------------------------------------------------------------------------------
+Function getEstadoRequerimiento(pNroReq)
+	Dim strSQL, rs,conn,rtrn	
+	strSQL = "select idestado from toepferdb.tblsysrequerimientos where idrequerimiento = " & pNroReq
+	call executeQuery(rs, "OPEN", strSQL)	
+	rtrn = ""
+	if (not rs.EoF) then rtrn = rs("IDESTADO")	
+	getEstadoRequerimiento = rtrn
+End Function 
+'--------------------------------------------------------------------------------------------------
+Function getEstadosRequerimientos()
+	Dim strSQL, conn,rs,rsEst
+		strSQL = "select * from toepferdb.TBLSYSESTADO"
+		call executeQuery(rsEst, "OPEN", strSQL)
+	Set getEstadosRequerimientos = rsEst
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 03/11/2011
+' Objetivo:
+'			Comprobar si es necesario actualizar el estado del requerimiento apartir de los estados
+'			de sus tareas asignadas
+' Parametros:
+'			[int]	pNroReq
+' Devuelve:
+'			nada
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function comprobarEstado(pNroReq)
+	Dim strSQL,rsTareas,rsIssue,estadoActual,estadoMenor,estadoAux,algunaEnProceso,estadoFinal
+	Dim idVersion
+	
+	estadoActual = getEstadoRequerimiento(pNroReq)
+
+	if (cdbl(estadoActual) <> cdbl(REQ_STATUS_CANCELED) and cdbl(estadoActual) <> cdbl(REQ_STATUS_RELEASED)) then
+		strSQL = "select * from toepferdb.tblsystareas where idrequerimiento = " & pNroReq 
+		call executeQuery(rsTareas,"OPEN", strSQL)
+		
+		algunaEnProceso = false
+		
+		estadoMenor = REQ_STATUS_RELEASED
+		' si no tiene tareas asignadas se le da el estado pendiente
+		if (rsTareas.EoF) then estadoMenor = REQ_STATUS_PENDING 
+		
+		while not rsTareas.EoF
+
+			strSQL2 = "select * from gemini_issues where issueid = " & rsTareas("idtarea")
+			call GF_BD_GEMINI(rsIssue,  "OPEN", strSQL2)
+			
+			'compruebo el estado de la tarea
+			if (not rsIssue.EoF) then
+			    Call setupTemplateValues(rsIssue("issueId"))
+				estadoAux = issueStatus2HefestoStatus(rsIssue("issuestatusid"))
+				if (estadoAux > REQ_STATUS_ACTIVE and estadoAux <> REQ_STATUS_CANCELED) then algunaEnProceso = true
+				if (estadoAux < estadoMenor ) then estadoMenor = estadoAux
+			end if
+
+			rsTareas.MoveNext
+		wend
+
+		
+		estadoFinal = estadoMenor
+		'si el menor estado es pendiente pero existe alguna tarea en proceso el estado final es activo
+		if (estadoMenor = REQ_STATUS_PENDING and algunaEnProceso) then estadoFinal = REQ_STATUS_ACTIVE
+		
+		if (estadoFinal = REQ_STATUS_FINALIZED) then
+			'Si todas las tareas estan cerradas y el requerimiento tiene versin, entonces esta publicado
+			if (getIdVersionRequerimiento(pNroReq) <> 0) then estadoFinal = REQ_STATUS_RELEASED
+		end if
+			
+		if (estadoActual <> estadoFinal) then
+			Call actualizarEstadoRequerimiento(pNroReq,estadoFinal)
+		end if
+	end if
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 03/11/2011
+' Objetivo:
+'			Convertir los estados de Gemini en su correspondiente estado en Hefesto
+' Parametros:
+'			[int]	pStatus
+' Devuelve:
+'			[int]	Estado del Hefesto
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function issueStatus2HefestoStatus(pStatus)
+	Dim rtrn
+	
+	select case cdbl(pStatus)
+		case ISSUE_STATUS_UNASSIGNED 
+			rtrn = REQ_STATUS_PENDING
+		case ISSUE_STATUS_ASSIGNED
+			rtrn = REQ_STATUS_PENDING
+		case ISSUE_STATUS_IN_PROGRESS
+			rtrn = REQ_STATUS_ACTIVE
+		case ISSUE_STATUS_CLOSE
+			rtrn = REQ_STATUS_FINALIZED
+		case ISSUE_STATUS_SIGN 
+			rtrn = REQ_STATUS_TESTING_OK
+		case ISSUE_STATUS_TESTING
+			rtrn = REQ_STATUS_TESTING
+		case ISSUE_STATUS_FAIL_TEST
+			rtrn = REQ_STATUS_ACTIVE
+		case ISSUE_STATUS_APP_USUARIO
+			rtrn = REQ_STATUS_APROBADO
+	end select
+	
+	issueStatus2HefestoStatus = cdbl(rtrn)
+	
+End Function
+'--------------------------------------------------------------------------------------------------
+Function actualizarEstadoRequerimiento(pNroReq,pEstado)
+	Dim strSQL, rs,conn
+	
+	strSQl = "update toepferdb.tblsysrequerimientos set idestado = " & pEstado & " where idrequerimiento = " & pNroReq
+	call executeQuery(rs, "EXEC", strSQL)
+	
+end Function 
+'--------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------
+function comprobarTareaAsignada(NReq)
+Dim strSQL,rsReq,conn
+	strSQL = "select * from toepferdb.tblsystareas where idrequerimiento = " & NReq
+
+	call executeQuery(rsReq, "OPEN", strSQL)
+		if (rsReq.EoF) then 
+			comprobarTareaAsignada= false
+		else
+			comprobarTareaAsignada= true
+		end if
+end function 
+'----------------------------------------------------------------------------------
+function EliminarTareaAsignada(NReq,idTarea)
+Dim strSQL,rsReq,conn
+	strSQL = "delete from toepferdb.tblsystareas where idrequerimiento = " & NReq & " and idtarea = " & idTarea
+	call executeQuery(rs, "OPEN", strSQL)
+	strSQL = "delete from toepferdb.tblsysfirmas where idrequerimiento = " & NReq & " and idtarea = " & idTarea
+	call executeQuery(rs, "OPEN", strSQL)
+end function 
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 03/11/2011
+' Objetivo:
+'			Devuelve el icono y descripcion de un determinado estado, dependiendo de donde 
+'			se lo llame (pLeyenda)			 
+' Parametros:
+'			[int]	pEstado, pLeyenda
+' Devuelve:
+'			[int]	Icono estado, descripcion de estado 
+' Modificaciones:
+'			07/11/2011 - Nahuel Ajaya 
+'--------------------------------------------------------------------------------------------------			
+Function getIconoEstadoReq(pEstado, pLeyenda)
+	Dim rtrn, Edesc
+	Edesc = ""
+	select case cdbl(pEstado)
+		case REQ_STATUS_PENDING
+			if(pLeyenda = EST_DESC_PERMITIDO) then
+			Edesc = "Pendiente"
+			end if
+			rtrn = "<img src='images/pendiente.png' title='"&GF_Traducir("Pendiente")&"'>"& Edesc 
+		case REQ_STATUS_ACTIVE
+			if(pLeyenda = EST_DESC_PERMITIDO) then
+			Edesc = "Activo"
+			end if
+			rtrn = "<img src='images/activo.png' title='"&GF_Traducir("En proceso")&"'>" & Edesc
+		case REQ_STATUS_TESTING
+			if(pLeyenda = EST_DESC_PERMITIDO) then
+			Edesc = "Testing"
+			end if
+			rtrn = "<img src='images/testing.png' title='"&GF_Traducir("Testing")&"'>" & Edesc
+		case REQ_STATUS_TESTING_OK
+			if(pLeyenda = EST_DESC_PERMITIDO) then
+			Edesc = "Testing OK"
+			end if
+			rtrn = "<img src='images/testingok.png' title='"&GF_Traducir("Testing Ok")&"'>" & Edesc
+		case REQ_STATUS_CANCELED
+			if(pLeyenda = EST_DESC_PERMITIDO) then
+			Edesc = "Cancelado"
+			end if
+			rtrn = "<img src='images/cancelado.png' title='"&GF_Traducir("Cancelado")&"'>" & Edesc
+		case REQ_STATUS_FINALIZED
+			if(pLeyenda = EST_DESC_PERMITIDO) then
+			Edesc = "Finalizado"
+			end if
+			rtrn = "<img src='images/finalizado.png' title='"&GF_Traducir("Finalizado")&"'>" & Edesc
+		case REQ_STATUS_APROBADO
+			if(pLeyenda = EST_DESC_PERMITIDO) then
+			Edesc = "Aprobado"
+			end if
+			rtrn = "<img src='images/testingok.png' title='"&GF_Traducir("Aprobado")&"'>" & Edesc
+		case REQ_STATUS_RELEASED
+			if(pLeyenda = EST_DESC_PERMITIDO) then
+			Edesc = "Publicado"
+			end if
+			rtrn = "<img src='images/finalizado.png' title='"&GF_Traducir("Publicado")&"'>" & Edesc
+		end select		
+	getIconoEstadoReq = rtrn
+End Function 
+'--------------------------------------------------------------------------------------------------
+Function getReqStatusDs(pStatus)
+	Dim rtrn
+	
+	select case pStatus
+		case REQ_STATUS_PENDING
+			rtrn = GF_TRADUCIR("Pendiente")
+		case REQ_STATUS_ACTIVE
+			rtrn = GF_TRADUCIR("Activo")
+		case REQ_STATUS_TESTING
+			rtrn = GF_TRADUCIR("Testing")
+		case REQ_STATUS_TESTING_OK
+			rtrn = GF_TRADUCIR("Testing OK")
+		case REQ_STATUS_CANCELED
+			rtrn = GF_TRADUCIR("Cancelado")
+		case REQ_STATUS_FINALIZED
+			rtrn = GF_TRADUCIR("Finalizado")
+		case REQ_STATUS_RELEASED
+			rtrn = GF_TRADUCIR("Publicado")
+		case REQ_STATUS_APROBADO
+			rtrn = GF_TRADUCIR("Aprobado")
+	end select
+	
+	getReqStatusDs = rtrn
+End Function 
+'--------------------------------------------------------------------------------------------------
+Function getTipoModificacion(idReq)
+	dim strSQL, rs, rtrn
+	strSQL = "select tipomodificacion from toepferdb.tblsysrequerimientos where idrequerimiento =" & idReq
+	call executeQuery(rs, "OPEN", strSQL)
+	rtrn = null
+	if (not rs.EoF) then rtrn = rs("tipomodificacion")
+	getTipoModificacion = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getStatusTareas(pIdReq)
+	Dim rtrn(6),myTareas,rsTareas,idTareas,rsIssues
+	
+	'myTareas = loadTareasDB(pIdReq,REQ_ORDENAR_IDTAREA)
+
+	strSQL = "select idtarea from toepferdb.tblsystareas where idrequerimiento = " & pIdReq
+	call executeQuery(rsTareas, "OPEN", strSQL)
+
+	idTareas = ""
+	'Obtengo las tareas asociadas al requerimiento'
+	while not rsTareas.EoF
+		idTareas = idTareas & rsTareas("idtarea") &","
+		rsTareas.MoveNext
+	wend
+	
+	rtrn(REQ_CANT_PENDIENTES) 	= 0
+	rtrn(REQ_CANT_PROCESO) 		= 0
+	rtrn(REQ_CANT_TESTING) 		= 0
+	rtrn(REQ_CANT_TESTING_OK)	= 0
+	rtrn(REQ_CANT_APP_USUARIO)  = 0
+	rtrn(REQ_CANT_FINALIZADAS) 	= 0
+	
+	if (idTareas <> "") then
+
+		'le quito la ultima coma'
+		idTareas = left(idTareas,len(idTareas)-1)
+		strSQL = "select * from gemini_issues where issueid in ("&idTareas&")"
+		call GF_BD_GEMINI(rsIssues,  "OPEN", strSQL)
+
+
+		while not rsIssues.EoF
+            Call setupTemplateValues(rsIssues("issueid"))
+			select case cdbl(rsIssues("issuestatusid"))
+				case ISSUE_STATUS_UNASSIGNED,ISSUE_STATUS_ASSIGNED
+					rtrn(REQ_CANT_PENDIENTES) = rtrn(REQ_CANT_PENDIENTES) + 1
+					
+				case ISSUE_STATUS_IN_PROGRESS,ISSUE_STATUS_FAIL_TEST
+					rtrn(REQ_CANT_PROCESO) = rtrn(REQ_CANT_PROCESO) + 1
+					
+				case ISSUE_STATUS_TESTING
+					rtrn(REQ_CANT_TESTING) = rtrn(REQ_CANT_TESTING) + 1
+
+				case ISSUE_STATUS_SIGN
+					rtrn(REQ_CANT_TESTING_OK) = rtrn(REQ_CANT_TESTING_OK) + 1
+
+				case ISSUE_STATUS_APP_USUARIO
+					rtrn(REQ_CANT_APP_USUARIO) = rtrn(REQ_CANT_APP_USUARIO) + 1
+
+				case ISSUE_STATUS_CLOSE
+					rtrn(REQ_CANT_FINALIZADAS) = rtrn(REQ_CANT_FINALIZADAS) + 1	
+			end select
+
+
+			rsIssues.MoveNext
+		wend
+	end if
+
+	getStatusTareas = rtrn
+	
+End Function
+
+'##################################################################################################
+'##################################################################################################
+'##                                                                                              ##
+'##                               SECTOR PRODUCTOS Y VERSIONES                                   ##
+'##                                                                                              ##
+'##################################################################################################
+'##################################################################################################
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 09/11/2011
+' Objetivo:
+'			Obtener los datos de version de un requerimiento
+' Parametros:
+'			[int] pIdReq	- id del requerimiento
+'			[int] pIdVersion- id de la version
+'			[int] pMayor	- nro de version mayor
+'			[int] pMenor 	- nro de version menor
+'			[int] pRevision - nro de revision
+'			[int] pSVN		- nro re revision del svn
+' Devuelve:
+'			pIdVersion	por referencia
+'			pMayor		por referencia
+'			pMenor		por referencia
+'			pRevision	por referencia
+'			pSVN		por referencia
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function obtenerVersionRequerimiento(pIdReq,byref pIdVersion,byref pMayor,byref pMenor,byref pRevision, byref pSVN )
+	Dim strSQL,rs
+	strSQL =		  "SELECT ver.* "
+	strSQL = strSQL & "FROM   ( SELECT * "
+	strSQL = strSQL & "       FROM    toepferdb.TBLSYSREQUERIMIENTOS "
+	strSQL = strSQL & "       WHERE   idrequerimiento = " & pIdReq
+	strSQL = strSQL & "       ) "
+	strSQL = strSQL & "       req "
+	strSQL = strSQL & "       INNER JOIN toepferdb.tblsysversiones ver "
+	strSQL = strSQL & "       ON     req.idversion = ver.idversion"
+	call executeQuery(rs, "OPEN", strSQL)
+	
+	pIdVersion = 0
+	pMayor = 0
+	pMenor = 0
+	pRevision = 0
+	pSVN = 0
+	if (not rs.EoF) then
+		pIdVersion	= rs("IDVERSION")
+		pMayor		= rs("MAYOR")
+		pMenor		= rs("MENOR")
+		pRevision	= rs("REVISION")
+		pSVN		= rs("SVN")
+	end if
+	
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 14/11/2011
+' Objetivo:
+'			Obtener el id del producto de un requerimiento
+' Parametros:
+'			[int]	nroReq
+' Devuelve:
+'			[int]	id del producto
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function getIdProductoRequerimiento(nroReq)
+	Dim strSQL,rs,rtrn
+	strSQL = "select * from toepferdb.tblsysrequerimientos where idrequerimiento = " & nroReq
+	Call executeQuery(rs,"OPEN",strSQL)
+	rtrn = 0
+	if (not rs.EoF) then rtrn = rs("idproducto")
+	getIdProductoRequerimiento = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 14/11/2011
+' Objetivo:
+'			Obtener el id de version de un requerimiento
+' Parametros:
+'			[int]	nroReq
+' Devuelve:
+'			[int]	id de version
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function getIdVersionRequerimiento(nroReq)
+	Dim strSQL,rs,rtrn
+	strSQL = "select * from toepferdb.tblsysrequerimientos where idrequerimiento = " & nroReq
+	Call executeQuery(rs,"OPEN",strSQL)
+	rtrn = 0
+	if (not rs.EoF) then rtrn = rs("idversion")
+	getIdVersionRequerimiento = rtrn
+End Function 
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 07/11/2011
+' Objetivo:
+'			Obtener un record set de los distintos productos
+' Parametros:
+'			ninguno
+' Devuelve:
+'			[recordset] - Recordset con los productos
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function getProductos()
+	Dim strSQL, rs
+	strSQL = "select * from toepferdb.tblsysproductos"
+	call executeQuery(rs, "OPEN", strSQL)
+	Set getProductos = rs
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 07/11/2011
+' Objetivo:
+'			Obtener un record set de los distintos productos activos
+' Parametros:
+'			ninguno
+' Devuelve:
+'			[recordset] - Recordset con los productos
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function getProductosActivos()
+	Dim strSQL, rs
+	strSQL = "select * from toepferdb.tblsysproductos where estado <>" & ESTADO_BAJA
+	call executeQuery(rs, "OPEN", strSQL)
+	Set getProductosActivos = rs
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 09/11/2011
+' Objetivo:
+'			Obtener un record set de los distintos productos con sus ultimas versiones productivas
+' Parametros:
+'			[int] pProdId 	- Id del producto a filtrar
+'			[int] pMayor 	- nro de version mayor a filtrar
+'			[int] pMenor 	- nro de version menor a filtrar
+'			[int] pRevisoin - nro de revision a filtrar
+' Devuelve:
+'			[recordset] - Recordset con los productos
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function getProductosConVersion()
+	Dim strSQL, rs
+
+	strSQL = 		  "SELECT a.*, v.MAYOR, v.MENOR, v.REVISION, v.Lastlote " 
+	strSQL = strSQL & "FROM   (SELECT p.*, " 
+	strSQL = strSQL & "               v.idversion " 
+	strSQL = strSQL & "        FROM   toepferdb.tblsysproductos p " 
+	strSQL = strSQL & "               LEFT JOIN (SELECT Max(idversion) idversion, " 
+	strSQL = strSQL & "                                  idproducto " 
+	strSQL = strSQL & "                           FROM   toepferdb.tblsysversiones " 
+	strSQL = strSQL & "                           GROUP  BY idproducto) v " 
+	strSQL = strSQL & "                       ON v.idproducto = p.idproducto) a " 
+	strSQL = strSQL & "       LEFT JOIN toepferdb.tblsysversiones v " 
+	strSQL = strSQL & "               ON a.idversion = v.idversion "
+
+	call executeQuery(rs, "OPEN", strSQL)
+	Set getProductosConVersion = rs
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 07/11/2011
+' Objetivo:
+'			Obtener las versiones de un producto en particular.
+'			Si el parametro 'pIsLast' es 0 muestra todas las versiones
+'			Si el parametro 'pIsLast' es > 0 muestra la cantidad de versiones que indica
+' Parametros:
+'			[int] pIdProd -	id del Producto
+' Devuelve:
+'			[recordset] - recordset con las versiones del producto ordenados de mayor a menor version
+' Modificaciones:
+'			22/03/2013 - Ajaya Nahuel - CNA
+'--------------------------------------------------------------------------------------------------
+Function getVersionesProducto(pIdProd, pIsLast)
+	Dim strSQL, rs
+	strSQL = "select * from toepferdb.tblsysversiones where idproducto = " & pIdProd & " order by mayor desc,menor desc,revision desc,svn desc"
+	if(pIsLast > REQ_TODAS_LAS_VERSIONES)then  strSQL = strSQL & " FETCH FIRST " & pIsLast & " ROWS ONLY"
+	call executeQuery(rs, "OPEN", strSQL)
+	Set getVersionesProducto = rs
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getVersionRequerimiento(pNroReq)
+	Dim strSQL, rs,rtrn
+	strSQL = "select idversion from toepferdb.tblsysrequerimientos where idRequerimiento = " &pNroReq
+	call executeQuery(rs, "OPEN", strSQL)
+	rtrn = 0
+	if (not rs.EoF) then
+		rtrn = rs("idversion")
+	end if
+
+	getVersionRequerimiento = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getPlataformaProducto(pIdProd)
+	Dim strSQL, rs,rtrn
+	strSQL = "select plataforma from toepferdb.tblsysproductos where idproducto = " & pIdProd
+	rtrn = "Sin Plataforma"
+	call executeQuery(rs, "OPEN", strSQL)
+	if (not rs.EoF) then rtrn = rs("plataforma")
+	getPlataformaProducto = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 07/11/2011
+' Objetivo:
+'			Comprobar la existencia del numero de version para un producto dado
+' Parametros:
+'			[int]	pIdProducto
+'			[int]	pMayor - Primer numero de la version X.0.0:0
+'			[int]	pMenor - Segundo numero de la version 0.X.0:0
+'			[int]	pRevision - tercer numero de la version 0.0.X:0
+'			[int]	pSvn - cuarto numero de la version (subversion) 0.0.0:X
+' Devuelve:
+'			[booleano]
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function existeVersionProducto(pIdProducto,pMayor,pMenor,pRevision,pSvn)
+	Dim strSQL,rs,rtrn
+	strSQL = "select * from toepferdb.tblsysversiones where idproducto = " & pIdProducto & " and mayor = " & pMayor & " and menor = " & pMenor & " and revision = " & pRevision 
+	'Algunos productos, como los de AS400 no usaran svn y al enviar 0 no sera tomado en cuenta
+	if (pSvn <> 0) then
+		strSQL = strSQL & " and svn = " & pSvn
+	end if
+	call executeQuery(rs, "OPEN", strSQL)
+	rtrn = true
+	if (rs.EoF) then rtrn = false
+	existeVersionProducto = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Nahuel Ajaya - CNA	
+' Fecha: 14/11/2011
+' Objetivo:
+'			Comprobar la existencia de un producto dado
+' Parametros:
+'			[str]  pProducto - Nombre del Producto
+' Devuelve:
+'			[booleano]
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function existeProducto(pProducto)
+	Dim rs,rtrn,strSQL
+	strSQL = "select * from toepferdb.tblsysproductos where ucase(dsproducto) = '"&ucase(pProducto)&"'"	
+	call executeQuery(rs, "OPEN", strSQL)
+	rtrn = true
+	if (rs.EoF) then rtrn = false
+	existeProducto = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 07/11/2011
+' Objetivo:
+'			Obtener el numero de version del producto que se encuentra en produccion actualmente
+' Parametros:
+'			[int]	pIdProducto
+'			
+' Devuelve:
+'			[str]	numero de version completo  Mayor.Menor.Revision:Svn
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function obtenerVersionProductiva(pIdProducto)
+	Dim strSQL,rs,rtrn
+	strSQL = "select * from toepferdb.tblsysversiones where released = "&REQ_VERSION_ACTUAL&" and idproducto = " & pIdProducto
+	call executeQuery(rs, "OPEN", strSQL)
+	rtrn = REQ_SIN_VERSION
+	if (not rs.EoF) then rtrn = rs("mayor") & "." & rs("menor") & "." & rs("revision") & ":" & rs("svn")
+	obtenerVersionProductiva = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function obtenerVersionProducto(pIdProducto)
+	Dim strSQL,rs,rtrn
+	strSQL = "select * from toepferdb.tblsysversiones where idproducto = " & pIdProducto & " order by mayor desc,menor desc,revision desc Fetch First 1 Row Only"
+	call executeQuery(rs, "OPEN", strSQL)
+	rtrn = REQ_SIN_VERSION
+	if (not rs.EoF) then rtrn = rs("mayor") & "." & rs("menor") & "." & rs("revision") & ":" & rs("svn")
+	obtenerVersionProducto = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function obtenerVersionSugerida(pIdProducto,tipoCambio)
+	Dim auxVersion0,auxVersion,rtrn
+	
+	if (not oDiccLastProdVer.exists(pIdProducto&"-"&tipoCambio)) then
+		auxVersion0 = split(obtenerVersionProducto(pIdProducto),":")
+		auxVersion = split(auxVersion0(0),".")
+		
+		select case tipoCambio
+			case REQ_CAMBIO_MAYOR
+				auxVersion(REQ_VERSION_MAYOR) = auxVersion(REQ_VERSION_MAYOR)+1
+				auxVersion(REQ_VERSION_MENOR) = 0
+				auxVersion(REQ_VERSION_ERROR) = 0
+			case REQ_CAMBIO_MENOR
+				auxVersion(REQ_VERSION_MENOR) = auxVersion(REQ_VERSION_MENOR)+1
+				auxVersion(REQ_VERSION_ERROR) = 0
+			case REQ_CAMBIO_ERROR
+				auxVersion(REQ_VERSION_ERROR) = auxVersion(REQ_VERSION_ERROR)+1
+			case else
+				auxVersion(REQ_VERSION_MENOR) = auxVersion(REQ_VERSION_MENOR)+1
+				auxVersion(REQ_VERSION_ERROR) = 0
+		end select
+		
+		rtrn = auxVersion(REQ_VERSION_MAYOR) & "." & auxVersion(REQ_VERSION_MENOR) & "." & auxVersion(REQ_VERSION_ERROR)
+		Call oDiccLastProdVer.add(pIdProducto&"-"&tipoCambio,rtrn)
+	
+	else
+		rtrn = oDiccLastProdVer.item(pIdProducto&"-"&tipoCambio)
+	end if
+	
+	obtenerVersionSugerida = rtrn
+	
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 07/11/2011
+' Objetivo:
+'			Guardar en la base de datos la version del producto dado
+' Parametros:
+'			[int]	pIdProducto
+'			[int]	pMayor - Primer numero de la version X.0.0:0
+'			[int]	pMenor - Segundo numero de la version 0.X.0:0
+'			[int]	pRevision - terver numero de la version 0.0.X:0
+'			[int]	pSvn - cuarto numero de la version 0.0.0:X
+' Devuelve:
+'			[int]	Id de version
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function guardarNuevaVersionProducto(pIdProducto,pMayor,pMenor,pRevision,pSvn)
+	Dim strSQL,rs,rtrn
+	
+	'grabo en la base de datos
+	
+	strSQL = "insert into toepferdb.tblsysversiones (idproducto,mayor,menor,revision,svn,released) values("&pIdProducto&","&pMayor&","&pMenor&","&pRevision&","&pSvn&","&REQ_VERSION_UNRELEASED&")"
+	call executeQuery(rs, "EXEC", strSQL)
+
+	'obtengo el id de la version recien ingresada
+	strSQL = "select * from toepferdb.tblsysversiones where idproducto = " & pIdProducto & " order by idversion desc"
+	call executeQuery(rs, "OPEN", strSQL)
+
+	rtrn = 0
+	if (not rs.EoF) then rtrn = rs("idversion")
+	
+	guardarNuevaVersionProducto = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 11/11/2011
+' Objetivo:
+'			Actualizar el estado de la version
+' Parametros:
+'			[int]	pIdVersion
+'			[int]	pEstado - El estado al que cambiara
+' Devuelve:
+'			nada
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function actualizarEstadoVersion(pIdVersion,pEstado)
+	dim strSQL,rs
+	strSQL = "update toepferdb.tblsysversiones set released = "&pEstado&" where idversion = " & pIdversion
+	call executeQuery(rs, "EXEC", strSQL)
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 07/11/2011
+' Objetivo:
+'			Grabar en la base de datos un nuevo producto
+' Parametros:
+'			[str]	pProducto - Nombre del producto
+'			[str]	pPlataforma
+' Devuelve:
+'			[int] 	id del producto ingresado
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function guardarNuevoProducto(pProducto,pPlataforma,pPathSVN,pPathProd)
+	Dim strSQL,rs,rtrn
+	
+	'grabo el producto en la base de datos
+	strSQL = "insert into toepferdb.tblsysproductos (dsproducto,plataforma,estado,pathSVN,pathProduccion) values('"&ucase(pProducto)&"','"&ucase(pPlataforma)&"',"&ESTADO_ACTIVO&",'"&pPathSVN&"','"&pPathProd&"')"
+	call executeQuery(rs, "EXEC", strSQL)
+	
+	'obtengo el id del producto recien ingresado
+	strSQL = "select * from toepferdb.tblsysproductos where dsproducto = '"&ucase(pProducto)&"'"
+	call executeQuery(rs, "OPEN", strSQL)
+	
+	rtrn = 0
+	if (not rs.EoF) then rtrn = rs("idproducto")
+	
+	guardarNuevoProducto = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 11/11/2011
+' Objetivo:
+'			Actualiza un producto
+' Parametros:
+'			[int]	pIdProducto
+'			[str]	pDsProducto
+'			[int]	pEstado
+'			[str]   pPlataforma
+' Devuelve:
+'			nada
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function actualizarProducto(pIdProducto,pDsProducto,pEstado,pPlataforma,pPathSVN,pPathProd)
+	Dim strSQL,rs	
+	strSQL = "update toepferdb.tblsysproductos set "
+	if (pDsProducto <> "") then strSQL = strSQL & " dsproducto = '"&pDsProducto&"', "
+	if (pPlataforma <> "") then strSQL = strSQL & " plataforma = '"&pPlataforma&"', " 
+	if (pPathSVN <> "") then strSQL = strSQL & " pathSVN = '"&pPathSVN&"', "
+	
+
+	if (pEstado <> "") then strSQL = strSQL & " estado = " & pEstado & ", "
+	strSQL = strSQL & " pathProduccion = '"&pPathProd&"' "	
+
+	strSQL = strSQL & " where idproducto = " & pIdProducto
+
+	call executeQuery(rs, "EXEC", strSQL)
+	
+End function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 11/11/2011
+' Objetivo:
+'			Da de baja un producto
+' Parametros:
+'			[int]	pIdProducto
+' Devuelve:
+'			nada
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function bajaProducto(pIdProducto)
+	Call actualizarProducto(pIdProducto,"",ESTADO_BAJA,"","","")
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 11/11/2011
+' Objetivo:
+'			Reactiva un producto
+' Parametros:
+'			[int]	pIdProducto
+' Devuelve:
+'			nada
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function reactivarProducto(pIdProducto)
+	Call actualizarProducto(pIdProducto,"",ESTADO_ACTIVO,"","","")
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 14/11/2011
+' Objetivo:
+'			Obtener el estado del producto
+' Parametros:
+'			[int]	idProd 
+' Devuelve:
+'			[str]	descripcion del producto
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function obtenerDsProducto(idProd)
+	Dim strSQL,rs,rtrn
+	strSQL = "select * from toepferdb.tblsysproductos where idproducto = " & idProd
+	call executeQuery(rs, "OPEN", strSQL)
+	rtrn = ""
+	if (not rs.EoF) then rtrn = rs("dsproducto")
+	obtenerDsProducto = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 14/11/2011
+' Objetivo:
+'			obtener nro de version
+' Parametros:
+'			[int]	idVer 
+' Devuelve:
+'			[str]	numero de version  Mayor.Menor.Revision R release
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function obtenerNroVersion(idVer,pNroReq)
+	Dim strSQL,rs,rtrn
+	rtrn = REQ_SIN_VERSION
+
+	if (not isnull(idVer) ) then
+		if (cdbl(idVer) <> 0) then
+			strSQL = "select * from toepferdb.tblsysversiones where idversion = " & idVer
+			call executeQuery(rs, "OPEN", strSQL)
+			if (not rs.EoF) then rtrn = rs("mayor") & "." & rs("menor") & "." & rs("revision")& " R" & getLastReleaseReq(pNroReq)
+		end if
+	end if
+	obtenerNroVersion = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getLastReleaseReq(pNroReq)
+	Dim strSQL,rs,rtrn
+
+	strSQL = "select max(lote) release from toepferdb.tblsystareas where idrequerimiento = " & pNroReq
+	call executeQuery(rs, "OPEN", strSQL)
+
+	rtrn = 0
+	if (not rs.EoF) then
+		rtrn = cdbl(rs("release"))
+	end if
+
+	getLastReleaseReq = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getLastReleaseProducto(pProducto)
+	Dim strSQL,rs,rtrn
+
+	strSQL = 		  "SELECT MAX(lote) RELEASE "
+	strSQL = strSQL & "FROM   toepferdb.tblsystareas "
+	strSQL = strSQL & "WHERE  idrequerimiento IN "
+								'Obtengo todos los ids de requerimientos que tengan el producto'
+	strSQL = strSQL & "       (SELECT idrequerimiento "
+	strSQL = strSQL & "       FROM    toepferdb.TBLSYSREQUERIMIENTOS "
+	strSQL = strSQL & "       WHERE   idproducto = " & pProducto
+	strSQL = strSQL & "       )"
+	call executeQuery(rs, "OPEN", strSQL)
+
+	rtrn = 0
+	if (not rs.EoF) then
+		rtrn = cdbl(rs("release"))
+	end if
+
+	getLastReleaseProducto = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getLastReleaseVersion(pProducto,pIdVersion)
+	Dim strSQL,rs,rtrn
+
+	'Obtengo el lote (release) maximo de todas las tareas que esten en el requerimiento buscado'
+	strSQL =		  "SELECT MAX(lote) RELEASE "
+	strSQL = strSQL & "FROM   toepferdb.TBLSYSTAREAS "
+	strSQL = strSQL & "WHERE  idrequerimiento IN "
+								'Obtengo el id del requerimiento que posee la version a buscar'
+	strSQL = strSQL & "       ( SELECT idrequerimiento "
+	strSQL = strSQL & "         FROM    toepferdb.TBLSYSREQUERIMIENTOS "
+	strSQL = strSQL & "         WHERE   idproducto = " & pProducto
+	strSQL = strSQL & "         AND     idversion = " & pIdVersion
+	strSQL = strSQL & "       )"
+	call executeQuery(rs, "OPEN", strSQL)
+
+	rtrn = 0
+	if (not rs.EoF) then
+		rtrn = cdbl(rs("release"))
+	end if
+
+	getLastReleaseVersion = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getFechaReleaseVersion(pProducto,pMayor,pMenor,pRevision)
+	Dim strSQL,rs,rtrn
+
+	strSQL = ""
+	strSQL = strSQL & "SELECT mmto "
+	strSQL = strSQL & "FROM   TOEPFERDB.tblsysfirmas "
+	strSQL = strSQL & "WHERE  idtarea = "
+	strSQL = strSQL & "       ( SELECT  idtarea "
+	strSQL = strSQL & "       FROM     toepferdb.TBLSYSTAREAS "
+	strSQL = strSQL & "       WHERE    idrequerimiento IN "
+	strSQL = strSQL & "                ( SELECT idrequerimiento "
+	strSQL = strSQL & "                FROM    (SELECT * "
+	strSQL = strSQL & "                        FROM    toepferdb.TBLSYSREQUERIMIENTOS "
+	strSQL = strSQL & "                        WHERE   idproducto = " & pProducto
+	strSQL = strSQL & "                        ) "
+	strSQL = strSQL & "                        a "
+	strSQL = strSQL & "                        INNER JOIN "
+	strSQL = strSQL & "                                (SELECT * "
+	strSQL = strSQL & "                                FROM    toepferdb.TBLSYSVERSIONES "
+	strSQL = strSQL & "                                WHERE   mayor    = " & pMayor
+	strSQL = strSQL & "                                AND     menor    = " & pMenor
+	strSQL = strSQL & "                                AND     revision = " & pRevision
+	strSQL = strSQL & "                                ) "
+	strSQL = strSQL & "                                b "
+	strSQL = strSQL & "                        ON      a.idversion = b.idversion "
+	strSQL = strSQL & "                ) "
+	strSQL = strSQL & "       ORDER BY lote DESC "
+	strSQL = strSQL & "       FETCH FIRST 1 Row Only "
+	strSQL = strSQL & "       ) "
+	strSQL = strSQL & "AND    secuencia = " & REQ_SEC_FIRMA_PUBLICO
+
+	call executeQuery(rs, "OPEN", strSQL)
+
+	rtrn = "0"
+	if (not rs.EoF) then
+		rtrn = rs("mmto")
+	end if
+
+	getFechaReleaseVersion = rtrn
+
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 11/11/2011
+' Objetivo:
+'			Obtener el estado del producto
+' Parametros:
+'			[int]	pIdProducto
+' Devuelve:
+'			[int]	estado
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function obtenerEstadoProducto(pIdProducto)
+	Dim strSQL,rs,rtrn
+	strSQL = "select estado from toepferdb.tblsysproductos where idproducto = " & pIdProducto
+	call executeQuery(rs, "OPEN", strSQL)
+	rtrn = 0
+	if (not rs.EoF) then rtrn = rs("estado")
+	obtenerEstadoProducto = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+' Autor: Guido Fonticelli - GFG
+' Fecha: 15/11/2011
+' Objetivo:
+'			Actualizar la version de un producto a productiva
+' Parametros:
+'			[int]	pIdProd
+'			[int]	pNroVer
+' Devuelve:
+'			nada
+' Modificaciones:
+'			--/--/-- - XXX
+'--------------------------------------------------------------------------------------------------
+Function designarVersionProductiva(pIdProd,pIdVer)
+	Dim strSQL,rs
+	'cambio la version productiva actual a terminada
+	strSQL = "update toepferdb.tblsysversiones set released = "&REQ_VERSION_RELEASED&" where idproducto = " & pIdProd & " and released = " & REQ_VERSION_ACTUAL
+	call executeQuery(rs, "EXEC", strSQL)
+	
+	'pongo como version productiva la que se pasa por parametro
+	strSQL =  "update toepferdb.tblsysversiones set released = "&REQ_VERSION_ACTUAL&" where idversion = " & pIdVer
+	Call executeQuery(rs, "EXEC", strSQL)
+	
+End Function
+'--------------------------------------------------------------------------------------------------
+'Obtiene el numero de secuencia al subir archivos'
+Function getSecuencia(idReq,pInicioSec,pIdTarea)
+	Dim strSQL, rs, conn,rtrn
+	
+	strSQL = "select max(secuencia) maximo from toepferdb.tblsysarchivos where idrequerimiento = " & idReq & " and idtarea = " & pIdTarea
+	'strSQL = strSQL & " and substr(secuencia,1,1) = " & pPrefijo
+	strSQL = strSQL & " and secuencia >= " & pInicioSec
+	strSQL = strSQL & " and secuencia < " & cdbl(pInicioSec) +REQ_CANT_FILES_SECTOR
+
+	call GF_BD_COMPRAS(rs, conn, "OPEN", strSQL)
+	
+	rtrn = pInicioSec
+	if (not isnull(rs("maximo"))) then
+		rtrn = cdbl(rs("maximo")) + 1
+	end if 
+	
+	getSecuencia = rtrn
+End Function 
+'--------------------------------------------------------------------------------------------------
+'guarda el archivo en la base de datos'
+Function file2Binary(nroreq,pInicioSec,filePath,filename,pIdTarea)
+	
+	Dim rs, strSQL, extension
+
+  Set fso = CreateObject("Scripting.FileSystemObject")
+  extension = fso.GetExtensionName(server.MapPath(filePath))
+    
+  strSQL = "Select IDREQUERIMIENTO,IDTAREA,SECUENCIA,NOMBRE,ARCHIVO,EXT from TOEPFERDB.TBLSYSARCHIVOS Where 1=0"
+  Call GF_BD_COMPRAS(rs, oConn, "OPEN", strSQL)  
+  rs.AddNew
+  rs("IDREQUERIMIENTO") = nroreq
+  rs("IDTAREA") = pIdTarea
+  rs("SECUENCIA") = getSecuencia(nroreq,pInicioSec,pIdTarea)
+  rs("NOMBRE") = left(filename,30)
+  rs("EXT") = extension
+  rs("ARCHIVO") = readBinaryFile(server.MapPath(filePath))
+
+  rs.Update
+  
+  
+  archivoSubido = true
+
+End Function
+'--------------------------------------------------------------------------------------------------
+'Devuelve la lista de archivos que se pasaran a produccion de una tarea especifica, separado por ","
+Function archivosAProduccion(pIdReq,pIdTarea)
+	Dim strSQL,rs,rtrn
+
+	strSQL = "select * from toepferdb.TBLSYSARCHIVOSAPRODUCCION where idrequerimiento = " & pIdReq & " and idtarea = " & pidTarea
+	call executeQuery(rs, "OPEN", strSQL)
+
+	rtrn = ""
+	while not rs.EoF
+		rtrn = rtrn & rs("pathfile") & ","
+		rs.MoveNext
+	wend
+
+	if (rtrn <> "" ) then
+		rtrn = left(rtrn,len(rtrn)-1) 'le quito la ultima coma'
+	end if
+
+	archivosAProduccion = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function marcarArchivosComoPublicados(pNroReq,pIdTarea)
+	Dim archivos,vArchivos,i
+
+	archivos = archivosAProduccion(pNroReq,pIdTarea)
+	vArchivos = split(archivos,",")
+	for i = 0 to ubound(vArchivos)
+		
+		strSQL = "update toepferdb.TBLSYSARCHIVOSAPRODUCCION set idestado = " & REQ_ESTADO_ARCHIVO_PUBLICADO
+		strSQL = strSQL & " where idrequerimiento = " & pNroReq & " and idTarea = " & pIdTarea
+		strSQL = strSQL & " and pathFile = '"& vArchivos(i) & "' "
+		call executeQuery(rs, "EXEC", strSQL)
+	next
+
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getPathSVNProducto(pIdProducto)
+	Dim strSQL,rs,rtrn
+	strSQL = "select * from toepferdb.tblsysproductos where idproducto =" & pIdProducto
+	call executeQuery(rs, "OPEN", strSQL)
+	rtrn = ""
+	if (not rs.EoF) then 
+		if (not isnull(rs("PathSVN"))) then	rtrn = rs("PathSVN")
+	end if
+	getPathSVNProducto = rtrn
+
+End Function 
+'--------------------------------------------------------------------------------------------------
+Function getPathProduccion(pIdProducto)
+	Dim strSQL,rs,rtrn
+	strSQL = "select * from toepferdb.tblsysproductos where idproducto =" & pIdProducto
+	
+	call executeQuery(rs, "OPEN", strSQL)
+	rtrn = ""
+	if (not rs.EoF) then 
+		if (not isnull(rs("PathProduccion"))) then	rtrn = rs("PathProduccion")
+	end if
+	getPathProduccion = rtrn
+
+End Function 
+'--------------------------------------------------------------------------------------------------
+Function getRsAdministrar(pNroReq)
+	Dim strSQL,rs
+
+	strSQL = "select "
+	strSQL = strSQL & "req.*,prod.dsproducto "
+	strSQL = strSQL & "from "
+	strSQL = strSQL & "( "
+	strSQL = strSQL & "   select "
+	strSQL = strSQL & "   idrequerimiento,titulo,idproducto,idestado,leader,idversion,tipomodificacion,momento "
+	strSQL = strSQL & "   from TOEPFERDB.TBLSYSREQUERIMIENTOS "
+	strSQL = strSQL & "   where idrequerimiento = " & pNroReq
+	strSQL = strSQL & ") "
+	strSQL = strSQL & "req "
+	strSQL = strSQL & "left join TOEPFERDB.TBLSYSPRODUCTOS prod on req.idproducto = prod.idproducto "
+
+	call executeQuery(rs, "OPEN", strSQL)
+	set getRsAdministrar = rs
+
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getRsTarea(pNroReq,pIdTarea)
+	Dim strSQL,rtrn
+
+	strSQL = "select * from TOEPFERDB.tblsysfirmas where idRequerimiento = " & pNroReq & " and idTarea = " & pIdTarea & " order by idrequerimiento,secuencia"
+	call executeQuery(rtrn, "OPEN", strSQL)
+
+	set getRsTarea = rtrn
+End Function
+
+'--------------------------------------------------------------------------------------------------
+Function getNroLoteNuevo(pNroReq)
+	Dim strSQL,rs,rtrn
+	strSQL ="select max(lote) maximo from TOEPFERDB.TBLSYSTAREAS where idrequerimiento = " & pNroReq
+	call executeQuery(rs, "OPEN", strSQL)
+
+	if (not isnull(rs("maximo"))) then
+		rtrn = cdbl(rs("maximo"))+1
+	else
+		rtrn = 1
+	end if
+	
+	getNroLoteNuevo = rtrn
+
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getSecuenciaSolicitante(pNroReq,pIdTarea)
+	Dim strSQL,rs
+	strSQL = "select * from toepferdb.tblsysfirmas where idrequerimiento = "&pNroReq&" and secuencia >="&REQ_MAX_SOLICITANTES-1&" and cdusuario = '"&session("Usuario")&"' and idtarea in (" & pIdTarea & ")"
+	call executeQuery(rs, "OPEN", strSQL)
+
+	rtrn = 0
+	if (not rs.EoF) then rtrn = rs("secuencia")
+
+	getSecuenciaSolicitante = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getLoteTarea(pNroReq,pIdTarea)
+	Dim strSQL,rs,rtrn
+	strSQL = "select lote from toepferdb.TBLSYSTAREAS where idRequerimiento = " & pNroReq & " and idTarea = " & pIdTarea
+	call executeQuery(rs, "OPEN", strSQL)
+
+	rtrn = 0
+	if (not rs.EoF) then rtrn = rs("lote")
+
+	getLoteTarea = rtrn
+End Function
+'--------------------------------------------------------------------------------------------------
+Function obtenerArchivosPublicacion(pPathSvn,pTempFolder,pBackUpFolder,pProduccionFolder,nroReq,idtarea)
+	myLog.fileName="Tareas-"&idtarea
+	myLog.info("Inicio publicacion requerimiento: "& nroReq & " y tarea/s: "&idTarea)
+
+		Set a = jsArray()
+		Set dicLastRevision = Server.CreateObject("Scripting.Dictionary")
+		set wshell = CreateObject("WScript.Shell") 
+		set fso = Server.CreateObject("Scripting.FileSystemObject")
+
+
+		tempFolder = pTempFolder
+		backUpFolder = pBackUpFolder
+		produccionFolder = pProduccionFolder
+
+
+		if (fso.FolderExists(server.MapPath(tempFolder))) then
+			fso.deleteFolder(server.MapPath(tempFolder))
+		end if
+
+		fso.CreateFolder(server.MapPath(tempFolder))
+
+		myLog.info("carpeta BackUp: " & backUpFolder)
+		myLog.info("carpeta Destino:" & produccionFolder)
+
+		strSQL = "select pathfile,max(svn) svn from toepferdb.TBLSYSARCHIVOSAPRODUCCION where idestado = 2 group by pathfile"
+		call executeQuery(rs, "OPEN", strSQL)
+
+		while not rs.eof
+			call dicLastRevision.add(cstr(rs("pathfile")),cdbl(rs("svn")))
+			'response.write cstr(rs("pathfile")) & "<br>"
+			rs.MoveNext
+		wend
+
+		strSQL = ""
+		strSQL = strSQL & "SELECT   a.* "
+		strSQL = strSQL & "FROM     TOEPFERDB.TBLSYSARCHIVOSAPRODUCCION a "
+		strSQL = strSQL & "         INNER JOIN "
+		strSQL = strSQL & "                  ( SELECT  MAX(svn) maxSVN, "
+		strSQL = strSQL & "                           pathfile "
+		strSQL = strSQL & "                  FROM     toepferdb.TBLSYSARCHIVOSAPRODUCCION "
+		strSQL = strSQL & "                  WHERE    idrequerimiento = " & nroReq
+		strSQL = strSQL & "                  AND      idtarea         in (" & idTarea & ") "
+		strSQL = strSQL & " 				 AND      idestado        = " & ESTADO_ACTIVO
+		strSQL = strSQL & "                  GROUP BY pathfile "
+		strSQL = strSQL & "                  ) "
+		strSQL = strSQL & "                  b "
+		strSQL = strSQL & "         ON       a.pathfile = b.pathfile "
+		strSQL = strSQL & "         AND      a.svn      = b.maxsvn "
+		strSQL = strSQL & "WHERE    a.idrequerimiento   = " & nroReq
+		strSQL = strSQL & " AND      a.idtarea          in (" & idTarea & ") "
+		strSQL = strSQL & " AND      a.idestado         = " & ESTADO_ACTIVO
+		strSQL = strSQL & " AND	     a.accion <> 'D' "
+		strSQL = strSQL & " ORDER BY svn"
+
+		call executeQuery(rs, "OPEN", strSQL) 
+
+		myLog.info("Inicio proceso obtencion archivos del repositorio.")
+		while not rs.eof
+			rsVacio= false
+			myLog.info("procesando archivo " & rs("pathfile"))
+			aux = split(rs("pathfile"),"\")
+
+			if (instr(aux(ubound(aux)),".")>0 ) then
+				'solo se exportan los archivos, las carpetas no, ya que se crearan de ser necesario en el siguiente while'
+				if (instr(ucase(rs("pathfile")),ucase("Thumbs.db")) = 0 ) then
+
+					if (not fso.FileExists(Server.MapPath(tempFolder)&"\"&aux(ubound(aux)) ) ) then
+
+						if (dicLastRevision.exists(cstr(rs("pathfile")))) then
+							lastRev = dicLastRevision.item(cstr(rs("pathfile")))
+						else
+							lastRev = 0
+						end if
+
+						'response.write cdbl(rs("svn")) &">"& lastRev&"<br>"
+						if (cdbl(rs("svn")) > lastRev) then
+							myLog.info("    Obteniendo el archivo del repositorio con el nro de revision " & rs("svn"))
+							
+							command = "cmd.exe /c svn export "&Chr(34)&pPathSvn&"/"&rs("pathfile")&Chr(34)&" -r "&rs("svn")&" "&Chr(34)&Server.MapPath(tempFolder)&Chr(34)&"  --username servicios --password qAzWsX1 "
+							'response.write command & "<hr>"
+
+							set proc =  wshell.exec(command)
+
+								auxError = proc.stderr.readall
+							if (auxError <> "") then 
+								'Hubo un error'
+								Set a(Null) = jsObject()
+								myLog.info("Se produjo un error: " & auxError)
+								a(null)("error") = auxError
+								a.Flush
+								set wshell = nothing
+								response.end
+							end if
+
+							set getLogSvn = proc.StdOut
+						end if
+					end if 
+				end if 
+			end if
+			 rs.MoveNext
+		wend
+
+		Set obtenerArchivosPublicacion = rs
+End Function
+'--------------------------------------------------------------------------------------------------
+'Funcion que devuelve la tareas que deben ser firmadas por el usuario logeado y que se encuentran en el estado indicado y pertenecen al requerimiento especificado.
+Function loteTareasAFirmar(pNroReq, status, lote, userName)
+
+	Dim strSQL, rs, listaTareas
+	
+	'Se obtienen todas las tareas del GEMINI que estan esperando firma.
+	strSQL =          "SELECT issueid "
+	strSQL = strSQL & "FROM   gemini_issues "
+	strSQL = strSQL & "WHERE  issuestatusid in (" & status &")"
+	'Si se indicó un lote, se filtra tambien por el.
+	if (lote <> "") then strSQL = strSQL & " and issueid in (" & lote & ")"
+	Call GF_BD_GEMINI(rs, "OPEN", strSQL)
+	listaTareas = "-1"
+	if (not rs.EoF) then
+		listaTareas = rs.GetString()		
+		'El string asi creado separa los campos con TAB, se elimin a este separador		
+		listaTareas = Left(listaTareas,Len(listaTareas)-1)
+		listaTareas = Replace(listaTareas,Chr(13), ", ")
+	end if
+		
+	'Filtro de las tareas pendientes las que pertenecen al reuqerimiento en cuestion
+	strSQL = 		  "SELECT DISTINCT(idtarea) idTarea "
+	strSQL = strSQL & "FROM            toepferdb.tblsysfirmas f "
+	strSQL = strSQL & "WHERE                      idrequerimiento = " & nroReq
+	if (userName <> "") then strSQL = strSQL & " AND cdusuario = '" & userName & "'"
+	strSQL = strSQL & " AND             idtarea in (" & listaTareas & ")"
+	
+	Call executeQuery(rs, "OPEN", strSQL)
+	
+	Set loteTareasAFirmar = rs	
+	
+End Function
+'--------------------------------------------------------------------------------------------------
+'Funcion que devuelve la descripcion para la plataforma indicada.
+Function getDsPlataforma(idPlataforma)
+	select case idPlataforma
+		case REQ_PLATAFORMA_WINDOWS
+			ret = "Windows"
+		case REQ_PLATAFORMA_AS400
+			ret = "AS400"
+		case REQ_PLATAFORMA_AMBOS
+			ret = "Win/AS400"
+		case else
+			ret = "Sin Plataforma"
+	end select
+	getDsPlataforma = ret
+End Function
+%>
+

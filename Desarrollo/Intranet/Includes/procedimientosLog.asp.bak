@@ -1,0 +1,292 @@
+<%
+Dim log_fso,log_file1,log_fileame, log_forzarMsj,logDefault
+'TAREA 1715
+Const MSG_INF_LOG = 1	
+Const MSG_ERR_LOG = 2
+Const MSG_WRN_LOG = 4
+Const MSG_DBG_LOG = 8
+
+Const HND_VIEW = 1
+Const HND_FILE = 2
+Const HND_DB   = 4
+
+Const LOG_FORAPPENDING = 8
+Const LOG_FORREADING = 1
+Const LOG_FORWRITING = 2
+
+Const LOG_VIEW_INF_COLOR = "#0099FF"
+Const LOG_VIEW_ERR_COLOR = "#FF0033"
+Const LOG_VIEW_WRN_COLOR = "#FFCC66"
+Const LOG_VIEW_DBG_COLOR = "#669966"
+
+set logDefault = new classLog
+
+'Para trabajar con mas de un Handler usar la forma: HND_SCREEN + HND_FILE
+'Para trabajar con mas de un tipo de mensaje usar la forma: MSG_INF_LOG + MSG_ERR_LOG
+Function startLog(pHandler, pEnabledMsg)
+	log_forzarMsj = false
+	Call enableMessages(pEnabledMsg)
+	Call openHandlers(pHandler)
+End Function
+'----------------------------------------------------------------------------------------'
+Function stopLog()
+	logDefault.stopLog()
+End Function
+'----------------------------------------------------------------------------------------'
+Function logError(pMsg)
+	logDefault.errors(pMsg)
+End Function
+'----------------------------------------------------------------------------------------'
+Function logWarning(pMsg)
+	logDefault.warning(pMsg)
+End Function
+'----------------------------------------------------------------------------------------'
+Function logInfo(pMsg)
+	logDefault.info(pMsg)
+End Function
+'----------------------------------------------------------------------------------------'
+Function logDebug(pMsg)
+	logDefault.debug(pMsg)
+End Function
+'----------------------------------------------------------------------------------------'
+Function enableMessages(pEnabledMsg)
+	dim i
+	
+	Call cleanSessionMsg()
+	for i = 3 to 0 step -1
+			
+		if ( (2^i)<= pEnabledMsg ) then
+			
+			select case (2^i)
+				case MSG_INF_LOG
+					Session("LOG_INF_ENABLED") = true
+				case MSG_ERR_LOG
+					Session("LOG_ERR_ENABLED") = true
+				case MSG_WRN_LOG
+					Session("LOG_WRN_ENABLED") = true
+				case MSG_DBG_LOG
+					Session("LOG_DBG_ENABLED") = true
+			end select
+			pEnabledMsg = pEnabledMsg - (2^i)
+		end if
+	next
+End Function
+'----------------------------------------------------------------------------------------'
+Function openHandlers(pHandler)
+	Dim log_fileame,aux, i
+	Call cleanSessionHDN()
+	for i = 2 to 0 step -1
+		if ( (2^i)<= pHandler ) then
+			select case (2^i)
+				case HND_VIEW
+					Session("LOG_HDN_VIEW") = true
+				case HND_FILE
+					Session("LOG_HDN_FILE") = true
+				case HND_DB
+					Session("LOG_HDN_DB") = true
+			end select
+			pHandler = pHandler - (2^i)
+		end if
+	next
+End Function
+'----------------------------------------------------------------------------------------'
+Function cleanSessionMsg()
+	session("LOG_INF_ENABLED") = false
+	session("LOG_ERR_ENABLED") = false
+	session("LOG_WRN_ENABLED") = false
+	session("LOG_DBG_ENABLED") = false
+End Function
+Function cleanSessionHDN()
+	session("LOG_HDN_VIEW") = false
+	session("LOG_HDN_FILE") = false
+	session("LOG_HDN_DB")   = false
+End Function
+
+'************************************************************************************************
+'************************************************************************************************
+'************************************************************************************************
+'************************************************************************************************
+'************************************************************************************************
+'************************************************************************************************
+'************************************************************************************************
+'************************************************************************************************
+
+'EJEMPLOS DE USO:
+'----------------------------------------------------------------------------
+'	set myLog = new classLog
+'	myLog.fileName = "TESTING-LOG2"
+'	myLog.path = "Folder01"
+'	myLog.infos(strSQL)
+
+Class classLog
+	
+	private m_path
+	private m_fileName
+	
+	Private Sub Class_Initialize
+		'propiedades por defecto
+		m_path = "logs/"
+		m_fileName = STANDARIZAR_FECHA(day(now()) ,  month(now()) , year(now()))
+	End Sub
+	
+	'************************************************
+	'PROPIEDADES
+	'************************************************
+	
+		public property get path()
+			path = m_path
+		end property
+		
+		public property let path(pValue)
+			m_path = pValue
+		end property
+		'----------------------------------------------------------------------------
+		public property get fileName()
+			fileName = m_fileName
+		end property
+		
+		public property let fileName(pValue)
+			m_fileName = pValue
+		end property
+	
+	'************************************************
+	' FUNCIONES PUBLICAS
+	'************************************************
+		Function start(pHandler, pEnabledMsg)
+			Call enableMessages(pEnabledMsg)
+			Call openHandlers(pHandler)
+		End Function
+		'----------------------------------------------------------------------------
+		Function stopLog()
+			Call startLog(0,0)
+			log_file1.close
+		End Function
+		'----------------------------------------------------------------------------
+		Function errors(pMsg)
+			if (CBool(session("LOG_ERR_ENABLED"))) then Call logMsg(pMsg,MSG_ERR_LOG)
+		End Function
+		'----------------------------------------------------------------------------
+		Function warning(pMsg)
+			if (CBool(session("LOG_WRN_ENABLED"))) then Call logMsg(pMsg,MSG_WRN_LOG)
+		End Function
+		'----------------------------------------------------------------------------
+		Function info(pMsg)
+			if (CBool(session("LOG_INF_ENABLED"))) then	Call logMsg(pMsg,MSG_INF_LOG)
+		End Function
+		'----------------------------------------------------------------------------
+		Function debug(pMsg)
+			if (CBool(session("LOG_DBG_ENABLED"))) then	Call logMsg(pMsg,MSG_DBG_LOG)
+		End Function
+		'----------------------------------------------------------------------------
+		Function openHandlers(pHandler)
+			Call cleanSessionHDN()
+			for i = 2 to 0 step -1
+				if ( (2^i)<= pHandler ) then
+					select case (2^i)
+						case HND_VIEW
+							Session("LOG_HDN_VIEW") = true
+						case HND_FILE
+							Session("LOG_HDN_FILE") = true
+						case HND_DB
+							Session("LOG_HDN_DB") = true
+					end select
+					pHandler = pHandler - (2^i)
+				end if
+			next
+		End Function
+		'----------------------------------------------------------------------------
+		Function enableMessages(pEnabledMsg)
+			Call cleanSessionMsg()
+			for i = 3 to 0 step -1
+					
+				if ( (2^i)<= pEnabledMsg ) then
+					
+					select case (2^i)
+						case MSG_INF_LOG
+							Session("LOG_INF_ENABLED") = true
+						case MSG_ERR_LOG
+							Session("LOG_ERR_ENABLED") = true
+						case MSG_WRN_LOG
+							Session("LOG_WRN_ENABLED") = true
+						case MSG_DBG_LOG
+							Session("LOG_DBG_ENABLED") = true
+					end select
+					pEnabledMsg = pEnabledMsg - (2^i)
+				end if
+			next
+		End Function
+	
+	'************************************************
+	' FUNCIONES PRIVADAS
+	'************************************************
+		private Function cleanSessionMsg()
+			session("LOG_INF_ENABLED") = false
+			session("LOG_ERR_ENABLED") = false
+			session("LOG_WRN_ENABLED") = false
+			session("LOG_DBG_ENABLED") = false
+		End Function
+		'----------------------------------------------------------------------------
+		private Function cleanSessionHDN()
+			session("LOG_HDN_VIEW") = false
+			session("LOG_HDN_FILE") = false
+			session("LOG_HDN_DB")   = false
+		End Function
+		'----------------------------------------------------------------------------
+		private function STANDARIZAR_FECHA(P_intDia,P_intMes,P_intAnio)
+			'Esta funcion le da formato a la fecha DD MM AAAA.
+			 
+			if (len(P_intAnio) < 4) then
+			   if (P_intAnio < 30) then 
+				  P_intAnio= P_intAnio + 2000
+			   else 
+				  P_intAnio= P_intAnio + 1900
+			   end if
+			end if
+			if (len(P_intMes) = 1) then P_intMes= "0" & P_intMes
+			if (len(P_intDia) = 1) then P_intDia= "0" & P_intDia
+			STANDARIZAR_FECHA = P_intAnio & P_intMes & P_intDia
+		end function
+		'----------------------------------------------------------------------------
+		private Function logMsg(pMsg, pLevel)	
+			Dim msgType,aux,msgColor, my_file
+			select case pLevel
+				case MSG_INF_LOG
+					msgType = "INFO"
+					msgColor = LOG_VIEW_INF_COLOR
+				case MSG_ERR_LOG
+					msgType = "ERROR"
+					msgColor = LOG_VIEW_ERR_COLOR
+				case MSG_WRN_LOG
+					msgType = "WARNING"
+					msgColor = LOG_VIEW_WRN_COLOR
+				case MSG_DBG_LOG
+					msgType = "DEBUG"
+					msgColor = LOG_VIEW_DBG_COLOR
+			end select
+			if (session("LOG_HDN_FILE")) then
+				Set log_fso = CreateObject("scripting.filesystemobject")
+				my_file = server.MapPath(m_path) & "/" & m_fileName & ".txt"				
+			    Set log_file1 = log_fso.OpenTextFile(my_file, LOG_FORAPPENDING, true)
+				log_file1.WriteLine Now() & "|" & Session("Usuario") & "|" & msgType & "|" & pMsg
+				log_file1.close
+			end if			
+			if (session("LOG_HDN_VIEW")) then
+				aux =       "<table width='100%' style='color:white;font-weight:bold'> "
+				aux = aux & "	<tr style='background-color:"&msgColor&"'> "
+				aux = aux & "		<td width='10%'>" & time() & "</td> "
+				aux = aux & "		<td width='5%'>" & Session("Usuario") & "</td> "
+				aux = aux & "		<td width='10%'>" & msgType & "</td> "
+				aux = aux & "		<td width='75%' bgcolor='999999'>" &  pMsg & "</td> "
+				aux = aux & "	</tr> "
+				aux = aux & "</table> "
+				Response.Write aux
+			end if
+			if (session("LOG_HDN_DB")="True") then
+			end if
+		End Function
+	
+End Class
+
+
+
+%>

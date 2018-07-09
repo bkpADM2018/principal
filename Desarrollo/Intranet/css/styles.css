@@ -1,0 +1,212 @@
+.tituNavProduct{ 
+	color : #FFFFFF;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	text-align : left;
+	background: #0000a0;
+	margin:1px 1px 1px 1px;
+}
+.bodycolumn{
+	text-align: center;
+	font-style: italic;
+
+}
+.ordersHeader{
+	text-align: center;
+	font-style: italic;
+	color: snow;
+	background: teal;
+}
+.evenColumn{
+	text-align: center;
+	height: 25px;
+	color: snow;
+	background: MediumTurquoise;
+}
+.oddColumn{
+	text-align: center;
+	background: powderBlue;
+}
+.row1 {
+	background-color : lightgrey
+}
+
+.row2 {
+	background-color : white
+}
+.tituFila1{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	background-color: #0000a0;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	
+	
+}
+
+td {
+    bgcolor: #000000;
+}
+.inputc{
+	
+}
+
+.tabla{
+	margin:5px 5px 5px 5px;
+	background-color: #c0c0c0;
+	margin-left: 20px; 
+	margin-right: 20px;
+	border-top-width: 2px;   
+	border-bottom-width: 2px;
+}
+
+
+
+/*//////////////////////////////////////////
+///////////// Estilos agregados ////////////
+//////////////////////////////////////////*/
+
+div#tbl-container2 {
+width: 749px;
+overflow: auto;
+scrollbar-base-color:#E8E8FF;
+max-height: 202px; 
+}
+div#tbl-container {
+width: 100%;
+height: 202px;
+overflow: auto;
+scrollbar-base-color:#E8E8FF;
+max-height: 420px; 
+}
+.table {
+table-layout: fixed;
+border-collapse: collapse;
+background-color: WhiteSmoke;
+}
+
+.div#tbl-container table th {
+width: 100px;
+}
+
+thead th2, thead th2.locked	{
+font-size: 15px;
+font-weight: bold;
+text-align: center;
+background-color: navy;
+color: white;
+border-right: 1px solid silver;
+position:relative;
+cursor: default; 
+}
+
+thead th, thead th.locked	{
+font-size: 10px;
+font-weight: bold;
+text-align: center;
+background-color: green;
+color: white;
+border-right: 1px solid silver;
+cursor: default; 
+}
+
+
+thead th {
+top: expression(document.getElementById("tbl-container").scrollTop-2); /* IE5+ only */
+z-index: 20;
+}
+
+thead th.locked {z-index: 30;}
+
+td.locked,  th.locked{
+background-color: #E1E1FF;
+font-weight: bold;
+border-right: 1px solid silver;
+left: expression(document.getElementById("tbl-container").scrollLeft); /* IE5+ only */
+position: relative;
+z-index: 10;
+}
+
+/*these styles have nothing to do with the locked column*/
+body {
+background-color: white;
+color: black;
+font-family: Arial, sans-serif;
+}
+
+.td2 {
+padding: 0px 0px 0px 0px;
+font-size: 10px;
+border-left: 1px solid silver;
+border-bottom: 1px solid silver;
+}
+.td3 {
+padding: 0px 0px 0px 2px;
+font-size: 12px;
+border-left: 1px solid silver;
+border-bottom: 1px solid silver;
+}
+.button {
+width: 60px; 
+font-size:9px;
+color: navy;
+margin-bottom: 5px;
+}
+
+.buttonForm {
+width: 60px; 
+font-size:11px;
+color: navy;
+}
+
+.td-std {
+border-bottom:none;
+border-left:none;
+}
+
+.td-border {
+border-bottom: 1px solid silver;
+border-left: 1px solid silver;
+border-right: 1px solid silver;
+border-top: 1px solid silver;
+}
+
+.title {
+	font-family: Tahoma;
+	font-size: 14px;
+	color: #FFFFFF;
+}
+a:link {
+	color: ##517b4a;
+	text-decoration:none;
+}
+
+a:hover {
+	color: ##517b4a;
+	text-decoration:none;
+}
+
+a:visited {
+	color: ##517b4a;
+	text-decoration:none;
+}
+
+tr.link:hover {
+	background:#9999FF;
+	cursor:pointer;
+}
+
+input {
+	font-family: Tahoma;
+	font-size: 12px;
+}
+
+option {
+	font-family: Tahoma;
+	font-size: 12px;
+}

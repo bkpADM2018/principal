@@ -1,0 +1,28 @@
+.mgNormal
+{
+    FONT-SIZE: 10px;
+	COLOR:#003300;
+    FONT-FAMILY: verdana, arial, san-serif;
+    BACKGROUND-COLOR: #e7ffe3;
+}
+.mgSelected
+{
+	COLOR:#000000;
+    FONT-SIZE: 10px;
+    FONT-FAMILY: verdana, arial, san-serif;
+    BACKGROUND-COLOR: #ccffcc;
+}
+.mgTable
+{
+    /*FONT-WEIGHT: bold;*/
+   /* BORDER-RIGHT: 1px;
+    BORDER-TOP: 1px;
+    BORDER-LEFT: 1px;
+    BORDER-BOTTOM: 1px;*/
+    FONT-SIZE: 10px;
+    COLOR: #000000;
+    FONT-FAMILY: verdana, arial, san-serif;
+    HEIGHT: 19px;
+    BACKGROUND-COLOR: #e7ffe3;	
+    TEXT-DECORATION: none
+}

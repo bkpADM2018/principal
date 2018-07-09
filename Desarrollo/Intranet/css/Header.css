@@ -1,0 +1,33 @@
+@charset "utf-8";
+/* CSS Document */
+html, body 	{ margin:0; padding:0; }
+
+a			{ text-decoration: none; }
+
+ul,
+ul ul		{ margin: 0; padding: 0; list-style: none; }
+
+#cabezera	{ width:100%; height:100px; margin:0; padding:0; }
+
+
+/* ============================================================
+	HEADER INTRANET
+============================================================ */
+#logo			{ width:81px; height:75px; float:left; margin:20px; background-image:url(../images/Header/ADMlogo2.jpg); background-repeat:no-repeat; }
+
+/* ======== USER & DATE ======== */
+#fechauser		{ float:right; margin:5px 1px; }
+#fechauser		{ font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#666; }
+#spanreloj		{ float:right; margin:5px 20px 0 10px }
+#spanreloj		{ font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#666; }
+
+/* ======== MENU HEADER ========  SIN USO HASTA NUEVO AVISO 
+#secondmenu		{ width:50%; height:50px; clear:right; float:right; margin:0 20px; overflow:hidden; }
+	#secondmenu ul		{ margin:0; padding:0; }
+	#secondmenu ul li	{ float:right; margin-left:10px; width:80px; text-align:center; line-height:10px; }
+	#secondmenu ul li a	{ color:#2e6b4d; text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:10px; }
+*/
+
+/* ======== SECTION TITLE ======== */	
+#sectiontitle	{ width:100%; height:25px; clear:both; overflow:hidden; background:#eeeeee }
+#sectiontitle	{ font-family:Arial, Helvetica, sans-serif; font-weight: bold; font-size:12px; color:#000; line-height:25px; text-align:center;}

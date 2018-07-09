@@ -1,0 +1,864 @@
+<%
+'/*********************************************************************************
+' * Funcion: GF_createPDF
+' * Descripcion: Crea un archivo PDF.
+' * Parametros: p_filename [in] Nombre del archivo a crear.
+' * Valor Devuelto
+' *       Devuelve el objeto PDF Creado.
+' *       Importante: El archivo a crear no debe estar siendo utilizado.
+' *
+' * Autor: Javier A. Scalisi
+' * Fecha: 04/07/2004
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+const PDF_FILE_MODE = 0
+const PDF_STREAM_MODE = 1
+
+const PDF_SQUARE_NORMAL = 0
+const PDF_SQUARE_ROUND = 1
+
+Const PDF_ALIGN_LEFT = 0
+Const PDF_ALIGN_RIGHT = 1
+Const PDF_ALIGN_CENTER = 2
+Const PDF_ALIGN_JUSTIFY = 3
+
+Const FONT_STYLE_BOLD      = 8
+Const FONT_STYLE_ITALIC    = 4
+Const FONT_STYLE_UNDERLINE = 2
+Const FONT_STYLE_STRIKEOUT = 1
+Const FONT_STYLE_NORMAL    = 0
+
+const PDF_LAST_PAGE = -1
+
+dim pdf_currentPage, pdf_pages(), pdf_currentFileName, pdf_mode, pdf_currentFontColor, pdf_lastPage
+dim pdf_currentFont, pdf_currentFontSize, pdf_currentFontStyle, pdf_pageIndex
+dim pdf_currentFontStyleBold, pdf_currentFontStyleItalic, pdf_currentFontStyleUnderline, pdf_currentFontStyleStrikeOut
+pdf_currentFont	= 1
+pdf_currentFontColor = "000000"
+
+function GF_createPDF(p_filename)
+Dim oPDF
+
+	'LICENCIA
+	'Dim MyLicense
+	'Set MyLicense = Server.CreateObject( "DynamicPDF.Licensing" )
+	'If (MyLicense.LicensesAdded < 1) then	
+	  'MyLicense.AddLicense("GEN50CPSDBIIHIjNG9M+k9CfmaOl5QF+HL3sJrmwSsFxMW4TML8WcUAFYV+uI6ugTpMAoWhbfUziF9/IVHVy/9fEC7hOA4qzq/DQ")
+	'End If
+
+	Set oPDF = Server.CreateObject("DynamicPDF.Document")
+	oPDF.Author = "Actisa"
+	oPDF.Title = "Reporte"
+	oPDF.DefaultPageWidth = 595
+	oPDF.DefaultPageHeight = 850
+	oPDF.DefaultMarginTop    = 0
+	oPDF.DefaultMarginLeft   = 0
+    'Se setea el zoom hasta ajustarlo al ancho de su contenedor
+    oPDF.InitialZoom = 3
+    'Se Setea la configuracion del archivo.
+	pdf_currentFileName = p_filename
+         
+	'Se setea la fuente por defecto.
+    Call GF_setFont(oPDF,1,12,0)
+
+     'Se asigna el codigo para el cache de imagenes.
+    if (isEmpty(session("PDF_CODE"))) then session("PDF_CODE") = 0
+    session("PDF_CODE") = session("PDF_CODE") + 1
+		
+	'Setea si se graba en un archivo o se envia a la pantalla		
+	call GF_setPDFMode(PDF_FILE_MODE) 		
+	
+	'Se inicializa el indice de paginas
+	pdf_pageIndex=0
+	
+	'Siempre se inicializa la primer hoja
+	call GF_newPage(oPDF)
+	
+    Set GF_createPDF = oPDF
+End Function
+
+'/*********************************************************************************
+' * Funcion: GF_setFont
+' * Descripcion: Setea la fuente a utilizar con el texto.
+' * Parametros:  p_oPDF     [in] El objeto PDF.
+' *              p_font     [in] Fuente a utilizar.
+' *              p_size     [in] Tamanio de la fuente.
+' *              p_style    [in] Estilo a utilizar. (ver nota)
+' *
+' * Nota: Especificacion del parametro p_style
+' *
+' *       p_style = bold + italic + strikeout + underline
+' *
+' *       bold = 8; italic = 4; underline = 2; strikeout = 1
+' *
+' * Autor: Javier A. Scalisi
+' * Fecha: 04/07/2004
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+Function GF_setFont(ByRef p_oPDF,p_font, p_size, p_style)
+dim i,styleVal,styles(4)
+		
+	select case ucase(p_font)
+		case "COURIER"
+			pdf_currentFont	= 3
+		case "TIMES-ROMAN"
+			pdf_currentFont	= 11	
+		case "ARIAL"	
+			pdf_currentFont	= 1			
+		case "HELVETICA"
+			pdf_currentFont	= 7 
+		default
+			pdf_currentFont	= 1				
+	end select	
+	if (p_size = "") then p_size=0
+	if (p_size > 0) then
+		pdf_currentFontSize = p_size
+	end if
+    if ((p_style >= 0) and (p_style < 16)) then
+    pdf_currentFontStyle = p_style
+       'Extraer estilos a aplicar
+       styleVal = 8
+       For i = 0 to 3
+             styles(i) = False
+             if (p_style >= styleVal) then
+                styles(i)=True
+                p_style = p_style - styleVal
+             end if
+             styleVal = styleVal/2
+       Next
+       pdf_currentFontStyleBold = styles(0)
+       pdf_currentFontStyleItalic = styles(1)
+       pdf_currentFontStyleUnderline = styles(2)
+       pdf_currentFontStyleStrikeOut = styles(3)
+    End If	
+
+End Function
+
+'/*********************************************************************************
+' * Funcion: GF_newPage
+' * Descripcion: Agrega una nueva pagina en blanco al documento.
+' * Parametros:  p_oPDF     [in] El objeto PDF.
+' *
+' * Autor: Javier A. Scalisi
+' * Fecha: 05/07/2004
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+Function GF_newPage(ByRef p_oPDF)
+		
+	Set pdf_currentPage = p_oPDF.AddPage()
+	Set pdf_lastPage = pdf_currentPage
+	pdf_pageIndex = pdf_pageIndex + 1
+	Redim preserve pdf_pages(pdf_pageIndex)
+	Set pdf_pages(pdf_pageIndex) = pdf_currentPage
+End Function
+
+'/*********************************************************************************
+' * Funcion: GF_writeText
+' * Descripcion: Imprime el texto en el archivo pdf.
+' * Parametros:  p_oPDF     [in] El objeto PDF.
+' *              p_x        [in] Coordenada X.
+' *              p_y        [in] Coordenada Y.
+' *              p_string   [in] Texto a escribir.
+' *              p_angle    [in] Inclinacion del texto. (en grados)
+' *
+' * Autor: Javier A. Scalisi
+' * Fecha: 04/07/2004
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+Function GF_writeText(ByRef p_oPDF,p_x, p_y, p_string, p_angle)
+dim MyLabel
+         if (isNumeric(p_x) and isNumeric(p_y) and isNumeric(p_angle) and not isEmpty(p_string)) then
+            if ((p_x >= 0) and (p_y >= 0) and (p_angle >= 0)) then
+				MyText = p_string
+				wth = Int(p_oPDF.Metrics.GetTextWidth(MyText, pdf_currentFont, pdf_currentFontSize))
+				Set MyFormattedTextArea = pdf_currentPage.AddFormattedTextArea( p_string, p_x, p_y, wth + 100, pdf_currentFontSize, pdf_currentFont, pdf_currentFontSize)	
+				MyFormattedTextArea.Style.Bold = pdf_currentFontStyleBold
+				MyFormattedTextArea.Style.Italic = pdf_currentFontStyleItalic
+				MyFormattedTextArea.Style.Underline = pdf_currentFontStyleUnderline								
+				MyFormattedTextArea.Style.Font.Face = pdf_currentFont
+				MyFormattedTextArea.Style.Font.Size = pdf_currentFontSize
+				MyFormattedTextArea.Style.Font.Color = pdf_currentFontColor
+				MyFormattedTextArea.Angle = 360 - p_angle
+			end if
+         end if
+End Function
+
+'/*********************************************************************************
+' * Funcion: GF_writeTextAlign
+' * Descripcion: Escribe un renglon alineandolo segun se especifique.
+' * Parametros:  p_oPDF     [in] El objeto PDF.
+' *              p_x        [in] Coordenada X.
+' *              p_y        [in] Coordenada Y.
+' *              p_string   [in] Texto a escribir.
+' *              p_width    [in] Ancho del renglon en puntos(pixeles).
+' *              p_align    [in] Alinacion horizontal del texto.
+' *                              0:Left; 1:Right; 2:Center; 3:Justify
+' * Autor: Eugenio Di Santo
+' * Fecha: 25/01/2005
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' *
+' * Modificado: Javier A. Scalisi
+' * Fecha 14/05/2010
+' */
+Function GF_writeTextAlign(ByRef p_oPDF,p_x, p_y, p_string, p_width, p_align)
+	
+	Dim wth, strExpr, aux, aux_old, sepWth, limit
+        'Determino el ancho del texto.
+   		MyText = p_string
+		if (MyText <> "") then
+			wth = Int(p_oPDF.Metrics.GetTextWidth(MyText, pdf_currentFont, pdf_currentFontSize))
+			 'Calculo los valores auxiliares necesarios.
+			 if (p_width >= wth) then
+					aux = p_width - wth
+						 'Se escribe el texto.
+					Select case p_align
+						case PDF_ALIGN_LEFT, PDF_ALIGN_JUSTIFY:
+							'Alineado a la izquierda o justificado
+							x_inicial = p_x
+						case PDF_ALIGN_RIGHT:
+							'Alineado a la derecha
+							 x_inicial = p_x + aux
+						case PDF_ALIGN_CENTER:
+							'Centrado
+							 x_inicial = p_x + int(aux/2)
+						end select
+						
+						if p_align=PDF_ALIGN_JUSTIFY then
+							strAux = split(p_string, " ")
+							separacion = 0
+							if ubound(strAux)>0 then
+								if right(rtrim(strAux(ubound(strAux))),1) <> "." then
+									acum = 0
+									for indiceG = lbound(strAux) to ubound(strAux)
+										MyText = replace(replace(strAux(indiceG), "<b>",""), "</b>","")
+										wth = Int(p_oPDF.Metrics.GetTextWidth(MyText, pdf_currentFont, pdf_currentFontSize))
+										acum = acum + wth
+									next
+									separacion = (p_width - acum) / ubound(strAux)
+								end if
+							end if
+							for indiceF=lbound(strAux) to ubound(strAux)
+								if lcase(left(strAux(indiceF),3)) = "<b>" then
+									call GF_setFont(p_oPDF, "", "", 8)
+									strAux(indiceF) = replace(strAux(indiceF), "<b>", "")
+								end if
+								if lcase(right(strAux(indiceF),4)) = "</b>" then
+									sacarNegritas = true
+									strAux(indiceF) = replace(strAux(indiceF), "</b>", "")
+								end if
+								call GF_writeText(p_oPDF, x_inicial, p_y, strAux(indiceF),0)
+								MyText = strAux(indiceF)
+								wth = Int(p_oPDF.Metrics.GetTextWidth(MyText, pdf_currentFont , pdf_currentFontSize ))
+								x_inicial = x_inicial + Int(wth) + separacion
+								if sacarNegritas = true then
+									call GF_setFont(p_oPDF, "", "", 0)
+									sacarNegritas = false
+								end if
+							next
+						else
+							'Imprime el texto alineado a izquierda, derecha o centrado segun corresponda.
+							call GF_writeText(p_oPDF, x_inicial, p_y, p_string, 0)
+						end if
+						
+			 else
+				Call GF_writeText(p_oPDF,p_x, p_y, p_string,0)
+			 end if
+		end if
+End Function
+
+'/*********************************************************************************
+' * Funcion: getWordsAmount
+' * Descripcion: Devuelve la cantidad de palabras de un texto
+' * Parametros:  p_string   [str] Cadena que contiene el texto
+' *
+' * Autor: Eugenio D. Di Santo
+' * Fecha: 26/01/2005
+Function getWordsAmount(p_string)
+    dim auxVec
+    auxVec = split(ltrim(rtrim(p_string)), " ")
+    getWordsAmount = UBOUND(auxVec) + 1
+end function
+
+'/*********************************************************************************
+' * Funcion: GF_writeVerticalText
+' * Descripcion: Escribe un renglon alineandolo segun se especifique.
+' * Parametros:  p_oPDF     [in] El objeto PDF.
+' *              p_x        [in] Coordenada X.
+' *              p_y        [in] Coordenada Y.
+' *              p_string   [in] Texto a escribir.
+' *              p_height   [in] Alto del renglon en puntos(pixeles).
+' *              p_align    [in] Alinacion horizontal del texto.
+' *                              0:Bottom; 1:Top; 2:Center;
+' * Autor: Eugenio D. Di Santo
+' * Fecha: 06/09/2004
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+Function GF_writeVerticalText(ByRef p_oPDF,p_x, p_y, p_string, p_height, p_align)
+         Dim lon, strExpr, aux, aux_old, sepWth, limit
+         'Determino la long del texto (en pixeles).
+         MyText = p_string
+		 lon = Int(p_oPDF.Metrics.GetTextWidth(MyText, pdf_currentFont, pdf_currentFontSize))
+         'Calculo los valores auxiliares necesarios.
+         if (p_height >= lon) then
+			aux = p_height - lon
+            'Se escribe el texto.            
+            Select case p_align
+                case "0": GF_writeVerticalText = GF_writeText(p_oPDF,p_x, p_y, p_string,90)
+                case "1": GF_writeVerticalText = GF_writeText(p_oPDF,p_x, p_y - p_height + lon, p_string,90)
+                case "2": GF_writeVerticalText = GF_writeText(p_oPDF,p_x, p_y - Int(aux/2), p_string,90)
+            End Select
+         else
+			GF_writeVerticalText = GF_writeText(p_oPDF,p_x, p_y, p_string,90)
+         end if
+End Function
+
+'/*********************************************************************************
+' * Funcion: GF_writeTextPlus
+' * Descripcion: Escribe un parrafo separandolo en renglones y
+' * alineandolo segun se especifique.
+' * Parametros:  p_oPDF     [in] El objeto PDF.
+' *              p_x        [in] Coordenada X.
+' *              p_y        [in] Coordenada Y.
+' *              p_string   [in] Texto a escribir.
+' *              p_width    [in] Ancho del renglon en puntos(pixeles).
+' *              p_height   [in] Altura del renglon en puntos(pixeles).
+' *              p_align    [in] Alinacion horizontal del texto.
+' *                              0:Left; 1:Right; 2:Center; 3:Justify
+' * Valor Devuelto
+' *       Devuelve la proxima coordenada Y a utilizar.
+' *
+' * Autor: Javier A. Scalisi
+' * Fecha: 06/07/2004
+' *
+' * Modificado: Eugenio Di Santo
+' * Fecha 26/01/2005
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' *
+' * Modificado: Guido Fonticelli
+' * Fecha 13/11/2009
+' *
+' * Nota:
+' *	     La funcion original fue renombrada como PF_writeTextPlus para poder
+' *		realizar los puntos y aparte por medio del <br>
+' */
+Function GF_writeTextPlus(ByRef p_oPDF,p_x, p_y, p_string, p_width, p_height, p_align)
+dim auxParrafo,coord_Y, i
+		
+		auxParrafo = split(p_string,"<br>")		
+		
+		coord_Y = p_y		
+		for i = 0 to ubound(auxParrafo)			
+			coord_Y = PF_writeTextPlus(p_oPDF,p_x, coord_Y, auxParrafo(i), p_width, p_height, p_align)				
+		next				
+        GF_writeTextPlus = coord_Y ' + p_height
+End Function
+'/*********************************************************************************
+Function GF_writeVerticalTextPlus(ByRef p_oPDF,p_x, p_y, p_string, p_width, p_height, p_align)
+dim auxParrafo,coord_X
+		
+		auxParrafo = split(p_string,"<br>")
+		coord_X = p_x
+		for i = 0 to ubound(auxParrafo)
+			coord_X = PF_writeVerticalTextPlus(p_oPDF,coord_X, p_y, auxParrafo(i), p_width, p_height, p_align)
+		next
+		
+        GF_writeVerticalTextPlus = coord_X ' + p_height
+End Function
+
+'/*********************************************************************************
+' * Funcion: GF_AddImage
+' * Descripcion: Devuelve un ID valido para la imagen a agregar.
+' *              Solo para uso interno.
+' * Parametros:  p_oPDF     [in] El objeto PDF.
+' *              p_filename [in] Nombre de la imagena incluir.
+' * Autor: Javier A. Scalisi
+' * Fecha: 04/07/2004
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+Function GF_AddImage(ByRef p_oPDF,p_filename)
+dim cache, cacheStream, myStream
+    cache = session("PDF_CODE") & p_filename
+    cacheStream = session("PDF_STREAM") & p_filename
+	if not (isObject(session(cache))) then
+		Set myStream = Server.CreateObject("ADODB.Stream")
+		myStream.Open
+		myStream.Type = 1
+		myStream.LoadFromFile(p_filename)
+		session(cacheStream) = p_oPDF.AddRawImageData(p_filename, myStream.Read)
+		MyStream.Close		
+    end if
+	set session(cache) = pdf_currentPage.AddImage(session(cacheStream), 0, 0)
+    set GF_AddImage = session(cache)
+End Function
+
+'/*********************************************************************************
+' * Autor: Javier A. Scalisi
+' * Fecha: 04/07/2004
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+Function GF_writeImage(ByRef p_oPDF, p_filename, p_x, p_y, p_width, p_height, p_angle)
+dim myImage
+	if (isNumeric(p_x) and isNumeric(p_y) and isNumeric(p_width) and isNumeric(p_height) and isNumeric(p_angle) and not isEmpty(p_filename)) then
+		if ((p_x >= 0) and (p_y >= 0) and (p_width > 0) and (p_height > 0) and (p_angle >= 0)) then
+			set myImage = GF_AddImage(p_oPDF, p_filename)
+			'set MyImage = pdf_currentPage.AddImage(p_filename,0, 0, 100)
+			myImage.width = p_width
+			myImage.height = p_height
+			myImage.x = p_x
+			myImage.y = p_y
+			myImage.angle = 360 - p_angle
+	   end if
+	end if
+End Function
+
+'/*********************************************************************************
+Function GF_drawLine(ByRef p_oPDF, p_xo, p_yo, p_xf, p_yf)
+		dim myLine
+		Set myLine = pdf_currentPage.AddLine(p_xo, p_yo, p_xf, p_yf,,pdf_currentFontColor)
+end Function
+
+'/*********************************************************************************
+' * Autor: Javier A. Scalisi
+' * Fecha: 05/07/2004
+' */
+Function GF_verticalLine(ByRef p_oPDF, p_xo, p_yo, p_length)
+	Call GF_drawLine(p_oPDF, p_xo, p_yo, p_xo, p_yo + p_length)
+End Function
+
+'/*********************************************************************************
+' * Autor: Javier A. Scalisi
+' * Fecha: 05/07/2004
+' */
+Function GF_horizontalLine(ByRef p_oPDF, p_xo, p_yo, p_length)
+	Call GF_drawLine(p_oPDF, p_xo, p_yo, p_xo  + p_length, p_yo)
+End Function
+'/*********************************************************************************
+' * Funcion: GF_squareBox
+' * Descripcion: Arma un rectangulo y le da el formato deseado.
+' * Parametros:  	p_oPDF		[in] El objeto PDF.
+' *			p_xo			[in] cordenada x.
+'*			p_yo			[in] cordenada y.
+'*			p_XLength		[in] longitud x.
+'*			p_YLength		[in] longitud y.
+'*			p_angle		[in] angulo de inclinación.
+'*			p_colorFill		[in] color de relleno. codigo hexadecimal dentro de ""
+'*			p_BorderColor	[in] color del borde. codigo hexadecimal dentro de ""
+'*			p_BorderWidth	[in] ancho del borde.
+'*			p_CornerRadius	[in] PDF_SQUARE_NORMAL o PDF_SQUARE_ROUND. constantes que determinan si el rectangulo se dibuja con o sin puntas redondeadas.
+'*
+' * Comentario: El rectangulo no se superpone con otras imagenes, tapa todo lo que esten dentro se sus cordenadas, por detras
+' * Autor: Juan Pablo Santi
+' * Fecha: 06/11/2009
+' */
+Function GF_squareBox(ByRef p_oPDF, p_xo, p_yo, p_XLength, p_YLength, p_angle, p_colorFill, p_BorderColor, p_BorderWidth, p_CornerRadius)
+
+Dim MyRectangle, vlr_CornerRadius, vlr_Angle, vlr_ColorFill, vlr_BorderColor
+
+'invierto el angulo para que el giro sea hacia la izquierda
+vlr_Angle = 360 - p_angle
+
+vlr_ColorFill   = mid(p_ColorFill  ,2,len(p_colorFill))
+vlr_BorderColor = mid(p_BorderColor,2,len(p_colorFill))
+
+	'pregunta si se requiere redondeo y determina el valor de redondeo predeterminado
+	if p_CornerRadius = PDF_SQUARE_ROUND then 
+		vlr_CornerRadius = 5
+	else
+		vlr_CornerRadius = 0
+	end if
+
+	Set MyRectangle = pdf_currentPage.AddRectangle(p_xo, p_yo, p_XLength, p_YLength)
+
+	MyRectangle.Angle        = vlr_Angle
+	MyRectangle.FillColor    = vlr_ColorFill
+	MyRectangle.BorderColor  = vlr_BorderColor
+	MyRectangle.BorderWidth  = p_BorderWidth
+	MyRectangle.CornerRadius = vlr_CornerRadius
+	
+	
+End Function
+'/*********************************************************************************
+Function GF_squareBoxTransparent(ByRef p_oPDF, p_xo, p_yo, p_XLength, p_YLength, p_angle, p_colorFill, p_BorderColor, p_BorderWidth, p_CornerRadius)
+
+Dim MyRectangle, vlr_CornerRadius, vlr_Angle, vlr_ColorFill, vlr_BorderColor
+
+'invierto el angulo para que el giro sea hacia la izquierda
+vlr_Angle = 360 - p_angle
+
+vlr_ColorFill   = mid(p_ColorFill  ,2,len(p_colorFill))
+vlr_BorderColor = mid(p_BorderColor,2,len(p_colorFill))
+
+	'pregunta si se requiere redondeo y determina el valor de redondeo predeterminado
+	if p_CornerRadius = PDF_SQUARE_ROUND then 
+		vlr_CornerRadius = 5
+	else
+		vlr_CornerRadius = 0
+	end if
+
+	Set MyRectangle = pdf_currentPage.AddRectangle(p_xo, p_yo, p_XLength, p_YLength)
+
+	MyRectangle.Angle        = vlr_Angle
+	MyRectangle.BorderColor  = vlr_BorderColor
+	MyRectangle.BorderWidth  = p_BorderWidth
+	MyRectangle.CornerRadius = vlr_CornerRadius
+	
+	
+End Function
+'/*********************************************************************************
+' * Autor: Ezequiel A. Bacarini
+' * Fecha 06/01/2010
+' */
+Function GF_setFontColor(p_color)
+	pdf_currentFontColor = p_color
+End Function
+'/*********************************************************************************
+' * Autor: Javier A. Scalisi
+' * Fecha: 04/07/2004
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+Function GF_setPDFMode(p_mode)
+	pdf_mode = p_mode
+End Function
+'/*********************************************************************************
+' * Autor: Javier A. Scalisi
+' * Fecha: 04/07/2004
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+Function GF_closePDF(ByRef  p_oPDF)
+	if pdf_mode = PDF_FILE_MODE then
+		call p_oPDF.DrawToFile(pdf_currentFileName)
+	else		
+		p_oPDF.DrawToWeb
+	end if	
+	Set p_oPDF = Nothing	
+	
+End Function
+
+'/*********************************************************************************
+' * Autor: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+Function GF_showPDF(ByRef p_oPDF)
+		p_oPDF.DrawToWeb
+End Function
+
+'/***************************************************************************\
+' *                       FUNCIONES ADICIONALES                             *
+'\***************************************************************************/
+' * Autor: Javier A. Scalisi
+' * Fecha: 04/07/2004
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+' */
+'Function GF_BOX_PDF(p_oPDF, p_x, p_y, p_width, p_height)
+
+'  Dim baseSize, middleWidth
+
+  'Se calculan las variables que afectan al tamanio del box.
+'  baseSize = 8
+'  middleWidth   = p_width - 2*baseSize
+'  middleHeight  = p_height - 2*baseSize
+
+  'TOP
+'  Call GF_writeImage(p_oPDF, Server.MapPath("Images\marco_r1_c1.jpg"), p_x, p_y, baseSize, baseSize, 0)
+'  Call GF_writeImage(p_oPDF, Server.MapPath("Images\marco_r1_c2.jpg"), p_x + baseSize, p_y, middleWidth, baseSize, 0)
+'  Call GF_writeImage(p_oPDF, Server.MapPath("Images\marco_r1_c3.jpg"), p_x + baseSize + middleWidth, p_y, baseSize, baseSize, 0)
+  'SIDES
+'  Call GF_writeImage(p_oPDF, Server.MapPath("Images\marco_r2_c1.jpg"), p_x, p_y + baseSize, baseSize, middleHeight, 0)
+'  Call GF_writeImage(p_oPDF, Server.MapPath("Images\marco_r2_c3.jpg"), p_x + baseSize + middleWidth, p_y + baseSize, baseSize, middleHeight, 0)
+  'BOTTOM
+'  Call GF_writeImage(p_oPDF, Server.MapPath("Images\marco_r3_c1.jpg"), p_x, p_y + baseSize + middleHeight, baseSize, baseSize, 0)
+'  Call GF_writeImage(p_oPDF, Server.MapPath("Images\marco_r3_c2.jpg"), p_x + baseSize, p_y + baseSize + middleHeight, middleWidth, baseSize, 0)
+'  Call GF_writeImage(p_oPDF, Server.MapPath("Images\marco_r3_c3.jpg"), p_x + baseSize + middleWidth, p_y + baseSize + middleHeight, baseSize, baseSize, 0)
+'End Function
+
+'/*********************************************************************************
+' * Funcion: GF_H_SEPARADOR
+' * Descripcion: Imprime un separador horizontal con imagenes.
+' * Parametros:  p_oPDF     [in] El objeto PDF
+' *              p_x        [in] Coordenada X
+' *              p_y        [in] Coordenada Y
+' *              p_length   [in] Longitud
+' *
+' * Autor: Javier A. Scalisi
+' * Fecha: 05/07/2004
+' */
+Function GF_H_SEPARADOR(ByRef p_oPDF, p_x, p_y, p_length)
+         Call GF_squareBox(p_oPDF, p_x, p_y, p_length, 1, 0, "#b1bca7", "", 0, PDF_SQUARE_NORMAL)
+End Function
+
+'/*********************************************************************************
+' * Funcion: GF_V_SEPARADOR
+' * Descripcion: Imprime un separador vertical con imagenes.
+' * Parametros:  p_oPDF     [in] El objeto PDF
+' *              p_x        [in] Coordenada X
+' *              p_y        [in] Coordenada Y
+' *              p_length   [in] Longitud
+' *
+' * Autor: Eugenio D. Di Santo
+' * Fecha: 30/08/2004
+' */
+Function GF_V_SEPARADOR(ByRef p_oPDF, p_x, p_y, p_height)
+	Call GF_squareBox(p_oPDF, p_x, p_y, 1, p_height, 0, "#b1bca7", "", 0, PDF_SQUARE_NORMAL)
+End Function
+'/*********************************************************************************
+' * Funcion: PF_writeTextPlus (FUNCION PRIVADA)
+' * Descripcion: Escribe un parrafo separandolo en renglones y
+' * alineandolo segun se especifique.
+' * Parametros:  p_oPDF     [in] El objeto PDF.
+' *              p_x        [in] Coordenada X.
+' *              p_y        [in] Coordenada Y.
+' *              p_string   [in] Texto a escribir.
+' *              p_width    [in] Ancho del renglon en puntos(pixeles).
+' *              p_height   [in] Altura del renglon en puntos(pixeles).
+' *              p_align    [in] Alinacion horizontal del texto.
+' *                              0:Left; 1:Right; 2:Center; 3:Justify
+' * Valor Devuelto
+' *       Devuelve la proxima coordenada Y a utilizar.
+' *
+' * Autor: Javier A. Scalisi
+' * Fecha: 06/07/2004
+' *
+' * Modificado: Eugenio Di Santo
+' * Fecha 26/01/2005
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+'*
+' * Modificado: Guido Fonticelli
+' * Fecha 13/11/2009
+' */
+Function PF_writeTextPlus(ByRef p_oPDF,p_x, p_y, p_string, p_width, p_height, p_align)
+        dim wtp_i,wth, strExpr, wordArray, coord_Y, strExprFinal, last_align, MyPlainText
+        
+        'Determino el alineado del ultimo renglon del parrafo, esto es asi ya que si el parrafo es justificado
+        'su último renglon siempre debe ser alineado a izquierda dado que por lo general es mas corto.
+        last_align = p_align
+        if (p_align = PDF_ALIGN_JUSTIFY) then last_align = PDF_ALIGN_LEFT
+         'Determino el ancho del texto.(Sin componentes de formato)
+        MyText = p_string 
+        MyPlainText = replace(replace(MyText, "<b>", ""), "</b>", "")
+		wth = Int(p_oPDF.Metrics.GetTextWidth(MyPlainText, pdf_currentTextFont , pdf_currentFontSize ))		
+         'Si corresponde separo en renglones
+        if (CLng(wth) > CLng(p_width)) then
+            wordArray = Split(p_string," ")
+            strExpr = ""
+            strExprFinal = ""
+            coord_Y = p_y
+            for wtp_i = LBound(wordArray) to UBound(wordArray)
+                if (strExpr = "") and (wordArray(wtp_i)<>"") then
+                    strExpr = wordArray(wtp_i)
+                else
+                    strExpr = strExpr & " " & wordArray(wtp_i)
+                end if
+				MyText = strExpr
+				MyPlainText = replace(replace(MyText, "<b>", ""), "</b>", "")
+				wth = Int(p_oPDF.Metrics.GetTextWidth(MyPlainText, pdf_currentTextFont , pdf_currentFontSize ))
+                if (wth >= p_width) then
+                   Call GF_writeTextAlign(p_oPDF,p_x, coord_Y, strExprFinal, p_width, p_align)
+                   coord_Y = coord_Y + p_height
+                   strExprFinal = ""
+                   strExpr = wordArray(wtp_i)
+                end if                
+				strExprFinal = strExpr                    
+            next
+            'Imprimo el ultimo renglon que quedo formado.
+            Call GF_writeTextAlign(p_oPDF,p_x, coord_Y, strExprFinal, wth, last_align)
+         else
+            Call GF_writeTextAlign(p_oPDF,p_x, p_y, p_string, p_width, last_align)
+            coord_Y = p_y
+         end if
+         PF_writeTextPlus = coord_Y + p_height
+End Function
+'/*********************************************************************************
+' * Funcion: PF_writeVerticalTextPlus (FUNCION PRIVADA)
+' * Descripcion: Escribe un parrafo separandolo en renglones y
+' * alineandolo segun se especifique.
+' * Parametros:  p_oPDF     [in] El objeto PDF.
+' *              p_x        [in] Coordenada X.
+' *              p_y        [in] Coordenada Y.
+' *              p_string   [in] Texto a escribir.
+' *              p_width    [in] Ancho del renglon en puntos(pixeles).
+' *              p_height   [in] Altura del renglon en puntos(pixeles).
+' *              p_align    [in] Alinacion horizontal del texto.
+' *                              0:Left; 1:Right; 2:Center; 3:Justify
+' * Valor Devuelto
+' *       Devuelve la proxima coordenada Y a utilizar.
+' *
+' * Autor: Javier A. Scalisi
+' * Fecha: 06/07/2004
+' *
+' * Modificado: Eugenio Di Santo
+' * Fecha 26/01/2005
+' *
+' * Modificado: Ezequiel A. Bacarini
+' * Fecha 27/10/2009
+'*
+' * Modificado: Guido Fonticelli
+' * Fecha 13/11/2009
+' */
+Function PF_writeVerticalTextPlus(ByRef p_oPDF,p_x, p_y, p_string, p_width, p_height, p_align)
+        dim wtp_i,wth, strExpr, wordArray, coord_X, strExprFinal
+        'p_width = p_width + 10
+         'Determino el ancho del texto.
+        MyText = p_string
+		wth = Int(p_oPDF.Metrics.GetTextWidth(MyText, pdf_currentTextFont , pdf_currentFontSize ))
+         
+         'Si corresponde separo en renglones
+         if (wth > p_width) then
+            wordArray = Split(p_string," ")
+            strExpr = ""
+            strExprFinal = ""
+            coord_X = p_x
+            for wtp_i = LBound(wordArray) to UBound(wordArray)
+                if (strExpr = "") and (wordArray(wtp_i)<>"") then
+                    strExpr = wordArray(wtp_i)
+                else
+                    strExpr = strExpr & " " & wordArray(wtp_i)
+                end if
+				MyText = strExpr
+				wth = Int(p_oPDF.Metrics.GetTextWidth(MyText, pdf_currentTextFont , pdf_currentFontSize ))
+         
+                if (wth > p_width) then
+                   Call GF_writeVerticalText(p_oPDF,coord_X, p_y, strExprFinal, p_width, p_align)
+                   coord_X = coord_X + p_height
+                   strExprFinal = wordArray(wtp_i)
+                   strExpr = wordArray(wtp_i)
+                else
+                    if strExprFinal = "" then
+                        strExprFinal =  wordArray(wtp_i)
+                    else
+                        strExprFinal = strExprFinal & " " & wordArray(wtp_i)
+                    end if
+                end if
+            next
+            'Imprimo el ultimo renglon que quedo formado.
+            Call GF_writeVerticalText(p_oPDF,coord_X, p_y, strExprFinal, wth, p_align)
+         else
+            Call GF_writeVerticalText(p_oPDF,p_x, p_y, p_string, p_width, p_align)
+            coord_X = p_x
+         end if
+
+         PF_writeVerticalTextPlus = coord_X + p_height
+End Function
+'/*********************************************************************************
+Function setWorkPage(ByRef p_oPDF, p_pageNbr)
+
+	if (p_pageNbr = PDF_LAST_PAGE)	then
+		Set pdf_currentPage = pdf_lastPage
+	else
+		if (p_pageNbr <= pdf_pageIndex) then
+			Set pdf_currentPage = pdf_pages(p_pageNbr)
+		end if
+	end if
+	
+End Function
+'---------------------------------------------------------------------------------
+Function drawCodebar(pBarCode,p_x,p_y,p_heigth)
+	pdf_currentPage.AddInterleaved25 pBarCode, p_x, p_y, p_heigth	
+End Function
+'---------------------------------------------------------------------------------
+'******************************************************
+' * Funcion:                   PDFGirarHoja
+' * Descripcion: Gira la Hoja PDF horizontal o verticalmente
+' * Parametros:              p_grados [in]  grados a girar
+' * Nota:		Solo se permiten los valores 0, 90, 180, 270, 360
+'******************************************************
+Function PDFGirarHoja(p_grados)
+	pdf_currentPage.Rotate = p_grados
+end Function
+'--------------------------
+function GF_CreateWaterMark(pPDF, pX, pY, pText, pFontSize, pFontColor, pFontAngle, pOpacity)
+'Parametros
+'pPDF = Objeto PDF
+'pX = posicion en el eje X
+'pY = posicion en el eje Y
+'pText = Texto que se mostrará
+'pFontSize = Tamaño de la fuente
+'pFontColor = Color de la fuente
+'pFontAngle = Direccion en que se mostrará el texto
+'pOpacity = Que tan opaco se verá el texto. Va de 0 a 1 (Ej: 0.5)
+Dim MyGroup, MyLabel, MyAnchoTexto
+Set MyGroup = pdf_currentPage.AddTransparencyGroup(pOpacity)
+MyAnchoTexto = Int(pPDF.Metrics.GetTextWidth(pText, pdf_currentFont, pFontSize))
+Set MyLabel = MyGroup.AddLabel(pText, pX, pY, MyAnchoTexto+1, pFontSize)    
+MyLabel.angle = pFontAngle
+MyLabel.FontSize = pFontSize
+MyLabel.textColor = pFontColor
+end function
+'---------------------------------------------------------------------------------
+'/*********************************************************************************
+' * Funcion : GF_horizontalLineDash
+' * Descripcion : Dibuja una linea horizontal discontinua
+' * Parametros:  	
+' *			p_oPDF		    [in] El objeto PDF.
+' *			p_xo			[in] cordenada x.
+' *			p_yo			[in] cordenada y.
+' *			p_Length		[in] longitud.
+Function GF_horizontalLineDash(ByRef p_oPDF, p_xo, p_yo, p_length)
+		dim myLine
+		Set myLine = pdf_currentPage.AddLine(p_xo, p_yo, p_xo + p_length, p_yo,,pdf_currentFontColor,5)
+end Function
+'/*********************************************************************************
+' * Funcion : GF_verticalLineDash
+' * Descripcion : Dibuja una linea vertical discontinua
+' * Parametros:  	
+' *			p_oPDF		    [in] El objeto PDF.
+' *			p_xo			[in] cordenada x.
+' *			p_yo			[in] cordenada y.
+' *			p_Length		[in] longitud.
+Function GF_verticalLineDash(ByRef p_oPDF, p_xo, p_yo, p_length)
+		dim myLine
+		Set myLine = pdf_currentPage.AddLine(p_xo, p_yo, p_xo , p_yo + p_length,,pdf_currentFontColor,5)
+end Function
+'/*********************************************************************************
+' * Funcion : drawPieChart
+' * Descripcion : Dibuja una grafico de torta
+' * Parametros:  	
+' *			p_oPDF		    [in] El objeto PDF.
+' *			p_xo			[in] cordenada x.
+' *			p_yo			[in] cordenada y.
+' *			p_w		        [in] ancho del grafico.
+' *			p_h		        [in] altura del grafico.
+' *         pTitle          [in] Titulo del grafico.
+' *         pArrSeries      [in] Series de datos. Vector de 2 columnas {Nombre Serie, valor, color}
+Function drawPieChart(p_oPDF, p_xo, p_yo, p_w, p_h, pTitle, pArrSeries)
+    Dim Chart, pieseries, Myda, x
+    ' Create a chart    
+    Set Chart = pdf_currentPage.AddChart(p_xo, p_yo, p_w, p_h, pdf_currentFont, pdf_currentFontSize)
+    ' Create header titles and add it to the chart    
+    if (pTitle <> "") then Chart.AddHeaderTitle (pTitle)
+    ' Create a pie series    
+    Set pieseries = Chart.PrimaryPlotArea.AddPieSeries()
+    'Create a scalar datalabel    
+    Set Myda = pieseries.GetScalarDataLabel(True, False, False)
+    pieseries.DataLabel = Myda
+    ' Add pie series elements to the pie series
+    For x = 0 To UBound(pArrSeries,1)        
+        Call pieseries.AddElement(pArrSeries(x, 1), pArrSeries(x, 0), pArrSeries(x, 2))
+    Next    
+End Function
+%>

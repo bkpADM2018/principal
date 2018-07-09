@@ -1,0 +1,91 @@
+	.toolBarHolder			{ width:100%; height:auto; border-bottom:1px solid #bbb; margin:0; padding:0; display:block; float:left; }
+	
+	.toolButtonNormal 		{ cursor:pointer; }
+	
+	.toolButtonSelected		{ background:#CCC; cursor:pointer; }
+	
+	.toolButtonOver			{ background:#CCC; cursor:pointer; }
+	
+/* ======================================================================
+=====   00 - TOOLBAR STYLE		 									=====
+====================================================================== */
+.toolBarHolder li			{ padding:2px; margin-right:10px; list-style-type:none; display:inline; cursor:pointer; float:left; }
+.toolBarHolder li img		{ float:left; margin-right:5px; }
+.toolBarHolder li p			{ color:#2a7254; line-height:18px; font-size:12px; margin:0; float:left; }
+.toolBarHolder li:hover,
+.toolBarHolder li p:hover	{ color:#5cbb55 }
+/*.block 					{ color:#a8c4b9 !important }*/
+.toolBarHolder li span		{ background-repeat:no-repeat; background-position:top left; }
+
+/* ======================================================================
+=====   01 - COMUN ICON			 									=====
+====================================================================== */
+.toolbar-add span					{ background-image:url(../images/plus-16.png); width:16px; height:16px; float:left; margin-right:5px; }
+.toolbar-add:hover span				{ background-image:url(../images/plus_b-16.png); }
+/*.toolbar-add .block span,
+.toolbar-add .block:hover span		{ background-image:url(../images/plus_c-16.png); }*/
+
+.toolbar-adddoc span				{ background-image:url(../images/add-16.png); width:16px; height:16px; float:left; margin-right:5px; }
+.toolbar-adddoc:hover span			{ background-image:url(../images/add_b-16.png); }
+
+.toolbar-addperfil span				{ background-image:url(../images/add-user-16.png); width:16px; height:16px; float:left; margin-right:5px; }
+.toolbar-addperfil:hover span		{ background-image:url(../images/add-user_b-16.png); }
+
+
+/*EXPORT - PRINT*/
+	.toolbar-export span				{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/export-16.png); }
+	.toolbar-export:hover span			{ background-image:url(../images/export_b-16.png); }
+	/*.toolbar-export .block span,
+	.toolbar-export .block:hover span	{ background-image:url(../images/export_c-16.png); }*/
+	
+	.toolbar-excel span					{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/excel-16.png); }
+	.toolbar-excel:hover span			{ background-image:url(../images/excel_b-16.png); }
+	
+	.toolbar-print span					{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/print-16.png); }
+	.toolbar-print:hover span			{ background-image:url(../images/print_b-16.png); }
+	
+	.toolbar-pdf span					{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/pdf-16.png); }
+	.toolbar-pdf:hover span				{ background-image:url(../images/pdf_b-16.png); }}
+	
+/*--------------*/
+
+.toolbar-back span					{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/back-16.png); }
+.toolbar-back:hover span			{ background-image:url(../images/back_b-16.png); }
+
+.toolbar-cancel span				{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/cross-16.png); }
+.toolbar-cancel:hover span			{ background-image:url(../images/cross_b-16.png); }
+
+.toolbar-confirm span				{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/checkmark-16.png); }
+.toolbar-confirm:hover span			{ background-image:url(../images/checkmark_b-16.png); }
+
+.toolbar-control span				{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/checkmark-16.png); }
+.toolbar-control:hover span			{ background-image:url(../images/checkmark_b-16.png); }
+
+.toolbar-home span					{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/home-16.png); }
+.toolbar-home:hover span			{ background-image:url(../images/home_b-16.png); }
+
+.toolbar-refresh span				{ background-image:url(../images/refresh-16.png); width:16px; height:16px; float:left; margin-right:5px; }
+.toolbar-refresh:hover span			{ background-image:url(../images/refresh_b-16.png); }
+
+.toolbar-search span				{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/search-16.png); }
+.toolbar-search:hover span			{ background-image:url(../images/search_b-16.png); }
+
+.toolbar-save span					{ width:16px; height:16px; float:left; margin-right:5px; background-image:url(../images/save-16.png); }
+.toolbar-save:hover span			{ background-image:url(../images/save_b-16.png); }
+
+
+/* ======================================================================
+=====   02 - SPECIAL ICON		 									=====
+====================================================================== */
+.toolbar-permisos span				{ background-image:url(../images/permisos-16.png); width:16px; height:16px; float:left; margin-right:5px; }
+.toolbar-permisos:hover span		{ background-image:url(../images/permisos_b-16.png); }
+
+.toolbar-log span					{ background-image:url(../images/log-16.png); width:16px; height:16px; float:left; margin-right:5px; }
+.toolbar-log:hover span				{ background-image:url(../images/log_b-16.png); }
+
+.toolbar-compare span				{ background-image:url(../images/compare-16.png); width:16px; height:16px; float:left; margin-right:5px; }
+.toolbar-compare:hover span			{ background-image:url(../images/compare_b-16.png); }
+
+.toolbar-dbupdate span				{ background-image:url(../images/dbupdate-16.png); width:16px; height:16px; float:left; margin-right:5px; }
+.toolbar-dbupdate:hover span		{ background-image:url(../images/dbupdate_b-16.png); }
+

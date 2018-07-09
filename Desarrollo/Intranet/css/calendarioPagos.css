@@ -1,0 +1,50 @@
+.tablaMes {
+    background-color: white;
+	border-style: solid;
+	border-width: 1px;
+	border-color: blue;
+	font-size: 12px;
+	text-align: center;
+}
+
+.encabezadoMes {
+	font-size: 12px;
+	font-weight: bold;
+	background-color: CCCCCC;
+	height: 25px;
+}
+
+.encabezadoDias {
+    font-size: 9px;
+    height: 15px;
+}
+
+.diaDomingo {
+	color: red;
+}
+
+div.evento {
+ 	z-index:1;
+	position:absolute;
+}
+
+div.oculto {
+	display:none;
+}
+
+div.visible {
+	display:block;
+}
+
+span {
+	background-color: blue;
+	color: white;
+	width: 15px;
+}
+
+td.tituloDetalle {
+	background-color: red;
+	font-size: 10px;
+}
+
+

@@ -1,0 +1,30 @@
+.searchTitle{
+	border-top: 2px solid #517B4A;
+	border-left:2px solid #517B4A;
+	border-right:2px solid #517B4A;
+	-moz-border-radius: 5px 5px 0px 0px;
+	color:#517B4A;
+	font-size:14px;
+}
+
+.searchFooter{
+	border-bottom:2px solid #517B4A;
+	border-left:2px solid #517B4A;
+	border-right:2px solid #517B4A;
+	-moz-border-radius: 0px 0px 5px 5px;
+}
+
+.searchLeft{
+	border-left:2px solid #517B4A;
+}
+
+.searchRight{
+	border-right:2px solid #517B4A;
+}
+
+.searchTop{
+	border-top: 2px solid #517B4A;
+	border-right:2px solid #517B4A;
+	-moz-border-radius-topright: 5px;
+}
+

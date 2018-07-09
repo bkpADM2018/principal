@@ -1,0 +1,76 @@
+<!--#include file="procedimientosConexion.asp"-->
+<%
+
+Const CONEXION_SQL = "SQL"
+function GF_BD_AS400(byref pRS, con, pOperacion, pSql)
+'on error resume next
+	'if(IsEmpty(session("conn" & CONEXION_SQL &  "Alias")))then Call loadConfigFile(CONEXION_SQL)
+	if (IsEmpty(session("connSQLCSCS"))) then Call loadConfigFile("SQLCS")
+	GF_BD_AS400 = false
+	session("strSQL") = pSql
+	select case ucase(pOperacion)
+		case "CLOSE"
+			'pRS.close
+			'con.close
+			'set con = nothing
+			GF_BD_AS400 = true
+		case "OPEN"
+			set con = server.CreateObject("ADODB.connection")
+			set pRS = server.CreateObject("ADODB.Recordset")
+			'con.open session("conn" & CONEXION_SQL &  "Alias"), session("conn" & CONEXION_SQL &  "User"), session("conn" & CONEXION_SQL &  "Key")						
+			con.open session("connSQLCSCS")
+			pRS.CursorLocation = 3
+			pRS.Open pSql, con, 2, 3, 1
+			GF_BD_AS400 = true
+		case "EXECUTE", "EXEC" 
+			if pSql <> "" then 
+				set con = server.CreateObject("ADODB.connection")
+				'con.open session("conn" & CONEXION_SQL &  "Alias"), session("conn" & CONEXION_SQL &  "User"), session("conn" & CONEXION_SQL &  "Key")
+				con.open session("connSQLCSCS")
+				con.execute pSql
+				con.close
+				GF_BD_AS400 = true
+			end if
+	end select	
+	if err.number <> 0 and err.number <> 424 then
+		Response.Write "<b><font color=red>HA OCURRIDO UN ERROR!</font><b><br>POR FAVOR REVISE EL SQL<Hr>" & pSql & "<hr>Error:" & err.number   & err.Description 
+		err.Clear 
+		response.end
+	end if
+end function
+'-----------------------------------------------------------------------------------------
+function GF_BD_AS400_2(byref pRS, con, pOperacion, pSql)
+on error resume next
+	if(IsEmpty(session("connAS400Alias")))then Call loadConfigFile("AS400")
+	GF_BD_AS400_2 = false
+	session("strSQL") = pSql
+	select case ucase(pOperacion)
+		case "CLOSE"
+			pRS.close
+			con.close
+			set con = nothing
+			GF_BD_AS400_2 = true
+		case "OPEN" 
+			set con = server.CreateObject("ADODB.connection")
+			set pRS = server.CreateObject("ADODB.Recordset")
+			con.open session("connAS400Alias"),  session("connAS400User"), session("connAS400Key")
+			pRS.CursorLocation = 3
+			pRS.Open pSql, con, 1, 3, 1
+			GF_BD_AS400_2 = true
+		case "EXECUTE", "EXEC" 
+			if pSql <> "" then 
+				set con = server.CreateObject("ADODB.connection")
+				con.open session("connAS400Alias"),  session("connAS400User"), session("connAS400Key")
+				con.execute pSql
+				con.close
+				GF_BD_AS400_2 = true
+			end if
+	end select	
+	if err.number <> 0 and err.number <> 424 then
+		Response.Write "<b><font color=red>HA OCURRIDO UN ERROR!</font><b><br>POR FAVOR REVISE EL SQL<Hr>" & pSql & "<hr>Error:" & err.number   & err.Description 
+		err.Clear 
+		response.end
+	end if
+end function
+'-----------------------------------------------------------------------------------------
+%>

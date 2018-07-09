@@ -1,0 +1,98 @@
+30/03/2018 09:00:09 a.m.|JAS|INFO|##########################################
+30/03/2018 09:00:09 a.m.|JAS|INFO|ACTUALIZACION DE ESTADO DE PEDIDOS
+30/03/2018 09:00:09 a.m.|JAS|INFO|##########################################
+30/03/2018 09:00:09 a.m.|JAS|INFO|Actualizando pedido ID=2342 (AS-048-17)
+30/03/2018 09:00:10 a.m.|JAS|INFO|Pedido Actualizado.
+30/03/2018 09:00:10 a.m.|JAS|INFO|Actualizando pedido ID=2354 (ET-053-17)
+30/03/2018 09:00:10 a.m.|JAS|INFO|Pedido Actualizado.
+30/03/2018 09:00:10 a.m.|JAS|INFO|Actualizando pedido ID=2368 (ET-004-18)
+30/03/2018 09:00:10 a.m.|JAS|INFO|Pedido Actualizado.
+30/03/2018 09:00:10 a.m.|JAS|INFO|Actualizando pedido ID=2374 (ET-005-18)
+30/03/2018 09:00:10 a.m.|JAS|INFO|Pedido Actualizado.
+30/03/2018 09:00:10 a.m.|JAS|INFO|Actualizando pedido ID=2375 (AS-011-18)
+30/03/2018 09:00:10 a.m.|JAS|INFO|Pedido Actualizado.
+30/03/2018 09:00:10 a.m.|JAS|INFO|Actualizando pedido ID=2379 (ET-007-18)
+30/03/2018 09:00:10 a.m.|JAS|INFO|Pedido Actualizado.
+30/03/2018 09:00:10 a.m.|JAS|INFO|Actualizando pedido ID=2381 (ET-008-18)
+30/03/2018 09:00:10 a.m.|JAS|INFO|Pedido Actualizado.
+30/03/2018 09:00:10 a.m.|JAS|INFO|Actualizando pedido ID=2383 (AS-015-18)
+30/03/2018 09:00:10 a.m.|JAS|INFO|Pedido Actualizado.
+30/03/2018 09:00:10 a.m.|JAS|INFO|Actualizando pedido ID=2385 (AS-016-18)
+30/03/2018 09:00:10 a.m.|JAS|INFO|Pedido Actualizado.
+30/03/2018 09:00:10 a.m.|JAS|INFO|Proceso terminado
+30/03/2018 09:00:10 a.m.|JAS|INFO|##########################################
+30/03/2018 09:00:10 a.m.|JAS|INFO|COMPROBACION DE PEDIDOS
+30/03/2018 09:00:10 a.m.|JAS|INFO|##########################################
+30/03/2018 09:00:10 a.m.|JAS|INFO|Obteniendo Pedidos proximos a cerrar.
+30/03/2018 09:00:10 a.m.|JAS|INFO|No se encontraron pedidos a cerrar el día de mañana
+30/03/2018 09:00:10 a.m.|JAS|INFO|Proceso terminado
+30/03/2018 09:00:10 a.m.|JAS|INFO|##########################################
+30/03/2018 09:00:10 a.m.|JAS|INFO|ACTUALIZANDO ESTADOS CTC 
+30/03/2018 09:00:10 a.m.|JAS|INFO|##########################################
+30/03/2018 09:00:10 a.m.|JAS|INFO|----------------FIN DE LA ACTUALIZACION-------------
+30/03/2018 09:00:10 a.m.|JAS|INFO|##########################################
+30/03/2018 09:00:10 a.m.|JAS|INFO|BUSCANDO ALERTAS CTC
+30/03/2018 09:00:10 a.m.|JAS|INFO|##########################################
+30/03/2018 09:00:10 a.m.|JAS|INFO|Hay Contratos/servicios con vencimientos para notificar!!
+30/03/2018 09:00:10 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 430
+30/03/2018 09:00:10 a.m.|JAS|INFO|Notifico a Legales. Contrato 430
+30/03/2018 09:00:10 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 424
+30/03/2018 09:00:10 a.m.|JAS|INFO|Notifico a Legales. Contrato 424
+30/03/2018 09:00:10 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 548
+30/03/2018 09:00:10 a.m.|JAS|INFO|Notifico a Legales. Contrato 548
+30/03/2018 09:00:10 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 624
+30/03/2018 09:00:10 a.m.|JAS|INFO|Notifico a Legales. Contrato 624
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 631
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 631
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 738ET
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 738ET
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 738AS
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 738AS
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 210
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 210
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 746
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 746
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 625
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 625
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 621
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 621
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 640
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 640
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 411BB
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 411BB
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 411ET
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 411ET
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 652
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 652
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 607
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 607
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 411AS
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 411AS
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 256
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 256
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 562
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 562
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 810
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 810
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 862
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 865
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 646
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 646
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 816
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 816
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 815
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 815
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 642
+30/03/2018 09:00:11 a.m.|JAS|INFO|Notifico a Legales. Contrato 642
+30/03/2018 09:00:12 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 622
+30/03/2018 09:00:12 a.m.|JAS|INFO|Notifico a Legales. Contrato 622
+30/03/2018 09:00:12 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 866
+30/03/2018 09:00:12 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 634
+30/03/2018 09:00:12 a.m.|JAS|INFO|Notifico a Legales. Contrato 634
+30/03/2018 09:00:12 a.m.|JAS|INFO|Notifico a Responsable de Compras y Responsable del Contrato 740
+30/03/2018 09:00:12 a.m.|JAS|INFO|Notifico a Legales. Contrato 740
+30/03/2018 09:00:12 a.m.|JAS|INFO|Se envia mail a: Compras.AR@toepfer.com
+30/03/2018 09:00:12 a.m.|JAS|INFO|Mail enviado a: Compras.AR@toepfer.com
+30/03/2018 09:00:12 a.m.|JAS|INFO|Se envia mail a: ARGENTINALEGAL@adm.com
+30/03/2018 09:00:12 a.m.|JAS|INFO|Mail enviado a: ARGENTINALEGAL@adm.com
+30/03/2018 09:00:17 a.m.|JAS|INFO|------------------FIN DE LA BUSQUEDA----------------

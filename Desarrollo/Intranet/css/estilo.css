@@ -1,0 +1,268 @@
+@charset "utf-8";
+/* CSS Document */
+
+#pp{
+	height:100%;
+	width:100%;
+	vertical-align:middle;
+	margin:3%;
+}
+#head{
+	width:100%;
+	background:url(../images/FondoFrente.png);
+	background-repeat:repeat-x;
+	background-color:#fffefa;
+}
+#frente{
+	float:left;
+	background:url(Frente.png);
+	background-repeat:no-repeat;
+	height:60px;
+	width:100%;
+	vertical-align:top;
+}
+.titulo{
+	text-align:right;
+	text-decoration:none;
+	font-family:Arial, Helvetica, sans-serif;
+	font-style:oblique;
+	font-size:9pt;
+	font-weight:100;
+	margin-top:15px;
+	margin-right:2px;
+}
+#medio{
+	background-color:#4d7c4e;
+}
+.volver{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:12pt;
+	color:#FFF;
+	text-decoration:none;
+}
+.volver:hover{
+	font-style:oblique;
+}
+#arroyo{
+	background-image:url(../Puertos/images/MenuArroyonoselc.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	float:left;
+	width:250px;
+	height:250px;
+	color:#ddd;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:16pt;
+	text-decoration:none;
+}
+#arroyo:hover{
+	background-position:bottom;
+	color:#fff;
+}
+#transito{
+	background-image:url(../Puertos/images/MenuTransitonoselc.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	color:#ddd;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:16pt;
+	float:left;
+	width:250px;
+	height:250px;
+	text-decoration:none;
+}
+#transito:hover{
+	background-position:bottom;
+	color:#fff;
+}
+#piedra{
+	background-image:url(../Puertos/images/MenuPiedranoselc.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	float:left;
+	width:250px;
+	height:250px;
+	color:#ddd;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:16pt;
+	text-decoration:none;
+}
+#piedra:hover{
+	background-position:bottom;
+	color:#fff;
+}
+#otros{
+	background-image:url(../Puertos/images/MenuOtrosnoselc.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	float:left;
+	width:250px;
+	height:250px;
+	color:#ddd;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:16pt;
+	text-decoration:none;
+}
+#otros:hover{
+	background-position:bottom;
+	color:#fff;
+}
+#arroyochico{
+	background-image:url(../Puertos/images/MenuArroyoselc80.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	float:left;
+	width:80px;
+	height:80px;
+}
+#arroyochico:hover{
+	background-position:bottom;
+}
+#transitochico{
+	background-image:url(../Puertos/images/MenuTransitoselc80.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	float:left;
+	width:80px;
+	height:80px;
+}
+#transitochico:hover{
+	background-position:bottom;
+}
+#piedrachico{
+	background-image:url(../Puertos/images/MenuPiedraselc80.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	float:left;
+	width:80px;
+	height:80px;
+}
+#piedrachico:hover{
+	background-position:bottom;
+}
+#otroschico{
+	background-image:url(../Puertos/images/MenuOtrosselc80.gif);
+	background-repeat:no-repeat;
+	background-position:top;
+	float:left;
+	width:80px;
+	height:80px;
+}
+#otroschico:hover{
+	background-position:bottom;
+}
+
+/* intercambio arroyo */
+
+#apDiv1 {
+	position:absolute;
+	width:200px;
+	height:342px;
+	z-index:1;
+	left: 263px;
+	top: 235px;
+	margin:1000;
+}
+#apDiv1:hover {
+	margin:0;
+}
+#apDiv2 {
+	position:absolute;
+	width:200px;
+	height:155px;
+	z-index:8;
+	left: 289px;
+	top: 178px;
+	margin:1000;
+}
+#apDiv2:hover {
+	margin:0;
+}
+#apDiv3 {
+	position:absolute;
+	width:200px;
+	height:115px;
+	z-index:7;
+	left: 441px;
+	top: 189px;
+	margin:1000;
+}
+#apDiv3:hover {
+	margin:0;
+}
+#apDiv4 {
+	position:absolute;
+	width:77px;
+	height:33px;
+	z-index:6;
+	left: 472px;
+	top: 76px;
+	margin:1000;
+}
+#apDiv4:hover {
+	margin:0;
+}
+#apDiv5 {
+	position:absolute;
+	width:132px;
+	height:78px;
+	z-index:5;
+	left: 399px;
+	top: 92px;
+	margin:1000;
+}
+#apDiv5:hover {
+	margin:0;
+}
+#apDiv6 {
+	position:absolute;
+	width:104px;
+	height:63px;
+	z-index:4;
+	left: 707px;
+	top: 101px;
+	margin:1000;
+}
+#apDiv6:hover {
+	margin:0;
+}
+#apDiv7 {
+	position:absolute;
+	width:170px;
+	height:93px;
+	z-index:3;
+	left: 358px;
+	top: 131px;
+	margin:1000;
+}
+#apDiv7:hover {
+	margin:0;
+}
+#apDiv8 {
+	position:absolute;
+	width:57px;
+	height:50px;
+	z-index:2;
+	left: 573px;
+	top: 134px;
+	margin:1000;
+}
+#apDiv8:hover {
+	margin:0;
+}
+#apDiv9 {
+	position:absolute;
+	width:200px;
+	height:115px;
+	z-index:0;
+	left: 4px;
+	top: 2px;
+	margin:1000;
+}
+#apDiv9:hover {
+	margin:0;
+}

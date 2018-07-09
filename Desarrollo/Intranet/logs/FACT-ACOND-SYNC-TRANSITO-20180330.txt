@@ -1,0 +1,55 @@
+30/03/2018 03:05:09 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:05:09 a.m.|SYNC|INFO|		-PUERTO       :  TRANSITO
+30/03/2018 03:05:09 a.m.|SYNC|INFO|		-MOMENTO      :  30/03/2018
+30/03/2018 03:05:09 a.m.|SYNC|INFO|		-USUARIO      :  SYNC
+30/03/2018 03:05:09 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Insert into FAC002A([IDREGISTRO], [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [fecalta], [usualta], [estado])  values(27026, 1, '2018-03-29', '000567098824', '0000004493', 22, 'Carta de Porte: 0005-67098824 SERVICIO DE ZARANDEO(SERV. ZARANDA: 1,00) Tarifa: u$s 6,00/Tn', 1, '30621973173', 22, 1, 0,28960, 0, 2, 6, 173.76, '107', 1, '', 0, 0, '2018-03-29', 'SYNC', 2)
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Update FACTURACIONSERVICIOS set ESTADO=2 where IDREGISTRO=27026
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Insert into FAC002A([IDREGISTRO], [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [fecalta], [usualta], [estado])  values(27027, 1, '2018-03-29', '000567842748', '0000003308', 22, 'Carta de Porte: 0005-67842748 SERVICIO DE ZARANDEO(SERV. ZARANDA: 1,00) Tarifa: u$s 6,00/Tn', 1, '30621973173', 22, 1, 0,30680, 0, 2, 6, 184.08, '107', 1, '', 0, 0, '2018-03-29', 'SYNC', 2)
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Update FACTURACIONSERVICIOS set ESTADO=2 where IDREGISTRO=27027
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Insert into FAC002A([IDREGISTRO], [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [fecalta], [usualta], [estado])  values(27028, 1, '2018-03-29', '000567842750', '0000004618', 22, 'Carta de Porte: 0005-67842750 SERVICIO DE ZARANDEO(SERV. ZARANDA: 1,00) Tarifa: u$s 6,00/Tn', 1, '30621973173', 22, 1, 0,30320, 0, 2, 6, 181.92, '107', 1, '', 0, 0, '2018-03-29', 'SYNC', 2)
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Update FACTURACIONSERVICIOS set ESTADO=2 where IDREGISTRO=27028
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Insert into FAC002A([IDREGISTRO], [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [fecalta], [usualta], [estado])  values(27029, 1, '2018-03-29', '000567842751', '0000003536', 22, 'Carta de Porte: 0005-67842751 SERVICIO DE ZARANDEO(SERV. ZARANDA: 1,00) Tarifa: u$s 6,00/Tn', 1, '30621973173', 22, 1, 0,30020, 0, 2, 6, 180.12, '107', 1, '', 0, 0, '2018-03-29', 'SYNC', 2)
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Update FACTURACIONSERVICIOS set ESTADO=2 where IDREGISTRO=27029
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Insert into FAC002A([IDREGISTRO], [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [fecalta], [usualta], [estado])  values(27031, 1, '2018-03-29', '000567842757', '0000003301', 22, 'Carta de Porte: 0005-67842757 SERVICIO DE ZARANDEO(SERV. ZARANDA: 1,00) Tarifa: u$s 6,00/Tn', 1, '30621973173', 22, 1, 0,30080, 0, 2, 6, 180.48, '107', 1, '', 0, 0, '2018-03-29', 'SYNC', 2)
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Update FACTURACIONSERVICIOS set ESTADO=2 where IDREGISTRO=27031
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Insert into FAC002A([IDREGISTRO], [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [fecalta], [usualta], [estado])  values(27033, 1, '2018-03-29', '000567842758', '0000003329', 22, 'Carta de Porte: 0005-67842758 SERVICIO DE ZARANDEO(SERV. ZARANDA: 1,00) Tarifa: u$s 6,00/Tn', 1, '30621973173', 22, 1, 0,29740, 0, 2, 6, 178.44, '107', 1, '', 0, 0, '2018-03-29', 'SYNC', 2)
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Update FACTURACIONSERVICIOS set ESTADO=2 where IDREGISTRO=27033
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Insert into FAC002A([IDREGISTRO], [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [fecalta], [usualta], [estado])  values(27030, 1, '2018-03-29', '000567999100', '0000003357', 21, 'Carta de Porte: 0005-67999100 SERVICIO DE SECADO(PORC. HUMEDAD: 14,90) Tarifa: u$s 4,50/Tn', 1, '30621973173', 21, 14.9, 1,30740, 575, 2, 4.5, 138.33, '107', 1, '', 0, 0, '2018-03-29', 'SYNC', 2)
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Update FACTURACIONSERVICIOS set ESTADO=2 where IDREGISTRO=27030
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Insert into FAC002A([IDREGISTRO], [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [fecalta], [usualta], [estado])  values(27025, 1, '2018-03-29', '000568109215', '0000004606', 22, 'Carta de Porte: 0005-68109215 SERVICIO DE ZARANDEO(SERV. ZARANDA: 1,00) Tarifa: u$s 6,00/Tn', 1, '30621973173', 22, 1, 0,30320, 0, 2, 6, 181.92, '107', 1, '', 0, 0, '2018-03-29', 'SYNC', 2)
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Update FACTURACIONSERVICIOS set ESTADO=2 where IDREGISTRO=27025
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Insert into FAC002A([IDREGISTRO], [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [fecalta], [usualta], [estado])  values(27034, 1, '2018-03-29', '000568353096', '0000003042', 22, 'Carta de Porte: 0005-68353096 SERVICIO DE ZARANDEO(SERV. ZARANDA: 1,00) Tarifa: u$s 6,00/Tn', 1, '30621973173', 22, 1, 0,29700, 0, 2, 6, 178.2, '107', 1, '', 0, 0, '2018-03-29', 'SYNC', 2)
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Update FACTURACIONSERVICIOS set ESTADO=2 where IDREGISTRO=27034
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Insert into FAC002A([IDREGISTRO], [tipoTransporte], [dtContable], [nudocumento], [IDTransporte], [codconce], [descripcion], [cdProducto], [cuitCliente], [cdRubro], [vlRubro], [ptoCalidad], [kilos], [merma], [codmone], [precio], [importe], [codcia], [tipcbt], [letra], [succbt], [nrocbt], [fecalta], [usualta], [estado])  values(27032, 1, '2018-03-29', '000568385009', '0000003718', 21, 'Carta de Porte: 0005-68385009 SERVICIO DE SECADO(PORC. HUMEDAD: 14,90) Tarifa: u$s 4,50/Tn', 1, '30621973173', 21, 14.9, 1,29940, 560, 2, 4.5, 134.73, '107', 1, '', 0, 0, '2018-03-29', 'SYNC', 2)
+30/03/2018 03:05:10 a.m.|SYNC|INFO|Update FACTURACIONSERVICIOS set ESTADO=2 where IDREGISTRO=27032
+30/03/2018 03:05:11 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:05:11 a.m.|SYNC|INFO|--- 			  FIN DEL PROCESO 				  ---
+30/03/2018 03:05:11 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:15:08 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:15:08 a.m.|SYNC|INFO|		-PUERTO       :  TRANSITO
+30/03/2018 03:15:08 a.m.|SYNC|INFO|		-MOMENTO      :  30/03/2018
+30/03/2018 03:15:08 a.m.|SYNC|INFO|		-USUARIO      :  SYNC
+30/03/2018 03:15:08 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:15:09 a.m.|SYNC|INFO|El proceso ya se ejecuto para el dia de hoy.
+30/03/2018 03:15:09 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:15:09 a.m.|SYNC|INFO|--- 			  FIN DEL PROCESO 				  ---
+30/03/2018 03:15:09 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:25:08 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:25:08 a.m.|SYNC|INFO|		-PUERTO       :  TRANSITO
+30/03/2018 03:25:08 a.m.|SYNC|INFO|		-MOMENTO      :  30/03/2018
+30/03/2018 03:25:08 a.m.|SYNC|INFO|		-USUARIO      :  SYNC
+30/03/2018 03:25:08 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:25:08 a.m.|SYNC|INFO|El proceso ya se ejecuto para el dia de hoy.
+30/03/2018 03:25:08 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:25:08 a.m.|SYNC|INFO|--- 			  FIN DEL PROCESO 				  ---
+30/03/2018 03:25:08 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:35:08 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:35:08 a.m.|SYNC|INFO|		-PUERTO       :  TRANSITO
+30/03/2018 03:35:08 a.m.|SYNC|INFO|		-MOMENTO      :  30/03/2018
+30/03/2018 03:35:08 a.m.|SYNC|INFO|		-USUARIO      :  SYNC
+30/03/2018 03:35:08 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:35:08 a.m.|SYNC|INFO|El proceso ya se ejecuto para el dia de hoy.
+30/03/2018 03:35:08 a.m.|SYNC|INFO|####################################################
+30/03/2018 03:35:08 a.m.|SYNC|INFO|--- 			  FIN DEL PROCESO 				  ---
+30/03/2018 03:35:08 a.m.|SYNC|INFO|####################################################

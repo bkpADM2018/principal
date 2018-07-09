@@ -1,0 +1,127 @@
+/* The main calendar widget.  DIV containing a table. */
+
+.calendar 			{ position:relative; display:none; background:#fff; border:1px solid #646464; cursor:default; }
+.calendar 			{ font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#333; }
+
+.calendar table 	{ background:#fff; }
+.calendar table 	{ font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#333; }
+
+
+
+/* Header part -- contains navigation buttons and day names. */
+
+.calendar .button 			{ text-align:center; padding:1px; }/* "<<", "<", ">", ">>" buttons have this class */
+
+.calendar thead .title 		{ font-weight:bold; padding:1px; background:#fff; color:#333; text-align:center; font-size:12px; }/* This holds the current "month, year" */
+
+.calendar thead .headrow 	{ /* Row <TR> containing navigation buttons */ }
+.calendar thead .daynames 	{ /* Row <TR> containing the day names */ }
+
+.calendar thead .name 		{ padding:2px; text-align:center; background:#f2f2f2; }/* Cells <TD> containing the day names */
+
+.calendar thead .weekend 	{ color:#C00; font-style:italic; }/* How a weekend day name shows in header */
+
+.calendar thead .hilite 	{ padding:0px; background:#bbb; color:#fff; }/* How do the buttons in header appear when hover */
+
+.calendar thead .active 	{ padding:0px; background:#bbb; color:#fff; }/* Active (pressed) buttons in header */
+
+
+
+/* The body part -- contains all the days in month. */
+
+.calendar tbody .day { /* Cells <TD> containing month days dates */
+  width: 2em;
+  text-align: right;
+  padding: 2px 4px 2px 2px;
+}
+
+.calendar table .wn {
+  padding: 2px 3px 2px 2px;
+  border-right: 1px solid #000;
+  background: #f4e8f0;
+}
+
+.calendar tbody .rowhilite td 			{ background:; }
+
+.calendar tbody .rowhilite td.wn 		{ background:; }
+
+.calendar tbody td.hilite 				{ background:#396E8F; border-color:#80A2B7; color:#fff; }/* Hovered cells <TD> */
+
+.calendar tbody td.active 				{ background:#396E8F; border-color:#80A2B7; color:#fff; }/* Active (pressed) cells <TD> */
+
+.calendar tbody td.selected				{ font-weight: bold; background:#80A2B7; color:#ffffff; }/* Cell showing selected date */
+
+.calendar tbody td.weekend 				{ color: #f00; } /* Cells showing weekend days */
+
+.calendar tbody td.today 				{ font-weight:bold; color:#fff; } /* Cell showing today date */ 
+
+.calendar tbody .disabled 				{ color: #999; }
+
+.calendar tbody .emptycell 				{ visibility: hidden; color:#ccc; font-style:italic; }/* Empty cells (the best is to hide them) */
+
+.calendar tbody .emptyrow 				{ display:none; }/* Empty row (some months need less than 6 rows) */
+
+
+
+/* The footer part -- status bar and "Close" button */
+
+.calendar tfoot .footrow { /* The <TR> in footer (only one right now) */ }
+
+.calendar tfoot .ttip { /* Tooltip (status bar) cell <TD> */
+  background:#ffffff; padding:1px; color:#333; text-align:center; border-top:1px solid #ccc; }
+
+.calendar tfoot .hilite { /* Hover style for buttons in footer */
+  border-top: 1px solid #fff;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #fff;
+  padding: 1px;
+  background: #e4d8e0;
+}
+
+.calendar tfoot .active { /* Active (pressed) style for buttons in footer */
+  padding: 2px 0px 0px 2px;
+  border-top: 1px solid #000;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  border-left: 1px solid #000;
+}
+
+
+
+/* Combo boxes (menus that display months/years for direct selection) */
+
+.combo {
+  position: absolute;
+  display: none;
+  width: 4em;
+  top: 0px;
+  left: 0px;
+  cursor: default;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #fff;
+  background: #e4d8e0;
+  font-size: smaller;
+  padding: 1px;
+}
+
+.combo .label {
+  text-align: center;
+  padding: 1px;
+}
+
+.combo .active {
+  background: #d4c8d0;
+  padding: 0px;
+  border-top: 1px solid #000;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  border-left: 1px solid #000;
+}
+
+.combo .hilite {
+  background: #408;
+  color: #fea;
+}

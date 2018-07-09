@@ -1,0 +1,143 @@
+<%
+'#############################################
+' Function: GetCDEnterprise
+' Params:	UserName
+' Porpouse: Recover Enterprise Code from Database
+' Atentions:
+'	Para utilizar esta funcion es necesario	que
+'	en la pagina que se la incluya, tambien se incluya
+'	a la pagina COMConnector.asp que se encuentra
+'	en la misma carpeta
+'#############################################
+
+Function GetCDEnterprise(UserName)
+	Dim strSQL,rs
+	Dim rtrn
+	
+	strSQL = ""
+	strSQL = strSQL & " SELECT * "
+	strSQL = strSQL & " FROM usuario "
+	strSQL = strSQL & " WHERE cdUserName = '" & UserName & "'"
+
+	GF_BD_Puertos "WEB", rs, "OPEN",strSQL
+	
+	if rs.eof then
+		rtrn = -1
+	else
+		rtrn = rs("cdEmpresa")
+	end if
+	
+	GetCDEnterprise = rtrn
+End Function
+
+'#############################################
+' Function: GetDSEnterprise
+' Params:	UserName
+' Porpouse: Recover Enterprise Description from Database
+' Atentions:
+'	Para utilizar esta funcion es necesario	que
+'	en la pagina que se la incluya, tambien se incluya
+'	a la pagina COMConnector.asp que se encuentra
+'	en la misma carpeta
+'#############################################
+
+Function GetDSEnterprise(UserName)
+	Dim strSQL,rs,con
+	Dim rtrn,idempresa
+	
+	idempresa = GetCDEnterprise(UserName)
+	if idempresa <> -1 then
+		strSQL = ""
+		strSQL = strSQL & " SELECT * "
+		strSQL = strSQL & " FROM toepferdb.vwempresas "
+		strSQL = strSQL & " WHERE IdEmpresa = '" & idempresa & "'"
+		'response.write strSQL
+		'response.end
+		GF_BD_AS400_2 rs,con, "OPEN",strSQL
+		
+		if rs.eof then
+			rtrn = "-"
+		else
+			rtrn = rs("DSEmpresa")
+		end if
+	else
+		rtrn = idempresa
+	end if
+	
+	GetDSEnterprise = rtrn
+End Function
+
+'#############################################
+' Function: GetCDEnterprise
+' Params:	UserName
+' Porpouse: Recover Enterprise Code from Database
+' Atentions:
+'	Para utilizar esta funcion es necesario	que
+'	en la pagina que se la incluya, tambien se incluya
+'	a la pagina COMConnector.asp que se encuentra
+'	en la misma carpeta
+'#############################################
+
+Function GetDsEnterprise2(CdEmpresa)
+
+	Dim strSQL,rs,con
+	Dim rtrn
+	
+	if idempresa <> -1 then
+		strSQL = ""
+		strSQL = strSQL & " SELECT * "
+		strSQL = strSQL & " FROM toepferdb.vwempresas "
+		strSQL = strSQL & " WHERE IdEmpresa = '" & CdEmpresa & "'"
+		'response.write strSQL
+		'response.end
+		GF_BD_AS400_2 rs,con, "OPEN",strSQL
+		
+		if rs.eof then
+			rtrn = "-"
+		else
+			rtrn = trim(rs("DSEmpresa"))
+		end if
+	else
+		rtrn = idempresa
+	end if
+	
+	GetDsEnterprise2 = rtrn
+
+End Function
+
+'#############################################
+' Function: GetDsEnterprise3
+' Params:	CUIT
+' Porpouse: Recover Enterprise Description from Database
+' Atentions:
+'	Para utilizar esta funcion es necesario	que
+'	en la pagina que se la incluya, tambien se incluya
+'	a la pagina COMConnector.asp que se encuentra
+'	en la misma carpeta
+'#############################################
+
+Function GetDsEnterprise3(cuit)
+
+	Dim strSQL,rs,con
+	Dim rtrn
+	
+	if isnumeric(cuit) then
+		strSQL = ""
+		strSQL = strSQL & " SELECT * "
+		strSQL = strSQL & " FROM toepferdb.vwempresas "
+		strSQL = strSQL & " WHERE CUIT = '" & cuit & "'"
+		GF_BD_AS400_2 rs,con, "OPEN",strSQL
+		
+		if rs.eof then
+			rtrn = "-"
+		else
+			rtrn = trim(rs("DSEmpresa"))
+		end if
+	else
+		rtrn = "-"
+	end if
+	
+	GetDsEnterprise3 = rtrn
+
+End Function
+%>

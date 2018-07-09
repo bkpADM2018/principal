@@ -1,0 +1,411 @@
+<%
+'/**
+' * Constantes
+' */
+Const FIRST = "F"
+Const LAST = "L"
+Const ERROR_NODO = "UNKNOWN"
+
+Dim OBJ_NULO, nameSpace, vNodos
+OBJ_NULO = "Nothing"
+nameSpace = ""
+
+'/**
+' * Funciones
+' */
+
+'/**
+' * Funcion: GF_createXML
+' * Descripcion: Crea un archivo XML
+' * Parametros: p_introduccion	[in] encoding del documento XML
+' * Valor Devuelto:
+' *       Devuelve un objeto XML.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_createXML(p_introduccion)
+
+Dim oXML
+	
+    Set oXML = Server.CreateObject("MSXML2.DomDocument.4.0")
+    if (p_introduccion <> "") then
+		Set intro = oXML.createProcessingInstruction ("xml",p_introduccion)
+		call oXML.appendChild(intro)
+	end if
+    oXML.async = False
+    oXML.resolveExternals = False
+    Set GF_createXML = oXML
+    
+End Function
+'/**
+' * Funcion: GF_saveXML
+' * Descripcion: Crea un archivo XML
+' * Parametros: p_oXML    [in] Objeto XML.
+' *             p_strFile [in] Path del archivo.
+' * Valor Devuelto:
+' *       Devuelve un objeto XML.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_saveXML(p_oXML,p_strFile)
+         p_oXML.save(p_strFile)
+		 Call GF_SetNameSpace("")
+End Function
+'/**
+' * Funcion: GF_getRoot
+' * Descripcion: Obtiene el primer nodo de un archivo XML.
+' * Parametros: p_oXML    [in] Objeto XML.
+' * Valor Devuelto:
+' *       Devuelve un nodo XML.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_getRoot(p_oXML)
+         Set GF_getRoot= p_oXML.DocumentElement
+End Function
+'/**
+' * Funcion: GF_addChild
+' * Descripcion: Agrega un nodo al final de la lista
+' *              de hijos del nodo actual.
+' * Parametros: p_oXMLNode [in] Nodo XML.
+' *             p_strName  [in] Nombre del Nuevo Nodo.
+' *             p_strValue [in] Valor del Nuevo Nodo.
+' * Valor Devuelto:
+' *       Si fue exitosa devuelve 1, sino 0.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_addChild(ByRef p_oXMLNode,p_strName,p_strValue)
+
+Dim newNode,newNode2,ret,oXML
+
+    Set oXML = Server.CreateObject("MSXML2.DomDocument.4.0")
+    oXML.async = False
+    oXML.resolveExternals = False
+    ret=0
+    if (isNode(p_oXMLNode)) then
+       Set newNode = oXML.createNode(1, p_strName, nameSpace)
+       newNode.text = p_strValue
+       call p_oXMLNode.appendChild(newNode)
+       ret=1
+    end if
+    GF_addChild = ret
+    
+End Function
+'/**
+' * Funcion: GF_openXML
+' * Descripcion: Abre un archivo XML
+' * Parametros: p_strFile [in] Ruta completa del archivo XML.
+' * Valor Devuelto:
+' *       Si fue satisfactoria devuelve un objeto que es
+' *       el nodo raiz del archivo XML.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_openXML(p_strFile)
+
+Dim oXML
+
+    Set oXML = Server.CreateObject("MSXML2.DomDocument")
+    oXML.async = False
+    oXML.resolveExternals = False
+    if (not oXML.load(p_strFile)) then			
+        Set GF_openXML = nothing
+    else	
+	    Set GF_openXML= oXML.DocumentElement
+    end if	
+End Function
+'/**
+' * Funcion: GF_getChildValue
+' * Descripcion: Obtiene el valor de un hijo del nodo indicado.
+' * Parametros: p_oXMLNode [in] Nodo XML.
+' *             p_strName  [in] Nombre del hijo a leer.
+' * Valor Devuelto:
+' *       El texto del nodo hijo indicado, si no existe
+' *       devuelve UNKNOWN.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_getChildValue(p_oXMLNode,p_strName)
+
+Dim oNode,ret
+
+    ret=ERROR_NODO
+    Set oNode = GF_getChildByName(p_oXMLNode,p_strName)
+    if (isNode(oNode)) then
+       ret = oNode.text
+    end if
+    GF_getChildValue = ret
+    
+End function
+'/**
+' * Funcion: GF_getChildByNumber
+' * Descripcion: Obtiene un hijo del nodo actual
+' * Parametros: p_oXMLNode [in] Nodo XML.
+' *             p_intIndex [in] Numero de hijo a leer.
+' * Valor Devuelto:
+' *       Si fue satisfactoria devuelve un objeto que es
+' *       el nodo bscado del archivo XML.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_getChildByNumber(p_oXMLNode,p_intIndex)
+	if (isNode(p_oXMLNode.childNodes.item(p_intIndex))) then
+        Set GF_getChildByNumber = p_oXMLNode.childNodes.item(p_intIndex)
+    else
+        Set GF_getChildByNumber = nothing
+    end if
+End Function
+'/**
+' * Funcion: GF_getChildByName
+' * Descripcion: Obtiene un hijo del nodo actual
+' * Parametros: p_oXMLNode [in] Nodo XML.
+' *             p_strName  [in] Nombre del hijo a leer.
+' * Valor Devuelto:
+' *       Si fue satisfactoria devuelve un objeto que es
+' *       el primer nodo buscado del archivo XML.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_getChildByName(p_oXMLNode,p_strName)
+     Set GF_getChildByName = GF_getIndexedChildByName(p_oXMLNode, p_strName, 0)
+End Function
+'/**
+' * Funcion: GF_getIndexedChildByName
+' * Descripcion: Obtiene un hijo del nodo actual
+' * Parametros: p_oXMLNode [in] Nodo XML.
+'*              p_strName  [in] Nombre del hijo a leer.
+' *             p_index    [in] Nro de hijo a devolver.
+' * Valor Devuelto:
+' *       Si fue satisfactoria devuelve un objeto que es
+' *       el nodo buscado del archivo XML. sino devuelve nothing.
+' * Autor: Javier A. Scalisi
+' * Fecha: 07/01/2015
+' */
+Function GF_getIndexedChildByName(p_oXMLNode,p_strName, p_index)
+    
+    Dim oNodeList
+    
+    if (isNode(p_oXMLNode)) then
+       Set oNodeList = p_oXMLNode.getElementsByTagName(p_strName)
+       if (isNode(oNodeList.item(p_index))) then
+		  Set GF_getIndexedChildByName = oNodeList.item(p_index)
+       else
+          Set GF_getIndexedChildByName = nothing
+       end if
+    end if    
+End Function
+'/**
+' * Funcion: GF_getNodeListByName
+' * Descripcion: Obtiene un hijo del nodo actual
+' * Parametros: p_oXMLNode [in] Nodo XML.
+'*              p_strName  [in] Nombre del hijo a leer.
+' * Valor Devuelto:
+' *       Si fue satisfactoria devuelve una lista con los nodos hijos con el nombre especificado sino devuelve nothing.
+' * Autor: Javier A. Scalisi
+' * Fecha: 07/01/2015
+' */
+Function GF_getNodeListByName(p_oXMLNode,p_strName)
+    
+    Set GF_getNodeListByName = nothing
+    if (isNode(p_oXMLNode)) then
+       Set GF_getNodeListByName = p_oXMLNode.getElementsByTagName(p_strName)
+    end if
+End Function
+'/**
+' * Funcion: isNode
+' * Descripcion: Verifica si el objeto es un nodo valido.
+' * Parametros: p_oXMLNode [in] Objeto XML.
+' * Valor Devuelto:
+' *       Si es nodo devuelve True, sino devuelve False
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function isNode(p_oNode)
+    isNode = (not TypeName(p_oNode) = OBJ_NULO)
+End Function
+'/**
+' * Funcion: GF_getNodeValue
+' * Descripcion: Obtiene el valor del nodo.
+' * Parametros: p_oXMLNode [in] Objeto XML.
+' * Valor Devuelto:
+' *       Devuelve el texto contenido en el nodo,
+' *       sino devuelve vacio.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_getNodeValue(p_oXMLNode)
+    if (isNode(p_oXMLNode)) then
+       GF_getNodeValue = p_oXMLNode.text
+    else
+       GF_getNodeValue = ""
+    end if
+End Function
+'/**
+' * Funcion: GF_getNodeName
+' * Descripcion: Obtiene el nombre del nodo.
+' * Parametros: p_oXMLNode [in] Objeto XML.
+' * Valor Devuelto:
+' *       Devuelve el nombre contenido en el nodo,
+' *       sino devuelve vacio.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_getNodeName(p_oXMLNode)
+    if (isNode(p_oXMLNode)) then
+       GF_getNodeName = p_oXMLNode.BaseName
+    else
+       GF_GetNodeName = ""
+    end if
+End Function
+'/**
+' * Funcion: GF_closeXML
+' * Descripcion: Cierra un archivo XML
+' * Parametros: p_oXMLNode [in] Objeto XML.
+' * Autor: Javier A. Scalisi
+' * Fecha: 13/04/2004
+' */
+Function GF_closeXML(p_oXMLNode)
+    Set p_oXMLNode = nothing
+End Function
+'/**
+' * Funcion: GF_childsCount
+' * Descripcion: Obtiene el numero de hijos de un nodo.
+' * Parametros: p_oXMLNode [in] Nodo XML.
+' * Autor: Javier A. Scalisi
+' * Fecha: 15/04/2004
+' */
+Function GF_childsCount(p_oXMLNode)
+
+Dim ret
+
+    ret = 0
+    if (isNode(p_oXMLNode)) then
+        if (p_oXMLNode.hasChildNodes()) then ret = p_oXMLNode.childNodes.length
+    end if
+    GF_ChildsCount = ret
+    
+End Function
+
+'/*
+' * Funcion: GF_getNode
+' * Descripcion: Devuelve el ultimo nodo indicado por el path.
+' * Parametros:  p_oXMLNode  [in] Nodo XML de inicio.
+' *              p_strPath   [in] Path de nodos separados por '/'
+' * Valor Devuelto
+' *       Devuelve el nodo indicado.
+' */
+Function GF_getNode(p_oXMLNode,p_strPath)
+         Dim arrSteps
+         Dim i,oNode,ret
+         Dim intSalir
+
+         Set ret = nothing
+         Set oNode = p_oXMLNode
+         arrSteps = Split(p_strPath,"/",-1,1)
+         intSalir = 0
+         i = LBound(arrSteps)
+         while ((i <= UBound(arrSteps)) and (intSalir = 0))
+             if (isNode(oNode)) then
+                if (isNumeric(arrSteps(i))) then
+                    Set oNode = GF_getChildByNumber(oNode,arrSteps(i))
+                else
+                    Set oNode = GF_getChildByName(oNode,arrSteps(i))
+                end if
+             else
+                 intSalir = 1
+             end if
+             i = i + 1
+         wend
+         if (intSalir = 0) then
+            Set ret = oNode
+         end if
+         Set GF_getNode = ret
+End Function
+'/*
+' * Funcion: GF_getPathValue
+' * Descripcion: Devuelve el valor contenido en el
+' *              ultimo nodo indicado por el path.
+' * Parametros:  p_oXMLNode  [in] Nodo XML.
+' *              p_strPath   [in] Path de nodos separados por '/'
+' * Valor Devuelto
+' *       Devuelve el valor del nodo indicado.
+' */
+Function GF_getPathValue(p_oXMLNode,p_strPath)
+         Dim oNode,ret
+
+         ret=ERROR_NODO
+         Set oNode = GF_getNode(p_oXMLNode,p_strPath)
+         if (isNode(oNode)) then
+            ret = GF_getNodeValue(oNode)
+         end if
+         GF_getPathValue = ret
+End Function
+
+'/*
+' * Funcion: GF_getPathAttribute
+' * Descripcion: Devuelve el valor contenido en el
+' *              atributo del ultimo nodo indicado por el path.
+' * Parametros:  p_oXMLNode  [in] Nodo XML.
+' *              p_strPath   [in] Path de nodos separados por '/'
+' *              p_attr      [in] Atributo a leer
+' * Valor Devuelto
+' *       Devuelve el valor del atributo contenido en el nodo indicado.
+' */
+Function GF_getPathAttribute(p_oXMLNode,p_strPath,p_attr)
+         Dim oNode,ret
+
+         ret=ERROR_NODO
+         Set oNode = GF_getNode(p_oXMLNode,p_strPath)
+         if (isNode(oNode)) then
+            ret = oNode.getAttribute(p_attr)
+         end if
+         GF_getPathAttribute = ret
+End Function
+'/*
+' * Funcion: GF_getNumericAttribute
+' * Descripcion: Devuelve el valor contenido en el
+' *              atributo del ultimo nodo indicado por el path.
+' * Parametros:  p_oXMLNode  [in] Nodo XML.
+' *              p_strPath   [in] Path de nodos separados por '/'
+' *              p_attr      [in] Atributo a leer
+' *              p_len       [in] Cantidad de dígitos
+' * Valor Devuelto
+' *     Devuelve el valor del atributo contenido en el nodo indicado y formateado a la cantidad de dígitos solicitado.
+'*      Si el nodo no existe devuelve 0 con la cantidad de dígitos especificada.
+' */
+
+Function GF_getNumericAttribute(p_oXMLNode, p_strPath, p_attr, p_len)
+    Dim oNode,ret
+
+    ret="0"
+    Set oNode = GF_getNode(p_oXMLNode,p_strPath)
+    if (isNode(oNode)) then ret = oNode.getAttribute(p_attr)
+    if (p_len > 0) then ret = GF_nDigits(ret, p_len)    
+    GF_getNumericAttribute = ret
+    
+End Function
+
+'/*
+' * Funcion: GF_AddAttribute
+' * Descripcion: Agrega una propiedad al nodo indicado
+' * Parametros:  p_oXMLNode  [in] Nodo XML.
+' *              p_strPath   [in] Path de nodos separados por '/'
+' *              p_attr      [in] Atributo a agregar
+' * Valor Devuelto
+' *       Devuelve el valor del atributo contenido en el nodo indicado.
+' */
+Function GF_AddAttribute(p_oXMLNode,p_strPath,p_attr)
+         Dim ret
+         ret=ERROR_NODO
+         if (isNode(p_oXMLNode)) then
+            ret = p_oXMLNode.setAttribute(p_strPath,p_attr)
+            'ret = oNode.setAttributeNode(p_attr)
+         end if
+         GF_AddAttribute = ret
+End Function
+
+Function GF_SetNameSpace(p_valor)
+	nameSpace = p_valor
+End Function
+%>

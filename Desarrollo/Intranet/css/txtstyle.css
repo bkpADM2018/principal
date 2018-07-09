@@ -1,0 +1,72 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/* ==========================================================================
+   DEFAULT FONT
+========================================================================== */
+*				{ font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:normal; }
+
+h1				{ font-size:18px; color:#2E6B4D; margin:0 0 0 10px; padding:0; text-transform:uppercase; }
+h2				{ font-size:18px; color:#333333; margin:0 0 0 10px; padding:0; }
+h3				{ font-size:14px; color:#333333; margin:0 0 0 10px; padding:0; }	
+h4				{}
+h5				{}
+h6				{}
+
+
+/* ==========================================================================
+   SEARCHER
+========================================================================== */
+#searchbar a		{ font-family:Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold; color:#666; text-transform:uppercase; padding:0 5px; line-height:32px;  } /* STYLE FOR SEARCH BTN */
+
+#searchfilter input[type="text"],
+#searchfilter select 				{ font-size:11px; color:#333; }
+
+
+
+/* ==========================================================================
+   Table TEXT STYLES 
+========================================================================== */
+table		 		{ font-family:Arial, Helvetica, sans-serif; font-style:normal; font-weight:normal; border-collapse:collapse; }
+
+/* -------------- TITLE TABLE -------------- */
+table thead th,
+table thead td 		{ 
+	color:#fff;
+	font-size:11px;
+	font-weight:bold;
+	/*text-transform:uppercase;*/
+	}
+
+/* -------------- BODY TABLE -------------- */
+table tbody td 		{ font-size:11px; }  /* Color & FONT SIZE of the table text */
+
+.tabletxtfijo		{ font-size:11px; font-style:italic; color:#9b9b9b; text-align:right; padding-right:10px; }
+
+/* -------------- RESULTADOS TABLE -------------- */
+table tbody .rtotal	td		{ color:#fff; font-size:12px; font-weight:bold; }
+
+/* -------------- TABLE ASIDE -------------- */
+.tableaside h3 a,
+.tableaside h3	 		{ font-size:12px; color:#333; text-transform:uppercase; font-weight:bold !important; }
+.tableaside h4 			{ font-size:11px; color:#666; text-transform:capitalize; }
+.tableasidecontent		{ font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#666; }
+.tableasidecontent span	{ font-size:10px; font-style:italic; }
+
+/* =================================================================== */
+
+
+
+
+/* ======================================================================
+=====   HOME INTRA CUADROS		 									=====
+====================================================================== */
+.boxer			{ font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#2E6B4D; }
+.boxer a		{ color:#78B428; text-decoration:none; }
+.boxer h2		{ color:#78B428; }
+.boxer_img span	{ color:#78B428; font-size:20px; font-weight:bold; }
+
+/* ====================================================================== */
+
+

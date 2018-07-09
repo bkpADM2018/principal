@@ -1,0 +1,125 @@
+<%
+Const ROL_HEFESTO_ANALISTA 		 = 1
+Const ROL_HEFESTO_DESARROLLADOR  = 2
+Const ROL_HEFESTO_TESTER 		 = 3
+Const ROL_HEFESTO_GERENTE_IT 	 = 5
+Const ROL_HEFESTO_PROJECT_LEADER = 6
+Const ROL_HEFESTO_PUBLICADOR	 = 7
+
+Const ROL_PRODUCTO_HEFESTO = "HEFESTO"
+
+
+
+Function getRolesUsuario(pUser,pIdProducto)
+	Dim rs,strSQL
+	strSQL = "select cdusuario,ru.idrol from tblrolesusuarios ru "
+	strSQL = strSQL & " inner join tblroles r on r.idrol = ru.idrol "
+	strSQL = strSQL & " where ru.cdusuario = '"&pUser&"'"
+	strSQL = strSQL & " and ru.idsistema = "&pIdProducto
+	strSQL = strSQL & " order by r.dsRol"
+	
+	Call executeQueryDb(DBSITE_SQL_INTRA, rs, "OPEN", strSQL) 
+	
+	Set getRolesUsuario = rs
+	
+End Function
+'----------------------------------------------------------------------------
+Function esSoloDesarrollador(pUser)
+	Dim rtrn
+	rtrn = session("HEFESTO_SOLO_DESARROLLADOR")
+	if (rtrn = "") then	
+		rtrn = esSolo(pUser,ROL_HEFESTO_DESARROLLADOR)
+		session("HEFESTO_SOLO_DESARROLLADOR") = rtrn
+	end if
+	
+	esSoloDesarrollador = rtrn
+End Function
+'----------------------------------------------------------------------------
+Function esSoloTester(pUser)
+	Dim rtrn
+	rtrn = session("HEFESTO_SOLO_TESTER")
+	if (rtrn = "") then	
+		rtrn = esSolo(pUser,ROL_HEFESTO_TESTER)
+		session("HEFESTO_SOLO_TESTER") = rtrn
+	end if
+	
+	esSoloTester = rtrn
+End Function
+'----------------------------------------------------------------------------
+Function esSolo(pUser,pRol)
+	Dim rs,strSQL,rtrn
+	strSQL = "select count(*) cantidad,ru.idrol from toepferdb.tblrolesusuarios ru "
+	strSQL = strSQL  & " inner join toepferdb.tblroles r on r.idrol = ru.idrol "
+	strSQL = strSQL  & "  where ru.cdusuario ='"&pUser&"' "
+	strSQL = strSQL  & "  group by ru.idrol"
+	Call executeQuery(rs, "OPEN", strSQL) 
+
+	rtrn = false
+	if (not rs.EoF) then
+		if (cdbl(rs("cantidad")) = 1) then
+			if (rs("idrol") = pRol) then rtrn = true
+		end if
+	end if
+
+	esSolo = rtrn
+	
+End Function
+'----------------------------------------------------------------------------
+Function getIdRol(pDs)
+	Dim rs,strSQL
+	strSQL = "select * from toepferdb.tblsysproductos where dsproducto = '"& UCase(pDs) &"'"
+	
+	Call executeQuery(rs, "OPEN", strSQL) 
+	
+	rtrn = ""
+	if ( not rs.EoF) then rtrn = rs("idproducto")
+	
+	getIdRol = rtrn
+	
+End Function
+'----------------------------------------------------------------------------
+Function getRsRoles(idProducto)
+	Dim strSQL,rs,conn
+	
+	strSQL = "select * from toepferdb.tblroles where IDPRODUCTO=" & idProducto & " order by dsRol"
+	Call executeQuery(rs, "OPEN", strSQL) 
+	
+	Set getRsRoles = rs
+End Function
+'--------------------------------------------------------------------------------------------------
+Function getCDProjectLeaderHefesto()
+	Dim strSQL,rs,rtrn
+	
+	strSQL = "select * from toepferdb.tblrolesusuarios where idrol = " & ROL_HEFESTO_PROJECT_LEADER
+	Call executeQuery(rs, "OPEN", strSQL) 
+	
+	rtrn = ""
+	if (not rs.EoF) then rtrn = rs("cdusuario")
+	
+	getCDProjectLeaderHefesto = rtrn
+	
+End Function 
+'--------------------------------------------------------------------------------------------------
+Function getProjectLeaders()
+	Dim strSQL,rs,rtrn
+	
+	strSQL = "select * from toepferdb.tblrolesusuarios where idrol = " & ROL_HEFESTO_PROJECT_LEADER
+	Call executeQuery(rs, "OPEN", strSQL) 
+	
+	Set getProjectLeaders = rs
+	
+End Function 
+'--------------------------------------------------------------------------------------------------
+Function getCDGerenteITHefesto()
+	Dim strSQL,rs,rtrn
+	
+	strSQL = "select * from toepferdb.tblrolesusuarios where idrol = " & ROL_HEFESTO_GERENTE_IT
+	Call executeQuery(rs, "OPEN", strSQL) 
+	
+	rtrn = ""
+	if (not rs.EoF) then rtrn = rs("cdusuario")
+	
+	getCDGerenteITHefesto = rtrn
+End Function 
+
+%>

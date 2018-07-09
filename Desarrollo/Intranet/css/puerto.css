@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	    BACKGROUND-COLOR: #fffaf0;		
+}
+*{
+	margin:0px;
+	padding:0px;
+}
+.textoSector{
+	text-align:right;
+	text-decoration:none;
+	FONT-FAMILY: verdana, arial, san-serif;
+	FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+	margin-top:15px;
+	margin-right:2px;
+	color: #517b4a;
+}
+.textotitu{
+	FONT-WEIGHT: bold;
+    FONT-SIZE: 40px;
+	color: #517b4a;
+}
+.textocamiones{
+	FONT-WEIGHT: bold;
+    FONT-SIZE: 18px;
+	color: #191970;
+}
+.textovagones{
+	FONT-WEIGHT: bold;
+    FONT-SIZE: 18px;
+	color: #800000;
+}

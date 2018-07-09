@@ -1,0 +1,64 @@
+<%
+function GF_TITULO(P_Imagen,P_texto)
+dim T,v,L
+if (session("MG940/Prmtr/__CLK__") = "ON") then GP_CONFIGURARMOMENTOS()
+Response.Write("<table cellspacing='0' cellpadding='0' border='0' width='90%'>")
+Response.Write("<tr><td colspan='2' align='right'><font SIZE='2' COLOR='Green'><a href='MG940_MomentoConsulta.asp'>" & GF_VERFECHADATO() & "</a></font></td></tr>")
+Response.Write("<tr>")
+if (P_Imagen <> "") then
+Response.Write("<td><img src='images/" & P_Imagen & "' width='64' heigth='64'></td>")
+end if
+if (P_Texto <> "") then
+Response.Write("<td><font SIZE='4' COLOR='Green'>&nbsp;" & GF_TRADUCIR(P_Texto) & "</font></td>")
+end if
+Response.Write("</tr>")
+Response.Write("</table>")
+Response.Write("<hr>")
+end function
+'------------------------------------------------------------------------------------------
+function GF_TITULO2(P_Imagen,P_texto)
+if (session("MG940/Prmtr/__CLK__") = "ON") then GP_CONFIGURARMOMENTOS()
+%>
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+	<tr>
+		<td rowspan="3" width="10%">
+			<img src='images/<%=p_Imagen%>' width="64" height="64">
+		</td>
+		<td colspan="2" align="right">
+			<font>
+				<a href='MG940_MomentoConsulta.asp'><%=GF_VERFECHADATO()%></a>
+			</font>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top" align="left">
+			<font class="Bigger" COLOR="Green"><%=GF_TRADUCIR(P_Texto)%></font>
+		</td>
+	</tr>
+</table>
+<hr>
+<%
+end function
+'------------------------------------------------------------------------------------------
+function GF_TITULO_2(P_texto)
+Call GF_TITULO_3()
+Call GF_TITULO_4(P_texto)
+end function
+'------------------------------------------------------------------------------------------
+function GF_TITULO_3()
+if (session("MG940/Prmtr/__CLK__") = "ON") then GP_CONFIGURARMOMENTOS()
+Response.Write("<table cellspacing='0' cellpadding='0' border='0' width='90%'>")
+Response.Write("<tr><td colspan='2' align='right'><font SIZE='2' COLOR='Green'><a href='MG940_MomentoConsulta.asp'>" & GF_VERFECHADATO() & "</a></font></td></tr>")
+Response.Write("</table>")   
+end function
+'------------------------------------------------------------------------------------------
+function GF_TITULO_4(P_texto)
+Response.Write("<table class=titu_header cellSpacing=1 cellPadding=2 border=0 width='100%'>")
+Response.Write("<tr><td align='left'>")
+Response.Write("<IMG src='images/docs_20.gif' width='20' height='20' align=absMiddle>&nbsp;")
+Response.Write(GF_TRADUCIR(P_Texto))
+Response.Write("</td></tr></table>")
+Response.Write("<br>")
+end function
+
+%>

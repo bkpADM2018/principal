@@ -1,0 +1,187 @@
+<!--#include file="procedimientosConexion.asp"-->
+<%
+Const SERVER_PRODUCCION = "bai-dc-1"
+Const SERVER_DESARROLLO = "bai-sys-1"
+
+'Constantes de estados de camiones
+Const CAMIONES_ESTADO_INGRESADO = 1
+Const CAMIONES_ESTADO_CALADO    = 2
+Const CAMIONES_ESTADO_CALADOCOND= 3
+Const CAMIONES_ESTADO_PESADOBRUTO = 5
+Const CAMIONES_ESTADO_EGRESADOOK = 6
+Const CAMIONES_ESTADO_RECHAZADO = 7
+Const CAMIONES_ESTADO_PESADOTARA = 8
+Const CAMIONES_ESTADO_CTRLPORTERIA = 9
+Const CAMIONES_ESTADO_SINCUPO = 10
+Const CAMIONES_ESTADO_DEMORADO = 11
+Const CAMIONES_ESTADO_BAJA = 12
+
+Const CONEXION_PTO = "PUERTO" 
+Const CIRCUITO_CAMION_TODOS = 0
+Const CIRCUITO_CAMION_DESCARGA = 1
+Const CIRCUITO_CAMION_CARGA = 2
+
+Const WSCTG_PENDIENTE = 0
+Const WSCTG_CONFIRMADO = 1
+Const WSCTG_MANUAL = 2
+Const WSCTG_EXENTO = 3
+Const WSCTG_QUITADO = 4
+
+Const DEVICE_CODE_AFIP = 3
+
+dim connPorts
+dim connPortName
+
+'Autor: Ezequiel A. Bacarini
+'Fecha: 21/12/2006
+function connect(p_puerto)
+	on Error Resume Next
+	connect = true
+	if p_puerto <> connPortName then
+		Set connPorts = CreateObject("ADODB.Connection")
+		connPorts.CommandTimeOut = 60
+		connPorts.CursorLocation = 3
+		if(IsEmpty(session("conn" & CONEXION_PTO & p_puerto &  "Alias")))then	Call loadConfigFile(CONEXION_PTO & p_puerto)		
+		connPorts.Open session("conn" & CONEXION_PTO & p_puerto &  "Alias"), session("conn" & CONEXION_PTO & p_puerto &  "User"), session("conn" & CONEXION_PTO & p_puerto &  "Key")	
+	else
+		if connPorts.State = 0 then
+			connPortName = ""
+			call connect(p_puerto)
+		end if
+	end if
+
+If Err.number Then 
+	connect = false
+else
+	connPortName = p_puerto
+end if
+end function
+'-------------------------------------------------------------------------------------------------
+function disconnect()
+	connPorts.Close 
+	set conn = nothing 
+end function
+'-------------------------------------------------------------------------------------------------
+'Autor: Ezequiel A. Bacarini
+'Fecha: 05/01/2007
+Function IIF(Expression, TruePart, FalsePart)
+		If Expression Then
+			If IsObject(TruePart) Then
+				Set IIF = TruePart
+			Else
+				IIF = TruePart
+			End If
+		Else
+			If IsObject(FalsePart) Then
+				Set IIF = FalsePart
+			Else
+				IIF = FalsePart
+			End If
+		End If
+	End Function
+
+'// True= El valor del campo es igual al anterior
+Function ChangeValueField(ByVal Rs, ByVal strFieldName, ByVal vValue)
+		If Rs.Eof Then
+			ChangeValueField = True
+		Else
+			ChangeValueField = (Trim(vValue) <> Trim(VerNull(Rs(strFieldName))))
+		End If
+End Function
+'-------------------------------------------------------------------------------------------------
+'Autor: Ezequiel A. Bacarini
+'Fecha: 05/01/2007
+Function VerNull(Dato)
+		If IsNull(Dato) then
+			VerNull = Empty
+		Else
+			VerNull = Dato
+		End If
+End Function
+'-------------------------------------------------------------------------------------------------
+'Autor: Ezequiel A. Bacarini
+'Fecha: 05/01/2007
+function getAllowedWord(word)
+dim rtrn
+         word = replace(word,chr(39),"*E1*")     ' '
+         word = replace(word,chr(34),"*E2*")     ' "
+         'word = replace(word,chr(63),"*E3*")     ' ?
+         'word = replace(word,chr(47),"*E4*")     ' /
+         word = replace(word,chr(92),"*E5*")     ' \
+         'word = replace(word,chr(32),"*E6*")     ' Backspace
+         word = replace(word,chr(13),"*E7*")     ' Enter
+         word = replace(word,chr(10),"*E8*")     ' CR
+         word = replace(word,"Ú","*X1*")
+         word = replace(word,"Ý","*X2*")
+         word = replace(word,"Û","*X3*")
+
+         getAllowedWord = word
+end function
+'-------------------------------------------------------------------------------------------------
+'Autor: Ezequiel A. Bacarini
+'Fecha: 09/01/2007
+function getAllowedWordInv(word)
+dim rtrn
+         word = replace(word,"*E1*",chr(39))     ' '
+         word = replace(word,"*E2*",chr(34))     ' "
+         'word = replace(word,"*E3*",chr(63))     ' ?
+         'word = replace(word,"*E4*",chr(47))     ' /
+         word = replace(word,"*E5*",chr(92))     ' \
+         'word = replace(word,"*E6*",chr(32))     ' Backspace
+         word = replace(word,"*E7*",chr(13))     ' Enter
+         word = replace(word,"*E8*",chr(10))     ' CR
+
+         word = replace(word,"*X1*","Ú")
+         word = replace(word,"*X2*","Ý")
+         word = replace(word,"*X3*","Û")
+         getAllowedWordInv = word
+end function
+'-------------------------------------------------------------------------------------------------
+'Autor: Ezequiel A. Bacarini
+'Fecha: 05/01/2007
+function getAllowedWordSQL(word)
+         word = replace(word,"'","''")
+         getAllowedWordSQL = word
+end function
+'-------------------------------------------------------------------------------------------------
+'Autor: Ezequiel A. Bacarini
+'Fecha: 05/01/2007
+function iifold(pCondicion, truePart, falsePart)
+iif = falsePart
+if (pCondicion) then iif = truePart
+end function
+'----------------------------------------------------------------
+function GF_BD_Puertos(byval pPTO, byref pRS, byval pOP,byref pSQL)
+'Está función genera la conexión con la base de datos 
+on error resume next
+Dim rtrn
+rtrn = false
+	select case(pOP)
+		case "CLOSE"
+			rs.close
+			call disconnect
+			rtrn = true
+		case "OPEN"
+			set pRS = server.CreateObject("ADODB.Recordset")			
+			if (connect(pPTO)) then
+			    pRS.CursorType = 3			    
+			    if (UCase(pPTO) = "PIEDRABUENA") then			        
+			        pRS.Open pSQL,connPorts,2,1
+			    else				    		    
+				    pRS.Open pSQL,connPorts,2,3				    
+				end if				
+				rtrn = true
+			end if
+		case "EXEC"
+			if (connect(pPTO)) then
+				if (pSQL <> "") then
+					connPorts.execute pSQL
+					rtrn = true
+				end if
+			end if
+	end select
+If Err.Number <> 0 Then rtrn = false
+GF_BD_Puertos = rtrn
+end function
+'-------------------------------------------------------------------------------------------
+%>
