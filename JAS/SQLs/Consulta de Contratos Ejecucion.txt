@@ -1,0 +1,26 @@
+-- Consulta de contratos de ejecución
+--
+-- Contratos tipo AV por periodo, elñ resultado se migra a un excel y se debe 
+-- crear una columna para elegir entre las columnas TonO (Toneladas Original)  y TonM (Toneladas Modifiación)
+-- Si TonM es distinto de Null(vacio) se deben tomar esas toneladas ya que las originales fueron modificadas.
+
+Select CONCAT(NCCTTP,CONCAT('-', NCCTNR)) 				Contract,
+	CONCAT(RIGHT(NCMVFC, 2), CONCAT('/', CONCAT(SUBSTR(NCMVFC,5,2), CONCAT('/', LEFT(NCMVFC, 4))))) "Valid Since",
+	CONCAT(RIGHT(NCBZFC, 2), CONCAT('/', CONCAT(SUBSTR(NCBZFC,5,2), CONCAT('/', LEFT(NCBZFC, 4))))) "Buz Date",
+	CONCAT(NCPRCD, CONCAT('-', INGLPR))					Commodity,	
+	CONCAT('20', CONCAT(LEFT(NCCOAA,2), CONCAT('-20', RIGHT(NCCOAA,2)))) 	Harvest,
+	NDTMPE		 								TonsO,
+	(Select CAST(NEDTVL AS BIGINT)/1000000 SHPQTY from EJIFL.AANECPP where NEMVKR = C.NCMVKR+1 and  NEDTNM='NDTMPE' order by NESYMM fetch first 1 row only) TonsM,
+	NDPEPR										Price,
+	CONCAT(NCCCOM, CONCAT('-', B.RAZSOC))				Buyer,
+	CONCAT(NCCVEN, CONCAT('-', S.RAZSOC))				Seller
+from EJIFL.AANCCPP C
+	inner join EJIFL.AANDCPP D on C.NCMVKR = D.NDCNKR
+	inner join  MERFL.MER112F1 on CODIPR = NCPRCD
+	inner join  MERFL.TCB6A1F1 B on B.NROPRO = NCCCOM
+	inner join  MERFL.TCB6A1F1 S on S.NROPRO = NCCVEN	
+where 	NCCTTP = 'AV'
+		and NCMVFC >= 20120101
+		and NCMVFC <= 20121231
+		--and NCCTNR = 3884
+order by NCCTNR
