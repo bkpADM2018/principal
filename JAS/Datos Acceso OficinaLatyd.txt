@@ -1,0 +1,21 @@
+## 	WEB HOSTING LATYD	##
+
+http://www.smarterasp.net
+
+User: adminLatyd (Usuario Administrador Full)
+Password: lcdaol17m
+
+User: adminLatyd-001
+Password: eelcftpl
+
+
+## 		FTP		##
+Servidor: FTP.SMARTERASP.NET
+User: adminLatyd-001 (Usuario Administrador sitio, solo panel de control)
+Password: eelcftpl
+
+
+##	Base de datos	##
+
+Nombre: db_9dabb3_latyd_control
+Password: sDtkfY8G7td

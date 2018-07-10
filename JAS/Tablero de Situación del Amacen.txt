@@ -1,0 +1,30 @@
+DATOS GENERALES
+
+- Cada sección de la página se debe cargar por AJAX para minimizar los tiempos de respuesta y el trabajo de generación de información.
+- 
+
+VALUACION DE STOCK
+
+Utilizar lo ya desarrollado para determinar el reporte de stock. El resultado del primer proceso (almacenReporteStockAjax.asp) llena la tabla TBLREPORTESTOCKWF con todos los datos que se necesitan.
+Esta tabla guarda la información para todos los listados de stock que se pidan, la clave de acceso es IDALMACEN, CDUSUARIO.
+Valorizar el stock completo (EXISTENCIA + SOBRANTE)
+
+La valuación debe hacerse con la siguiente lista de prioridades
+	 - Ultima compra (VLUPESOSCOMPRA/VLUDOLARESCOMPRA)
+	 - Valuación Operativa (VLUPESOS/VLUDOLARES)
+Agregar al pie de la tabla alineado a derecha una leyenda que diga: "Se valorizan todas las unidades en stock por precio de última compra."
+
+CONSUMOS
+
+Mirar el reporte Artículos Consumidos (almacenReportesArtículosConsumidos.asp) para ver como trabaja y tomarlo como base.
+Si es necesario pasar la SQL a un Stored Procedure para reaprovechar y poder paginar los datos.
+
+La idea es mostrar la misma información, con en el mismo orden, pero solamente los primeros 10 registros.
+
+
+NOTAS
+
+*1 - Se genera la info de toda la página nuevamente
+*2 - Muestra solo las divisiones  a las que se tiene acceso (ver función getListaCargosAdmin en procedimientosAlmacenes)
+*3 - Los íconos afectan solo a la info de la sección. El recargar genera nuevamente la info de la sección, el resto toma los datos que ya fueron generados.
+*4 - Colorear en rojo el campo si no tiene un valor válido. Por default mostrar los consumos del mes en curso.
